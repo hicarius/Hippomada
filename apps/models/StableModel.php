@@ -1,6 +1,12 @@
 <?php
 class StableModel extends Model_Abstract
 {
+	/**
+	 * Connexion au site
+	 * @param $email
+	 * @param $password
+	 * @return bool|mixed
+	 */
 	public function connectStable($email, $password)
 	{
 		$query = "SELECT id FROM stables WHERE email = :email AND password = :password";
@@ -17,6 +23,11 @@ class StableModel extends Model_Abstract
 		}
 	}
 
+	/**
+	 * création d'un écurie
+	 * @param $data
+	 * @return int
+	 */
 	public function create($data)
 	{
 		$query = "INSERT INTO stables (name, firstname, lastname, last_activity, country, continent, level, banque, gold, email, password )
@@ -37,8 +48,6 @@ class StableModel extends Model_Abstract
 
 		$stmt->execute() ;
 
-		//$tResult = $stmt->fetchAll();
-		//$stmt->columnCount();
 		return Database::lastInsertId('stables');
 	}
 }
