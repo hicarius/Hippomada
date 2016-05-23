@@ -11,7 +11,11 @@ class Layout
     protected $_sPath;
 
     protected $_sViewContent;
-    
+
+    protected $_sViewVars = array();
+
+    public $_tArgs = array();
+
     protected static $_oInstance;
 
     public static function getInstance()
@@ -47,8 +51,22 @@ class Layout
         $this->_sViewContent = $sViewContent;
     }
 
+    public function setViewVars($sViewVars)
+    {
+        $this->_sViewVars = $sViewVars;
+    }
+
+    public function getViewVars()
+    {
+        return $this->_sViewVars;
+    }
+
+    public function getArgs()
+    {
+        return $this->_tArgs;
+    }
     /*******STATIC-FUNCTION*********/
-    
+
     public static function setLayout( $sLayout )
     {
         global $oLayout;
@@ -61,7 +79,19 @@ class Layout
     {
         print $sContent;
     }
-    
+
+    public static function render($sBlock)
+    {
+        global $oLayout;
+
+        extract($oLayout->getViewVars());
+        ob_start();
+        include( APPS_PATH . "/layouts/$sBlock.phtml");
+        $sHtml = ob_get_contents();
+        ob_end_clean();
+        print $sHtml;
+    }
+
     public static function getJavascript()
     {
         global $oLayout;
@@ -75,5 +105,16 @@ class Layout
     public static function getTitle()
     {
         global $oLayout;
+        $sController = $oLayout->_tArgs['controller'];
+        $sAction= $oLayout->_tArgs['action'];
+        return SEO::getMetaName('title', $sController, $sAction);
+    }
+
+    public static function getMeta($MetaName)
+    {
+        global $oLayout;
+        $sController = $oLayout->_tArgs['controller'];
+        $sAction= $oLayout->_tArgs['action'];
+        return "<meta name='$MetaName'  content='" . SEO::getMetaName($MetaName, $sController, $sAction) . "' />";
     }
 }

@@ -30,7 +30,8 @@ class Apps
         require 'apps/configs/config.inc.php';
         $oApplication = Apps::getInstance();
         $oApplication->autoloader();
-        
+
+        Session::start();
         $oLayout = Layout::getInstance();        
         return $oApplication;
     }
