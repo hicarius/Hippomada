@@ -26,28 +26,16 @@ class Controller extends Controller_Abstract
         }
 
         if( !Session::isConnected()) {
-            if($oRequest->getAction() == 'Connect' || $oRequest->getAction() == 'Login' ) {
+            if($oRequest->getAction() == 'Creation' || $oRequest->getAction() == 'Connect' || $oRequest->getAction() == 'Login' ) {
 
-            } else {
-                $oRequest
-                    ->setController('index')
-                    ->setAction('login')
-                    ->setPrematuredSessionEnd();
-            }
-        } else {
-            if($oRequest->getAction() == 'Connect' || $oRequest->getAction() == 'Login' ) {
-                $oRequest
-                    ->setController('index')
-                    ->setAction('index');
-            }
-
-            if(Session::isAdminUser() && $oRequest->getModule() != 'admin') { //si admin connecté
+            }else{
                 $oRequest
                     ->setController('index')
                     ->setAction('login')
                     ->setPrematuredSessionEnd();
             }
         }
+
 
         $sRequestedModule = APPS_PATH . '/modules/' . $oRequest->getModule();
         $sModuleDirectory = APPS_PATH . '/modules/';

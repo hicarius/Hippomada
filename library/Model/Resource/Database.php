@@ -20,7 +20,7 @@ class  Database
 
         $db = new PDO( $dsn, $user, $password, $options ) ;
         
-        $db->exec("SET CHARACTER SET " . $parse [ "db_character_set" ]);
+        //$db->exec("SET CHARACTER SET " . $parse [ "db_character_set" ]);
 
         foreach ( $attributes as $k => $v ) {
             $db->setAttribute ( constant ( "PDO::{$k}" )
@@ -37,11 +37,11 @@ class  Database
     
     public static function lastInsertId($tablename)
     {
-        $db = Database::connect();    
+        $db = Database::connect();
         $stmt = $db->prepare( 'SELECT MAX(id) as MID FROM ' . $tablename );
         $stmt -> execute ( ) ;
         $row = $stmt->fetchObject();
-        
-         return (int)$row->MID;        
+
+         return (int)$row->MID;
     }
 }

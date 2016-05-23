@@ -31,4 +31,9 @@ class Request extends Request_Abstract
         $this->_sAction = ( $this->getRequestParam('action') ) ?
                 ($this->getRequestParam('action')) : ('index') ;
     }
+
+    public function getPost()
+    {
+        return $_POST;
+    }
 }

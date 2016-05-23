@@ -23,22 +23,39 @@ class Session
 
     static function setUser( $tUser )
     {
-        $_SESSION['user'] =  $tUser;
+        if($_REQUEST['module'] == 'admin') {
+            $_SESSION['a_user'] =  $tUser;
+        } else {
+            $_SESSION['f_user'] =  $tUser;
+        }
     }
 
     static function getUser()
     {
-        return isset($_SESSION['user']) ? $_SESSION['user'] : FALSE;
+
+        if($_REQUEST['module'] == 'admin') {
+            return isset($_SESSION['a_user']) ? $_SESSION['a_user'] : FALSE;
+        } else {
+            return isset($_SESSION['f_user']) ? $_SESSION['f_user'] : FALSE;
+        }
     }
 
     static function isConnected()
     {
-        return isset($_SESSION['user']);
+        if($_REQUEST['module'] == 'admin') {
+            return isset($_SESSION['a_user']);
+        } else {
+            return isset($_SESSION['f_user']);
+        }
     }
 
     static function disconnected()
     {
-        unset($_SESSION['user']);
+        if($_REQUEST['module'] == 'admin') {
+            unset($_SESSION['a_user']);
+        } else {
+            unset($_SESSION['f_user']);
+        }
     }
 
     static function matchAccount($tParams)
@@ -46,17 +63,13 @@ class Session
 
         $oUser = false;
         if($tParams['module'] == 'admin') {
-            if( $tParams['password'] == 'sovaly' && $tParams['username'] == 'admin@sovaly.loc' ) {
+            if( $tParams['password'] == 'sovaly' && $tParams['email'] == 'admin@sovaly.loc' ) {
                 $oUser = array(
                     'is_admin' => 1,
                     'udata' => '1',
                 );
             }
-        } else {
-
         }
-
-
         return $oUser;
     }
 }

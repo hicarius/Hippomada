@@ -34,6 +34,6 @@ class IndexController extends Controller
     {
         $this->setNoRender();
         Session::disconnected();
-        $this->getView()->redirect( SITE_URL . "/");
+        $this->getView()->redirect( "admin/");
     }
 }

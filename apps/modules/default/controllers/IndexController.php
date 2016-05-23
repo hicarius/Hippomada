@@ -40,21 +40,13 @@ class IndexController extends Controller
     {
         $this->setNoRender();
         $tParams =  $this->getRequest()->getRequestParams();
-        $tUserList = Session::userList();
-        $err = '';
-        if( $sNameSpace = Session::matchAccount($tParams['username'], Session::userList()) )
+        $oStable = Apps::getModel('Stable');
+        if( $stable = $oStable->connectStable($tParams['email'], $tParams['password']) )
         {
-            if( $tUserList[$sNameSpace]['password'] == $tParams['password'] )
-            {
-                Session::setUser($tUserList[$sNameSpace]);
-                $URL = $tParams['forward'];
-            }else{
-                $err =  'index/login/?error=invalid_password';
-                $URL = SITE_URL . "/" . $err;
-            }
+            Session::setUser($stable);
+            $URL =  "/ecurie";
         }else{
-            $err =  'index/login/?error=invalid_username';
-            $URL = SITE_URL . "/" . $err;
+            $URL =  '/index/login/?error=invalid_username';
         }
 
         $this->getView()->redirect( $URL);
