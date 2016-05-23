@@ -1,12 +1,206 @@
 <!DOCTYPE html>
-<html lang="fr">
-    <head>
-    	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    	<title><?php echo Layout::getTitle() ?></title>
-        <?php echo Layout::getStyleSheet() ?>
-        <?php echo Layout::getJavascript() ?>
-    </head>
-    <body class="">
-        <?php echo Layout::renderView($content) ?>
-    </body>
+<!-- START HEAD -->
+<head>
+    <meta charset="UTF-8" />
+
+    <!-- this line will appear only if the website is visited with an iPad -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.2, user-scalable=yes" />
+
+    <title><?php echo Layout::getTitle() ?></title>
+
+    <!-- RESET STYLESHEET -->
+    <link rel="stylesheet" type="text/css" media="all" href="/themes/front/css/reset.css" />
+    <!-- BOOTSTRAP STYLESHEET -->
+    <link rel="stylesheet" type="text/css" media="all" href="/themes/front/css/bootstrap.css" />
+    <!-- MAIN THEME STYLESHEET -->
+    <link rel="stylesheet" type="text/css" media="all" href="/themes/front/css/style.css" />
+    <link rel='stylesheet' id='custom-css'  href='/themes/front/css/custom.css' type='text/css' media='all' />
+
+    <link rel='stylesheet' id='responsive-css'  href='/themes/front/css/responsive.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='tipsy-css'  href='/themes/front/css/tipsy.css' type='text/css' media='all' />
+
+    <link rel='stylesheet' id='fonts-css'  href='/themes/front/css/font-awesome.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='full-descriptor-css'  href='/portfolios/full-description/css/style.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='slide-details-css'  href='/portfolios/slide-detail/css/style.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='flex-css'  href='/sliders/flexslider/css/slider.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='flexslider-css'  href='/sliders/flexslider/css/flexslider.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='flexslider-elegant-css'  href='/sliders/flexslider-elegant/css/flexslider.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='shortcode-css'  href='/themes/front/css/shortcodes.css' type='text/css' media='all' />
+
+    <link rel='stylesheet' id='colorbox-css'  href='/themes/front/css/colorbox.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='thumbnails-css'  href='/sliders/thumbnails/css/thumbnails.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='custom-button-mfast-3-css'  href='/themes/front/css/buttons/mfast-3.css' type='text/css' media='all' />
+
+    <!-- [favicon] begin -->
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <!-- [favicon] end -->
+
+    <!-- For iPad3 with retina display: -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="apple-touch-icon-144x.png" />
+    <!-- For first- and second-generation iPad: -->
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="apple-touch-icon-114x.png" />
+    <!-- For first- and second-generation iPad: -->
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="apple-touch-icon-72x.png">
+    <!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+    <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-57x.png" />
+
+    <link rel='stylesheet' id='thickbox-css'  href='/themes/front/js/thickbox/thickbox.css' type='text/css' media='all' />
+
+    <script type='text/javascript' src='/themes/front/js/jquery/jquery.js'></script>
+</head>
+<!-- END HEAD -->
+<!-- START BODY -->
+<body class="page no_js responsive boxed">
+
+<!-- START BG SHADOW -->
+<div class="bg-shadow">
+
+    <!-- START WRAPPER -->
+    <div id="wrapper" class="container group">
+
+        <!-- START TOP BAR -->
+        <div id="topbar">
+            <div class="container">
+                <div class="row">
+                    <div id="last-tweets-3" class="widget-first span6 widget last-tweets">
+                        balance
+
+                    </div>
+                    <div id="text-8" class="widget-2 widget-last span6 widget widget_text">
+                        <div class="textwidget">
+                            <a href="# " class="socials-small facebook-small" title="Facebook"  >facebook</a>
+
+                            <a href="#" class="socials-small rss-small" title="Rss"  >rss</a>
+
+                            <a href="#" class="socials-small twitter-small" title="Twitter"  >twitter</a>
+
+                            <a href="#" class="socials-small google-small" title="Google"  >google</a>
+
+                            <a href="#" class="socials-small linkedin-small" title="Linkedin"  >linkedin</a>
+
+                            <a href="#" class="socials-small pinterest-small" title="Pinterest"  >pinterest</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- START HEADER -->
+        <div id="header" class="group">
+            <div class="group container">
+                <div class="row">
+                    <div class="span12">
+
+                        <div class="row">
+                            <!-- START LOGO -->
+                            <div id="logo" class="span4 group">
+                                <a id="logo-img" href="index.html" title="celestino">
+                                    <img src="/themes/front/images/celestino1.png" title="celestino" alt="celestino" />
+                                </a>
+
+                                <p id="tagline">only for creative minds.</p>
+                            </div>
+                            <!-- END LOGO -->
+                            <div id="menu" class="span8 group">
+                                <?php Layout::render('front/nav'); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="border-header"></div>
+        </div>
+        <!-- END HEADER -->
+
+
+
+        <!-- START PRIMARY -->
+        <div id="primary" class="sidebar-right">
+            <div class="container group">
+                <div class="row">
+
+                    <!-- START CONTENT -->
+                    <div id="content-home" class="span9 content group">
+                        <div class="page type-page status-publish hentry group">
+                            <div class="section portfolio">
+                                <!-- section blog wrapper -->
+
+                                <!-- sticky portfolio -->
+                                <div class="row">
+                                    <?php echo Layout::renderView($content) ?>
+                                </div>
+                                <!-- span wrapper -->
+
+                            </div>
+                            <!-- end section blog wrapper -->
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <!-- END CONTENT -->
+
+                    <!-- START SIDEBAR -->
+                    <div id="sidebar-home-3" class="span3 sidebar group">
+                        <?php Layout::render('front/right'); ?>
+                    </div>
+                    <!-- END SIDEBAR -->
+                </div>
+            </div>
+        </div>
+        <!-- END PRIMARY -->
+
+        <!-- START FOOTER -->
+        <div id="footer">
+            <div class="container">
+                <div class="row">
+
+                </div>
+            </div>
+        </div>
+        <!-- END FOOTER -->
+
+        <!-- START COPYRIGHT -->
+        <div id="copyright">
+            <div class="container">
+                <div class="row">
+                    <div class="left span6">
+                        &copy; 2016
+                    </div>
+                    <div class="right span6">
+                        <p>Powered by
+                            <a href="http://yithemes.com/" title="free themes wordpress">
+                                <strong>Your Inspiration Themes</strong>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END COPYRIGHT -->
+
+    </div>
+    <!-- END WRAPPER -->
+
+</div>
+<!-- END BG SHADOW -->
+
+<script type='text/javascript' src='/sliders/thumbnails/js/jquery.aw-showcase.js'></script>
+<script type='text/javascript' src='/themes/front/js/jquery.colorbox-min.js'></script>
+<script type='text/javascript' src='/themes/front/js/jquery.flexslider-min.js'></script>
+<script type='text/javascript' src='/themes/front/js/jquery.tweetable.js'></script>
+<script type='text/javascript' src='/themes/front/js/jquery.superfish.js'></script>
+<script type='text/javascript' src='/themes/front/js/jquery.themepunch.plugins.min.js'></script>
+<script type='text/javascript' src='/themes/front/js/jquery.themepunch.revolution.js'></script>
+<script type='text/javascript' src='/portfolios/filterable/js/jquery.filterable.js'></script>
+<script type='text/javascript' src='/themes/front/js/jquery.tipsy.js'></script>
+<script type='text/javascript' src='/themes/front/js/responsive.js'></script>
+<script type='text/javascript' src='/themes/front/js/jquery.mobilemenu.js'></script>
+<script type='text/javascript' src='/themes/front/js/shortcodes.js'></script>
+<script type='text/javascript' src='/themes/front/js/jquery/jquery.masonry.min.js'></script>
+<script type='text/javascript' src='/themes/front/js/jquery.custom.js'></script>
+
+</body>
+<!-- END BODY -->
 </html>
