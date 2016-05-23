@@ -1,0 +1,26 @@
+<h1>Page 404 Not Found</h1>
+
+  <?php if (isset($exception)): ?>
+
+  <h3>Exception information:</h3>
+  <p>
+      <b>Message:</b> <?php echo $exception->getMessage() ?>
+  </p>
+
+  <h3>Stack trace:</h3>
+  <pre><?php echo $exception->getTraceAsString() ?>
+  </pre>
+
+  <h3>Request Parameters:</h3>
+  <pre>
+<?php
+$tTrace = $exception->getTrace();
+//Debugger::dump($tTrace);
+foreach ($tTrace as $value) {
+    if($value['function'] == 'process'){
+        echo var_export( $value['args'][0]->getParams(), true);
+    }
+}
+?>
+  </pre>
+  <?php endif ?>
