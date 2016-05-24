@@ -52,11 +52,11 @@ Good work... and good luck! :)
 .boxed #wrapper { background-color: #ffffff; }
 code, pre, body hr, #copyright .inner, #footer .inner, .gallery img, .gallery img, .content .archive-list ul, .content .archive-list ul li, .more-projects-widget .work-thumb, .more-projects-widget .controls, .more-projects-widget .top, .featured-projects-widget img, .thumb-project img, #searchform input, .portfolio-categories ul li, .portfolio-categories ul li:hover, .recent-comments .avatar img, .content .contact-form li.submit-button input, #portfolio .read-more, #portfolio .more-link, #portfolio .read-more:hover, #portfolio .more-link:hover, .accordion-title, .accordion-item-thumb img, form input[type="text"], form textarea, .testimonial-page, div.section-caption .caption, .line, .last-tweets-widget ul li, .toggle p.tab-index, .toggle .content-tab, .testimonial, .google-map-frame, .section.blog .post, .section.blog h4.other-articles, .section.blog .sticky .thumbnail, .section .portfolio-sticky .work-categories, .testimonial, #searchform input, .blog-big .meta p, .blog-big p.list-tags, .blog-small .image-wrap, .comment-container, .image-square-style #comments img.avatar, #comments .comment-author img, .comment-meta, #respond input, #respond textarea, img.comment-avatar, .portfolio-big-image a.thumb, .portfolio-big-image a.more, .portfolio-big-image a.more:hover, .portfolio-big-image .work-thumbnail a.nozoom, .portfolio-big-image .work-skillsdate, .internal_page_item, .gallery-wrap li h5, .gallery-filters, .portfolio-full-description a.thumb, .portfolio-full-description a.more, .portfolio-full-description a.more:hover, .portfolio-full-description .work-skillsdate, .related_img, #portfolio.columns .overlay_a, .yit-widget-content .widget, .slider.thumbnails .showcase-thumbnail img, .slider.thumbnails .showcase-thumbnail img:hover, .slider.thumbnails .showcase-thumbnail.active img, .recent-post .thumb-img img, .widget_archive ul li a, .widget_archive ul li a:hover, .widget_nav_menu ul li a, .widget_nav_menu ul li a:hover, .widget_pages ul li a, .widget_pages ul li a:hover, .widget_categories ul li a, .widget_categories ul li a:hover, #searchform input, .widget_flickrRSS img, .widget_nav_menu ul li a, .widget_pages ul li a, .widget_categories ul li a, .widget_archive ul li a:hover, .widget_nav_menu ul li.current_page_item > a, .widget_pages ul li.current_page_item > a, .widget_categories ul li.current_page_item > a, .testimonial-widget div.name-testimonial, .last-tweets-widget ul li, .yit-widget-content .widget, .portfolio-categories ul li, .recent-comments .avatar img, .more-projects-widget .work-thumb, .more-projects-widget .controls, .more-projects-widget .top, .featured-projects-widget img, .thumb-project img, .picture_overlay, #respond textarea:focus, .portfolio-big-image .work-thumbnail .picture_overlay, .portfolio-full-description .work-thumbnail .thumb-wrapper, .testimonial-widget li > div, .sidebar .widget > h3, .sidebar .recent-post .thumb-img img { border-color: #eeeeee; }
 #portfolio.pinterest .thumbnail .picture_overlay:hover, #portfolio.slide-detail .ch-item-hover:hover, #portfolio.filterable .ch-item-hover:hover, #portfolio.portfolio-big-image .work-thumbnail .picture_overlay:hover, .portfolio-big-image .work-thumbnail .thumb-wrapper:hover, .related_project .related_img:hover, .portfolio-categories ul li:hover, #portfolio .more-link:hover, .portfolio-big-image a.more:hover, #portfolio.columns .overlay_a:hover, .showcase-thumbnail img:hover, .widget_archive ul li a:hover, .widget_nav_menu ul li a:hover, .widget_pages ul li a:hover, .widget_categories ul li a:hover, .picture_overlay:hover { border-color: #f29a03; }
-#topbar { background-color: #373636; }
-#header { background-color: #eff1f1; }
+#topbar { background-color: #5AA445; }
+#header { background-color: #fff; }
 #header .menu > ul ul { background-color: #c8cfd0; }
-#border-header { background: #cad0d1; border-color: #eeeeee; }
-.sf-menu .current-menu-ancestor a span.triangle, .sf-menu .current-menu-item a span.triangle, .sf-menu li:hover a span.triangle, .sf-menu .current_page_item a span.triangle, .sf-menu .current_page_ancestor a span.triangle { border-bottom-color: #cad0d1; }
+#border-header { background: #0563ac; border-color: #eeeeee; }
+.sf-menu .current-menu-ancestor a span.triangle, .sf-menu .current-menu-item a span.triangle, .sf-menu li:hover a span.triangle, .sf-menu .current_page_item a span.triangle, .sf-menu .current_page_ancestor a span.triangle { border-bottom-color: #0563ac; }
 .sf-menu ul { border-top-color: #b4babb; }
 .error-404-text p { font-size: 18px; font-family: 'Maven Pro', sans-serif; color: #585555; font-style: normal; font-weight: 400; }
 .error-404-text p a { color: #B77A2B; }
@@ -100,11 +100,11 @@ h1 span, h2 span, h3 span, h4 span, h5 span, h6 span { color: #A05F02; }
 #topbar a { color: #f5b00c; }
 #topbar a:hover { color: #ab5705; }
 #header div.menu > ul > li > a { font-size: 14px; font-family: 'Maven Pro', sans-serif; color: #727272; font-style: normal; font-weight: 400; }
-#header div.menu > ul > li > a:hover { color: #8d5504; }
-#header div.menu > ul > li.current-menu-item > a, #header div.menu > ul > li.current-menu-ancestor > a, #header div.menu > ul > li.current_page_parent > a, #header div.menu > ul > li.current_page_ancestor > a, #header div.menu > ul > li.current_page_item > a { color: #8d5504; }
+#header div.menu > ul > li > a:hover { color: #5AA445; }
+#header div.menu > ul > li.current-menu-item > a, #header div.menu > ul > li.current-menu-ancestor > a, #header div.menu > ul > li.current_page_parent > a, #header div.menu > ul > li.current_page_ancestor > a, #header div.menu > ul > li.current_page_item > a { color: #5AA445; }
 #header div.menu > ul ul li a { font-size: 13px; font-family: 'Maven Pro', sans-serif; color: #373636; font-style: normal; font-weight: 400; }
-#header div.menu > ul ul li a:hover { color: #8d5504; }
-#header div.menu > ul ul li.current-menu-item > a, #header div.menu > ul ul .current-menu-ancestor > a { color: #8d5504; }
+#header div.menu > ul ul li a:hover { color: #5AA445; }
+#header div.menu > ul ul li.current-menu-item > a, #header div.menu > ul ul .current-menu-ancestor > a { color: #5AA445; }
 .sidebar h1, .sidebar h2, .sidebar h3, .sidebar h4, .sidebar h5, .sidebar h6 { font-size: 17px; font-family: 'Maven Pro', sans-serif; color: #030303; font-style: normal; font-weight: 400; }
 .sidebar p, .sidebar li, .sidebar div { font-size: 13px; font-family: 'Maven Pro', sans-serif; color: #585555; font-style: normal; font-weight: 400; }
 .sidebar a { color: #8a8989; }
@@ -112,3 +112,12 @@ h1 span, h2 span, h3 span, h4 span, h5 span, h6 span { color: #A05F02; }
 .testimonial-widget li blockquote p { font-size: 12px; font-family: 'Maven Pro', sans-serif; color: #585555; font-style: normal; font-weight: 400; }
 .testimonial-widget li .name-testimonial { font-size: 11px; font-family: 'Maven Pro', sans-serif; color: #000000; font-style: normal; font-weight: 400; }
 .testimonial-widget li .url-testimonial { font-size: 11px; font-family: 'Maven Pro', sans-serif; color: #585555; font-style: normal; font-weight: 400; }.blog-big .meta, .blog-small .meta { background: #ffffff; }
+
+
+#header div.menu > ul > li > a {
+    color: #727272;
+    font-family: "Maven Pro",sans-serif;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: bold;
+}
