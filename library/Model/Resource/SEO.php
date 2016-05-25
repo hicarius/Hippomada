@@ -16,6 +16,6 @@ class SEO
     static function getMetaName($MetaName, $sController, $sAction)
     {
         $data = self::parseSEO();
-        return $data[$sController]["$sAction.$MetaName"];
+        return Text::__($data[$sController]["$sAction.$MetaName"]);
     }
 }
