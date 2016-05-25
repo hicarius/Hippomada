@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2cd47a55-f24d-4db7-b28d-481b0bbec922" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/themes/front/images/celestino1.png" afterPath="$PROJECT_DIR$/themes/front/images/celestino1.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/configs/config.inc.php" afterPath="$PROJECT_DIR$/apps/configs/config.inc.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/themes/front/css/custom.css" afterPath="$PROJECT_DIR$/themes/front/css/custom.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/layouts/index.phtml" afterPath="$PROJECT_DIR$/apps/layouts/index.phtml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/layouts/front/nav.phtml" afterPath="$PROJECT_DIR$/apps/layouts/front/nav.phtml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/themes/front/css/style.css" afterPath="$PROJECT_DIR$/themes/front/css/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="2cd47a55-f24d-4db7-b28d-481b0bbec922" name="Default" comment="" />
     <ignored path="sovaly.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
