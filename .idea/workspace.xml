@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2cd47a55-f24d-4db7-b28d-481b0bbec922" name="Default" comment="">
-      <change type="MOVED" beforePath="C:\HTDOCS\hh\ch\sovaly\apps\modules\default\controllers\EcurieController.php" afterPath="$PROJECT_DIR$/apps/modules/default/controllers/StableController.php" />
-      <change type="MOVED" beforePath="C:\HTDOCS\hh\ch\sovaly\apps\modules\default\views\ecurie\index.phtml" afterPath="$PROJECT_DIR$/apps/modules/default/views/stable/index.phtml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/Model/Resource/SEO.php" afterPath="$PROJECT_DIR$/library/Model/Resource/SEO.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/themes/front/css/custom.css" afterPath="$PROJECT_DIR$/themes/front/css/custom.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/layouts/index.phtml" afterPath="$PROJECT_DIR$/apps/layouts/index.phtml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/layouts/front/nav.phtml" afterPath="$PROJECT_DIR$/apps/layouts/front/nav.phtml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/configs/seo.ini" afterPath="$PROJECT_DIR$/apps/configs/seo.ini" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/modules/default/views/breedings/index.phtml" afterPath="$PROJECT_DIR$/apps/modules/default/views/breedings/index.phtml" />
     </list>
     <ignored path="sovaly.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -64,8 +57,8 @@
       <file leaf-file-name="index.phtml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/apps/modules/default/views/breedings/index.phtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3472454">
-              <caret line="95" column="72" selection-start-line="95" selection-start-column="72" selection-end-line="95" selection-end-column="72" />
+            <state vertical-scroll-proportion="0.31886476">
+              <caret line="94" column="94" selection-start-line="94" selection-start-column="94" selection-end-line="94" selection-end-column="94" />
               <folding />
             </state>
           </provider>
@@ -898,8 +891,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/modules/default/views/breedings/index.phtml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3472454">
-          <caret line="95" column="72" selection-start-line="95" selection-start-column="72" selection-end-line="95" selection-end-column="72" />
+        <state vertical-scroll-proportion="0.31886476">
+          <caret line="94" column="94" selection-start-line="94" selection-start-column="94" selection-end-line="94" selection-end-column="94" />
           <folding />
         </state>
       </provider>
