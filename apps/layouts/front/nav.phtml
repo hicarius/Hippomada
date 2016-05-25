@@ -1,78 +1,30 @@
 <!-- START MAIN NAVIGATION -->
+<?php
+$menus = array(
+    array( 'link' => '/stable/', 'title' => Text::__('Stable'), 'class' => 'nav-icon-home' ),
+    array( 'link' => '/trainer/', 'title' => Text::__('Trainer'), 'class' => 'nav-icon-idea' ),
+    array( 'link' => '/jockey/', 'title' => Text::__('Jockey'), 'class' => 'nav-icon-team' ),
+    array( 'link' => '/breedings/', 'title' => Text::__('Breedings'), 'class' => 'nav-icon-lab' ),
+    array( 'link' => '/races/', 'title' => Text::__('Races'), 'class' => 'nav-icon-works' ),
+    array( 'link' => '/shop/', 'title' => Text::__('Shop'), 'class' => 'nav-icon-cart' ),
+    array( 'link' => '/live/', 'title' => Text::__('Live'), 'class' => 'nav-icon-radio' ),
+    array( 'link' => '/rankings/', 'title' => Text::__('Rankings'), 'class' => 'nav-icon-first' ),
+);
+$currentController = '/' . lcfirst(Request::getInstance()->getController()) . '/';
+?>
+
 <div class="menu">
     <ul id="nav" class="sf-menu">
-        <li class="nav-icon-home current_page_item">
-            <a href="index.html">
-                Ecurie
+        <?php foreach( $menus as $menu) { ?>
+        <li class="<?php echo $menu['class'] ?> <?php echo ($menu['link']==$currentController) ? 'current_page_item' : ''?> ">
+            <a href="<?php echo $menu['link'] ?>">
+                <?php echo $menu['title'] ?>
                 <div style="position:absolute; left: 50%;">
                     <span class="triangle">&nbsp;</span>
                 </div>
             </a>
-
         </li>
-        <li class="nav-icon-idea">
-            <a href="#">
-                Entraineur
-                <div style="position:absolute; left: 50%;">
-                    <span class="triangle">&nbsp;</span>
-                </div>
-            </a>
-
-        </li>
-        <li class="nav-icon-team">
-            <a href="#">
-                Jockey/Diver
-                <div style="position:absolute; left: 50%;">
-                    <span class="triangle">&nbsp;</span>
-                </div>
-            </a>
-
-        </li>
-        <li class="nav-icon-lab">
-            <a href="#">
-                Elevages
-                <div style="position:absolute; left: 50%;">
-                    <span class="triangle">&nbsp;</span>
-                </div>
-            </a>
-
-        </li>
-        <li class="nav-icon-works">
-            <a href="#">
-                Courses
-                <div style="position:absolute; left: 50%;">
-                    <span class="triangle">&nbsp;</span>
-                </div>
-            </a>
-
-        </li>
-        <li class="nav-icon-cart">
-            <a href="#">
-                March&eacute;
-                <div style="position:absolute; left: 50%;">
-                    <span class="triangle">&nbsp;</span>
-                </div>
-            </a>
-
-        </li>
-        <li class="nav-icon-radio">
-            <a href="#">
-                En direct
-                <div style="position:absolute; left: 50%;">
-                    <span class="triangle">&nbsp;</span>
-                </div>
-            </a>
-
-        </li>
-        <li class="nav-icon-first">
-            <a href="#">
-                Classements
-                <div style="position:absolute; left: 50%;">
-                    <span class="triangle">&nbsp;</span>
-                </div>
-            </a>
-
-        </li>
+        <?php } ?>
     </ul>
 </div>
 <!-- END MAIN NAVIGATION -->

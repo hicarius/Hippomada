@@ -1,6 +1,6 @@
 <?php
 
-class EcurieController extends Controller
+class StableController extends Controller
 {
 	public function index()
 	{
