@@ -4,5 +4,9 @@
     <file url="file://$PROJECT_DIR$/apps/layouts/front/nav.phtml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/apps/modules/default/views/breedings/index.phtml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/apps/modules/default/views/jockey/index.phtml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/apps/modules/default/views/races/index.phtml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/apps/modules/default/views/shop/index.phtml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/apps/modules/default/views/stable/index.phtml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/apps/modules/default/views/studbook/index.phtml" charset="UTF-8" />
   </component>
 </project>
