@@ -72,4 +72,31 @@ class Session
         }
         return $oUser;
     }
+
+    static function addMessage($msg, $code)
+    {
+        if($_REQUEST['module'] == 'admin') {
+            $_SESSION['a_msg'] = array('message' => $msg, 'code' => $code);
+        } else {
+            $_SESSION['f_msg'] = array('message' => $msg, 'code' => $code);
+        }
+    }
+
+    static function getMessage()
+    {
+        if($_REQUEST['module'] == 'admin') {
+            if(isset($_SESSION['a_msg'])) {
+                $msg = $_SESSION['a_msg'];
+                unset($_SESSION['a_msg']);
+                return $msg;
+            }
+        } else {
+            if(isset($_SESSION['f_msg'])) {
+                $msg = $_SESSION['f_msg'];
+                unset($_SESSION['f_msg']);
+                return $msg;
+            }
+        }
+        return FALSE;
+    }
 }

@@ -1,0 +1,90 @@
+<!-- DataTables JavaScript -->
+<script src="/themes/admin/datatables/media/js/jquery.dataTables.min.js"></script>
+<script src="/themes/admin/bootstrap/datatables/dataTables.bootstrap.min.js"></script>
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Les courses</h1>
+    </div>
+    <!-- /.col-lg-12 -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <button class="btn btn-primary btn-create-race-manual" type="button">Création manuelle</button>
+                    <button class="btn btn-primary btn-create-race-auto" type="button">Création automatique</button>
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="dataTable_wrapper">
+                        <table class="table table-striped table-bordered table-hover" id="dataTables-race">
+                            <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Catégorie</th>
+                                <th>Type</th>
+                                <th>Groupe</th>
+                                <th>Hippodrome</th>
+                                <th>Piste</th>
+                                <th>Longueur</th>
+                                <th>Corde</th>
+                                <th>Inscription</th>
+                                <th>Recul. gain</th>
+                                <th>Recul. m</th>
+                                <th>Gain max.</th>
+                                <th>Age min.</th>
+                                <th>Age max.</th>
+                                <th>Prize</th>
+                                <th>Status</th>
+                                <th>Date du course</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php  foreach($races as $race) { ?>
+                                <tr class="">
+                                    <td><a href="/admin/race/edit/id/<?php echo $race['id'] ?>"><?php echo $race['name'] ?></a></td>
+                                    <td><?php echo $race['category_name'] ?></td>
+                                    <td><?php echo $race['type_name'] ?></td>
+                                    <td><?php echo $race['group_name'] ?></td>
+                                    <td><?php echo $race['hippodrome_name'] ?></td>
+                                    <td><?php echo $race['piste_name'] ?></td>
+                                    <td><?php echo $race['lenght'] ?></td>
+                                    <td><?php echo $race['corde'] ?></td>
+                                    <td><?php echo $race['price'] ?></td>
+                                    <td><?php echo $race['recul_gain'] ?></td>
+                                    <td><?php echo $race['recul_meter'] ?></td>
+                                    <td><?php echo $race['max_gain'] ?></td>
+                                    <td><?php echo $race['age_min'] ?></td>
+                                    <td><?php echo $race['age_max'] ?></td>
+                                    <td><?php echo $race['victory_price'] ?></td>
+                                    <td><?php echo $race['status'] ?></td>
+                                    <td><?php echo $race['race_date'] ?></td>
+                                </tr>
+                            <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+</div>
+
+
+<script>
+    $(document).ready(function() {
+        $('#dataTables-race').DataTable({
+            responsive: true
+        });
+        $('.btn-create-race-manual').click(function(){
+            document.location.href= '/admin/race/createmanual/'
+        });
+        $('.btn-create-race-auto').click(function(){
+            document.location.href= '/admin/race/createauto/'
+        });
+    });
+</script>

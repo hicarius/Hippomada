@@ -40,6 +40,7 @@ class IndexController extends Controller
         if( $stable = $oStable->connectStable($tParams['email'], $tParams['password']) )
         {
             Session::setUser($stable);
+            $oStable->updateLastActivity($stable['id']);
             $URL =  "/";
         }else{
             $URL =  '/index/login/?error=invalid_username';

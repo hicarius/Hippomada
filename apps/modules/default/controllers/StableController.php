@@ -7,7 +7,7 @@ class StableController extends Controller
 		Layout::setLayout('index');
 	}
 
-	public function creation()
+	public function create()
 	{
 		$this->setNoRender();
 
@@ -19,7 +19,7 @@ class StableController extends Controller
 
 		$oStable = Apps::getModel('Stable');
 		if($oStable->create($params)){
-			$this->getView()->redirect('/ecurie/success');
+			$this->getView()->redirect('/stable/success');
 		}
 	}
 }

@@ -1,0 +1,64 @@
+<!-- DataTables JavaScript -->
+<script src="/themes/admin/datatables/media/js/jquery.dataTables.min.js"></script>
+<script src="/themes/admin/bootstrap/datatables/dataTables.bootstrap.min.js"></script>
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Les écuries</h1>
+    </div>
+    <!-- /.col-lg-12 -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <button class="btn btn-primary btn-create-stable" type="button">Créer un écurie</button>
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="dataTable_wrapper">
+                        <table class="table table-striped table-bordered table-hover" id="dataTables-ecurie">
+                            <thead>
+                            <tr>
+                                <th>Ecurie</th>
+                                <th>Email</th>
+                                <th>Proprietaire</th>
+                                <th>Niveau</th>
+                                <th>Solde</th>
+                                <th>Dernière activité</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php  foreach($stables as $stable) { ?>
+                                <tr class="">
+                                    <td><a href="/admin/stable/edit/id/<?php echo $stable['id'] ?>"><?php echo $stable['name'] ?></a></td>
+                                    <td><?php echo $stable['email'] ?></td>
+                                    <td><?php echo $stable['proprietaire'] ?></td>
+                                    <td class="center"><?php echo $stable['level'] ?></td>
+                                    <td class="center"><?php echo $stable['banque'] ?></td>
+                                    <td class="center"><?php echo $stable['last_activity'] ?></td>
+                                </tr>
+                            <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+</div>
+
+
+<script>
+    $(document).ready(function() {
+        $('#dataTables-ecurie').DataTable({
+            responsive: true
+        });
+        $('.btn-create-stable').click(function(){
+            document.location.href= '/admin/stable/create/'
+        });
+    });
+</script>

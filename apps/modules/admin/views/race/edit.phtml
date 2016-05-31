@@ -1,0 +1,164 @@
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Course :: modifier :: <?php echo $data['name'] ?></h1>
+
+        <!-- /.col-lg-12 -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Informations de l'écurie
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <form role="form" method="post">
+                        <input type="hidden" name="id" value="<?php echo $data['id'] ?>">
+                        <div class="col-lg-6">
+
+                            <div class="form-group input-group">
+                                <span class="input-group-addon">Nom</span>
+                                <input type="text" name="name" class="form-control" value="<?php echo $data['name'] ?>" />
+                            </div>
+                            <div class="form-group input-group">
+                                <span class="input-group-addon">Catégorie</span>
+                                <select class="form-control" name="category_id">
+                                    <option>--choisir--</option>
+                                    <?php
+                                    foreach(Apps::getModel('Race_Category')->getCategories() as $item){
+                                        $selected = ($item['id'] == $data['category_id']) ? 'selected="selected"' : '';
+                                    ?>
+                                    <option <?php echo $selected ?> value="<?php echo $item['id'] ?>"><?php echo $item['title'] ?></option>
+                                    <?php
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="form-group input-group">
+                                <span class="input-group-addon">Groupe</span>
+                                <select class="form-control" name="group_id">
+                                    <option>--choisir--</option>
+                                    <?php
+                                    foreach(Apps::getModel('Race_Group')->getGroups() as $item){
+                                        $selected = ($item['id'] == $data['group_id']) ? 'selected="selected"' : '';
+                                        ?>
+                                        <option <?php echo $selected ?> value="<?php echo $item['id'] ?>"><?php echo $item['group_name'] ?></option>
+                                        <?php
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="form-group input-group">
+                                <span class="input-group-addon">Hippodrome</span>
+                                <select class="form-control" name="hippodrome_id">
+                                    <option>--choisir--</option>
+                                    <?php
+                                    foreach(Apps::getModel('Race_Hippodrome')->getHippodromes() as $item){
+                                        $selected = ($item['id'] == $data['hippodrome_id']) ? 'selected="selected"' : '';
+                                        ?>
+                                        <option <?php echo $selected ?> value="<?php echo $item['id'] ?>"><?php echo $item['title'] ?></option>
+                                        <?php
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="form-group input-group">
+                                <span class="input-group-addon">Type</span>
+                                <select class="form-control" name="type_id">
+                                    <option>--choisir--</option>
+                                    <?php
+                                    foreach(Apps::getModel('Race_Type')->getTypes() as $item){
+                                        $selected = ($item['id'] == $data['type_id']) ? 'selected="selected"' : '';
+                                        ?>
+                                        <option <?php echo $selected ?> value="<?php echo $item['id'] ?>"><?php echo $item['title'] ?></option>
+                                        <?php
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="form-group input-group">
+                                <span class="input-group-addon">Piste</span>
+                                <select class="form-control" name="piste_id">
+                                    <option>--choisir--</option>
+                                    <?php
+                                    foreach(Apps::getModel('Race_Piste')->getPistes() as $item){
+                                        $selected = ($item['id'] == $data['piste_id']) ? 'selected="selected"' : '';
+                                        ?>
+                                        <option <?php echo $selected ?> value="<?php echo $item['id'] ?>"><?php echo $item['title'] ?></option>
+                                        <?php
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="form-group input-group">
+                                <span class="input-group-addon">Longueur</span>
+                                <input type="text" name="lenght" class="form-control" value="<?php echo $data['lenght'] ?>" />
+                                <span class="input-group-addon">m</span>
+                            </div>
+                            <div class="form-group input-group">
+                                <span class="input-group-addon">Corde</span>
+                                <select class="form-control" name="corde">
+                                    <option>--choisir--</option>
+                                    <option <?php echo ($data['corde'] == 'D') ? 'selected="selected"' : ''; ?> value="D">Droite</option>
+                                    <option <?php echo ($data['corde'] == 'G') ? 'selected="selected"' : ''; ?> value="G">Gauche</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group input-group">
+                                <span class="input-group-addon">Date du course</span>
+                                <input type="text" name="race_date" class="form-control" value="<?php echo $data['race_date'] ?>" />
+                            </div>
+                            <div class="form-group input-group">
+                                <span class="input-group-addon">Inscription</span>
+                                <input type="text" name="price" class="form-control" value="<?php echo $data['price'] ?>" />
+                                <span class="input-group-addon">turfoos</span>
+                            </div>
+                            <div class="form-group input-group">
+                                <span class="input-group-addon">Recul.</span>
+                                <input type="text" name="recul_gain" class="form-control" value="<?php echo $data['recul_gain'] ?>" />
+                                <span class="input-group-addon">turfoos</span>
+                            </div>
+                            <div class="form-group input-group">
+                                <span class="input-group-addon">Recul.</span>
+                                <input type="text" name="recul_meter" class="form-control" value="<?php echo $data['recul_meter'] ?>" />
+                                <span class="input-group-addon">m</span>
+                            </div>
+                            <div class="form-group input-group">
+                                <span class="input-group-addon">Max gain</span>
+                                <input type="text" name="max_gain" class="form-control" value="<?php echo $data['max_gain'] ?>" />
+                                <span class="input-group-addon">turfoos</span>
+                            </div>
+                            <div class="form-group input-group">
+                                <span class="input-group-addon">Age min.</span>
+                                <input type="text" name="age_min" class="form-control" value="<?php echo $data['age_min'] ?>" />
+                                <span class="input-group-addon">ans</span>
+                            </div>
+                            <div class="form-group input-group">
+                                <span class="input-group-addon">Age max.</span>
+                                <input type="text" name="age_max" class="form-control" value="<?php echo $data['age_max'] ?>" />
+                                <span class="input-group-addon">turfoos</span>
+                            </div>
+                            <div class="form-group input-group">
+                                <span class="input-group-addon">Prize</span>
+                                <input type="text" name="victory_price" class="form-control" value="<?php echo $data['victory_price'] ?>" />
+                                <span class="input-group-addon">turfoos</span>
+                            </div>
+                            <div class="form-group input-group">
+                                <span class="input-group-addon">Statut</span>
+                                <select class="form-control" name="status">
+                                    <option>--choisir--</option>
+                                    <option <?php echo ($data['status'] == '1') ? 'selected="selected"' : ''; ?> value="1">Activé</option>
+                                    <option <?php echo ($data['status'] == '0') ? 'selected="selected"' : ''; ?> value="0">Désactivé</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-success" type="submit">Sauvegarder</button>
+                            <button class="btn btn-danger" type="reset" onclick="history.back()">Annuler</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
