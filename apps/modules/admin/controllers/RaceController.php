@@ -56,6 +56,10 @@ class RaceController extends Controller
         $id = $this->getRequest()->getParam('id');
 
         $data =  Apps::getModel('Race')->load($id);
+
+        $horses = Apps::getModel('Horse')->getHorsesEngagedInRace($id);
+        $this->getView()->addVar('horses', $horses);
+
         if( Request::getInstance()->isPost()){
             $data = Request::getInstance()->getPost();
             $id = Apps::getModel('Race')->update($data);

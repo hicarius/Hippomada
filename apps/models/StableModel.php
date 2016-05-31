@@ -60,9 +60,39 @@ class StableModel extends Model_Abstract
 		}
 	}
 
+	public function update($data)
+	{
+		try{
+
+			$query = "UPDATE stables
+                      SET name = :name, firstname = :firstname, lastname = :lastname, country = :country,
+                                        continent = :continent, level = :level, banque = :banque, gold = :gold,
+                                        email = :email
+                     WHERE id = :id";
+			$stmt = Database::prepare($query);
+
+			$stmt->bindParam(':id', $data['id']);
+			$stmt->bindParam(':name', $data['name']);
+			$stmt->bindParam(':firstname', $data['firstname']);
+			$stmt->bindParam(':lastname', $data['lastname']);
+			$stmt->bindParam(':country', $data['country']);
+			$stmt->bindParam(':continent', $data['continent']);
+			$stmt->bindParam(':level', $data['level']);
+			$stmt->bindParam(':banque', $data['banque']);
+			$stmt->bindParam(':gold', $data['gold']);
+			$stmt->bindParam(':email', $data['email']);
+
+			$stmt->execute();
+			return $data['id'];
+		}catch (Exception $e){
+			$this->addMessage($e->getMessage(), 'danger');
+			return FALSE;
+		}
+	}
+
 	public function getStables()
 	{
-		$query = "SELECT *, CONCAT_WS(' ', firstname, lastname) AS proprietaire FROM stables";
+		$query = "SELECT *, CONCAT_WS(' ', firstname, lastname) AS proprietaire FROM stables ORDER BY id DESC";
 		$stmt = Database::prepare($query);
 		$stmt->execute();
 		return $stmt->fetchAll();
