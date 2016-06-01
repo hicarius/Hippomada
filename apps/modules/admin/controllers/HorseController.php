@@ -19,6 +19,7 @@ class HorseController extends Controller
             'trainer_id' => '',
             'eleveur_id' => '',
             'age' => '',
+            'corde' => '',
             'sexe' => '',
             'quality' => '',
             'quality_production' => '',
@@ -35,7 +36,10 @@ class HorseController extends Controller
 
         if( Request::getInstance()->isPost()){
             $data = Request::getInstance()->getPost();
-            $id = Apps::getModel('Horse')->create($data);
+            $oHorse = Apps::getModel('Horse');
+            $id = $oHorse->create($data);
+            $oHorse->createPerformance($data['perf']);
+            $oHorse->setQualityAndPrice();
             if( $id ) {
                 $this->getView()->redirect('/admin/horse/');
             }

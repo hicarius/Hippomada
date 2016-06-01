@@ -2,14 +2,14 @@
     <div class="col-lg-12">
         <h1 class="page-header">Chéval :: créer :: <?php echo $data['name'] ?></h1>
 
-        <!-- /.col-lg-12 -->
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                Informations primaires
-            </div>
-            <div class="panel-body">
-                <div class="row">
-                    <form role="form" method="post">
+        <form role="form" method="post">
+            <!-- /.col-lg-12 -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Informations primaires
+                </div>
+                <div class="panel-body">
+                    <div class="row">
                         <input type="hidden" name="id" value="<?php echo $data['id'] ?>">
                         <div class="col-lg-6">
 
@@ -43,13 +43,29 @@
                             </div>
                             <div class="form-group input-group">
                                 <span class="input-group-addon">Qualité</span>
-                                <input type="text" name="quality" class="form-control" value="<?php echo $data['quality'] ?>" />
-                                <span class="input-group-addon">étoiles</span>
+                                <span class="input-group-addon">
+                                    <?php $qa = $data['quality']/2; for( $i=1; $i<=5; $i++){ ?>
+                                        <?php if( $qa>=1) { ?>
+                                            <span class="fa fa-star" style="color: #d43f3a"></span>
+                                        <?php }elseif($qa == 0.5){ ?>
+                                            <span class="fa fa-star-half-o" style="color: #d43f3a"></span>
+                                        <?php }else{ ?>
+                                            <span class="fa fa-star-o" style="color: #d43f3a"></span>
+                                        <?php } $qa--; ?>
+                                    <?php } ?>
+                                </span>
                             </div>
                             <div class="form-group input-group">
                                 <span class="input-group-addon">Qualité de reproduction</span>
-                                <input type="text" name="quality_production" class="form-control" value="<?php echo $data['quality_production'] ?>" />
-                                <span class="input-group-addon">étoiles</span>
+                                <span class="input-group-addon">
+                                    <?php for( $i=1; $i<=5; $i++){ ?>
+                                        <?php if( $i <= $data['quality_production']) { ?>
+                                        <span class="fa fa-star" style="color: #d43f3a"></span>
+                                        <?php }else{ ?>
+                                            <span class="fa fa-star-o" style="color: #d43f3a"></span>
+                                        <?php } ?>
+                                    <?php } ?>
+                                </span>
                             </div>
                             <div class="form-group input-group">
                                 <span class="input-group-addon">Père</span>
@@ -112,12 +128,143 @@
                             <button class="btn btn-success" type="submit">Sauvegarder</button>
                             <button class="btn btn-danger" type="reset" onclick="history.back()">Annuler</button>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
-        </div>
 
+            <!-- /.col-lg-12 -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Performances
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <?php
+                        $performances = array(
+                            'base' => array(
+                                array('name' => 'trot', 'min' => 0, 'max' => 120, 'value' => $data['trot_base'] ),
+                                array('name' => 'galop', 'min' => 0, 'max' => 120, 'value' => $data['galop_base'] ),
+                                array('name' => 'endurance', 'min' => 0, 'max' => 120, 'value' => $data['endurance_base']),
+                                array('name' => 'vitesse', 'min' => 0, 'max' => 120, 'value' => $data['vitesse_base']),
+                            ),
+                            'current' => array(
+                                array('name' => 'trot', 'min' => 0, 'max' => 1000, 'value' => $data['trot_current']),
+                                array('name' => 'galop', 'min' => 0, 'max' => 1000, 'value' => $data['galop_current']),
+                                array('name' => 'endurance', 'min' => 0, 'max' => 1000, 'value' => $data['endurance_current']),
+                                array('name' => 'vitesse', 'min' => 0, 'max' => 1000, 'value' => $data['vitesse_current']),
+                            ),
+                            'gene' => array(
+                                array('name' => 'trot', 'min' => 0, 'max' => 100, 'value' => $data['trot_gene']),
+                                array('name' => 'galop', 'min' => 0, 'max' => 100, 'value' => $data['galop_gene']),
+                                array('name' => 'endurance', 'min' => 0, 'max' => 100, 'value' => $data['endurance_gene']),
+                                array('name' => 'vitesse', 'min' => 0, 'max' => 100, 'value' => $data['vitesse_gene']),
+                            ),
+                        );
 
+                        foreach($performances as $key => $perfs){
+                            ?>
+                            <div class="col-lg-4">
+                                <?php foreach($perfs as $perf){ ?>
+                                    <div class="form-group">
+                                        <div style="float: left;width: 25%">
+                                            <label><?php echo ucfirst($perf['name']) . strtoupper($key[0]) ?></label>
+                                        </div>
+                                        <div id="slider-<?php echo $perf['name'] ?>_<?php echo $key ?>" style="width: 60%; float: left;margin: 5px 10px;"></div>
+                                        <div style="width: 4%; float: left;">
+                                            <input type="text" disabled name="perf[<?php echo $perf['name'] ?>_<?php echo $key ?>]" id="amount-<?php echo $perf['name'] ?>_<?php echo $key ?>" value="<?php echo $perf['value'] ?>" size="1" />
+                                        </div>
+
+                                    </div>
+                                <?php } ?>
+                            </div>
+                        <?php } ?>
+                    </div>
+                </div>
+                <div class="panel-footer" style="clear: both">
+                    <div>Physique et Fatigue </div>
+                </div>
+                <div class="panel-footer" style="clear: both">
+                    <div class="row">
+                        <?php
+                        $other_perfs = array(
+                            'left' => array(
+                                array('name' => 'physique', 'min' => 0, 'max' => 100, 'value' => $data['physique']),
+
+                            ),
+                            'right' => array(
+                                array('name' => 'itr', 'min' => 0, 'max' => 200, 'value' => $data['itr']),
+                            ),
+                        );
+
+                        foreach($other_perfs as $key => $perfs){
+                            ?>
+                            <div class="col-lg-6">
+                                <?php foreach($perfs as $perf){ ?>
+                                    <div class="form-group">
+                                        <div style="float: left;width: 25%">
+                                            <label><?php echo ucfirst($perf['name']) ?></label>
+                                        </div>
+                                        <div id="slider-<?php echo $perf['name'] ?>" style="width: 60%; float: left;margin: 5px 10px;"></div>
+                                        <div style="width: 4%; float: left;">
+                                            <input type="text" disabled name="perf[<?php echo $perf['name'] ?>]" id="amount-<?php echo $perf['name'] ?>" value="<?php echo $perf['value'] ?>" size="1" />
+                                        </div>
+                                    </div>
+                                <?php } ?>
+                            </div>
+                        <?php } ?>
+                    </div>
+                </div>
+                <div class="panel-footer" style="clear: both">
+                    <div>Génération des notes par rapport au total</div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Note (1 à 10)</th><th>1 ans</th><th>2 ans</th><th>3 ans</th><th>4 ans</th><th>5 ans</th>
+                                <th>6 ans</th><th>7 ans</th><th>8 ans</th><th>9 ans</th><th>10 ans</th>
+                            </tr>
+                            </thead>
+                            <?php
+                            $arrayData = array(
+                                array('ecart' => 30, 'base' => 10),
+                                array('ecart' => 30, 'base' => 15),
+                                array('ecart' => 30, 'base' => 25),
+                                array('ecart' => 40, 'base' => 30),
+                                array('ecart' => 40, 'base' => 35),
+                                array('ecart' => 45, 'base' => 40),
+                                array('ecart' => 45, 'base' => 45),
+                                array('ecart' => 50, 'base' => 50),
+                                array('ecart' => 55, 'base' => 55),
+                                array('ecart' => 60, 'base' => 60),
+                            );
+                            ?>
+                            <tbody>
+                            <?php foreach($arrayData as $key => $arrayItem) { ?>
+                                <tr>
+                                    <td><?php echo $key+1 ?> (+<?php echo $arrayItem['ecart'] ?>)</td>
+                                    <?php
+                                    $base = $arrayItem['base'];
+                                    for($i=1; $i <=10; $i++) {
+                                        ?>
+                                        <td><?php echo $base ?> / <?php echo $base*4 ?></td>
+                                        <?php
+                                        if( $i > 6){
+                                            $base-=5;
+                                        } else {
+                                            $base += $arrayItem['ecart'];
+                                        }
+                                    }
+                                    ?>
+
+                                </tr>
+                            <?php } ?>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 

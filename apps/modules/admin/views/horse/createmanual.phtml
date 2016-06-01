@@ -1,227 +1,274 @@
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">Chéval :: créer :: Nouveau</h1>
+        <form role="form" method="post">
+            <!-- /.col-lg-12 -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Informations primaires
+                </div>
+                <div class="panel-body">
+                    <div class="row">
 
-        <!-- /.col-lg-12 -->
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                Informations primaires
-            </div>
-            <div class="panel-body">
-                <div class="row">
-                    <form role="form" method="post">
-                        <input type="hidden" name="id" value="<?php echo $data['id'] ?>">
-                        <div class="col-lg-6">
+                            <input type="hidden" name="id" value="<?php echo $data['id'] ?>">
+                            <div class="col-lg-6">
 
-                            <div class="form-group input-group">
-                                <span class="input-group-addon">Nom</span>
-                                <input type="text" name="name" class="form-control" value="<?php echo $data['name'] ?>" />
+                                <div class="form-group input-group">
+                                    <span class="input-group-addon">Nom</span>
+                                    <input type="text" name="name" class="form-control" value="<?php echo $data['name'] ?>" />
+                                </div>
+                                <div class="form-group input-group">
+                                    <span class="input-group-addon">Proprietaire</span>
+                                    <input type="text" name="proprio_id" class="form-control" value="<?php echo $data['proprio_id'] ?>" />
+                                </div>
+                                <div class="form-group input-group">
+                                    <span class="input-group-addon">Entraineur</span>
+                                    <input type="text" name="trainer_id" class="form-control" value="<?php echo $data['trainer_id'] ?>" />
+                                </div>
+                                <div class="form-group input-group">
+                                    <span class="input-group-addon">Eleveur</span>
+                                    <input type="text" name="eleveur_id" class="form-control" value="<?php echo $data['eleveur_id'] ?>" />
+                                </div>
+                                <div class="form-group input-group">
+                                    <span class="input-group-addon">Age</span>
+                                    <input type="text" name="age" class="form-control" value="<?php echo $data['age'] ?>" />
+                                </div>
+                                <div class="form-group input-group">
+                                    <span class="input-group-addon">Sexe</span>
+                                    <select class="form-control" name="sexe">
+                                        <option>--choisir--</option>
+                                        <option <?php echo ($data['sexe'] == 'M') ? 'selected="selected"' : ''; ?> value="M">Male</option>
+                                        <option <?php echo ($data['sexe'] == 'F') ? 'selected="selected"' : ''; ?> value="F">Femele</option>
+                                    </select>
+                                </div>
+                                <div class="form-group input-group">
+                                    <span class="input-group-addon">Corde</span>
+                                    <select class="form-control" name="corde">
+                                        <option>--choisir--</option>
+                                        <option <?php echo ($data['corde'] == 'D') ? 'selected="selected"' : ''; ?> value="D">Droite</option>
+                                        <option <?php echo ($data['corde'] == 'G') ? 'selected="selected"' : ''; ?> value="G">Gauche</option>
+                                    </select>
+                                </div>
+                                <div class="form-group input-group">
+                                    <span class="input-group-addon">Père</span>
+                                    <input type="text" name="father_id" class="form-control" value="<?php echo $data['father_id'] ?>" />
+                                </div>
+                                <div class="form-group input-group">
+                                    <span class="input-group-addon">Mère</span>
+                                    <input type="text" name="mother_id" class="form-control" value="<?php echo $data['mother_id'] ?>" />
+                                </div>
                             </div>
-                            <div class="form-group input-group">
-                                <span class="input-group-addon">Proprietaire</span>
-                                <input type="text" name="proprio_id" class="form-control" value="<?php echo $data['proprio_id'] ?>" />
+                            <div class="col-lg-6">
+                                <div class="form-group input-group">
+                                    <span class="input-group-addon">Origine</span>
+                                    <input type="text" name="origine" class="form-control" value="<?php echo $data['origine'] ?>" />
+                                </div>
+                                <div class="form-group input-group">
+                                    <span class="input-group-addon">Gains</span>
+                                    <input type="text" name="gains" class="form-control" value="<?php echo $data['gains'] ?>" />
+                                    <span class="input-group-addon">turfoos</span>
+                                </div>
+                                <div class="form-group input-group">
+                                    <span class="input-group-addon">Système</span>
+                                    <select class="form-control" name="is_system">
+                                        <option>--choisir--</option>
+                                        <option <?php echo ($data['is_system'] == '1') ? 'selected="selected"' : ''; ?> value="1">Oui</option>
+                                        <option <?php echo ($data['is_system'] == '0') ? 'selected="selected"' : ''; ?> value="0">Non</option>
+                                    </select>
+                                </div>
+                                <div class="form-group input-group">
+                                    <span class="input-group-addon">Qualification</span>
+                                    <select class="form-control" name="is_qualified">
+                                        <option>--choisir--</option>
+                                        <option <?php echo ($data['is_qualified'] == '1') ? 'selected="selected"' : ''; ?> value="1">Qualifié</option>
+                                        <option <?php echo ($data['is_qualified'] == '0') ? 'selected="selected"' : ''; ?> value="0">Non Qualifié</option>
+                                    </select>
+                                </div>
+                                <div class="form-group input-group">
+                                    <span class="input-group-addon">Type</span>
+                                    <select class="form-control" name="type">
+                                        <option>--choisir--</option>
+                                        <option <?php echo ($data['type'] == '0') ? 'selected="selected"' : ''; ?> value="0">Standard</option>
+                                        <option <?php echo ($data['type'] == '1') ? 'selected="selected"' : ''; ?> value="1">- de 1 an</option>
+                                        <option <?php echo ($data['type'] == '2') ? 'selected="selected"' : ''; ?> value="2">Etalons</option>
+                                        <option <?php echo ($data['type'] == '3') ? 'selected="selected"' : ''; ?> value="3">Poulinières</option>
+                                    </select>
+                                </div>
+                                <div class="form-group input-group">
+                                    <span class="input-group-addon">Status</span>
+                                    <select class="form-control" name="status">
+                                        <option>--choisir--</option>
+                                        <option <?php echo ($data['status'] == '1') ? 'selected="selected"' : ''; ?> value="1">Actif</option>
+                                        <option <?php echo ($data['status'] == '0') ? 'selected="selected"' : ''; ?> value="0">Inactif</option>
+                                    </select>
+                                </div>
+                                <button class="btn btn-success" type="submit">Sauvegarder</button>
+                                <button class="btn btn-danger" type="reset" onclick="history.back()">Annuler</button>
                             </div>
-                            <div class="form-group input-group">
-                                <span class="input-group-addon">Entraineur</span>
-                                <input type="text" name="trainer_id" class="form-control" value="<?php echo $data['trainer_id'] ?>" />
-                            </div>
-                            <div class="form-group input-group">
-                                <span class="input-group-addon">Eleveur</span>
-                                <input type="text" name="eleveur_id" class="form-control" value="<?php echo $data['eleveur_id'] ?>" />
-                            </div>
-                            <div class="form-group input-group">
-                                <span class="input-group-addon">Age</span>
-                                <input type="text" name="age" class="form-control" value="<?php echo $data['age'] ?>" />
-                            </div>
-                            <div class="form-group input-group">
-                                <span class="input-group-addon">Sexe</span>
-                                <select class="form-control" name="sexe">
-                                    <option>--choisir--</option>
-                                    <option <?php echo ($data['sexe'] == 'M') ? 'selected="selected"' : ''; ?> value="M">Male</option>
-                                    <option <?php echo ($data['sexe'] == 'F') ? 'selected="selected"' : ''; ?> value="F">Femele</option>
-                                </select>
-                            </div>
-                            <div class="form-group input-group">
-                                <span class="input-group-addon">Qualité</span>
-                                <input type="text" name="quality" class="form-control" value="<?php echo $data['quality'] ?>" />
-                                <span class="input-group-addon">étoiles</span>
-                            </div>
-                            <div class="form-group input-group">
-                                <span class="input-group-addon">Qualité de reproduction</span>
-                                <input type="text" name="quality_production" class="form-control" value="<?php echo $data['quality_production'] ?>" />
-                                <span class="input-group-addon">étoiles</span>
-                            </div>
-                            <div class="form-group input-group">
-                                <span class="input-group-addon">Père</span>
-                                <input type="text" name="father_id" class="form-control" value="<?php echo $data['father_id'] ?>" />
-                            </div>
-                            <div class="form-group input-group">
-                                <span class="input-group-addon">Mère</span>
-                                <input type="text" name="mother_id" class="form-control" value="<?php echo $data['mother_id'] ?>" />
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group input-group">
-                                <span class="input-group-addon">Origine</span>
-                                <input type="text" name="origine" class="form-control" value="<?php echo $data['origine'] ?>" />
-                            </div>
-                            <div class="form-group input-group">
-                                <span class="input-group-addon">Gains</span>
-                                <input type="text" name="gains" class="form-control" value="<?php echo $data['gains'] ?>" />
-                                <span class="input-group-addon">turfoos</span>
-                            </div>
-                            <div class="form-group input-group">
-                                <span class="input-group-addon">Système</span>
-                                <select class="form-control" name="is_system">
-                                    <option>--choisir--</option>
-                                    <option <?php echo ($data['is_system'] == '1') ? 'selected="selected"' : ''; ?> value="1">Oui</option>
-                                    <option <?php echo ($data['is_system'] == '0') ? 'selected="selected"' : ''; ?> value="0">Non</option>
-                                </select>
-                            </div>
-                            <div class="form-group input-group">
-                                <span class="input-group-addon">Qualification</span>
-                                <select class="form-control" name="is_qualified">
-                                    <option>--choisir--</option>
-                                    <option <?php echo ($data['is_qualified'] == '1') ? 'selected="selected"' : ''; ?> value="1">Qualifié</option>
-                                    <option <?php echo ($data['is_qualified'] == '0') ? 'selected="selected"' : ''; ?> value="0">Non Qualifié</option>
-                                </select>
-                            </div>
-                            <div class="form-group input-group">
-                                <span class="input-group-addon">Type</span>
-                                <select class="form-control" name="type">
-                                    <option>--choisir--</option>
-                                    <option <?php echo ($data['type'] == '0') ? 'selected="selected"' : ''; ?> value="0">Standard</option>
-                                    <option <?php echo ($data['type'] == '1') ? 'selected="selected"' : ''; ?> value="1">- de 1 an</option>
-                                    <option <?php echo ($data['type'] == '2') ? 'selected="selected"' : ''; ?> value="2">Etalons</option>
-                                    <option <?php echo ($data['type'] == '3') ? 'selected="selected"' : ''; ?> value="3">Poulinières</option>
-                                </select>
-                            </div>
-                            <div class="form-group input-group">
-                                <span class="input-group-addon">Status</span>
-                                <select class="form-control" name="status">
-                                    <option>--choisir--</option>
-                                    <option <?php echo ($data['status'] == '1') ? 'selected="selected"' : ''; ?> value="1">Actif</option>
-                                    <option <?php echo ($data['status'] == '0') ? 'selected="selected"' : ''; ?> value="0">Inactif</option>
-                                </select>
-                            </div>
-                            <button class="btn btn-success" type="submit">Sauvegarder</button>
-                            <button class="btn btn-danger" type="reset" onclick="history.back()">Annuler</button>
-                        </div>
-                    </form>
+
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- /.col-lg-12 -->
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                Performances
-            </div>
-            <div class="panel-body">
-                <div class="row">
-                    <?php
-                    $performances = array(
-                        'base' => array(
-                            array('name' => 'trot', 'min' => 0, 'max' => 500, 'value' => 300),
-                            array('name' => 'galop', 'min' => 0, 'max' => 500, 'value' => 300),
-                            array('name' => 'endurance', 'min' => 0, 'max' => 500, 'value' => 300),
-                            array('name' => 'vitesse', 'min' => 0, 'max' => 500, 'value' => 300),
-                        ),
-                        'current' => array(
-                            array('name' => 'trot', 'min' => 0, 'max' => 1000, 'value' => 300),
-                            array('name' => 'galop', 'min' => 0, 'max' => 1000, 'value' => 300),
-                            array('name' => 'endurance', 'min' => 0, 'max' => 1000, 'value' => 300),
-                            array('name' => 'vitesse', 'min' => 0, 'max' => 1000, 'value' => 300),
-                        ),
-                        'gene' => array(
-                            array('name' => 'trot', 'min' => 0, 'max' => 100, 'value' => 30),
-                            array('name' => 'galop', 'min' => 0, 'max' => 100, 'value' => 30),
-                            array('name' => 'endurance', 'min' => 0, 'max' => 100, 'value' => 30),
-                            array('name' => 'vitesse', 'min' => 0, 'max' => 100, 'value' => 30),
-                        ),
-                    );
+            <!-- /.col-lg-12 -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Performances
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <?php
+                        $performances = array(
+                            'base' => array(
+                                array('name' => 'trot', 'min' => 0, 'max' => 120, 'value' => 60),
+                                array('name' => 'galop', 'min' => 0, 'max' => 120, 'value' => 60),
+                                array('name' => 'endurance', 'min' => 0, 'max' => 120, 'value' => 60),
+                                array('name' => 'vitesse', 'min' => 0, 'max' => 120, 'value' => 60),
+                            ),
+                            'current' => array(
+                                array('name' => 'trot', 'min' => 0, 'max' => 1000, 'value' => 0),
+                                array('name' => 'galop', 'min' => 0, 'max' => 1000, 'value' => 0),
+                                array('name' => 'endurance', 'min' => 0, 'max' => 1000, 'value' => 0),
+                                array('name' => 'vitesse', 'min' => 0, 'max' => 1000, 'value' => 0),
+                            ),
+                            'gene' => array(
+                                array('name' => 'trot', 'min' => 0, 'max' => 100, 'value' => 100),
+                                array('name' => 'galop', 'min' => 0, 'max' => 100, 'value' => 100),
+                                array('name' => 'endurance', 'min' => 0, 'max' => 100, 'value' => 100),
+                                array('name' => 'vitesse', 'min' => 0, 'max' => 100, 'value' => 100),
+                            ),
+                        );
 
-                    foreach($performances as $key => $perfs){
-                    ?>
-                    <div class="col-lg-4">
-                        <?php foreach($perfs as $perf){ ?>
-                        <div class="form-group">
-                            <div style="float: left;width: 25%">
-                                <label><?php echo ucfirst($perf['name']) . strtoupper($key[0]) ?></label>
-                            </div>
-                            <div id="slider-<?php echo $perf['name'] ?>_<?php echo $key ?>" style="width: 60%; float: left;margin: 5px 10px;"></div>
-                            <div style="width: 4%; float: left;">
-                                <input type="text" name="<?php echo $perf['name'] ?>_<?php echo $key ?>" id="amount-<?php echo $perf['name'] ?>_<?php echo $key ?>" value="50" size="1" />
-                            </div>
-                            <script>
-                                $(document).ready(function() {
-                                    $( "#slider-<?php echo $perf['name'] ?>_<?php echo $key ?>" ).slider({
-                                        range: "min",
-                                        min: <?php echo $perf['min'] ?>,
-                                        max: <?php echo $perf['max'] ?>,
-                                        value:<?php echo $perf['value'] ?>,
-                                        slide: function( event, ui ) {
-                                            $( "#amount-<?php echo $perf['name'] ?>_<?php echo $key ?>" ).val( ui.value );
-                                        }
+                        foreach($performances as $key => $perfs){
+                        ?>
+                        <div class="col-lg-4">
+                            <?php foreach($perfs as $perf){ ?>
+                            <div class="form-group">
+                                <div style="float: left;width: 25%">
+                                    <label><?php echo ucfirst($perf['name']) . strtoupper($key[0]) ?></label>
+                                </div>
+                                <div id="slider-<?php echo $perf['name'] ?>_<?php echo $key ?>" style="width: 60%; float: left;margin: 5px 10px;"></div>
+                                <div style="width: 4%; float: left;">
+                                    <input type="text" name="perf[<?php echo $perf['name'] ?>_<?php echo $key ?>]" id="amount-<?php echo $perf['name'] ?>_<?php echo $key ?>" value="" size="1" />
+                                </div>
+                                <script>
+                                    $(document).ready(function() {
+                                        $( "#slider-<?php echo $perf['name'] ?>_<?php echo $key ?>" ).slider({
+                                            range: "min",
+                                            min: <?php echo $perf['min'] ?>,
+                                            max: <?php echo $perf['max'] ?>,
+                                            value:<?php echo $perf['value'] ?>,
+                                            slide: function( event, ui ) {
+                                                $( "#amount-<?php echo $perf['name'] ?>_<?php echo $key ?>" ).val( ui.value );
+                                            }
+                                        });
+                                        $( "#amount-<?php echo $perf['name'] ?>_<?php echo $key ?>" ).val( $( "#slider-<?php echo $perf['name'] ?>_<?php echo $key ?>" ).slider( "value" ) );
                                     });
-                                    $( "#amount-<?php echo $perf['name'] ?>_<?php echo $key ?>" ).val( $( "#slider-<?php echo $perf['name'] ?>_<?php echo $key ?>" ).slider( "value" ) );
-                                });
-                            </script>
+                                </script>
+                            </div>
+                            <?php } ?>
                         </div>
                         <?php } ?>
                     </div>
-                    <?php } ?>
-                    <div class="panel-footer" style="clear: both">
-                        <div>Génération des notes par rapport au total:</div>
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th>Note (1 à 10)</th><th>1 ans</th><th>2 ans</th><th>3 ans</th><th>4 ans</th><th>5 ans</th>
-                                    <th>6 ans</th><th>7 ans</th><th>8 ans</th><th>9 ans</th><th>10 ans</th>
-                                </tr>
-                                </thead>
-                                <?php
-                                $arrayData = array(
-                                    array('ecart' => 30, 'base' => 10),
-                                    array('ecart' => 30, 'base' => 15),
-                                    array('ecart' => 30, 'base' => 25),
-                                    array('ecart' => 40, 'base' => 30),
-                                    array('ecart' => 40, 'base' => 35),
-                                    array('ecart' => 45, 'base' => 40),
-                                    array('ecart' => 45, 'base' => 45),
-                                    array('ecart' => 50, 'base' => 50),
-                                    array('ecart' => 55, 'base' => 55),
-                                    array('ecart' => 60, 'base' => 60),
-                                );
-                                ?>
-                                <tbody>
-                                <?php foreach($arrayData as $key => $arrayItem) { ?>
-                                <tr>
-                                    <td><?php echo $key+1 ?> (+<?php echo $arrayItem['ecart'] ?>)</td>
-                                    <?php
-                                    $base = $arrayItem['base'];
-                                    for($i=1; $i <=10; $i++) {
-                                    ?>
-                                        <td><?php echo $base ?> / <?php echo $base*4 ?></td>
-                                    <?php
-                                        if( $i > 6){
-                                            $base-=5;
-                                        } else {
-                                            $base += $arrayItem['ecart'];
-                                        }
-                                    }
-                                    ?>
+                </div>
+                <div class="panel-footer" style="clear: both">
+                    <div>Physique et Fatigue </div>
+                </div>
+                <div class="panel-footer" style="clear: both">
+                    <div class="row">
+                        <?php
+                        $other_perfs = array(
+                            'left' => array(
+                                array('name' => 'physique', 'min' => 0, 'max' => 100, 'value' => 100),
 
-                                </tr>
+                            ),
+                            'right' => array(
+                                array('name' => 'itr', 'min' => 0, 'max' => 200, 'value' => 100),
+                            ),
+                        );
+
+                        foreach($other_perfs as $key => $perfs){
+                            ?>
+                            <div class="col-lg-6">
+                                <?php foreach($perfs as $perf){ ?>
+                                    <div class="form-group">
+                                        <div style="float: left;width: 25%">
+                                            <label><?php echo ucfirst($perf['name']) ?></label>
+                                        </div>
+                                        <div id="slider-<?php echo $perf['name'] ?>" style="width: 60%; float: left;margin: 5px 10px;"></div>
+                                        <div style="width: 4%; float: left;">
+                                            <input type="text" name="perf[<?php echo $perf['name'] ?>]" id="amount-<?php echo $perf['name'] ?>" value="" size="1" />
+                                        </div>
+                                        <script>
+                                            $(document).ready(function() {
+                                                $( "#slider-<?php echo $perf['name'] ?>" ).slider({
+                                                    range: "min",
+                                                    min: <?php echo $perf['min'] ?>,
+                                                    max: <?php echo $perf['max'] ?>,
+                                                    value:<?php echo $perf['value'] ?>,
+                                                    slide: function( event, ui ) {
+                                                        $( "#amount-<?php echo $perf['name'] ?>" ).val( ui.value );
+                                                    }
+                                                });
+                                                $( "#amount-<?php echo $perf['name'] ?>" ).val( $( "#slider-<?php echo $perf['name'] ?>" ).slider( "value" ) );
+                                            });
+                                        </script>
+                                    </div>
                                 <?php } ?>
+                            </div>
+                        <?php } ?>
+                    </div>
+                </div>
+                <div class="panel-footer" style="clear: both">
+                    <div>Génération des notes par rapport au total</div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Note (1 à 10)</th><th>1 ans</th><th>2 ans</th><th>3 ans</th><th>4 ans</th><th>5 ans</th>
+                                <th>6 ans</th><th>7 ans</th><th>8 ans</th><th>9 ans</th><th>10 ans</th>
+                            </tr>
+                            </thead>
+                            <?php
+                            $arrayData = array(
+                                array('ecart' => 30, 'base' => 10),
+                                array('ecart' => 30, 'base' => 15),
+                                array('ecart' => 30, 'base' => 25),
+                                array('ecart' => 40, 'base' => 30),
+                                array('ecart' => 40, 'base' => 35),
+                                array('ecart' => 45, 'base' => 40),
+                                array('ecart' => 45, 'base' => 45),
+                                array('ecart' => 50, 'base' => 50),
+                                array('ecart' => 55, 'base' => 55),
+                                array('ecart' => 60, 'base' => 60),
+                            );
+                            ?>
+                            <tbody>
+                            <?php foreach($arrayData as $key => $arrayItem) { ?>
+                            <tr>
+                                <td><?php echo $key+1 ?> (+<?php echo $arrayItem['ecart'] ?>)</td>
+                                <?php
+                                $base = $arrayItem['base'];
+                                for($i=1; $i <=10; $i++) {
+                                ?>
+                                    <td><?php echo $base ?> / <?php echo $base*4 ?></td>
+                                <?php
+                                    if( $i > 6){
+                                        $base-=5;
+                                    } else {
+                                        $base += $arrayItem['ecart'];
+                                    }
+                                }
+                                ?>
 
-                                </tbody>
-                            </table>
-                        </div>
+                            </tr>
+                            <?php } ?>
+
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>

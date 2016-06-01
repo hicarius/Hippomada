@@ -244,7 +244,7 @@ h1 span, h2 span, h3 span, h4 span, h5 span, h6 span { color: #C86F06; }
 	float: right;
 }
 
-#logo-img, #textual { float: left; max-width:100%; }
+#logo-img, #textual { float: left; max-width:90%; }
 
 #logo-img + #tagline { line-height: 3.1em }
 #textual + #tagline { line-height: 0.6em; }

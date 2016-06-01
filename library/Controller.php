@@ -26,7 +26,7 @@ class Controller extends Controller_Abstract
         }
 
         if( !Session::isConnected()) {
-            if($oRequest->getAction() == 'Creation' || $oRequest->getAction() == 'Connect' || $oRequest->getAction() == 'Login' ) {
+            if($oRequest->getAction() == 'Create' || $oRequest->getAction() == 'Connect' || $oRequest->getAction() == 'Login' ) {
 
             }else{
                 $oRequest
