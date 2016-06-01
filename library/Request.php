@@ -36,4 +36,9 @@ class Request extends Request_Abstract
     {
         return $_POST;
     }
+
+    public function isPost()
+    {
+        return count($_POST);
+    }
 }

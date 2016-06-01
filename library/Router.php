@@ -53,8 +53,13 @@ class Router
 
     protected static function _setArgs()
     {
-        if( count( self::$_tRequest ) > (3 - self::_useDefaultModule()) )
-          $tParam = array_slice ( self::$_tRequest, (3 - self::_useDefaultModule()) );
+        if(self::_useDefaultModule()){
+            $reduction = 0;
+        }else {
+            $reduction = 1;
+        }
+        if( count( self::$_tRequest ) > (4 - $reduction) )
+          $tParam = array_slice ( self::$_tRequest, (4 - $reduction) );
         else
           $tParam =  array();
 
@@ -69,6 +74,7 @@ class Router
             else
                 $tArgs[$sNextKey] = $sValue;
         }
+
         Request::setParam('args', $tArgs);
     }
 

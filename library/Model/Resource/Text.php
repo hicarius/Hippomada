@@ -6,11 +6,10 @@ class Text
 	public static function __($text)
 	{
 		$data = self::parseSEO();
-		if(isset($data[$text])) {
+		if(isset($data[$text]))
 			return utf8_encode($data[$text]);
-		}else{
+		else
 			return utf8_encode($text);
-		}
 	}
 
 	static function parseSEO()

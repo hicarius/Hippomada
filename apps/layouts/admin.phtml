@@ -12,6 +12,8 @@
 	<!-- Bootstrap Core CSS -->
 	<link href="/themes/admin/css/bootstrap.min.css" rel="stylesheet">
 
+	<link href="/themes/admin/jquery-ui-1.11.4/jquery-ui.min.css" rel="stylesheet">
+
 	<!-- MetisMenu CSS -->
 	<link href="/themes/admin/css/metisMenu.min.css" rel="stylesheet">
 
@@ -33,6 +35,23 @@
 	<!-- script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script  -->
 	<!--script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script -->
 	<![endif]-->
+	<!-- jQuery -->
+	<script src="/themes/admin/js/jquery.min.js"></script>
+	<script src="/themes/admin/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+
+	<!-- Bootstrap Core JavaScript -->
+	<script src="/themes/admin/js/bootstrap.min.js"></script>
+
+	<!-- Metis Menu Plugin JavaScript -->
+	<script src="/themes/admin/js/metisMenu.min.js"></script>
+
+
+
+
+
+
+	<!-- Custom Theme JavaScript -->
+	<script src="/themes/admin/js/sb-admin-2.js"></script>
 
 </head>
 <body class="">
@@ -47,6 +66,7 @@
 			<?php Layout::render('admin/menu-left'); ?>
 		</nav>
 		<div id="page-wrapper">
+			<?php Layout::render('admin/message'); ?>
 			<?php echo Layout::renderView($content) ?>
 		</div>
 		<!-- /#page-wrapper -->
@@ -54,21 +74,6 @@
 	<!-- /#wrapper -->
 
 
-	<!-- jQuery -->
-	<script src="/themes/admin/js/jquery.min.js"></script>
 
-	<!-- Bootstrap Core JavaScript -->
-	<script src="/themes/admin/js/bootstrap.min.js"></script>
-
-	<!-- Metis Menu Plugin JavaScript -->
-	<script src="/themes/admin/js/metisMenu.min.js"></script>
-
-	<!-- Morris Charts JavaScript -->
-	<script src="/themes/admin/js/raphael-min.js"></script>
-	<script src="/themes/admin/js/morris.min.js"></script>
-	<script src="/themes/admin/js/morris-data.js"></script>
-
-	<!-- Custom Theme JavaScript -->
-	<script src="/themes/admin/js/sb-admin-2.js"></script>
 </body>
 </html>

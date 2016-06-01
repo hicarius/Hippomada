@@ -1,0 +1,117 @@
+<!-- DataTables JavaScript -->
+<script src="/themes/admin/datatables/media/js/jquery.dataTables.min.js"></script>
+<script src="/themes/admin/bootstrap/datatables/dataTables.bootstrap.min.js"></script>
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Les écuries :: modifier :: <?php echo $stable['name'] ?></h1>
+
+        <!-- /.col-lg-12 -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Informations de l'écurie
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <form role="form" method="post">
+                        <input type="hidden" name="id" value="<?php echo $stable['id'] ?>">
+                        <div class="col-lg-6">
+
+                            <div class="form-group input-group">
+                                <span class="input-group-addon">Ecurie</span>
+                                <input type="text" name="name" class="form-control" value="<?php echo $stable['name'] ?>" />
+                            </div>
+                            <div class="form-group input-group">
+                                <span class="input-group-addon">Nom (proprio)</span>
+                                <input type="text" name="lastname" class="form-control" value="<?php echo $stable['lastname'] ?>" />
+                            </div>
+                            <div class="form-group input-group">
+                                <span class="input-group-addon">Prénom (proprio)</span>
+                                <input type="text" name="firstname" class="form-control" value="<?php echo $stable['firstname'] ?>" />
+                            </div>
+                            <div class="form-group input-group">
+                                <span class="input-group-addon">Niveau</span>
+                                <input type="text" name="level" class="form-control" value="<?php echo $stable['level'] ?>" />
+                                <span class="input-group-addon">étoiles</span>
+                            </div>
+                            <div class="form-group input-group">
+                                <span class="input-group-addon">Solde</span>
+                                <input type="text" name="banque" class="form-control" value="<?php echo $stable['banque'] ?>" />
+                                <span class="input-group-addon">turfoos</span>
+                            </div>
+                            <div class="form-group input-group">
+                                <span class="input-group-addon">Gold</span>
+                                <input type="text" name="gold" class="form-control" value="<?php echo $stable['gold'] ?>" />
+                                <span class="input-group-addon">turfoos</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group input-group">
+                                <span class="input-group-addon">Email</span>
+                                <input type="text" name="email" class="form-control" value="<?php echo $stable['email'] ?>" />
+                            </div>
+                            <button class="btn btn-success" type="submit">Sauvegarder</button>
+                            <button class="btn btn-danger" type="reset" onclick="history.back()">Annuler</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Les chevaux
+            </div>
+            <div class="panel-body">
+                <div class="dataTable_wrapper">
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-ecurie-cheval">
+                        <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Sexe/Age</th>
+                            <th>Qual./Repr.</th>
+                            <th>Propriétaire</th>
+                            <th>Entraineur</th>
+                            <th>Eleveur</th>
+                            <th>Père</th>
+                            <th>Mère</th>
+                            <th>Prix</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th>Système</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php  foreach($horses as $horse) { ?>
+                            <tr class="">
+                                <td><a href="/admin/horse/edit/id/<?php echo $horse['id'] ?>"><?php echo $horse['name'] ?></a></td>
+                                <td><?php echo $horse['sexe'] ?><?php echo $horse['age'] ?></td>
+                                <td><?php echo $horse['quality'] ?>/<?php echo $horse['quality_production'] ?></td>
+                                <td><?php echo $horse['proprio'] ?></td>
+                                <td><?php echo $horse['trainer'] ?></td>
+                                <td><?php echo $horse['eleveur'] ?></td>
+                                <td><?php echo $horse['father'] ?></td>
+                                <td><?php echo $horse['mother'] ?></td>
+                                <td><?php echo $horse['evaluation_price'] ?></td>
+                                <td><?php echo $horse['type'] ?></td>
+                                <td><?php echo $horse['status'] ?></td>
+                                <td><?php echo $horse['is_system'] ?></td>
+                            </tr>
+                        <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#dataTables-ecurie-cheval').DataTable({
+            responsive: true
+        });
+    });
+</script>
+
