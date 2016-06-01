@@ -60,6 +60,24 @@ class HorseModel extends Model_Abstract
 		}
 	}
 
+	public function loadByName($text, $additional)
+	{
+		$where =  'AND ';
+		foreach($additional as $k => $column){
+			$where .= "$k = $column ";
+		}
+
+		$query = "SELECT id, name FROM horses WHERE 1 $where AND lower(name) LIKE '%".strtolower($text)."%'";
+		$stmt = Database::prepare($query);
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+		if (count($result)>0) {
+			return $result;
+		} else {
+			return 'no_data_found';
+		}
+	}
+
 	public function create($data)
 	{
 		try{
@@ -178,22 +196,29 @@ class HorseModel extends Model_Abstract
 	public function setQualityAndPrice()
 	{
 		$status	= $this->_horseData['status'];
+		$type	= $this->_horseData['type'];
 		$production = $this->getQualityProduction();
 		$note = $this->getQuality();
 
-
-		if($status == 0){
-			$price =  $production['price'];
-		} else {
-			$price =   $note['price'] + $production['price'];
+		$evaluation_price = 0;
+		$production_price = 0;
+		if($type == 2 || $type == 3){
+			$production_price =  $production['price'];
 		}
+
+		if($status != 0){
+			$evaluation_price =   $note['price'];
+		}
+		$price = $evaluation_price + $production_price;
 
 		//save price and quality_production and ITR
 		$query = "UPDATE horses
-					SET evaluation_price = :evaluation_price, quality= :quality, quality_production = :quality_production
+					SET evaluation_price = :evaluation_price, production_price = :production_price, price = :price, quality= :quality, quality_production = :quality_production
 					WHERE id = :id";
 		$stmt = Database::prepare($query);
-		$stmt->bindParam(':evaluation_price', $price);
+		$stmt->bindParam(':evaluation_price', $production_price);
+		$stmt->bindParam(':production_price', $evaluation_price);
+		$stmt->bindParam(':price', $price);
 		$stmt->bindParam(':quality', $note['quality']);
 		$stmt->bindParam(':quality_production', $production['quality']);
 		$stmt->bindParam(':id', $this->_horseData['id']);
@@ -214,12 +239,14 @@ class HorseModel extends Model_Abstract
 		$stmt->execute();
 	}
 
-	public function getQualityProduction()
+	public function getQualityProduction($itr = null)
 	{
-		if($this->_horseData['type'] == 3){
-			$itr = $this->getFatherITR();
-		} else {
-			$itr = $this->_horseData['itr'];
+		if( $itr == null ) {
+			if ($this->_horseData['type'] == 3) {
+				$itr = $this->getFatherITR();
+			} else {
+				$itr = $this->_horseData['itr'];
+			}
 		}
 
 		switch($itr){
@@ -249,10 +276,16 @@ class HorseModel extends Model_Abstract
 		return array('quality' => $qualityProduction, 'price' => $price);
 	}
 
-	public function getQuality()
+	public function getQuality($horse = null)
 	{
-		$configsNote = array(0, 40, 60, 100, 120, 140, 160, 180, 200, 220, 240);
-		$totalPerfBase = $this->_horseData['trot_base'] + $this->_horseData['galop_base'] + $this->_horseData['endurance_base'] + $this->_horseData['vitesse_base'];
+		//$configsNote = array(0, 40, 60, 100, 120, 140, 160, 180, 200, 220, 240);
+		$configsNote = array(0, 30, 45, 75, 90, 105, 120, 135, 150, 165, 180);
+		if($horse == null){
+			$totalPerfBase = $this->_horseData['trot_base'] + $this->_horseData['galop_base'] + $this->_horseData['endurance_base'] + $this->_horseData['vitesse_base'];
+		}else{
+			$totalPerfBase = $horse->perf->trot_base + $horse->perf->galop_base + $horse->perf->endurance_base + $horse->perf->vitesse_base;
+		}
+
 
 		foreach($configsNote as $k => $v){
 			if(isset($configsNote[$k + 1])) {
@@ -304,4 +337,154 @@ class HorseModel extends Model_Abstract
 
 		return $father['itr'];
 	}
+
+	public function generate($etalonId, $pouleId)
+	{
+		$horse = new stdClass();
+
+		//HORSE DATA
+		//get father data
+		$horse->father_id = $etalonId;
+		$fatherData = $this->load($etalonId, false);
+		//get father data of mother
+		$horse->mother_id = $pouleId;
+		$motherData = $this->load($pouleId, false);
+		if($motherData['father_id']) {
+			$fatherOfMotherData = $this->load($motherData['father_id'], false);
+		}else{
+			$fatherOfMotherData =  null;
+		}
+
+		//name
+		$horse->name = 'NoName'. rand(100, 99999);
+		//age
+		$horse->age = rand(2,10);
+		//proprietaire/entraineur/jockey ID en fonction de l'age
+		$proprio_id = $this->_getDefaultStableForCreation($horse->age);
+		$horse->proprio_id = $proprio_id;
+		$horse->trainer_id = $proprio_id;
+		$horse->eleveur_id = $proprio_id;
+		//sexe
+		$sexeShuffle = str_shuffle('FM');
+		$horse->sexe = $sexeShuffle[0];
+		//corde
+		if($fatherOfMotherData ==  null){
+			$cordeShuffle = str_shuffle("{$fatherData['corde']}{$motherData['corde']}");
+		}else{
+			$cordeShuffle = str_shuffle("{$fatherData['corde']}{$fatherOfMotherData['corde']}{$motherData['corde']}");
+		}
+
+		$horse->corde = $cordeShuffle[0];
+		//gains
+		$horse->gains = 0;
+		//origine
+		$horse->origine = $fatherData['origine'];
+		//status 0=inactif, 1=actif
+		$horse->status = 1;
+		//type 0=standard, 1=-1an, 2=etalon, 3=poulinières
+		$horse->type = 0;
+		//qualifié
+		$horse->is_qualified = 0;
+		//système
+		$horse->is_system = 0;
+
+		//HORSE PERFORMANCE DATA
+		$horse->perf = new stdClass();
+		//ITR
+		if($horse->sexe == 'F'){
+			$horse->perf->itr = $fatherData['itr'];
+		}else{
+			$horse->perf->itr = 1;
+		}
+
+		//Qualité de réproduction
+		$QReprodutcion = $this->getQualityProduction($horse->perf->itr);
+		$horse->quality_production = $QReprodutcion['quality'];
+		$horse->production_price = 0;
+
+		//Qualité d'évaluation BTR --> 33% père, 33% père de mère, 33% random
+		$this->getBasePerf($horse, 'trot', $fatherData, $fatherOfMotherData);
+		$this->getBasePerf($horse, 'galop', $fatherData, $fatherOfMotherData);
+		$this->getBasePerf($horse, 'endurance', $fatherData, $fatherOfMotherData);
+		$this->getBasePerf($horse, 'vitesse', $fatherData, $fatherOfMotherData);
+
+		$QEvaluation = $this->getQuality($horse);
+		$horse->quality = $QEvaluation['quality'];
+		$horse->evaluation_price = $QEvaluation['price'];
+
+		//moyenne des BTR de ses parents
+		$this->getGenePerf($horse, 'trot', $fatherData, $fatherOfMotherData, $motherData);
+		$this->getGenePerf($horse, 'galop', $fatherData, $fatherOfMotherData, $motherData);
+		$this->getGenePerf($horse, 'endurance', $fatherData, $fatherOfMotherData, $motherData);
+		$this->getGenePerf($horse, 'vitesse', $fatherData, $fatherOfMotherData, $motherData);
+
+		//base * multiplier selon l'age
+		$this->getCurrentPerf($horse, 'trot', $fatherData, $fatherOfMotherData, $motherData);
+		$this->getCurrentPerf($horse, 'galop', $fatherData, $fatherOfMotherData, $motherData);
+		$this->getCurrentPerf($horse, 'endurance', $fatherData, $fatherOfMotherData, $motherData);
+		$this->getCurrentPerf($horse, 'vitesse', $fatherData, $fatherOfMotherData, $motherData);
+
+
+		return $horse;
+	}
+
+	/**
+	 * BTR --> 33% père, 33% père de mère, 33% random
+	 * si gene = 100%, 33% du 100%
+	 * @param $horse
+	 */
+	public function getBasePerf(&$horse, $perfKey ,$fatherData, $fatherOfMotherData)
+	{
+		//BASE
+		//father
+		$fatherGenetic = $fatherData[$perfKey . '_base'] * $fatherData[$perfKey . '_gene'] / 100 ;
+		$parFather = $fatherGenetic * 33 / 100 ;
+
+		//father of mother
+		if($fatherOfMotherData == null){
+			$parFatherOfMother = $parFather;
+		}else{
+			$fatherOfMotherGenetic = $fatherOfMotherData[$perfKey . '_base'] * $fatherOfMotherData[$perfKey . '_gene'] / 100 ;
+			$parFatherOfMother = $fatherOfMotherGenetic * 33 / 100 ;
+		}
+
+		//random
+		$parRandom = rand(0, $parFather) * 33 / 100;
+		$perfCode = "{$perfKey}_base";
+		$horse->perf->$perfCode = $parFather + $parFatherOfMother + $parRandom;
+	}
+
+	/**
+	 * BTR --> (moyenne des BTR de ses parents
+	 * @param $horse
+	 */
+	public function getGenePerf(&$horse, $perfKey ,$fatherData, $fatherOfMotherData, $motherData)
+	{
+		$btrCode = "{$perfKey}_gene";
+		if($fatherOfMotherData == null){
+			$horse->perf->$btrCode = ($fatherData[$perfKey . '_gene'] + $fatherData[$perfKey . '_gene'] + $motherData[$perfKey . '_gene']) / 3;
+		}else{
+			$horse->perf->$btrCode = ($fatherData[$perfKey . '_gene'] + $fatherOfMotherData[$perfKey . '_gene'] + $motherData[$perfKey . '_gene']) / 3;
+		}
+	}
+
+	/**
+	 * BTR --> (moyenne des BTR de ses parents
+	 * @param $horse
+	 */
+	public function getCurrentPerf(&$horse, $perfKey)
+	{
+		//CURRENT
+		$additionnalEcart = array(0, 30, 30, 30, 40, 40, 45, 45, 50, 55, 60);
+		$multiplier = $horse->age - 1;
+
+		$perfBase = "{$perfKey}_base";
+		$perfCurrent = "{$perfKey}_current";
+		if($horse->perf->$perfBase == 0){
+			$horse->perf->$perfCurrent = 0;
+		}else{
+			$horse->perf->$perfCurrent = $horse->perf->$perfBase + $additionnalEcart[$horse->quality] * $multiplier;
+		}
+	}
+
 }

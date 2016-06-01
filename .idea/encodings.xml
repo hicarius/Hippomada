@@ -2,6 +2,7 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/apps/models/StableModel.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/apps/modules/admin/views/horse/createauto.phtml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/apps/modules/admin/views/horse/createmanual.phtml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/apps/modules/admin/views/horse/edit.phtml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/apps/modules/admin/views/horse/index.phtml" charset="UTF-8" />

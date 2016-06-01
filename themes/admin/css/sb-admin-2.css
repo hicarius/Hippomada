@@ -27,6 +27,10 @@ body {
     }
 }
 
+.ui-autocomplete-loading {
+    background: white url("/themes/admin/ui-anim_basic_16x16.gif") right center no-repeat;
+}
+
 .navbar-top-links {
     margin-right: 0;
 }

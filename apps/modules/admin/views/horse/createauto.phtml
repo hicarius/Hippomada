@@ -1,0 +1,112 @@
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Chéval :: générer</h1>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group input-group ui-widget">
+                        <span class="input-group-addon">Etalon</span>
+                        <input type="text" id="etalon-text" name="etalon" class="form-control" value="" />
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group input-group">
+                        <span class="input-group-addon">Poulinière</span>
+                        <input type="text" id="pouliniere-text" name="pouliniere" class="form-control" value="" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <button class="btn btn-success" id="generate-horse" type="submit">Générer</button>
+                    <button class="btn btn-danger" type="reset" onclick="history.back()">Annuler</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="panel-heading">Resultat</div>
+                <div class="col-lg-12" id="result"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready( function(){
+        $("#generate-horse").click( function(){
+            $.ajax({
+                type : 'post',
+                url: "/admin/horse/ajaxGenerateHorse",
+                data: "e=" + $("#etalon-text").val() +"&p=" + $("#pouliniere-text").val(),
+                success: function(data) {
+                     $("#result").html(data);
+                }
+            });
+        });
+
+        $( "#etalon-text" ).autocomplete({
+            source: function( request, response ) {
+                $.ajax({
+                    dataType: "json",
+                    type : 'post',
+                    url: "/admin/horse/ajaxGetHorse",
+                    data:{input: request.term, htyp: 2},
+                    success: function(data) {
+                        $('input.suggest-user').removeClass('ui-autocomplete-loading');
+                        /*response( $.map( data, function(item) {
+                            //console.log(item);
+                        }));*/
+                        response(data);
+                    },
+                    error: function(data) {
+                        $('input.suggest-user').removeClass('ui-autocomplete-loading');
+                    }
+                });
+            },
+            minLength: 3,
+            open: function() {},
+            close: function() {},
+            focus: function(event,ui) {},
+            select: function(event, ui) {
+                var test = ui.item ? ui.item.id : 0;
+                if (test > 0)
+                {
+                    alert(test);
+                }
+            }
+        });
+
+        $( "#pouliniere-text" ).autocomplete({
+            source: function( request, response ) {
+                $.ajax({
+                    dataType: "json",
+                    type : 'post',
+                    url: "/admin/horse/ajaxGetHorse",
+                    data:{input: request.term, htyp: 3},
+                    success: function(data) {
+                        $('input.suggest-user').removeClass('ui-autocomplete-loading');
+                        /*response( $.map( data, function(item) {
+                         //console.log(item);
+                         }));*/
+                        response(data);
+                    },
+                    error: function(data) {
+                        $('input.suggest-user').removeClass('ui-autocomplete-loading');
+                    }
+                });
+            },
+            minLength: 3,
+            open: function() {},
+            close: function() {},
+            focus: function(event,ui) {},
+            select: function(event, ui) {
+                var test = ui.item ? ui.item.id : 0;
+                if (test > 0)
+                {
+                    alert(test);
+                }
+            }
+        });
+    });
+</script>

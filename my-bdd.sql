@@ -1,6 +1,6 @@
 /*
 SQLyog Community Edition- MySQL GUI v7.02 
-MySQL - 5.5.32 : Database - sovaly
+MySQL - 5.5.5-10.1.9-MariaDB : Database - sovaly
 *********************************************************************
 */
 
@@ -97,7 +97,9 @@ CREATE TABLE `horses` (
   `origine` varchar(100) DEFAULT NULL,
   `quality` int(11) DEFAULT NULL,
   `quality_production` int(11) DEFAULT NULL,
+  `production_price` int(11) DEFAULT NULL,
   `evaluation_price` int(11) DEFAULT NULL,
+  `price` int(11) DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
   `type` int(11) DEFAULT NULL,
   `is_qualified` int(11) DEFAULT NULL,
@@ -107,7 +109,7 @@ CREATE TABLE `horses` (
 
 /*Data for the table `horses` */
 
-insert  into `horses`(`id`,`name`,`proprio_id`,`trainer_id`,`eleveur_id`,`father_id`,`mother_id`,`age`,`sexe`,`corde`,`gains`,`origine`,`quality`,`quality_production`,`evaluation_price`,`status`,`type`,`is_qualified`,`is_system`) values (1,'General de poummeau',5,5,5,0,0,12,'M','D',3750000,'France/Europe',10,5,125000,0,2,1,1),(24,'EC 01',5,5,5,0,0,12,'M','D',0,'',6,1,40000,1,2,0,1),(25,'Coktail Jet',5,5,5,0,0,19,'M','-',3654000,'France/Europe',6,3,50000,0,2,1,1),(26,'Insert gÃ©dÃ©',5,5,5,0,0,21,'M','G',278000,'France/Europe',9,1,5000,0,2,1,1),(27,'Poule 1',4,4,4,1,0,10,'F','G',278000,'France/Europe',6,5,125000,0,3,1,1),(36,'Poule 2',3,3,3,25,0,7,'F','G',0,'France/Europe',4,3,50000,0,3,0,1);
+insert  into `horses`(`id`,`name`,`proprio_id`,`trainer_id`,`eleveur_id`,`father_id`,`mother_id`,`age`,`sexe`,`corde`,`gains`,`origine`,`quality`,`quality_production`,`production_price`,`evaluation_price`,`price`,`status`,`type`,`is_qualified`,`is_system`) values (1,'General de poummeau',5,5,5,0,0,12,'M','D',3750000,'France/Europe',10,5,125000,0,125000,0,2,1,1),(25,'Coktail Jet',5,5,5,0,0,19,'M','D',3654000,'France/Europe',6,3,50000,0,50000,0,2,1,1),(26,'Insert gÃ©dÃ©',5,5,5,0,0,21,'M','G',278000,'France/Europe',9,1,5000,0,5000,0,2,1,1),(27,'Poule 1',4,4,4,1,0,10,'F','G',278000,'France/Europe',6,5,125000,0,125000,0,3,1,1),(36,'Poule 2',3,3,3,25,0,7,'F','G',0,'France/Europe',4,3,50000,0,50000,0,3,0,1);
 
 /*Table structure for table `horses_caracteristique` */
 
@@ -138,7 +140,7 @@ CREATE TABLE `horses_caracteristique` (
 
 /*Data for the table `horses_caracteristique` */
 
-insert  into `horses_caracteristique`(`id`,`horse_id`,`itr`,`itr_year`,`btr`,`trot_base`,`trot_current`,`trot_gene`,`galop_base`,`galop_current`,`galop_gene`,`endurance_base`,`endurance_current`,`endurance_gene`,`vitesse_base`,`vitesse_current`,`vitesse_gene`,`physique`,`fatigue`) values (1,1,177,NULL,100,85,0,100,0,0,100,75,0,100,80,0,100,100,100),(17,24,145,NULL,73,60,0,52,0,0,44,60,0,47,60,0,49,100,100),(18,25,161,NULL,50,57,0,100,0,0,100,53,0,100,56,0,100,100,100),(19,26,142,NULL,NULL,100,0,73,0,0,76,60,0,74,80,0,78,100,NULL),(20,27,100,NULL,NULL,65,0,100,0,0,100,60,0,100,53,0,100,100,NULL),(29,36,161,NULL,NULL,69,0,100,0,0,100,26,0,100,33,0,100,100,NULL);
+insert  into `horses_caracteristique`(`id`,`horse_id`,`itr`,`itr_year`,`btr`,`trot_base`,`trot_current`,`trot_gene`,`galop_base`,`galop_current`,`galop_gene`,`endurance_base`,`endurance_current`,`endurance_gene`,`vitesse_base`,`vitesse_current`,`vitesse_gene`,`physique`,`fatigue`) values (1,1,177,NULL,100,85,0,100,0,0,100,75,0,100,80,0,100,100,100),(18,25,161,NULL,50,57,0,80,0,0,80,53,0,80,56,0,100,100,100),(19,26,142,NULL,NULL,100,0,73,0,0,76,60,0,74,80,0,78,100,NULL),(20,27,100,NULL,NULL,65,0,100,0,0,100,60,0,100,53,0,100,100,NULL),(29,36,161,NULL,NULL,69,0,100,0,0,100,26,0,100,33,0,100,100,NULL);
 
 /*Table structure for table `jockeys` */
 
@@ -345,7 +347,7 @@ CREATE TABLE `stables` (
 
 /*Data for the table `stables` */
 
-insert  into `stables`(`id`,`name`,`firstname`,`lastname`,`last_activity`,`country`,`continent`,`level`,`banque`,`gold`,`email`,`password`) values (1,'Turfoland des 2/3 ans ','Benjamin','Gates','2016-05-31 06:10:10',NULL,NULL,3,300000,5,'gates.benjamin@turfoland.com','d41d8cd98f00b204e9800998ecf8427e'),(2,'Turfoland des 4/5/6 ans','Isaac','Iblou','2016-05-31 06:12:30',NULL,NULL,3,300000,5,'iblou.isaac@turfoland.com','d41d8cd98f00b204e9800998ecf8427e'),(3,'Turfoland des 7/8/9 ans','Alexandre','Dupont','2016-05-31 06:16:23',NULL,NULL,3,300000,5,'alex.dupont@turfoland.com','d41d8cd98f00b204e9800998ecf8427e'),(4,'Turfoland des 10 ans','Pascal','Vozier','2016-05-31 06:17:17',NULL,NULL,3,300000,5,'pascal.vozier@turfoland.com','d41d8cd98f00b204e9800998ecf8427e'),(5,'Turfoland des Inactifs','Violette','Madison','2016-05-31 06:22:48',NULL,NULL,3,300000,5,'madison.violette@turfoland.com','d41d8cd98f00b204e9800998ecf8427e'),(6,'Maison Laffite','Alex','DuprÃ¨s','2016-06-01 08:43:36','France','Europe',0,300000,5,'alex.dupres@turfoland.com','10a632cbbf80df92fb6b66671d6ac69d');
+insert  into `stables`(`id`,`name`,`firstname`,`lastname`,`last_activity`,`country`,`continent`,`level`,`banque`,`gold`,`email`,`password`) values (1,'Turfoland des 2/3 ans ','Benjamin','Gates','2016-05-31 06:10:10',NULL,NULL,3,300000,5,'gates.benjamin@turfoland.com','d41d8cd98f00b204e9800998ecf8427e'),(2,'Turfoland des 4/5/6 ans','Isaac','Iblou','2016-05-31 06:12:30',NULL,NULL,3,300000,5,'iblou.isaac@turfoland.com','d41d8cd98f00b204e9800998ecf8427e'),(3,'Turfoland des 7/8/9 ans','Alexandre','Dupont','2016-05-31 06:16:23',NULL,NULL,3,300000,5,'alex.dupont@turfoland.com','d41d8cd98f00b204e9800998ecf8427e'),(4,'Turfoland des 10 ans','Pascal','Vozier','2016-05-31 06:17:17',NULL,NULL,3,300000,5,'pascal.vozier@turfoland.com','d41d8cd98f00b204e9800998ecf8427e'),(5,'Turfoland des Inactifs','Violette','Madison','2016-05-31 06:22:48',NULL,NULL,3,300000,5,'madison.violette@turfoland.com','d41d8cd98f00b204e9800998ecf8427e'),(6,'Maison Laffite','Alex','DuprÃ¨s','2016-06-01 06:25:47','France','Europe',0,300000,5,'alex.dupres@turfoland.com','10a632cbbf80df92fb6b66671d6ac69d');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

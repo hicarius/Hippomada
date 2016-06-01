@@ -51,6 +51,8 @@ class HorseController extends Controller
     public function createauto()
     {
         Layout::setLayout('admin');
+
+
     }
 
     public function edit()
@@ -70,6 +72,33 @@ class HorseController extends Controller
         }
 
         $this->getView()->addVar('data', $data);
+    }
+
+    public function ajaxGetHorse()
+    {
+        $this->setNoRender();
+
+        $post =  Request::getInstance()->getPost();
+        $data =  Apps::getModel('Horse')->loadByName($post['input'], array( 'type' => $post['htyp']));
+        $result = array();
+        foreach($data as $item){
+            //$result[] = array('id' => $item['id'], 'name' => $item['name']);
+            $result[] = $item['id'] . '// ' . $item['name'];
+        }
+
+        echo json_encode($result);
+    }
+
+    public function ajaxGenerateHorse()
+    {
+        $this->setNoRender();
+        $post =  Request::getInstance()->getPost();
+        $etalon = explode('//', $post['e']);
+        $poule = explode('//', $post['p']);
+
+        $result = Apps::getModel('Horse')->generate($etalon[0], $poule[0]);
+
+        Debugger::dump($result);
     }
 
 }
