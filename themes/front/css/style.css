@@ -97,12 +97,12 @@ h1 span, h2 span, h3 span, h4 span, h5 span, h6 span { color: #C86F06; }
 
 .boxed #wrapper {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    padding: 0 20px;
+    /*padding: 0 20px;*/
     background: #fff;
 }
 .boxed #header, .boxed #topbar, .boxed #footer, .boxed #copyright{
-	margin-right: -20px;
-	margin-left: -20px;
+	/*margin-right: -20px;
+	margin-left: -20px;*/
 }     
 .stretched #wrapper.container {
     /*min-width: 960px; */                    
@@ -133,7 +133,7 @@ h1 span, h2 span, h3 span, h4 span, h5 span, h6 span { color: #C86F06; }
 	#topbar .last-tweets p { margin-top: 6px; padding-bottom: 1px; line-height: 22px; }
 	#topbar .last-tweets p.meta{ display: inline; }
 
-	#topbar .widget-last > div { float: right; padding-top: 6px }
+	#topbar .widget-last > div { float: right; padding-top: 6px;padding-right: 30px; }
 
 #social-icon .help, #social-icon .help:hover, #social-icon .help:active {
 	color: #fff;
@@ -142,12 +142,18 @@ h1 span, h2 span, h3 span, h4 span, h5 span, h6 span { color: #C86F06; }
 }
 /* =================== */
 
+.container {
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: 0px;
+	padding-right: 0px;
+}
 
 
 /* ===== HEADER ===== */
 #header {
 	margin-bottom: 21px;
-	min-height: 94px;
+	min-height: 102px;
 	padding-top: 10px;
 	position: relative;
 }
@@ -172,7 +178,7 @@ h1 span, h2 span, h3 span, h4 span, h5 span, h6 span { color: #C86F06; }
 #last-tweets-3 {
 	background: #5aa445 none repeat scroll 0 0;
 	margin-left: 29%;
-	padding-left: 2px;
+	padding-left: 12px;
 	padding-top: 5px;
 	width: 540px;
 }
@@ -234,7 +240,7 @@ h1 span, h2 span, h3 span, h4 span, h5 span, h6 span { color: #C86F06; }
 	background: #fff none repeat scroll 0 0;
 	border-radius: 0 65px 0 0;
 	float: left;
-	margin-left: 10px;
+	margin-left: 40px;
 	margin-top: -48px;
 	padding-bottom: 7px;
 	padding-top: 4px;
@@ -260,7 +266,7 @@ h1 span, h2 span, h3 span, h4 span, h5 span, h6 span { color: #C86F06; }
 /* === NAVIGATION  - This code works with both standard WP menus and Theme menus */
 
 #menu {
-	margin-left: 0;
+	margin-left: -20px;
 }
 
 #menu .menu { width: 820px; }

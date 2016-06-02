@@ -18,13 +18,7 @@ class IndexController extends Controller
     public function index()
     {
         Layout::setLayout('index');
-        $this->getView()->addVar('test', 155889);
-        $this->getView()->addVar(
-            array(
-                "Male" => "M",
-                "Nom" => "Jacques",
-            )
-        );
+        $this->setViewUpdate('../stable/index');
     }
 
     public function login()

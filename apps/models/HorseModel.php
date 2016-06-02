@@ -80,6 +80,35 @@ class HorseModel extends Model_Abstract
 		}
 	}
 
+	public function getHorsesForStable($proprio_id)
+	{
+		$additionalColumns = "s1.name AS proprio, ";
+		$additionalColumns .= "CONCAT_WS(' ', s2.firstname, s2.lastname) AS trainer, ";
+		$additionalColumns .= "CONCAT_WS(' ', s3.firstname, s3.lastname) AS eleveur, ";
+		$additionalColumns .= "IF(h.father_id=0, 'Inconnu', h.father_id) AS father, ";
+		$additionalColumns .= "IF(h.mother_id=0, 'Inconnu', h.mother_id) AS mother, ";
+		$additionalColumns .= "IF(h.status=0, 'Inactif', 'Actif') AS status, ";
+		$additionalColumns .= "IF(h.is_system=0, 'Non', 'Oui') AS is_system, ";
+		$additionalColumns .= "IF(h.type=0, 'Standard', IF(h.type=1, '- de 1 an', IF(h.type=2, 'Etalon', 'Poulini&egrave;re'))) AS type ";
+		$joins =  " INNER JOIN stables s1 ON s1.id = h.proprio_id";
+		$joins .=  " INNER JOIN stables s2 ON s2.id = h.trainer_id";
+		$joins .=  " INNER JOIN stables s3 ON s3.id = h.eleveur_id";
+		$query = "SELECT h.*, $additionalColumns FROM horses h $joins WHERE h.proprio_id = :proprio_id";
+		$stmt = Database::prepare($query);
+		$stmt->bindParam(':proprio_id', $proprio_id);
+		$stmt->execute();
+		return $stmt->fetchAll();
+	}
+
+	public function getHorsesEngagedInRace($race_id)
+	{
+		$query = "SELECT * FROM race_participant WHERE race_id = :race_id";
+		$stmt = Database::prepare($query);
+		$stmt->bindParam(':race_id', $race_id);
+		$stmt->execute();
+		return $stmt->fetchAll();
+	}
+
 	public function create($data)
 	{
 		try{
@@ -152,7 +181,7 @@ class HorseModel extends Model_Abstract
 			$stmt->bindParam(':origine', $data['origine']);
 			$stmt->bindParam(':quality', $data['quality']);
 			$stmt->bindParam(':quality_production', $data['quality_production']);
-			$stmt->bindParam(':evaluation_price', $data['evaluation_price']);
+			$stmt->bindParam(':price', $data['price']);
 			$stmt->bindParam(':status', $data['status']);
 			$stmt->bindParam(':is_system', $data['is_system']);
 
@@ -166,33 +195,22 @@ class HorseModel extends Model_Abstract
 		}
 	}
 
-	public function getHorsesForStable($proprio_id)
+	public function createPerformance($perfData)
 	{
-		$additionalColumns = "s1.name AS proprio, ";
-		$additionalColumns .= "CONCAT_WS(' ', s2.firstname, s2.lastname) AS trainer, ";
-		$additionalColumns .= "CONCAT_WS(' ', s3.firstname, s3.lastname) AS eleveur, ";
-		$additionalColumns .= "IF(h.father_id=0, 'Inconnu', h.father_id) AS father, ";
-		$additionalColumns .= "IF(h.mother_id=0, 'Inconnu', h.mother_id) AS mother, ";
-		$additionalColumns .= "IF(h.status=0, 'Inactif', 'Actif') AS status, ";
-		$additionalColumns .= "IF(h.is_system=0, 'Non', 'Oui') AS is_system, ";
-		$additionalColumns .= "IF(h.type=0, 'Standard', IF(h.type=1, '- de 1 an', IF(h.type=2, 'Etalon', 'Poulinière'))) AS type ";
-		$joins =  " INNER JOIN stables s1 ON s1.id = h.proprio_id";
-		$joins .=  " INNER JOIN stables s2 ON s2.id = h.trainer_id";
-		$joins .=  " INNER JOIN stables s3 ON s3.id = h.eleveur_id";
-		$query = "SELECT h.*, $additionalColumns FROM horses h $joins WHERE h.proprio_id = :proprio_id";
+		$columns = '';
+		$columnsValue =  '';
+		foreach($perfData as $column => $value){
+			$columns .= ", $column";
+			$columnsValue .= ", '$value'";
+		}
+		$query = "INSERT INTO horses_caracteristique (horse_id $columns)
+ 				  VALUES(:horse_id $columnsValue)";
 		$stmt = Database::prepare($query);
-		$stmt->bindParam(':proprio_id', $proprio_id);
-		$stmt->execute();
-		return $stmt->fetchAll();
-	}
 
-	public function getHorsesEngagedInRace($race_id)
-	{
-		$query = "SELECT * FROM race_participant WHERE race_id = :race_id";
-		$stmt = Database::prepare($query);
-		$stmt->bindParam(':race_id', $race_id);
+		$stmt->bindParam(':horse_id', $this->_horseData['id']);
 		$stmt->execute();
-		return $stmt->fetchAll();
+
+		$this->load($this->_horseData['id']);
 	}
 
 	public function setQualityAndPrice()
@@ -233,14 +251,22 @@ class HorseModel extends Model_Abstract
 			$itr = $this->_horseData['itr'];
 		}
 
-		//save ITR
-		$query = "UPDATE horses_caracteristique SET itr = :itr WHERE horse_id = :horse_id";
+		//BTR
+		 $btr = ($this->_horseData['trot_gene'] + $this->_horseData['galop_gene'] + $this->_horseData['endurance_gene'] + $this->_horseData['vitesse_gene'] ) / 4;
+
+		//save ITR et BTR
+		$query = "UPDATE horses_caracteristique SET itr = :itr, btr = :btr WHERE horse_id = :horse_id";
 		$stmt = Database::prepare($query);
 		$stmt->bindParam(':itr', $itr);
+		$stmt->bindParam(':btr', $btr);
 		$stmt->bindParam(':horse_id', $this->_horseData['id']);
 		$stmt->execute();
 	}
 
+	/**
+	 * @param null $itr si null, utilisable dans Generation
+	 * @return array
+	 */
 	public function getQualityProduction($itr = null)
 	{
 		if( $itr == null ) {
@@ -284,6 +310,10 @@ class HorseModel extends Model_Abstract
 		return array('quality' => $qualityProduction, 'price' => $price);
 	}
 
+	/**
+	 * @param null $horse si null, utilisable dans Generation
+	 * @return array
+	 */
 	public function getQuality($horse = null)
 	{
 		//$configsNote = array(0, 40, 60, 100, 120, 140, 160, 180, 200, 220, 240);
@@ -321,23 +351,6 @@ class HorseModel extends Model_Abstract
 		return $id;
 	}
 
-	public function createPerformance($perfData)
-	{
-		$columns = '';
-		$columnsValue =  '';
-		foreach($perfData as $column => $value){
-			$columns .= ", $column";
-			$columnsValue .= ", '$value'";
-		}
-		$query = "INSERT INTO horses_caracteristique (horse_id $columns)
- 				  VALUES(:horse_id $columnsValue)";
-		$stmt = Database::prepare($query);
-
-		$stmt->bindParam(':horse_id', $this->_horseData['id']);
-		$stmt->execute();
-
-		$this->load($this->_horseData['id']);
-	}
 
 	public function getFatherITR()
 	{
@@ -346,6 +359,16 @@ class HorseModel extends Model_Abstract
 		return $father['itr'];
 	}
 
+	/*************************************************************************************************************/
+	/*******************************************GENERATION********************************************************/
+	/*************************************************************************************************************/
+	/**
+	 * Utilisable dans CRON ou Generation automatique
+	 * Génération du cheval en fonction du père et mère
+	 * @param $etalonId
+	 * @param $pouleId
+	 * @return stdClass
+	 */
 	public function generate($etalonId, $pouleId)
 	{
 		$horse = new stdClass();
@@ -420,6 +443,8 @@ class HorseModel extends Model_Abstract
 		$horse->quality = $QEvaluation['quality'];
 		$horse->evaluation_price = $QEvaluation['price'];
 
+		$horse->price = $horse->production_price + $horse->evaluation_price;
+
 		//moyenne des BTR de ses parents
 		$this->getGenePerf($horse, 'trot', $fatherData, $fatherOfMotherData, $motherData);
 		$this->getGenePerf($horse, 'galop', $fatherData, $fatherOfMotherData, $motherData);
@@ -444,6 +469,35 @@ class HorseModel extends Model_Abstract
 		//Physique
 		$horse->perf->physique = 100;
 
+		//Creation du cheval
+		$dataHorse = (array)$horse;
+		$columns = '';
+		$columnsValue =  '';
+		foreach($dataHorse as $column => $value){
+			if($column != 'perf') {
+				$columns .= ",$column";
+				$columnsValue .= ",'$value'";
+			}
+		}
+		$query = "INSERT INTO horses (id $columns)
+ 				  VALUES('' $columnsValue)";
+		$stmt = Database::prepare($query);
+		$stmt->execute();
+		$horseId = Database::lastInsertId('horses');
+
+		//Création performance
+		$columns = '';
+		$columnsValue =  '';
+		foreach((array)$dataHorse['perf'] as $column => $value){
+			$columns .= ", $column";
+			$columnsValue .= ", '$value'";
+		}
+		$query = "INSERT INTO horses_caracteristique (horse_id $columns)
+ 				  VALUES(:horse_id $columnsValue)";
+		$stmt = Database::prepare($query);
+		$stmt->bindParam(':horse_id', $horseId);
+		$stmt->execute();
+
 		return $horse;
 	}
 
@@ -457,7 +511,7 @@ class HorseModel extends Model_Abstract
 		//BASE
 		//father
 		$fatherGenetic = $fatherData[$perfKey . '_base'] * $fatherData[$perfKey . '_gene'] / 100 ;
-		$parFather = $fatherGenetic * 30 / 100 ;
+		$parFather = $fatherGenetic * 20 / 100 ;
 
 		//mother
 		$motherGenetic = $motherData[$perfKey . '_base'] * $motherData[$perfKey . '_gene'] / 100 ;
@@ -468,16 +522,18 @@ class HorseModel extends Model_Abstract
 			$parFatherOfMother = $parFather;
 		}else{
 			$fatherOfMotherGenetic = $fatherOfMotherData[$perfKey . '_base'] * $fatherOfMotherData[$perfKey . '_gene'] / 100 ;
-			$parFatherOfMother = $fatherOfMotherGenetic * 30 / 100 ;
+			$parFatherOfMother = $fatherOfMotherGenetic * 20 / 100 ;
 		}
 
-		$totalPar = $parFather + $parFatherOfMother + $parMother;
 
 
 		//random
+		$btrParent = ($fatherData['btr']+$fatherOfMotherData['btr'])/2; //moyenne Btr de leur parent
+		$totalPar = (60 - ($parFather + $parFatherOfMother + $parMother)) * $btrParent / 100;	//perf max - perf acquis  en fonction du btr de leur parent
 		if($this->_ramdomGenePref ==  null){
 			$this->_ramdomGenePref = mt_rand(0, $totalPar);
 		}
+
 		if($parFather == 0) {
 			$parRandom = 0;
 		}else{
@@ -526,4 +582,7 @@ class HorseModel extends Model_Abstract
 		}
 	}
 
+	/***********************************************************************************************************/
+	/*******************************************FIN GENERATION**************************************************/
+	/***********************************************************************************************************/
 }

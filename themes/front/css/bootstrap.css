@@ -5884,7 +5884,7 @@ a.badge:hover {
   .responsive [class*="span"] {
     float: left;
     min-height: 1px;
-    margin-left: 30px;
+    /*margin-left: 30px;*/
   }
   .responsive .container,
   .responsive .navbar-static-top .container,
@@ -5902,7 +5902,7 @@ a.badge:hover {
     width: 970px;
   }
   .responsive .span9 {
-    width: 870px;
+    width: 960px;
   }
   .responsive .span8 {
     width: 770px;

@@ -12,6 +12,9 @@ $menus = array(
     array( 'link' => '/finance/', 'title' => Text::__('Finances'), 'class' => 'fa-dollar' ),
 );
 $currentController = '/' . lcfirst(Request::getInstance()->getController()) . '/';
+if($currentController == '/index/'){
+    $currentController =  '/stable/';
+}
 ?>
 
 <div class="menu">

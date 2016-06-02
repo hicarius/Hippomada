@@ -1,18 +1,32 @@
+<?php
+$sessionUser = Session::getUser();
+$stable = Apps::getModel('Stable')->load($sessionUser['id']);
+?>
 <div class="container">
     <div class="row">
         <div id="last-tweets-3" class="widget-first span6 widget last-tweets">
             <ul>
                 <li>
-                    <i class="fa fa-user fa-lg"></i><span>Ecurie D'Orion</span>
-                    <i class="fa fa-star fa-lg star-level-yes"></i>
-                    <i class="fa fa-star-o fa-lg star-level-no"></i>
-                    <i class="fa fa-star-o fa-lg star-level-no"></i>
+                    <i class="fa fa-user fa-lg"></i><span>Ecurie <?php echo $stable['name'] ?></span>
+                    <?php if($stable['level'] == 0) { ?>
+                        <i class="fa fa-star-o fa-lg star-level-no"></i>
+                        <i class="fa fa-star-o fa-lg star-level-no"></i>
+                        <i class="fa fa-star-o fa-lg star-level-no"></i>
+                    <?php }else{ ?>
+                        <?php for( $i=1; $i<=3; $i++){ ?>
+                            <?php if( $i <= $stable['level']) { ?>
+                                <i class="fa fa-star fa-lg star-level-yes"></i>
+                            <?php }else{ ?>
+                                <i class="fa fa-star-o fa-lg star-level-no"></i>
+                            <?php } ?>
+                        <?php } ?>
+                    <?php } ?>
                     <i class="fa fa-power-off fa-lg"></i>
                 </li>
-                <li><i class="fa fa-bank fa-lg"></i><span> 4 300 000 turfoos</span></li>
+                <li><i class="fa fa-bank fa-lg"></i><span> <?php echo number_format($stable['banque'], 0, '.', ' ') ?> <?php echo Text::__('turfoos') ?></span></li>
             </ul>
         </div>
-        <div id="social-icon" class="widget-2 widget-last span2 widget widget_text">
+        <div id="social-icon" class="widget-2 widget-last span3 widget widget_text">
             <div class="textwidget">
                 <a href="/help/" class="fa help" >Besoin d'aide ?</a>
                 <a href="#" class="socials-small facebook-small" title="Facebook"  >facebook</a>

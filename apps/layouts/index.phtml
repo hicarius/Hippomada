@@ -12,6 +12,7 @@
     <!-- RESET STYLESHEET -->
     <link rel="stylesheet" type="text/css" media="all" href="/themes/front/css/reset.css" />
     <!-- BOOTSTRAP STYLESHEET -->
+    <link rel="stylesheet" type="text/css" media="all" href="/themes/admin/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" media="all" href="/themes/front/css/bootstrap.css" />
     <!-- MAIN THEME STYLESHEET -->
     <link rel="stylesheet" type="text/css" media="all" href="/themes/front/css/style.css" />
@@ -97,33 +98,17 @@
         <!-- START PRIMARY -->
         <div id="primary" class="sidebar-right">
             <div class="container group">
-                <div class="row">
-
-                    <!-- START CONTENT -->
-                    <div id="content-home" class="span9 content group">
-                        <div class="page type-page status-publish hentry group">
-                            <div class="section portfolio">
-                                <!-- section blog wrapper -->
-
-                                <!-- sticky portfolio -->
-                                <div class="row">
-                                    <?php echo Layout::renderView($content) ?>
-                                </div>
-                                <!-- span wrapper -->
-
-                            </div>
-                            <!-- end section blog wrapper -->
-                            <div class="clear"></div>
-                        </div>
-                    </div>
-                    <!-- END CONTENT -->
-
-                    <!-- START SIDEBAR -->
-                    <div id="sidebar-home-3" class="span2 sidebar group">
-                        <?php Layout::render('front/right'); ?>
-                    </div>
-                    <!-- END SIDEBAR -->
+                <!-- START CONTENT -->
+                <div id="content-home" class="col-lg-10 content group">
+                    <?php echo Layout::renderView($content) ?>
                 </div>
+                <!-- END CONTENT -->
+
+                <!-- START SIDEBAR -->
+                <div id="sidebar-home-3" class="col-lg-2 sidebar group">
+                    <?php Layout::render('front/right'); ?>
+                </div>
+                <!-- END SIDEBAR -->
             </div>
         </div>
         <!-- END PRIMARY -->
@@ -131,9 +116,6 @@
         <!-- START FOOTER -->
         <div id="footer">
             <div class="container">
-                <div class="row">
-
-                </div>
             </div>
         </div>
         <!-- END FOOTER -->
