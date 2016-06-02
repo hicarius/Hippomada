@@ -3,6 +3,8 @@ class HorseModel extends Model_Abstract
 {
 	private $_horseData = array();
 
+	private $_ramdomGenePref = null;
+
 	public function getHorses()
 	{
 		$additionalColumns = "s1.name AS proprio, ";
@@ -216,8 +218,8 @@ class HorseModel extends Model_Abstract
 					SET evaluation_price = :evaluation_price, production_price = :production_price, price = :price, quality= :quality, quality_production = :quality_production
 					WHERE id = :id";
 		$stmt = Database::prepare($query);
-		$stmt->bindParam(':evaluation_price', $production_price);
-		$stmt->bindParam(':production_price', $evaluation_price);
+		$stmt->bindParam(':production_price', $production_price);
+		$stmt->bindParam(':evaluation_price', $evaluation_price);
 		$stmt->bindParam(':price', $price);
 		$stmt->bindParam(':quality', $note['quality']);
 		$stmt->bindParam(':quality_production', $production['quality']);
@@ -250,6 +252,9 @@ class HorseModel extends Model_Abstract
 		}
 
 		switch($itr){
+			case NULL:
+				$qualityProduction = 0;
+				break;
 			case ($itr >= 170):
 				$qualityProduction = 5;
 				break;
@@ -266,6 +271,9 @@ class HorseModel extends Model_Abstract
 				$qualityProduction = 1;
 				break;
 			case ($itr < 120):
+				$qualityProduction = 0;
+				break;
+			default:
 				$qualityProduction = 0;
 				break;
 		}
@@ -290,7 +298,7 @@ class HorseModel extends Model_Abstract
 		foreach($configsNote as $k => $v){
 			if(isset($configsNote[$k + 1])) {
 				if ($configsNote[$k + 1] >= $totalPerfBase && $totalPerfBase > $configsNote[$k]) {
-					$quality = $k;
+					$quality = $k+1;
 					break;
 				}
 			}
@@ -403,10 +411,10 @@ class HorseModel extends Model_Abstract
 		$horse->production_price = 0;
 
 		//Qualité d'évaluation BTR --> 33% père, 33% père de mère, 33% random
-		$this->getBasePerf($horse, 'trot', $fatherData, $fatherOfMotherData);
-		$this->getBasePerf($horse, 'galop', $fatherData, $fatherOfMotherData);
-		$this->getBasePerf($horse, 'endurance', $fatherData, $fatherOfMotherData);
-		$this->getBasePerf($horse, 'vitesse', $fatherData, $fatherOfMotherData);
+		$this->getBasePerf($horse, 'trot', $fatherData, $fatherOfMotherData, $motherData);
+		$this->getBasePerf($horse, 'galop', $fatherData, $fatherOfMotherData, $motherData);
+		$this->getBasePerf($horse, 'endurance', $fatherData, $fatherOfMotherData, $motherData);
+		$this->getBasePerf($horse, 'vitesse', $fatherData, $fatherOfMotherData, $motherData);
 
 		$QEvaluation = $this->getQuality($horse);
 		$horse->quality = $QEvaluation['quality'];
@@ -424,6 +432,17 @@ class HorseModel extends Model_Abstract
 		$this->getCurrentPerf($horse, 'endurance', $fatherData, $fatherOfMotherData, $motherData);
 		$this->getCurrentPerf($horse, 'vitesse', $fatherData, $fatherOfMotherData, $motherData);
 
+		//BTR
+		if( $horse->perf->galop_base == 0){
+			$horse->perf->btr = ($horse->perf->trot_gene + $horse->perf->endurance_gene + $horse->perf->vitesse_gene ) / 3;
+		}elseif( $horse->perf->trot_base == 0){
+			$horse->perf->btr = ($horse->perf->galop_gene + $horse->perf->endurance_gene + $horse->perf->vitesse_gene ) / 3;
+		}else{
+			$horse->perf->btr = ($horse->perf->trot_gene + $horse->perf->galop_gene + $horse->perf->endurance_gene + $horse->perf->vitesse_gene ) / 4;
+		}
+
+		//Physique
+		$horse->perf->physique = 100;
 
 		return $horse;
 	}
@@ -433,25 +452,45 @@ class HorseModel extends Model_Abstract
 	 * si gene = 100%, 33% du 100%
 	 * @param $horse
 	 */
-	public function getBasePerf(&$horse, $perfKey ,$fatherData, $fatherOfMotherData)
+	public function getBasePerf(&$horse, $perfKey ,$fatherData, $fatherOfMotherData, $motherData)
 	{
 		//BASE
 		//father
 		$fatherGenetic = $fatherData[$perfKey . '_base'] * $fatherData[$perfKey . '_gene'] / 100 ;
-		$parFather = $fatherGenetic * 33 / 100 ;
+		$parFather = $fatherGenetic * 30 / 100 ;
+
+		//mother
+		$motherGenetic = $motherData[$perfKey . '_base'] * $motherData[$perfKey . '_gene'] / 100 ;
+		$parMother = $motherGenetic * 10 / 100 ;
 
 		//father of mother
 		if($fatherOfMotherData == null){
 			$parFatherOfMother = $parFather;
 		}else{
 			$fatherOfMotherGenetic = $fatherOfMotherData[$perfKey . '_base'] * $fatherOfMotherData[$perfKey . '_gene'] / 100 ;
-			$parFatherOfMother = $fatherOfMotherGenetic * 33 / 100 ;
+			$parFatherOfMother = $fatherOfMotherGenetic * 30 / 100 ;
 		}
 
+		$totalPar = $parFather + $parFatherOfMother + $parMother;
+
+
 		//random
-		$parRandom = rand(0, $parFather) * 33 / 100;
+		if($this->_ramdomGenePref ==  null){
+			$this->_ramdomGenePref = mt_rand(0, $totalPar);
+		}
+		if($parFather == 0) {
+			$parRandom = 0;
+		}else{
+			$parRandom = $this->_ramdomGenePref;
+		}
+
+		$totalParCode = $parFather + $parFatherOfMother + $parMother + $parRandom;
 		$perfCode = "{$perfKey}_base";
-		$horse->perf->$perfCode = $parFather + $parFatherOfMother + $parRandom;
+		if($totalParCode > 60){
+			$horse->perf->$perfCode = 60;
+		}else{
+			$horse->perf->$perfCode = $totalParCode;
+		}
 	}
 
 	/**
