@@ -4,7 +4,7 @@ $stable = Apps::getModel('Stable')->load($sessionUser['id']);
 ?>
 <div class="container">
     <div class="row">
-        <div id="last-tweets-3" class="widget-first span6 widget last-tweets">
+        <div id="last-tweets-3" class="widget-first col-md-6 widget last-tweets">
             <ul>
                 <li>
                     <i class="fa fa-user fa-lg"></i><span>Ecurie <?php echo $stable['name'] ?></span>
@@ -23,12 +23,12 @@ $stable = Apps::getModel('Stable')->load($sessionUser['id']);
                     <?php } ?>
                     <i class="fa fa-power-off fa-lg"></i>
                 </li>
-                <li><i class="fa fa-bank fa-lg"></i><span> <?php echo number_format($stable['banque'], 0, '.', ' ') ?> <?php echo Text::__('turfoos') ?></span></li>
+                <li><i class="fa fa-bank fa-lg banque-icon"></i><span> <?php echo number_format($stable['banque'], 0, '.', ' ') ?> <?php echo Text::__('turfoos') ?></span></li>
             </ul>
         </div>
-        <div id="social-icon" class="widget-2 widget-last span3 widget widget_text">
+        <div id="social-icon" class="widget-2 widget-last col-md-3 widget widget_text">
             <div class="textwidget">
-                <a href="/help/" class="fa help" >Besoin d'aide ?</a>
+                <a href="/help/" class="fa help" >Besoin d'aide ?</a>&nbsp;
                 <a href="#" class="socials-small facebook-small" title="Facebook"  >facebook</a>
                 <a href="#" class="socials-small twitter-small" title="Twitter"  >twitter</a>
                 <a href="#" class="socials-small google-small" title="Google"  >google</a>

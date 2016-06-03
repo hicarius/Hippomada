@@ -1,11 +1,11 @@
 <!-- START MAIN NAVIGATION -->
 <?php
 $menus = array(
-    array( 'link' => '/stable/', 'title' => Text::__('Stable'), 'class' => 'fa-industry' ),
+    array( 'link' => '/stable/', 'title' => Text::__('Stable'), 'class' => 'fa-home' ),
     array( 'link' => '/trainer/', 'title' => Text::__('Trainer'), 'class' => 'fa-eye' ),
     array( 'link' => '/jockey/', 'title' => Text::__('Jockey'), 'class' => 'fa-group' ),
     array( 'link' => '/breedings/', 'title' => Text::__('Breedings'), 'class' => 'fa-venus-mars' ),
-    array( 'link' => '/races/', 'title' => Text::__('Races'), 'class' => 'fa-dollar' ),
+    array( 'link' => '/races/', 'title' => Text::__('Races'), 'class' => 'fa-tasks' ),
     array( 'link' => '/shop/', 'title' => Text::__('Shop'), 'class' => 'fa-legal' ),
     array( 'link' => '/live/', 'title' => Text::__('Live'), 'class' => 'fa-video-camera' ),
     array( 'link' => '/rankings/', 'title' => Text::__('Rankings'), 'class' => 'fa-trophy' ),
@@ -17,7 +17,7 @@ if($currentController == '/index/'){
 }
 ?>
 
-<div class="menu">
+<div class="menu  col-md-12">
     <ul id="nav" class="sf-menu">
         <?php foreach( $menus as $menu) { ?>
         <li class=" <?php echo ($menu['link']==$currentController) ? 'current_page_item' : ''?> ">
