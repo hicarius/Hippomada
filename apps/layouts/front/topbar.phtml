@@ -1,6 +1,6 @@
 <?php
 $sessionUser = Session::getUser();
-$stable = Apps::getModel('Stable')->load($sessionUser['id']);
+$stable = Apps::getModel('Stable')->load($sessionUser['id'])->getData();
 ?>
 <div class="container">
     <div class="row">
@@ -23,7 +23,7 @@ $stable = Apps::getModel('Stable')->load($sessionUser['id']);
                     <?php } ?>
                     <i class="fa fa-power-off fa-lg"></i>
                 </li>
-                <li><i class="fa fa-bank fa-lg banque-icon"></i><span> <?php echo number_format($stable['banque'], 0, '.', ' ') ?> <?php echo Text::__('turfoos') ?></span></li>
+                <li><i class="fa fa-dollar fa-lg banque-icon"></i><span> <?php echo number_format($stable['banque'], 0, '.', ' ') ?> <?php echo Text::__('turfoos') ?></span></li>
             </ul>
         </div>
         <div id="social-icon" class="widget-2 widget-last col-md-3 widget widget_text">

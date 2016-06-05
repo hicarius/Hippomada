@@ -13,15 +13,16 @@ class StableController extends Controller
     {
         Layout::setLayout('admin');
         $id = $this->getRequest()->getParam('id');
-        $data = Apps::getModel('Stable')->load($id);
+        $oStable = Apps::getModel('Stable')->load($id);
+        $data = $oStable->getData();
         $this->getView()->addVar('stable', $data);
 
-        $horses = Apps::getModel('Horse')->getHorsesForStable($id);
+        $horses = $oStable->getHorsesForStable();
         $this->getView()->addVar('horses', $horses);
 
         if( Request::getInstance()->isPost()){
             $data = Request::getInstance()->getPost();
-            $id = Apps::getModel('Stable')->update($data);
+            $id = $oStable->update($data);
             if( $id ) {
                 $this->getView()->redirect('/admin/stable/');
             }

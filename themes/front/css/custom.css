@@ -34,30 +34,39 @@ http://www.cssfontstack.com/Web-Fonts
 
 /* latin FOR Menu*/
 @font-face {
-    font-family: 'Cabin Sketch';
+    font-family: 'Chewy';
     font-style: normal;
     font-weight: 400;
-    src: local('Cabin Sketch Regular'), local('CabinSketch-Regular'), url(../fonts/CabinSketch-Regular.woff2) format('woff2');
+    src: local('Chewy'), url(../fonts/Chewy.woff2) format('woff2');
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }
 
-/* latin FOR h1*/
+/* latin */
 @font-face {
-    font-family: 'Slackey';
+    font-family: 'Cabin';
     font-style: normal;
     font-weight: 400;
-    src: local('Slackey'), url(../fonts/Slackey.woff2) format('woff2');
+    src: local('Cabin Regular'), local('Cabin-Regular'), url(../fonts/Cabin.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+/* latin */
+@font-face {
+    font-family: 'Cabin Condensed';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Cabin Condensed'), local('CabinCondensed'), url(../fonts/CabinCondensed.woff2) format('woff2');
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }
 
 body{
-    font-family: 'Questrial';
+    font-family: 'Cabin';
     font-weight: normal;
 }
 #header div.menu > ul > li > a {
     color: #727272;
-    font-family: "Cabin Sketch";
-    font-size: 13px;
+    font-family: "Chewy";
+    font-size: 15px;
     font-style: normal;
     font-weight: normal;
     text-transform: uppercase;
@@ -79,26 +88,133 @@ body{
 
 #topbar a , #topbar a:hover {
     color: #fff;
-    font-family: "Questrial";
+    font-family: "Cabin";
     font-size: 14px;
     font-weight: normal;
 }
 
+#last-tweets-3 span{
+
+}
+
 h1 {
-    font-family: "Slackey";
-    font-size: 25px;
+    font-family: "Chewy";
+    font-size: 18px;
     margin-top: 0;
     overflow: hidden;
     padding-top: 0;
     position: relative;
+    text-transform: uppercase;
 }
 
 h1::after {
-    border-bottom: 2px solid #eee;
     border-top: 2px solid #eee;
     content: "";
-    height: 7px;
+    height: 2px;
     position: absolute;
-    top: 0.4em;
+    top: 0.6em;
     width: 100%;
+}
+
+.panel-heading span.special-color1{
+    color: #5aa445;
+    font-size:15px;
+    font-weight: bold;
+}
+
+span.special-color1 {
+    color: #5aa445;
+    font-size: 12px;
+}
+
+.panel-heading {
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px 15px;
+}
+
+.panel-heading span{
+    font-weight: normal;
+}
+
+#primary .col-lg-12{
+    padding-bottom: 10px;
+}
+
+a.horse-name, a.horse-name:hover {
+    color: #5aa445;
+    text-decoration: underline;
+    text-transform: uppercase;
+}
+
+.statistique td{
+    text-align: center;
+}
+
+td.a-left{
+    text-align: left;
+}
+
+.btn-success, .btn-danger {
+    box-shadow: 0 3px 5px #fff inset;
+}
+
+.reunion-choice{
+    background: #5aa445;
+    border: 1px solid #5aa445;
+}
+
+a.reunion-choice, a.reunion-choice:hover{
+    background: #5aa445;
+    border: 1px solid #5aa445;
+    box-shadow: 0 3px 5px #fff inset;
+}
+
+span.reunion-choice, span.reunion-choice:hover{
+    background: #5aa445;
+    cursor: default;
+    color: #fff;
+    font-weight: bold;
+}
+
+span.reunion-choice.title{
+    border-radius: 2px 0 0 2px;
+    border-right: 1px solid;
+}
+
+span.reunion-choice.name{
+    border-radius: 0 2px 2px 0;
+    text-transform: uppercase;
+}
+
+.course-title.nav-pills > li > a {
+    border-radius: 7px;
+    box-shadow: 0 3px 5px #fff inset;
+}
+
+.course-title.nav > li > a {
+    display: block;
+    padding: 0px 15px;
+    position: relative;
+    font-weight: bold;
+    background: #eee;
+}
+
+.course-title.nav > li.active > a, .course-title.nav > li > a:hover {
+    background: #337ab7;
+    color: #fff;
+}
+
+.course-detail{
+    background: #eee;
+    margin-top: 10px;
+    padding: 10px;
+}
+
+.course-content h4 {
+    font-size: 15px;
+    text-transform: uppercase;
 }

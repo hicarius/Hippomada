@@ -47,8 +47,8 @@ h3, h3 a, h3 span { font-size:20px; line-height: 20px; }
 h4, h4 a, h4 span { font-size:18px; line-height: 18px; }
 h5, h5 a, h5 span { font-size:15px; line-height: 15px; }
 h6, h6 a, h6 span { font-size:12px; line-height: 12px; }
-.content ul { margin-left:20px; list-style:square }
-.content ol { margin-left:40px; }
+/*.content ul { margin-left:20px; list-style:square }*/
+/*.content ol { margin-left:40px; }*/
 i, em { font-style:italic; }
 strong { font-weight:bold; }
 .content blockquote { background:url('../images/cite.png') no-repeat 45px 25px; padding:35px; }
@@ -76,7 +76,7 @@ body, h1, h2, h3, h4, h5, h6, p, dl, ul, ol,
 .paragraph-links a, #respond input, #respond textarea, #respond p label {
     color: #5f5e5e;
     /*font-family: 'Maven Pro', 'Verdana', 'Arial', sans-serif;*/
-    font-size: 13px;
+    font-size: 14px;
     font-weight: normal;
     line-height: 23px;
 }
@@ -126,7 +126,7 @@ h1 span, h2 span, h3 span, h4 span, h5 span, h6 span { color: #C86F06; }
 	#topbar ul { list-style: none; padding: 0; margin: 0;}
 	#topbar li { display: none; }
 	#topbar li, #topbar p { color: #fff }
-	#topbar a { color: #f5b00c; font-size: 11px; }
+	#topbar a { color: #F0D14E; font-size: 11px; }
 	#topbar a:hover { color: #AB5705 }
 	
 	#topbar .last-tweets > h3 + div { height: 33px; margin: 0; padding-left: 30px; background: url('../images/icons/last_tweets.png') no-repeat left center }
@@ -204,16 +204,28 @@ h1 span, h2 span, h3 span, h4 span, h5 span, h6 span { color: #C86F06; }
 	margin-left: 15px;
 }
 
-#topbar #last-tweets-3 li i.star-level-yes{
-	font-size: 13px;
+#topbar #last-tweets-3 li i.star-level-yes, .info-stable li i.star-level-yes, span.horse-note{
+	font-size: 14px;
 	margin-right: 0px;
-	color: #e3cf73;
+	color: #F0D14E;
 }
 
-#topbar #last-tweets-3 li i.star-level-no{
-	font-size: 17px;
+#topbar #last-tweets-3 li i.star-level-no, .info-stable li i.star-level-no{
+	font-size: 13px;
 	margin-right: 0px;
-	color: #e3cf73;
+	color: #F0D14E;
+}
+
+#topbar #last-tweets-3 li i.star-level-no, .info-stable li i.star-level-no{
+	font-size: 13px;
+	margin-right: 0px;
+	color: #F0D14E;
+}
+
+#topbar #last-tweets-3 li i.star-level-no, .info-stable li i.star-level-no{
+	font-size: 13px;
+	margin-right: 0px;
+	color: #F0D14E;
 }
 
 
@@ -1390,4 +1402,106 @@ h2, h2 a {
 	font-size: 22px;
 	font-style: normal;
 	font-weight: 400;
+}
+
+.btn-outline {
+	background-color: transparent;
+	color: inherit;
+	transition: all 0.5s ease 0s;
+}
+.btn-primary.btn-outline {
+	color: #428bca;
+}
+.btn-success.btn-outline {
+	color: #5cb85c;
+}
+.btn-info.btn-outline {
+	color: #5bc0de;
+}
+.btn-warning.btn-outline {
+	color: #f0ad4e;
+}
+.btn-danger.btn-outline {
+	color: #d9534f;
+}
+.btn-primary.btn-outline:hover, .btn-success.btn-outline:hover, .btn-info.btn-outline:hover, .btn-warning.btn-outline:hover, .btn-danger.btn-outline:hover {
+	color: #fff;
+}
+
+/* social */
+a.socials, a.socials-small {
+	display: inline-block;
+	margin-right: 0;
+	text-align: left;
+	text-indent: -9999px;
+}
+a.socials {
+	background-position: left bottom !important;
+	height: 34px;
+	width: 34px;
+}
+a.socials-small {
+	background-position: left bottom !important;
+	height: 21px;
+	width: 21px;
+}
+a.socials:hover, a.socials-small:hover {
+	background-position: left top !important;
+}
+a.facebook {
+	background: url("../images/icons/socials/facebook.png") no-repeat scroll 0 0 transparent;
+}
+a.rss {
+	background: url("../images/icons/socials/rss.png") no-repeat scroll 0 0 transparent;
+}
+a.flickr {
+	background: url("../images/icons/socials/flickr.png") no-repeat scroll 0 0 transparent;
+}
+a.twitter {
+	background: url("../images/icons/socials/twitter.png") no-repeat scroll 0 0 transparent;
+}
+a.linkedin {
+	background: url("../images/icons/socials/linkedin.png") no-repeat scroll 0 0 transparent;
+}
+a.skype {
+	background: url("../images/icons/socials/skype.png") no-repeat scroll 0 0 transparent;
+}
+a.google {
+	background: url("../images/icons/socials/google.png") no-repeat scroll 0 0 transparent;
+}
+a.pinterest {
+	background: url("../images/icons/socials/pinterest.png") no-repeat scroll 0 0 transparent;
+}
+a.bookmark {
+	background: url("../images/icons/socials/bookmark.png") no-repeat scroll 0 0 transparent;
+}
+a.facebook-small {
+	background: url("../images/icons/small-socials/facebook.png") no-repeat scroll 0 0 transparent;
+}
+a.rss-small {
+	background: url("../images/icons/small-socials/rss.png") no-repeat scroll 0 0 transparent;
+}
+a.flickr-small {
+	background: url("../images/icons/small-socials/flickr.png") no-repeat scroll 0 0 transparent;
+}
+a.twitter-small {
+	background: url("../images/icons/small-socials/twitter.png") no-repeat scroll 0 0 transparent;
+}
+a.linkedin-small {
+	background: url("../images/icons/small-socials/linkedin.png") no-repeat scroll 0 0 transparent;
+}
+a.skype-small {
+	background: url("../images/icons/small-socials/skype.png") no-repeat scroll 0 0 transparent;
+}
+a.skype-small {
+	background: url("../images/icons/small-socials/skype.png") no-repeat scroll 0 0 transparent;
+}
+a.google-small {
+	background: url("../images/icons/small-socials/google.png") no-repeat scroll 0 0 transparent;
+}
+a.pinterest-small {
+	background: url("../images/icons/small-socials/pinterest.png") no-repeat scroll 0 0 transparent;
+}
+a.bookmark-small {
+	background: url("../images/icons/small-socials/bookmark.png") no-repeat scroll 0 0 transparent;
 }

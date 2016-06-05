@@ -1,7 +1,6 @@
 <?php
 class HorseModel extends Model_Abstract
 {
-	private $_horseData = array();
 
 	private $_ramdomGenePref = null;
 
@@ -54,15 +53,17 @@ class HorseModel extends Model_Abstract
 		$result = $stmt->fetch();
 		if ($result['id']>0) {
 			if($setData) {
-				$this->_horseData = $result;
+				$this->_data = $result;
+				return $this;
+			}else{
+				return $result;
 			}
-			return $result;
 		} else {
 			return FALSE;
 		}
 	}
 
-	public function loadByName($text, $additional)
+	public function loadByName($text, $additional, $setData = true)
 	{
 		$where =  'AND ';
 		foreach($additional as $k => $column){
@@ -74,47 +75,23 @@ class HorseModel extends Model_Abstract
 		$stmt->execute();
 		$result = $stmt->fetchAll();
 		if (count($result)>0) {
-			return $result;
+			if($setData) {
+				$this->_data = $result;
+				return $this;
+			}else{
+				return $result;
+			}
 		} else {
 			return 'no_data_found';
 		}
-	}
-
-	public function getHorsesForStable($proprio_id)
-	{
-		$additionalColumns = "s1.name AS proprio, ";
-		$additionalColumns .= "CONCAT_WS(' ', s2.firstname, s2.lastname) AS trainer, ";
-		$additionalColumns .= "CONCAT_WS(' ', s3.firstname, s3.lastname) AS eleveur, ";
-		$additionalColumns .= "IF(h.father_id=0, 'Inconnu', h.father_id) AS father, ";
-		$additionalColumns .= "IF(h.mother_id=0, 'Inconnu', h.mother_id) AS mother, ";
-		$additionalColumns .= "IF(h.status=0, 'Inactif', 'Actif') AS status, ";
-		$additionalColumns .= "IF(h.is_system=0, 'Non', 'Oui') AS is_system, ";
-		$additionalColumns .= "IF(h.type=0, 'Standard', IF(h.type=1, '- de 1 an', IF(h.type=2, 'Etalon', 'Poulini&egrave;re'))) AS type ";
-		$joins =  " INNER JOIN stables s1 ON s1.id = h.proprio_id";
-		$joins .=  " INNER JOIN stables s2 ON s2.id = h.trainer_id";
-		$joins .=  " INNER JOIN stables s3 ON s3.id = h.eleveur_id";
-		$query = "SELECT h.*, $additionalColumns FROM horses h $joins WHERE h.proprio_id = :proprio_id";
-		$stmt = Database::prepare($query);
-		$stmt->bindParam(':proprio_id', $proprio_id);
-		$stmt->execute();
-		return $stmt->fetchAll();
-	}
-
-	public function getHorsesEngagedInRace($race_id)
-	{
-		$query = "SELECT * FROM race_participant WHERE race_id = :race_id";
-		$stmt = Database::prepare($query);
-		$stmt->bindParam(':race_id', $race_id);
-		$stmt->execute();
-		return $stmt->fetchAll();
 	}
 
 	public function create($data)
 	{
 		try{
 
-			$query = "INSERT INTO horses (name, proprio_id, trainer_id, eleveur_id, father_id, mother_id, age, corde, sexe, gains, origine, status, is_system, is_qualified, type)
- 				  VALUES(:name, :proprio_id, :trainer_id, :eleveur_id, :father_id, :mother_id, :age, :corde, :sexe, :gains, :origine, :status, :is_system, :is_qualified, :type)";
+			$query = "INSERT INTO horses (name, proprio_id, trainer_id, eleveur_id, father_id, mother_id, age, corde, sexe, gains, origine, status, is_system, is_qualified, type, robe)
+ 				  VALUES(:name, :proprio_id, :trainer_id, :eleveur_id, :father_id, :mother_id, :age, :corde, :sexe, :gains, :origine, :status, :is_system, :is_qualified, :type, :robe)";
 			$stmt = Database::prepare($query);
 
 			$stmt->bindParam(':name', $data['name']);
@@ -141,6 +118,7 @@ class HorseModel extends Model_Abstract
 			$stmt->bindParam(':is_qualified', $data['is_qualified']);
 			$stmt->bindParam(':type', $data['type']);
 			$stmt->bindParam(':is_system', $data['is_system']);
+			$stmt->bindParam(':robe', $data['robe']);
 
 			$stmt->execute();
 
@@ -162,8 +140,7 @@ class HorseModel extends Model_Abstract
 			$query = "UPDATE horses
                       SET name = :name, proprio_id = :proprio_id, trainer_id = :trainer_id, eleveur_id = :eleveur_id, father_id = :father_id,
                                         mother_id = :mother_id, age = :age, corde = :corde, sexe = :sexe, gains = :gains,
-                                        origine = :origine, quality = :quality, quality_production = :quality_production, evaluation_price = :evaluation_price,
-                                        status = :status, is_system = :is_system
+                                        origine = :origine, robe = :robe, status = :status, is_system = :is_system
                      WHERE id = :id";
 			$stmt = Database::prepare($query);
 
@@ -179,9 +156,7 @@ class HorseModel extends Model_Abstract
 			$stmt->bindParam(':sexe', $data['sexe']);
 			$stmt->bindParam(':gains', $data['gains']);
 			$stmt->bindParam(':origine', $data['origine']);
-			$stmt->bindParam(':quality', $data['quality']);
-			$stmt->bindParam(':quality_production', $data['quality_production']);
-			$stmt->bindParam(':price', $data['price']);
+			$stmt->bindParam(':robe', $data['robe']);
 			$stmt->bindParam(':status', $data['status']);
 			$stmt->bindParam(':is_system', $data['is_system']);
 
@@ -207,16 +182,16 @@ class HorseModel extends Model_Abstract
  				  VALUES(:horse_id $columnsValue)";
 		$stmt = Database::prepare($query);
 
-		$stmt->bindParam(':horse_id', $this->_horseData['id']);
+		$stmt->bindParam(':horse_id', $this->_data['id']);
 		$stmt->execute();
 
-		$this->load($this->_horseData['id']);
+		$this->load($this->_data['id']);
 	}
 
 	public function setQualityAndPrice()
 	{
-		$status	= $this->_horseData['status'];
-		$type	= $this->_horseData['type'];
+		$status	= $this->_data['status'];
+		$type	= $this->_data['type'];
 		$production = $this->getQualityProduction();
 		$note = $this->getQuality();
 
@@ -231,6 +206,12 @@ class HorseModel extends Model_Abstract
 		}
 		$price = $evaluation_price + $production_price;
 
+		if($this->_data['galop_base'] == 0){
+			$specialization = 'T';
+		}else{
+			$specialization = 'G';
+		}
+
 		//save price and quality_production and ITR
 		$query = "UPDATE horses
 					SET evaluation_price = :evaluation_price, production_price = :production_price, price = :price, quality= :quality, quality_production = :quality_production
@@ -241,25 +222,26 @@ class HorseModel extends Model_Abstract
 		$stmt->bindParam(':price', $price);
 		$stmt->bindParam(':quality', $note['quality']);
 		$stmt->bindParam(':quality_production', $production['quality']);
-		$stmt->bindParam(':id', $this->_horseData['id']);
+		$stmt->bindParam(':specialization', $specialization);
+		$stmt->bindParam(':id', $this->_data['id']);
 		$stmt->execute();
 
 		//ITR
-		if($this->_horseData['type'] == 3){
+		if($this->_data['type'] == 3){
 			$itr = $this->getFatherITR();
 		} else {
-			$itr = $this->_horseData['itr'];
+			$itr = $this->_data['itr'];
 		}
 
 		//BTR
-		 $btr = ($this->_horseData['trot_gene'] + $this->_horseData['galop_gene'] + $this->_horseData['endurance_gene'] + $this->_horseData['vitesse_gene'] ) / 4;
+		 $btr = ($this->_data['trot_gene'] + $this->_data['galop_gene'] + $this->_data['endurance_gene'] + $this->_data['vitesse_gene'] ) / 4;
 
 		//save ITR et BTR
 		$query = "UPDATE horses_caracteristique SET itr = :itr, btr = :btr WHERE horse_id = :horse_id";
 		$stmt = Database::prepare($query);
 		$stmt->bindParam(':itr', $itr);
 		$stmt->bindParam(':btr', $btr);
-		$stmt->bindParam(':horse_id', $this->_horseData['id']);
+		$stmt->bindParam(':horse_id', $this->_data['id']);
 		$stmt->execute();
 	}
 
@@ -270,10 +252,10 @@ class HorseModel extends Model_Abstract
 	public function getQualityProduction($itr = null)
 	{
 		if( $itr == null ) {
-			if ($this->_horseData['type'] == 3) {
+			if ($this->_data['type'] == 3) {
 				$itr = $this->getFatherITR();
 			} else {
-				$itr = $this->_horseData['itr'];
+				$itr = $this->_data['itr'];
 			}
 		}
 
@@ -319,7 +301,7 @@ class HorseModel extends Model_Abstract
 		//$configsNote = array(0, 40, 60, 100, 120, 140, 160, 180, 200, 220, 240);
 		$configsNote = array(0, 30, 45, 75, 90, 105, 120, 135, 150, 165, 180);
 		if($horse == null){
-			$totalPerfBase = $this->_horseData['trot_base'] + $this->_horseData['galop_base'] + $this->_horseData['endurance_base'] + $this->_horseData['vitesse_base'];
+			$totalPerfBase = $this->_data['trot_base'] + $this->_data['galop_base'] + $this->_data['endurance_base'] + $this->_data['vitesse_base'];
 		}else{
 			$totalPerfBase = $horse->perf->trot_base + $horse->perf->galop_base + $horse->perf->endurance_base + $horse->perf->vitesse_base;
 		}
@@ -354,7 +336,7 @@ class HorseModel extends Model_Abstract
 
 	public function getFatherITR()
 	{
-		$father = $this->load( $this->_horseData['father_id'], false);
+		$father = $this->load( $this->_data['father_id'], false);
 
 		return $father['itr'];
 	}
@@ -364,7 +346,7 @@ class HorseModel extends Model_Abstract
 	/*************************************************************************************************************/
 	/**
 	 * Utilisable dans CRON ou Generation automatique
-	 * Génération du cheval en fonction du père et mère
+	 * GÃ©nÃ©ration du cheval en fonction du pÃ¨re et mÃ¨re
 	 * @param $etalonId
 	 * @param $pouleId
 	 * @return stdClass
@@ -404,19 +386,25 @@ class HorseModel extends Model_Abstract
 		}else{
 			$cordeShuffle = str_shuffle("{$fatherData['corde']}{$fatherOfMotherData['corde']}{$motherData['corde']}");
 		}
-
 		$horse->corde = $cordeShuffle[0];
+		//Robe
+		if($fatherOfMotherData ==  null){
+			$horse->robe = Commons::array_random( array($fatherData['robe'], $motherData['robe']) );
+		}else{
+			$horse->robe = Commons::array_random( array($fatherData['robe'], $fatherOfMotherData['robe'], $motherData['robe']) );
+		}
+
 		//gains
 		$horse->gains = 0;
 		//origine
 		$horse->origine = $fatherData['origine'];
 		//status 0=inactif, 1=actif
 		$horse->status = 1;
-		//type 0=standard, 1=-1an, 2=etalon, 3=poulinières
+		//type 0=standard, 1=-1an, 2=etalon, 3=pouliniÃ¨res
 		$horse->type = 0;
-		//qualifié
+		//qualifiÃ©
 		$horse->is_qualified = 0;
-		//système
+		//systÃ¨me
 		$horse->is_system = 0;
 
 		//HORSE PERFORMANCE DATA
@@ -428,12 +416,12 @@ class HorseModel extends Model_Abstract
 			$horse->perf->itr = 1;
 		}
 
-		//Qualité de réproduction
+		//QualitÃ© de rÃ©production
 		$QReprodutcion = $this->getQualityProduction($horse->perf->itr);
 		$horse->quality_production = $QReprodutcion['quality'];
 		$horse->production_price = 0;
 
-		//Qualité d'évaluation BTR --> 33% père, 33% père de mère, 33% random
+		//QualitÃ© d'Ã©valuation BTR --> 33% pÃ¨re, 33% pÃ¨re de mÃ¨re, 33% random
 		$this->getBasePerf($horse, 'trot', $fatherData, $fatherOfMotherData, $motherData);
 		$this->getBasePerf($horse, 'galop', $fatherData, $fatherOfMotherData, $motherData);
 		$this->getBasePerf($horse, 'endurance', $fatherData, $fatherOfMotherData, $motherData);
@@ -466,6 +454,13 @@ class HorseModel extends Model_Abstract
 			$horse->perf->btr = ($horse->perf->trot_gene + $horse->perf->galop_gene + $horse->perf->endurance_gene + $horse->perf->vitesse_gene ) / 4;
 		}
 
+		//Specialization
+		if($horse->perf->galop_base == 0){
+			$horse->specialization = 'T';
+		}else{
+			$horse->specialization = 'G';
+		}
+
 		//Physique
 		$horse->perf->physique = 100;
 
@@ -485,7 +480,7 @@ class HorseModel extends Model_Abstract
 		$stmt->execute();
 		$horseId = Database::lastInsertId('horses');
 
-		//Création performance
+		//CrÃ©ation performance
 		$columns = '';
 		$columnsValue =  '';
 		foreach((array)$dataHorse['perf'] as $column => $value){
@@ -502,7 +497,7 @@ class HorseModel extends Model_Abstract
 	}
 
 	/**
-	 * BTR --> 33% père, 33% père de mère, 33% random
+	 * BTR --> 33% pÃ¨re, 33% pÃ¨re de mÃ¨re, 33% random
 	 * si gene = 100%, 33% du 100%
 	 * @param $horse
 	 */
@@ -585,4 +580,84 @@ class HorseModel extends Model_Abstract
 	/***********************************************************************************************************/
 	/*******************************************FIN GENERATION**************************************************/
 	/***********************************************************************************************************/
+
+	//GETTER
+	public function getIndice()
+	{
+		$html = '';
+		$qa = $this->_data['quality']/2; for( $i=1; $i<=5; $i++){
+		if( $qa>=1) {
+				$html .= '<span class="fa fa-star horse-note"></span>';
+			}elseif($qa == 0.5){
+			$html .= '<span class="fa fa-star-half-o horse-note"></span>';
+			}else{
+				$html .= '<span class="fa fa-star-o horse-note"></span>';
+			} $qa--;
+		}
+		return $html;
+	}
+
+	public function getSpecialite()
+	{
+		if($this->_data['specialization'] == 'T'){
+			return 'Trot';
+		}else{
+			return 'Galop';
+		}
+	}
+
+	public function getResultats()
+	{
+		$courue = 0;
+		$victoire = 0;
+		$place = 0;
+
+		$query = "SELECT * FROM gain_race_horse WHERE horse_id = :horse_id";
+		$stmt = Database::prepare($query);
+		$stmt->bindParam(':horse_id', $this->_data['id']);
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+		if (count($result)>0) {
+			$courue = $result['carrer_race'];
+			$victoire = $result['carrer_win'];
+			$place = $result['carrer_placed'];
+		}
+
+		return "{$courue}C - {$victoire}V - {$place}P";
+	}
+
+	public function get5LastPerfs($sexe, $horseId = null)
+	{
+		$html = '';
+		$query = "SELECT h.sexe, rp.status, rp.rang, rt.code FROM race_participant rp";
+		$query .= " INNER JOIN races r ON r.id = rp.race_id";
+		$query .= " INNER JOIN race_type rt ON rt.id = r.type_id";
+		$query .= " INNER JOIN horses h ON h.id = rp.horse_id";
+		$query .= " WHERE rp.horse_id = :horse_id ORDER BY rp.id DESC LIMIT 5";
+		$stmt = Database::prepare($query);
+		if($horseId == null){
+			$stmt->bindParam(':horse_id', $this->_data['id']);
+		}else{
+			$stmt->bindParam(':horse_id', $horseId);
+		}
+
+		$stmt->execute();
+		$results = $stmt->fetchAll();
+		if (count($results)>0) {
+			foreach($results as $item) {
+				if ($item['status'] == 0) {
+					$html .= 'D' . $item['code'];
+				} elseif ($item['status'] > 9) {
+					$html .= '0' . $item['code'];
+				}else{
+					$html .= $item['rang'] . $item['code'];
+				}
+			}
+		}else{
+			$html = 'Inedit';
+			if($sexe == 'F')
+				$html .= 'e';
+		}
+		return $html;
+	}
 }

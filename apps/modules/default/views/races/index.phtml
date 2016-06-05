@@ -1,25 +1,123 @@
-Type de course :
-<ul>
-    <li>qualification</li>
-    <li>à reclamer</li>
-    <li>à conditions</li>
-</ul>
+<?php
+$allRaces = Apps::getModel('Race')->getRaces($date);
+$meetings = Apps::getModel('Race')->getMeetingsAndRaceNumber($allRaces);
+?>
+<div class="col-lg-12">
+    <h1><i class="fa fa-tasks"></i> Les courses</h1>
+    <input type="hidden" id="cur_meeting" value="1" />
+    <input type="hidden" id="max_meeting" value="<?php echo count($meetings)?>" />
+    <div class="row course-content" style="margin-top: 20px">
+        <div class="col-md-4">
+            <a class="btn btn-primary btn-xs col-xs-2 reunion-choice meeting-moins" style="border-radius: 5px 0 0 5px;"><i class="fa fa-chevron-left "></i></a>
+            <?php foreach( $meetings as $k => $data ){ ?>
+            <span class="btn col-xs-2 btn-xs reunion-choice title m-<?php echo $k ?>" style="<?php if($k==1) {?>display: block<?php }else{?>display: none<?php } ?>">R<?php echo $k ?></span>
+            <span class="btn col-xs-6 btn-xs reunion-choice name m-<?php echo $k ?>" style="<?php if($k==1) {?>display: block<?php }else{?>display: none<?php } ?>"><?php echo $data['name'] ?></span>
+            <?php } ?>
+            <a class="btn btn-primary btn-xs col-xs-2 reunion-choice meeting-plus" style="border-radius: 0 5px 5px 0;"><i class="fa fa-chevron-right"></i></a>
+        </div>
+        <div class="col-md-8">
+            <?php foreach( $meetings as $meeting => $data ){ ?>
+            <ul class="nav nav-pills course-title m-<?php echo $meeting ?>" style="<?php if($meeting==1) {?>display: block<?php }else{?>display: none<?php } ?>">
+                <?php foreach( $data['course'] as $course ){ ?>
+                <li class="<?php if($course==1) { ?>active<?php } ?>"><a data-toggle="tab" href="#r<?php echo $meeting ?>-c<?php echo $course ?>">C<?php echo $course ?></a></li>
+                <?php } ?>
+            </ul>
+            <?php } ?>
+        </div>
+        <div class="">
+            <div class="tab-content col-md-12">
+                <?php
+                foreach($allRaces as $i => $race){
+                ?>
+                <div id="r<?php echo $race['meeting'] ?>-c<?php echo $race['race_number'] ?>" class="course-subcontent tab-pane fade <?php if($i==0) { ?>in active <?php } ?>">
+                    <h4><?php echo date('d M Y', strtotime($race['race_date'])) ?> - <b><?php echo date('H\Hi', strtotime($race['race_date'])) ?></b> - R<?php echo $race['meeting'] ?>C<?php echo $race['race_number'] ?> - <b><?php echo $race['name'] ?></b> - <b><?php echo $race['hippodrome_name'] ?></b></h4>
+                    <div class="course-detail">
+                        <ul class="col-md-6" style="list-style: none">
+                            <li><span class="col-xs-4"><b>Type :</b></span><span class="col-xs-6"><?php echo $race['type_name'] ?></span></li>
+                            <li><span class="col-xs-4"><b>Distance :</b></span><span class="col-xs-6"><?php echo number_format($race['lenght'], 0, '.', ' ') ?>m</span></li>
+                        </ul>
+                        <ul class="col-md-6" style="list-style: none">
+                            <li><span class="col-xs-4"><b>Piste :</b></span><span class="col-xs-6">en <?php echo $race['piste_name'] ?></span></li>
+                            <li><span class="col-xs-4"><b>Corde :</b></span><span class="col-xs-6"><?php echo Apps::getModel('Race')->getCorde($race); ?></span></li>
+                        </ul>
+                        <div style="padding-left: 10px;">
+                            <?php Apps::getModel('Race')->getAgeMinMax($race); ?>
+                            Pour les chevaux de <b><?php echo Apps::getModel('Race')->getAgeMinMax($race); ?></b>
+                            <?php echo Apps::getModel('Race')->getGainsMax($race); ?><br>
+                            <?php echo Apps::getModel('Race')->getRacePrize($race); ?>
+                        </div>
+                    </div>
+                    <h4>Les partants</h4>
+                    <div class="table-responsive ">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Cheval</th>
+                                    <th>Cas.</th>
+                                    <th>Sexe/Age</th>
+                                    <th>Entraineur</th>
+                                    <th>Jockey</th>
+                                    <th>Musique</th>
+                                </tr>
+                            </thead>
+                            <tbody>
 
-Qualifications :
-<ul>
-    <li>2 ans : 1'21.5 attele, 1'22.0 monté</li>
-    <li>3 ans : 1'20.0 attele, 1'20.5 monté</li>
-    <li>4 ans : 1'18.0 attele, 1'18.5 monté</li>
-    <li>5 ans et + : 1'17.5 attele, 1'18.0 monté</li>
-</ul>
-Groupe I : https://fr.wikipedia.org/wiki/Sport_hippique#Groupe_I
-<br>
-Groupe II : https://fr.wikipedia.org/wiki/Sport_hippique#Groupe_II
-<br>
-Groupe III : https://fr.wikipedia.org/wiki/Sport_hippique#Groupe_III
-<br>
-Affichage :
-<ul>
-    <li>Liste des courses du jour, hier et demaine. + fonction de rechreche des dates anterieur  + resultat</li>
-    <li>Les paris sont ouverts du jour du course</li>
-</ul>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Mark</td>
+                                    <td>image</td>
+                                    <td>F7</td>
+                                    <td>J. Dreux</td>
+                                    <td>A. Fergusson</td>
+                                    <td>4m0m8mDmQa</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <?php
+                }
+                ?>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready( function(){
+            $('.meeting-moins').click( function(){
+                var cur_meet = $('#cur_meeting').val();
+                var max_meet = $('#max_meeting').val();
+                var next_meet = 1 ;
+                if(cur_meet==1){
+                    next_meet = max_meet;
+                }else{
+                    next_meet  = parseInt(cur_meet) - 1;
+                }
+                $('#cur_meeting').val(next_meet);
+                $('.reunion-choice.name, .reunion-choice.title, .course-title').hide();
+                $('.course-subcontent').removeClass('in').removeClass('active');
+                $('#r'+next_meet+'-c1').addClass('in').addClass('active');
+                $('.m-' + next_meet).show();
+                $('a[href="#r'+next_meet+'-c1"').tab('show');
+            });
+
+            $('.meeting-plus').click( function(){
+                var cur_meet = $('#cur_meeting').val();
+                var max_meet = $('#max_meeting').val();
+                var next_meet = 1 ;
+                if(cur_meet==max_meet){
+                    next_meet = 1;
+                }else{
+                    next_meet  = parseInt(cur_meet) + 1;
+                }
+                $('#cur_meeting').val(next_meet);
+                $('.reunion-choice.name, .reunion-choice.title, .course-title').hide();
+                $('.course-subcontent').removeClass('in').removeClass('active');
+                $('#r'+next_meet+'-c1').addClass('in').addClass('active');
+                $('.m-' + next_meet).show();
+                $('a[href="#r'+next_meet+'-c1"').tab('show');
+            });
+        });
+    </script>
+</div>

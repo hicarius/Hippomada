@@ -7,7 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.2, user-scalable=yes" />
 
     <!-- celestino web template --->
-    <title><?php echo Layout::getTitle() ?></title>
+    <?php
+    $sessionUser = Session::getUser();
+    $stable = Apps::getModel('Stable')->load($sessionUser['id'])->getData();
+    ?>
+    <title>Turfoland - Ecurie <?php echo $stable['name'] ?></title>
 
     <!-- RESET STYLESHEET -->
     <link rel="stylesheet" type="text/css" media="all" href="/themes/front/css/reset.css" />
@@ -16,29 +20,13 @@
     <!--link rel="stylesheet" type="text/css" media="all" href="/themes/front/css/bootstrap.css" /-->
     <!-- MAIN THEME STYLESHEET -->
     <link rel="stylesheet" type="text/css" media="all" href="/themes/front/css/style.css" />
-
     <link rel='stylesheet' id='responsive-css'  href='/themes/front/css/responsive.css' type='text/css' media='all' />
-    <link rel='stylesheet' id='tipsy-css'  href='/themes/front/css/tipsy.css' type='text/css' media='all' />
-
     <link rel='stylesheet' id='fonts-css'  href='/themes/front/css/font-awesome.css' type='text/css' media='all' />
-    <link rel='stylesheet' id='full-descriptor-css'  href='/portfolios/full-description/css/style.css' type='text/css' media='all' />
-    <link rel='stylesheet' id='slide-details-css'  href='/portfolios/slide-detail/css/style.css' type='text/css' media='all' />
-    <link rel='stylesheet' id='flex-css'  href='/sliders/flexslider/css/slider.css' type='text/css' media='all' />
-    <link rel='stylesheet' id='flexslider-css'  href='/sliders/flexslider/css/flexslider.css' type='text/css' media='all' />
-    <link rel='stylesheet' id='flexslider-elegant-css'  href='/sliders/flexslider-elegant/css/flexslider.css' type='text/css' media='all' />
-    <link rel='stylesheet' id='shortcode-css'  href='/themes/front/css/shortcodes.css' type='text/css' media='all' />
-
-    <link rel='stylesheet' id='colorbox-css'  href='/themes/front/css/colorbox.css' type='text/css' media='all' />
-    <link rel='stylesheet' id='thumbnails-css'  href='/sliders/thumbnails/css/thumbnails.css' type='text/css' media='all' />
-    <link rel='stylesheet' id='custom-button-mfast-3-css'  href='/themes/front/css/buttons/mfast-3.css' type='text/css' media='all' />
-
     <link rel='stylesheet' id='custom-css'  href='/themes/front/css/custom.css' type='text/css' media='all' />
-
     <!-- [favicon] begin -->
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <!-- [favicon] end -->
-
     <!-- For iPad3 with retina display: -->
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="apple-touch-icon-144x.png" />
     <!-- For first- and second-generation iPad: -->
@@ -48,9 +36,8 @@
     <!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
     <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-57x.png" />
 
-    <link rel='stylesheet' id='thickbox-css'  href='/themes/front/js/thickbox/thickbox.css' type='text/css' media='all' />
-
-    <script type='text/javascript' src='/themes/front/js/jquery/jquery.js'></script>
+    <script type='text/javascript' src='/themes/front/js/jquery.min.js'></script>
+    <script type='text/javascript' src='/themes/front/js/bootstrap.min.js'></script>
 </head>
 <!-- END HEAD -->
 <!-- START BODY -->
@@ -146,20 +133,8 @@
 </div>
 <!-- END BG SHADOW -->
 
-<script type='text/javascript' src='/sliders/thumbnails/js/jquery.aw-showcase.js'></script>
-<script type='text/javascript' src='/themes/front/js/jquery.colorbox-min.js'></script>
-<script type='text/javascript' src='/themes/front/js/jquery.flexslider-min.js'></script>
-<script type='text/javascript' src='/themes/front/js/jquery.tweetable.js'></script>
-<script type='text/javascript' src='/themes/front/js/jquery.superfish.js'></script>
-<script type='text/javascript' src='/themes/front/js/jquery.themepunch.plugins.min.js'></script>
-<script type='text/javascript' src='/themes/front/js/jquery.themepunch.revolution.js'></script>
-<script type='text/javascript' src='/portfolios/filterable/js/jquery.filterable.js'></script>
-<script type='text/javascript' src='/themes/front/js/jquery.tipsy.js'></script>
 <script type='text/javascript' src='/themes/front/js/responsive.js'></script>
 <script type='text/javascript' src='/themes/front/js/jquery.mobilemenu.js'></script>
-<script type='text/javascript' src='/themes/front/js/shortcodes.js'></script>
-<script type='text/javascript' src='/themes/front/js/jquery/jquery.masonry.min.js'></script>
-<script type='text/javascript' src='/themes/front/js/jquery.custom.js'></script>
 <script type='text/javascript' src='/themes/front/js/script.js'></script>
 </body>
 <!-- END BODY -->

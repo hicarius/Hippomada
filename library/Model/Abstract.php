@@ -5,6 +5,8 @@ abstract class Model_Abstract
 
     protected $_tablename;
 
+    protected $_data;
+
     protected function save(){
 
     }
@@ -23,5 +25,10 @@ abstract class Model_Abstract
     public function addMessage( $msg, $code)
     {
         Session::addMessage($msg, $code);
+    }
+
+    public function getData()
+    {
+        return $this->_data;
     }
 }

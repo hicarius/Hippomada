@@ -107,6 +107,26 @@
                                 <input type="text" name="race_date" class="form-control" value="<?php echo $data['race_date'] ?>" />
                             </div>
                             <div class="form-group input-group">
+                                <span class="input-group-addon">Réunion</span>
+                                <select class="form-control" name="meeting">
+                                    <option>--choisir--</option>
+                                    <option <?php echo ($data['meeting'] == '1') ? 'selected="selected"' : ''; ?>>1</option>
+                                    <option <?php echo ($data['meeting'] == '2') ? 'selected="selected"' : ''; ?>>2</option>
+                                    <option <?php echo ($data['meeting'] == '3') ? 'selected="selected"' : ''; ?>>3</option>
+                                </select>
+                            </div>
+                            <div class="form-group input-group">
+                                <span class="input-group-addon">Course</span>
+                                <select class="form-control" name="race_number">
+                                    <option>--choisir--</option>
+                                    <option <?php echo ($data['race_number'] == '1') ? 'selected="selected"' : ''; ?>>1</option>
+                                    <option <?php echo ($data['race_number'] == '2') ? 'selected="selected"' : ''; ?>>2</option>
+                                    <option <?php echo ($data['race_number'] == '3') ? 'selected="selected"' : ''; ?>>3</option>
+                                    <option <?php echo ($data['race_number'] == '4') ? 'selected="selected"' : ''; ?>>4</option>
+                                    <option <?php echo ($data['race_number'] == '5') ? 'selected="selected"' : ''; ?>>5</option>
+                                </select>
+                            </div>
+                            <div class="form-group input-group">
                                 <span class="input-group-addon">Inscription</span>
                                 <input type="text" name="price" class="form-control" value="<?php echo $data['price'] ?>" />
                                 <span class="input-group-addon">turfoos</span>

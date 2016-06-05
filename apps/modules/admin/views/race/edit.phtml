@@ -111,6 +111,26 @@
                                 <input type="text" name="race_date" class="form-control" value="<?php echo $data['race_date'] ?>" />
                             </div>
                             <div class="form-group input-group">
+                                <span class="input-group-addon">Réunion</span>
+                                <select class="form-control" name="meeting">
+                                    <option>--choisir--</option>
+                                    <option <?php echo ($data['meeting'] == '1') ? 'selected="selected"' : ''; ?>>1</option>
+                                    <option <?php echo ($data['meeting'] == '2') ? 'selected="selected"' : ''; ?>>2</option>
+                                    <option <?php echo ($data['meeting'] == '3') ? 'selected="selected"' : ''; ?>>3</option>
+                                </select>
+                            </div>
+                            <div class="form-group input-group">
+                                <span class="input-group-addon">Course</span>
+                                <select class="form-control" name="race_number">
+                                    <option>--choisir--</option>
+                                    <option <?php echo ($data['race_number'] == '1') ? 'selected="selected"' : ''; ?>>1</option>
+                                    <option <?php echo ($data['race_number'] == '2') ? 'selected="selected"' : ''; ?>>2</option>
+                                    <option <?php echo ($data['race_number'] == '3') ? 'selected="selected"' : ''; ?>>3</option>
+                                    <option <?php echo ($data['race_number'] == '4') ? 'selected="selected"' : ''; ?>>4</option>
+                                    <option <?php echo ($data['race_number'] == '5') ? 'selected="selected"' : ''; ?>>5</option>
+                                </select>
+                            </div>
+                            <div class="form-group input-group">
                                 <span class="input-group-addon">Inscription</span>
                                 <input type="text" name="price" class="form-control" value="<?php echo $data['price'] ?>" />
                                 <span class="input-group-addon">turfoos</span>
@@ -170,27 +190,23 @@
                     <table class="table table-striped table-bordered table-hover" id="dataTables-race-cheval">
                         <thead>
                         <tr>
-                            <th>Nom</th>
-                            <th>Qualité</th>
-                            <th>Qualité production</th>
+                            <th>#</th>
+                            <th>Cheval</th>
+                            <th>Sexe/Age</th>
                             <th>Entraineur</th>
-                            <th>Eleveur</th>
-                            <th>Mère</th>
-                            <th>Père</th>
-                            <th>Âge</th>
-                            <th>Sexe</th>
-                            <th>Gains</th>
+                            <th>Jockey/Diver</th>
+                            <th>Musique</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <?php  foreach($horses as $horse) { ?>
+                        <?php  foreach($horses as $item) {  ?>
                             <tr class="">
-                                <td><a href="/admin/stable/edit/id/<?php echo $horse['id'] ?>"><?php echo $horse['name'] ?></a></td>
-                                <td><?php echo $stable['email'] ?></td>
-                                <td><?php echo $stable['proprietaire'] ?></td>
-                                <td class="center"><?php echo $stable['level'] ?></td>
-                                <td class="center"><?php echo $stable['banque'] ?></td>
-                                <td class="center"><?php echo $stable['last_activity'] ?></td>
+                                <td><?php echo $item['id'] ?></td>
+                                <td><a href="/admin/horse/edit/id/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
+                                <td><?php echo $item['sexe'] ?>/<?php echo $item['age'] ?></td>
+                                <td class="center"><?php echo $item['entraineur'] ?></td>
+                                <td class="center"><?php echo $item['jockey'] ?></td>
+                                <td class="center"><?php echo Apps::getModel('Horse')->get5LastPerfs($item['sexe'], $item['id']) ?></td>
                             </tr>
                         <?php } ?>
                         </tbody>

@@ -60,6 +60,18 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group input-group">
+                                    <span class="input-group-addon">Robe</span>
+                                    <select class="form-control" name="is_system">
+                                        <option>--choisir--</option>
+                                        <?php
+                                        $robes = array('noir', 'blanc', 'azelan');
+                                        foreach($robes as $robe){
+                                        ?>
+                                        <option <?php echo ($data['robe'] == $robe) ? 'selected="selected"' : ''; ?> value="<?php echo $robe ?>"><?php echo ucfirst($robe) ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                                <div class="form-group input-group">
                                     <span class="input-group-addon">Origine</span>
                                     <input type="text" name="origine" class="form-control" value="<?php echo $data['origine'] ?>" />
                                 </div>

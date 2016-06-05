@@ -32,13 +32,14 @@ class HorseController extends Controller
             'gains' => '',
             'is_qualified' => '',
             'type' => '',
+            'robe' => '',
         );
 
         if( Request::getInstance()->isPost()){
-            $data = Request::getInstance()->getPost();
+            $post = Request::getInstance()->getPost();
             $oHorse = Apps::getModel('Horse');
-            $id = $oHorse->create($data);
-            $oHorse->createPerformance($data['perf']);
+            $id = $oHorse->create($post);
+            $oHorse->createPerformance($post['perf']);
             $oHorse->setQualityAndPrice();
             if( $id ) {
                 $this->getView()->redirect('/admin/horse/');
@@ -61,11 +62,10 @@ class HorseController extends Controller
 
         $id = $this->getRequest()->getParam('id');
 
-        $data =  Apps::getModel('Horse')->load($id);
-
+        $data =  Apps::getModel('Horse')->load($id)->getData();
         if( Request::getInstance()->isPost()){
-            $data = Request::getInstance()->getPost();
-            $id = Apps::getModel('Horse')->update($data);
+            $post = Request::getInstance()->getPost();
+            $id = Apps::getModel('Horse')->update($post);
             if( $id ) {
                 $this->getView()->redirect('/admin/horse/');
             }
@@ -79,7 +79,7 @@ class HorseController extends Controller
         $this->setNoRender();
 
         $post =  Request::getInstance()->getPost();
-        $data =  Apps::getModel('Horse')->loadByName($post['input'], array( 'type' => $post['htyp']));
+        $data =  Apps::getModel('Horse')->loadByName($post['input'], array( 'type' => $post['htyp']))->getData();
         $result = array();
         foreach($data as $item){
             //$result[] = array('id' => $item['id'], 'name' => $item['name']);

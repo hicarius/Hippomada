@@ -1,10 +1,284 @@
-<div class="col-lg-9">
-    <i class="fa fa-star"></i>
-    <h1>Ecurie</h1>
+<?php
+$sessionUser = Session::getUser();
+$oStable = Apps::getModel('Stable');
+$oStable->load($sessionUser['id']);
+$stable = $oStable->getData();
+$chevauxDeEcurie = $oStable->getHorsesForStable();
+?>
+<div class="col-lg-12">
+    <h1><i class="fa fa-home"></i> Récapitulatif de l'écurie</h1>
+    <div class="col-lg-3">
+        <div class="well row">
+            <img src="/themes/front/images/shortcode/woman.png" class="col-xs-12" />
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="panel panel-default" style="min-height: 285px;">
+            <div class="panel-heading">
+                <i class="fa fa-user"></i> Ecurie <span class="special-color1"><?php echo strtoupper($stable['name']) ?></span>
+            </div>
+            <div class="panel-body">
+                <ul class="list-unstyled info-stable">
+                    <li>
+                        <span class="col-xs-6">Proprietaire</span>
+                        <span class="col-xs-6"><?php echo $stable['firstname'] ?> <?php echo strtoupper($stable['lastname']) ?></span>
+                    </li>
+                    <li>
+                        <span class="col-xs-6">Entraineur</span>
+                        <span class="col-xs-6"><?php echo $stable['firstname'] ?> <?php echo strtoupper($stable['lastname']) ?></span>
+                    </li>
+                    <li>
+                        <span class="col-xs-6">Niveau de l'écurie</span>
+                        <span class="col-xs-6">
+                            <?php echo $oStable->getLevel()?>
+                        </span>
+                    </li>
+                    <li>
+                        <span class="col-xs-6">Capital</span>
+                        <span class="col-xs-6"><?php echo number_format($stable['capital'], 0, '.', ' ') . ' ' . Text::__('turfoos') ?></span>
+                    </li>
+                    <li>
+                        <span class="col-xs-6">Locatisation</span>
+                        <span class="col-xs-6"><?php echo $stable['country'] ?> / <?php echo $stable['continent'] ?></span>
+                    </li>
+                    <li>
+                        <?php $nbrHorseMax= $oStable->getMaxHorse() ?>
+                        <span class="col-xs-6">Nombre des chévaux</span><span class="col-xs-6"><?php echo count($chevauxDeEcurie)?> / <?php echo ($nbrHorseMax!=0) ? "$nbrHorseMax max" : 'illimité' ?></span>
+                    </li>
+                </ul>
+                <button class="btn btn-outline btn-primary btn-xs pull-right" type="button">Mise à niveau à 500 000 <?php echo Text::__('turfoos') ?></button>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-5">
+        <div class="panel panel-default" style="min-height: 285px;">
+            <div class="panel-heading">
+                <i class="fa fa-bar-chart"></i> Statistiques du carrière
+            </div>
+            <div class="panel-body">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#last-race" aria-expanded="false">05 dern. courses</a></li>
+                    <li class=""><a data-toggle="tab" href="#stat-result" aria-expanded="false">Résultats</a></li>
+                    <li class=""><a data-toggle="tab" href="#gains" aria-expanded="false">Gains</a></li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content statistique">
+                    <div id="last-race" class="tab-pane fade  in active">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <td class="a-left">Cheval</td><td>-</td><td>Prix</td><td>Distance</td><td>Place</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class="a-left"><a href="javascript:void(0)" rel="" class="horse-name">Mark</a></td><td>image</td><td>Prix d'armville</td><td>2 400</td><td>Disq</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="stat-result" class="tab-pane fade">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <td class="a-left">#</td><td>Courues</td><td>Victoires</td><td>Placés</td>
+                                </tr>
+                            </thead>
+                            <?php $resultats = $oStable->getResultats() ?>
+                            <tbody>
+                                <tr>
+                                    <td class="a-left">Mois en cours</td>
+                                    <td><?php echo $resultats['mounth_race'] ?></td>
+                                    <td><?php echo $resultats['mounth_win'] ?> / <span class="special-color1"><?php echo @number_format($resultats['mounth_win'] / $resultats['mounth_race'] * 100) ?>%</span></td>
+                                    <td><?php echo $resultats['mounth_placed'] ?> / <span class="special-color1"><?php echo @number_format($resultats['mounth_placed'] / $resultats['mounth_race'] * 100) ?>%</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="a-left">Année en cours</td>
+                                    <td><?php echo $resultats['year_race'] ?></td>
+                                    <td><?php echo $resultats['year_win'] ?> / <span class="special-color1"><?php echo @number_format($resultats['year_win'] / $resultats['year_race'] * 100) ?>%</span></td>
+                                    <td><?php echo $resultats['year_placed'] ?> / <span class="special-color1"><?php echo @number_format($resultats['year_placed'] / $resultats['year_race'] * 100) ?>%</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="a-left">Carrière</td>
+                                    <td><?php echo $resultats['carrer_race'] ?></td>
+                                    <td><?php echo $resultats['carrer_win'] ?> / <span class="special-color1"><?php echo @number_format($resultats['carrer_win'] / $resultats['carrer_race'] * 100) ?>%</span></td>
+                                    <td><?php echo $resultats['carrer_placed'] ?> / <span class="special-color1"><?php echo @number_format($resultats['carrer_placed'] / $resultats['carrer_race'] * 100) ?>%</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="gains" class="tab-pane fade">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <td class="a-left">#</td><td>Acquis</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class="a-left">Mois en cours</td><td><?php echo number_format($resultats['mounth_gain'], 0, '.', ' ') ?></td>
+                            </tr>
+                            <tr>
+                                <td class="a-left">Année en cours</td><td><?php echo number_format($resultats['year_gain'], 0, '.', ' ') ?></td>
+                            </tr>
+                            <tr>
+                                <td class="a-left">Carrière</td><td><?php echo number_format($resultats['carrer_gain'], 0, '.', ' ') ?></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<div class="col-lg-3">
-    <div class="well">
-        <h4>Normal Well</h4>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
+
+
+<div class="col-lg-12">
+    <h1><i class="fa fa-shopping-basket"></i> Vente(s) et proposition(s) en cours</h1>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Cheval</th>
+                <th>Age/Sexe</th>
+                <th>Indice</th>
+                <th>Spéc.</th>
+                <th>Gains</th>
+                <th>Stat.</th>
+                <th>Musique</th>
+                <th>Statut</th>
+                <th>Prix</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="a-left"><a href="javascript:void(0)" rel="" class="horse-name">Mark</a></td>
+                <td>F5</td>
+                <td>
+                    <?php $qa = 5/2; for( $i=1; $i<=5; $i++){ ?>
+                        <?php if( $qa>=1) { ?>
+                            <span class="fa fa-star horse-note"></span>
+                        <?php }elseif($qa == 0.5){ ?>
+                            <span class="fa fa-star-half-o horse-note"></span>
+                        <?php }else{ ?>
+                            <span class="fa fa-star-o horse-note"></span>
+                        <?php } $qa--; ?>
+                    <?php } ?>
+                </td>
+                <td>Trot</td>
+                <td>105 900</td>
+                <td>2C - 1V - 2P</td>
+                <td>4a0a0aDm3a</td>
+                <td>Proposition</td>
+                <td>2 000</td>
+                <td>
+                    <button class="btn btn-success btn-xs" type="button">Accepter</button>
+                    <button class="btn btn-danger btn-xs" type="button">Réfuser</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Mark</td>
+                <td>F5</td>
+                <td>
+                    <?php $qa = 7/2; for( $i=1; $i<=5; $i++){ ?>
+                        <?php if( $qa>=1) { ?>
+                            <span class="fa fa-star horse-note"></span>
+                        <?php }elseif($qa == 0.5){ ?>
+                            <span class="fa fa-star-half-o horse-note"></span>
+                        <?php }else{ ?>
+                            <span class="fa fa-star-o horse-note"></span>
+                        <?php } $qa--; ?>
+                    <?php } ?>
+                </td>
+                <td>Galop</td>
+                <td>105 900</td>
+                <td>10C - 0V - 0P</td>
+                <td>1p0pQp</td>
+                <td>En vente</td>
+                <td>8 000</td>
+                <td>-</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="col-lg-12">
+    <h1><i class="fa fa-object-group"></i> Chévaux en activité</h1>
+    <div class="table-responsive">
+        <?php
+        $activeHorse = $oStable->getActiveHorse($stable['id']);
+        if(count($activeHorse) > 0 ){
+        ?>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Cheval</th><th>Age/Sexe</th><th>Indice</th><th>Spéc.</th><th>Gains</th><th>Stat.</th><th>Musique</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach( $activeHorse as $item) {
+                    $oHorse = Apps::getModel('Horse')->load($item['id']);
+                    $horse = $oHorse->getData();
+            ?>
+                    <tr>
+                        <td class="a-left"><a href="javascript:void(0)" rel="<?php echo $horse['id'] ?>" class="horse-name"><?php echo $horse['name'] ?></a></td>
+                        <td><?php echo $horse['sexe'] ?><?php echo $horse['age'] ?></td>
+                        <td><?php echo $oHorse->getIndice() ?></td>
+                        <td><?php echo $oHorse->getSpecialite() ?></td>
+                        <td><?php echo number_format($horse['gains'], 0, '.', ' ') ?></td>
+                        <td><?php echo $oHorse->getResultats() ?></td>
+                        <td><?php echo $oHorse->get5LastPerfs($horse['sexe']) ?></td>
+                    </tr>
+            <?php } ?>
+            </tbody>
+        </table>
+        <?php
+        }else{
+            echo "<div class='row'>Aucun chévaux en activité</div>";
+        }
+        ?>
+    </div>
+</div>
+
+<div class="col-lg-12">
+    <h1><i class="fa fa-object-group"></i> Chévaux inactifs et de réproduction</h1>
+    <div class="table-responsive">
+        <?php
+        $inactiveHorse = $oStable->getInactiveHorse($stable['id']);
+        if(count($inactiveHorse) > 0 ){
+            ?>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Cheval</th><th>Age/Sexe</th><th>Indice</th><th>Spéc.</th><th>Gains</th><th>Stat.</th><th>Musique</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach( $inactiveHorse as $item) {
+                    $oHorse = Apps::getModel('Horse')->load($item['id']);
+                    $horse = $oHorse->getData();
+                    ?>
+                    <tr>
+                        <td class="a-left"><a href="javascript:void(0)" rel="<?php echo $horse['id'] ?>" class="horse-name"><?php echo $horse['name'] ?></a></td>
+                        <td><?php echo $horse['sexe'] ?><?php echo $horse['age'] ?></td>
+                        <td><?php echo $oHorse->getIndice() ?></td>
+                        <td><?php echo $oHorse->getSpecialite() ?></td>
+                        <td><?php echo number_format($horse['gains'], 0, '.', ' ') ?></td>
+                        <td><?php echo $oHorse->getResultats() ?></td>
+                        <td><?php echo $oHorse->get5LastPerfs($horse['sexe']) ?></td>
+                    </tr>
+                <?php } ?>
+                </tbody>
+            </table>
+            <?php
+        }else{
+            echo "<div class='row'>Aucun chévaux inactifs et de réproduction</div>";
+        }
+        ?>
     </div>
 </div>

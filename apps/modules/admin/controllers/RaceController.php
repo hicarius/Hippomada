@@ -31,6 +31,8 @@ class RaceController extends Controller
             'age_max' => '',
             'victory_price' => '',
             'status' => '',
+            'meeting' => '',
+            'race_number' => '',
         );
 
         if( Request::getInstance()->isPost()){
@@ -55,9 +57,10 @@ class RaceController extends Controller
 
         $id = $this->getRequest()->getParam('id');
 
-        $data =  Apps::getModel('Race')->load($id);
+        $oHorse = Apps::getModel('Race')->load($id);
+        $data = $oHorse->getData();
 
-        $horses = Apps::getModel('Horse')->getHorsesEngagedInRace($id);
+        $horses = $oHorse->getHorsesEngaged();
         $this->getView()->addVar('horses', $horses);
 
         if( Request::getInstance()->isPost()){
