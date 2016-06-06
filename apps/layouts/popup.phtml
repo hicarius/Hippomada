@@ -8,15 +8,16 @@
 
     <!-- celestino web template --->
     <?php
-    $sessionUser = Session::getUser();
-    $stable = Apps::getModel('Stable')->load($sessionUser['id'])->getData();
+    $oHorse = Apps::getModel('Horse')->load($horseId);
+    $horse = $oHorse->getData();
     ?>
-    <title>Turfoland - Ecurie <?php echo $stable['name'] ?></title>
+    <title>Fiche du <?php echo $horse['name'] ?></title>
 
     <!-- RESET STYLESHEET -->
     <link rel="stylesheet" type="text/css" media="all" href="/themes/front/css/reset.css" />
     <!-- BOOTSTRAP STYLESHEET -->
     <link rel="stylesheet" type="text/css" media="all" href="/themes/admin/css/bootstrap.min.css" />
+    <link href="/themes/admin/jquery-ui-1.11.4/jquery-ui.min.css" rel="stylesheet">
     <!--link rel="stylesheet" type="text/css" media="all" href="/themes/front/css/bootstrap.css" /-->
     <!-- MAIN THEME STYLESHEET -->
     <link rel="stylesheet" type="text/css" media="all" href="/themes/front/css/style.css" />
@@ -38,6 +39,7 @@
 
     <script type='text/javascript' src='/themes/front/js/jquery.min.js'></script>
     <script type='text/javascript' src='/themes/front/js/bootstrap.min.js'></script>
+    <script src="/themes/admin/jquery-ui-1.11.4/jquery-ui.min.js"></script>
 </head>
 <!-- END HEAD -->
 <!-- START BODY -->
@@ -50,7 +52,7 @@
         <div id="primary" class="sidebar-right">
             <div class="container group">
                 <!-- START CONTENT -->
-                <div id="content-home" class="col-lg-12 content group">
+                <div id="content-home" class="col-lg-12">
                     <?php echo Layout::renderView($content) ?>
                 </div>
                 <!-- END CONTENT -->

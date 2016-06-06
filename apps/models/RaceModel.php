@@ -133,7 +133,7 @@ class RaceModel extends Model_Abstract
 
     public function getHorsesEngaged($raceId = null)
     {
-        $additionalColumns = ", h.name, h.age, h.sexe";
+        $additionalColumns = ", h.name, h.age, h.sexe, h.id as horse_id";
         $additionalColumns .= ", CONCAT_WS(' ', s2.firstname, s2.lastname) AS entraineur  ";
         $additionalColumns .= ", CONCAT_WS(' ', s3.firstname, s3.lastname) AS jockey ";
         $joins =  " INNER JOIN horses h ON h.id = rp.horse_id";

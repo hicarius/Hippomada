@@ -68,7 +68,7 @@ $meetings = Apps::getModel('Race')->getMeetingsAndRaceNumber($allRaces);
                             ?>
                                 <tr class="">
                                     <td><?php echo $item['id'] ?></td>
-                                    <td><a href="javascript:void(0)" rel="<?php echo $item['id'] ?>|<?php echo $item['name'] ?>" class="horse-name"><?php echo $item['name'] ?></a></td>
+                                    <td><a href="javascript:void(0)" rel="<?php echo $item['horse_id'] ?>" class="horse-name"><?php echo $item['name'] ?></a></td>
                                     <td>image</td>
                                     <td><?php echo $item['sexe'] ?>/<?php echo $item['age'] ?></td>
                                     <td><?php echo $item['entraineur'] ?></td>

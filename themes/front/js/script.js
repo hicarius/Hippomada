@@ -9,11 +9,11 @@ jQuery( document ).ready( function( $ ) {
 
     $('.horse-name').click( function(){
         var horse = $(this).attr('rel').split('|');
-        open_fiche('/horse/view/id/' + horse[0], horse[1]);
+        open_fiche('/horse/view/id/' + horse[0]);
     });
 });
 
-function open_fiche(url, cheval)
+function open_fiche(url)
 {
-    window.open(url,'Fiche du cheval ' + cheval,'menubar=no, scrollbars=no, width=600, height=800');
+    var w = window.open(url,'Fiche du cheval' + Math.floor((Math.random() * 100) + 1),'menubar=no, scrollbars=yes, width=800, height=800');
 }

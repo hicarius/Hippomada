@@ -1,93 +1,150 @@
-<div class="col-md-12 course-content" style="margin-top: 20px">
+<?php
+$oHorse = Apps::getModel('Horse')->load($horseId);
+$horse = $oHorse->getData();
+//print_r($horse);
+?>
+<div class="col-md-12">
+	<div class="panel panel-success">
+		<a href="javascript:history.back()" class="pull-left"><i class="fa fa-arrow-circle-left "></i> Retour</a>
+		<a href="javascript:window.opener.location.reload();window.close()" class="pull-right"><i class="fa fa-refresh  "></i> Femer et actualiser</a>
+	</div>
+	<div style="clear:both"></div>
+</div>
+
+<div class="col-md-12 course-content horse-detailed" style="margin-top: 20px">
 	<div class="panel panel-success">
 		<div class="panel-heading" style="padding: 5px 10px;">
-			<h4 style="float:left;margin:0;font-size: 19px;">CHEVAK</h4>
-			<span class="col-xs-7" style="font-size: 15px;">- un male|un étalon|une femelle|une poulinière de 5 ans -</span>
+			<h4 style="float:left;margin:0;font-size: 19px;"><?php echo $horse['name'] ?></h4>
+			<span class="col-xs-7" style="font-size: 15px;color:#5f5e5e;">- <?php echo $horse['type'] ?> de <?php echo $horse['age'] ?> ans -</span>
 			<div style="clear:both"></div>
 		</div>
 		<div class="panel-body">
 			<ul class="col-xs-6" style="list-style: none;">
 				<li>
-					<span class="col-xs-6"><b>Specialisation :</b></span><span class="col-xs-6">Troteur</span>
+					<span class="col-xs-7"><b>Specialisation :</b></span><span class="col-xs-5"><?php echo $oHorse->getSpecialization() ?></span>
 				</li>
 				<li>
-					<span class="col-xs-6"><b>Indice :</b></span><span class="col-xs-6">8</span>
+					<span class="col-xs-7"><b>Indice :</b></span><span class="col-xs-5"><?php echo $oHorse->getIndice() ?></span>
 				</li>
 				<li>
-					<span class="col-xs-6"><b>Répr. :</b></span><span class="col-xs-6">5</span>
+					<span class="col-xs-7"><b>Répr. :</b></span><span class="col-xs-5"><?php echo $oHorse->getIndiceReproduction() ?></span>
 				</li>
 				<li>
-					<span class="col-xs-6"><b>Robe :</b></span><span class="col-xs-6">Azelan</span>
+					<span class="col-xs-7"><b>Robe :</b></span><span class="col-xs-5"><?php echo (is_null($horse['robe'])) ? '-' : $horse['robe']; ?></span>
 				</li>
 				<li>
-					<span class="col-xs-6"><b>Valeur :</b></span><span class="col-xs-6">30 000 turfoos</span>
+					<span class="col-xs-7"><b>Valeur :</b></span><span class="col-xs-5"><?php echo number_format($horse['price'], 0, '.', ' ') ?> <?php echo Text::__('turfoos') ?></span>
 				</li>
 			</ul>
 
 			<ul class="col-xs-6" style="list-style: none;">
 				<li>
-					<span class="col-xs-6"><b>Père :</b></span><span class="col-xs-6">trot</span>
+					<span class="col-xs-7"><b>Père :</b></span>
+					<span class="col-xs-5">
+						<?php if($horse['father'] == 'Inconnu'){ ?>
+							<?php echo $horse['father'] ?>
+						<?php }else{ ?>
+						<a href="javascript:void(0)" rel="<?php echo $horse['father_id'] ?>" class="horse-name"><?php echo $horse['father'] ?></a>
+						<?php } ?>
+					</span>
 				</li>
 				<li>
-					<span class="col-xs-6"><b>Mère :</b></span><span class="col-xs-6">trot</span>
+					<span class="col-xs-7"><b>Mère :</b></span>
+					<span class="col-xs-5">
+						<?php if($horse['mother'] == 'Inconnu'){ ?>
+							<?php echo $horse['mother'] ?>
+						<?php }else{ ?>
+							<a href="javascript:void(0)" rel="<?php echo $horse['mother_id'] ?>" class="horse-name"><?php echo $horse['mother'] ?></a>
+						<?php } ?>
+					</span>
 				</li>
 				<li>
-					<span class="col-xs-6"><b>Père de mère :</b></span><span class="col-xs-6">trot</span>
+					<?php $fatherOfMotherData = $oHorse->getFatherOfMother() ?>
+					<span class="col-xs-7"><b>Père de mère :</b></span>
+					<span class="col-xs-5">
+						<?php if($fatherOfMotherData == NULL){ ?>
+							Inconnu
+						<?php }else{ ?>
+							<a href="javascript:void(0)" rel="<?php echo $fatherOfMotherData['id'] ?>>" class="horse-name"><?php echo $fatherOfMotherData['name'] ?></a>
+						<?php } ?>
+					</span>
 				</li>
 				<li>
-					<span class="col-xs-6"><b>Propriètaire :</b></span><span class="col-xs-6">trot</span>
+					<span class="col-xs-7"><b>Propriètaire :</b></span><span class="col-xs-5"><?php echo $horse['proprio'] ?></span>
 				</li>
 				<li>
-					<span class="col-xs-6"><b>Entraineur :</b></span><span class="col-xs-6">trot</span>
+					<span class="col-xs-7"><b>Entraineur :</b></span><span class="col-xs-5"><?php echo $horse['trainer'] ?></span>
 				</li>
 				<li>
-					<span class="col-xs-6"><b>Eleveur :</b></span><span class="col-xs-6">trot</span>
+					<span class="col-xs-7"><b>Eleveur :</b></span><span class="col-xs-5"><?php echo $horse['eleveur'] ?></span>
 				</li>
 			</ul>
 		</div>
 	</div>
 </div>
 
-<div class="col-md-12 course-content" style="margin-top: 20px">
+<div class="col-md-12 course-content horse-detailed" style="margin-top: 20px">
 	<div class="panel panel-success">
 		<div class="panel-body">
 			<ul class="col-xs-6" style="list-style: none;">
 				<li>
-					<span class="col-xs-6"><b>Gains :</b></span><span class="col-xs-6">3 000 000 turfoos</span>
+					<span class="col-xs-7"><b>Gains :</b></span><span class="col-xs-5"><?php echo number_format($horse['gains'], 0, '.', ' ') ?> <?php echo Text::__('turfoos') ?></span>
 				</li>
 			</ul>
 
 			<ul class="col-xs-6" style="list-style: none;">
 				<li>
-					<span class="col-xs-6"><b>Musique :</b></span><span class="col-xs-6">1a5a(15)0m8aDa</span>
+					<span class="col-xs-7"><b>Musique :</b></span><span class="col-xs-5"><?php echo $oHorse->get5LastPerfs($horse['sexe']) ?></span>
 				</li>
 			</ul>
 		</div>
 	</div>
 </div>
-<div class="col-md-12">
+<div class="col-md-12 horse-detailed">
 	<!-- Nav tabs -->
 	<ul class="nav nav-tabs">
-		<li class="active"><a data-toggle="tab" href="#home">Entrainements et caractéristiques</a></li>
-		<li><a data-toggle="tab" href="#profile">Courses</a></li>
-		<li><a data-toggle="tab" href="#settings">Génétiques</a></li>
+		<li class="active"><a data-toggle="tab" href="#caracteres">Caractéristiques et Entrainements</a></li>
+		<li><a data-toggle="tab" href="#courses">Courses</a></li>
+		<li><a data-toggle="tab" href="#genetiques">Génétiques</a></li>
 	</ul>
 
 	<!-- Tab panes -->
 	<div class="tab-content">
-		<div id="home" class="tab-pane fade in active">
-			<h4>Home Tab</h4>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		<div id="caracteres" class="tab-pane fade in active">
+			<div class="col-xs-2">&nbsp;</div><div class="col-xs-5">&nbsp;</div><div class="col-xs-1"></div><div class="col-xs-3 a-center"><b>Entrainement</b></div><div class="col-xs-1">&nbsp;</div>
+			<?php $perfKey = array(
+					'trot' => array('_current', 600, '#0563ac'),
+					'galop' => array('_current', 600, '#0563ac'),
+					'endurance' => array('_current', 600, '#0563ac'),
+					'vitesse' => array('_current', 600, '#0563ac'),
+					'physique' => array('', 100, '#5aa445')
+				);
+			?>
+			<?php foreach($perfKey as $perf => $value){ ?>
+			<div class="row" style="margin-top: 10px">
+				<span class="col-xs-2 ktr-title"><?php echo ucfirst($perf) ?></span>
+				<div id="progressbar-<?php echo $perf ?>" class="col-xs-5 progressbar"></div>
+				<span class="col-xs-1 perf-value"><b><?php echo $horse[$perf . $value[0] ] ?></b></span>
+				<div id="slider-<?php echo $perf ?>" class="col-xs-3 sliderbar"></div>
+				<input type="text" disabled id="traning-<?php echo $perf ?>" value="" size="1" class=" training-value"/>
+				<script type="text/javascript">
+					$( "#progressbar-<?php echo $perf ?>" ).progressbar({value: <?php echo $horse[$perf . $value[0]] ?>, max: <?php echo $value[1] ?> }).find( ".ui-progressbar-value").css({"background": '<?php echo $value[2] ?>'});
+					$( "#slider-<?php echo $perf ?>" ).slider({range: "min", min: 0,max: 5, value:<?php echo $horse['training_' . $perf] ?>,
+						slide: function( event, ui ) {
+							$( "#traning-<?php echo $perf ?>" ).val( ui.value );
+						}
+					});
+					$( "#traning-<?php echo $perf ?>" ).val( $( "#slider-<?php echo $perf ?>" ).slider( "value" ) );
+				</script>
+			</div>
+			<?php } ?>
+			ajout bouton valider entrainement, test de 5max
 		</div>
-		<div id="profile" class="tab-pane fade">
-			<h4>Profile Tab</h4>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-		</div>
-		<div id="messages" class="tab-pane fade">
+		<div id="courses" class="tab-pane fade">
 			<h4>Messages Tab</h4>
 			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 		</div>
-		<div id="settings" class="tab-pane fade">
+		<div id="genetiques" class="tab-pane fade">
 			<h4>Settings Tab</h4>
 			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 		</div>

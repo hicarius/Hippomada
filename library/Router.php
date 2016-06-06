@@ -55,11 +55,14 @@ class Router
     {
         if(self::_useDefaultModule()){
             $reduction = 0;
+            $slice = 2;
         }else {
             $reduction = 1;
+            $slice = 4;
         }
-        if( count( self::$_tRequest ) > (4 - $reduction) )
-          $tParam = array_slice ( self::$_tRequest, (4 - $reduction) );
+
+        if( count( self::$_tRequest ) > ($slice - $reduction) )
+          $tParam = array_slice ( self::$_tRequest, ($slice - $reduction) );
         else
           $tParam =  array();
 

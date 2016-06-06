@@ -27,7 +27,22 @@ class HorseModel extends Model_Abstract
 
 	public function load($id, $setData = true)
 	{
-		$query = "SELECT h.*, hc.itr,
+		$additionalColumns = "s1.name AS proprio, ";
+		$additionalColumns .= "CONCAT_WS(' ', s2.firstname, s2.lastname) AS trainer, ";
+		$additionalColumns .= "CONCAT_WS(' ', s3.firstname, s3.lastname) AS eleveur, ";
+		$additionalColumns .= "IF(h.father_id=0, 'Inconnu', h2.name) AS father, ";
+		$additionalColumns .= "IF(h.mother_id=0, 'Inconnu', h3.name) AS mother, ";
+		$additionalColumns .= "IF(h.status=0, 'Inactif', 'Actif') AS status, ";
+		$additionalColumns .= "IF(h.is_system=0, 'Non', 'Oui') AS is_system, ";
+		$additionalColumns .= "IF(h.type=0, IF(h.sexe='F', 'une femelle', 'un m&acirc;le'), IF(h.type=1, '- de 1 an', IF(h.type=2, 'un &eacute;talon', 'une poulini&egrave;re'))) AS type ";
+		$joins =  " INNER JOIN stables s1 ON s1.id = h.proprio_id";
+		$joins .=  " INNER JOIN stables s2 ON s2.id = h.trainer_id";
+		$joins .=  " INNER JOIN stables s3 ON s3.id = h.eleveur_id";
+		$joins .=  " LEFT JOIN horses h2 ON h2.id = h.father_id";
+		$joins .=  " LEFT JOIN horses h3 ON h3.id = h.mother_id";
+
+		$query = "SELECT h.*, ht.training_trot,ht.training_galop,ht.training_endurance,ht.training_vitesse,ht.training_physique,
+								hc.itr,
 								hc.itr_year,
 								hc.btr,
 								hc.trot_base,
@@ -43,9 +58,12 @@ class HorseModel extends Model_Abstract
 								hc.vitesse_current,
 								hc.vitesse_gene,
 								hc.physique,
-								hc.fatigue
+								hc.fatigue,
+								$additionalColumns
 					FROM horses h
 					LEFT JOIN horses_caracteristique hc ON hc.horse_id = h.id
+					LEFT JOIN horses_training ht ON ht.horse_id = h.id
+					$joins
 					WHERE h.id = :id";
 		$stmt = Database::prepare($query);
 		$stmt->bindParam(':id', $id);
@@ -123,6 +141,14 @@ class HorseModel extends Model_Abstract
 			$stmt->execute();
 
 			$id = Database::lastInsertId('horses');
+
+			//create training line
+			$query = "INSERT INTO horses_training (horse_id)
+ 				  VALUES(:horse_id)";
+			$stmt = Database::prepare($query);
+			$stmt->bindParam(':horse_id', $id);
+			$stmt->execute();
+
 			$this->load($id);
 
 			return $id;
@@ -493,6 +519,13 @@ class HorseModel extends Model_Abstract
 		$stmt->bindParam(':horse_id', $horseId);
 		$stmt->execute();
 
+		//create training line
+		$query = "INSERT INTO horses_training (horse_id)
+ 				  VALUES(:horse_id)";
+		$stmt = Database::prepare($query);
+		$stmt->bindParam(':horse_id', $horseId);
+		$stmt->execute();
+
 		return $horse;
 	}
 
@@ -582,6 +615,27 @@ class HorseModel extends Model_Abstract
 	/***********************************************************************************************************/
 
 	//GETTER
+	public function getFatherOfMother()
+	{
+		$motherData = $this->load($this->_data['mother_id'], false);
+		if($motherData['father_id']) {
+			$fatherOfMotherData = $this->load($motherData['father_id'], false);
+		}else{
+			$fatherOfMotherData =  null;
+		}
+		return $fatherOfMotherData;
+	}
+
+
+	public function getSpecialization()
+	{
+		if($this->_data['specialization'] == 'T'){
+			return 'Troteur';
+		} else {
+			return 'Galopeur';
+		}
+	}
+
 	public function getIndice()
 	{
 		$html = '';
@@ -594,6 +648,19 @@ class HorseModel extends Model_Abstract
 				$html .= '<span class="fa fa-star-o horse-note"></span>';
 			} $qa--;
 		}
+		return $html;
+	}
+
+	public function getIndiceReproduction()
+	{
+		$html = '';
+		$qa = $this->_data['quality_production']; for( $i=1; $i<=5; $i++){
+		if( $qa>=1) {
+			$html .= '<span class="fa fa-star horse-note"></span>';
+		}else{
+			$html .= '<span class="fa fa-star-o horse-note"></span>';
+		} $qa--;
+	}
 		return $html;
 	}
 
@@ -633,7 +700,7 @@ class HorseModel extends Model_Abstract
 		$query .= " INNER JOIN races r ON r.id = rp.race_id";
 		$query .= " INNER JOIN race_type rt ON rt.id = r.type_id";
 		$query .= " INNER JOIN horses h ON h.id = rp.horse_id";
-		$query .= " WHERE rp.horse_id = :horse_id ORDER BY rp.id DESC LIMIT 5";
+		$query .= " WHERE rp.horse_id = :horse_id AND r.status = 0 ORDER BY rp.id DESC LIMIT 5";
 		$stmt = Database::prepare($query);
 		if($horseId == null){
 			$stmt->bindParam(':horse_id', $this->_data['id']);
