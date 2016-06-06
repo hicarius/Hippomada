@@ -1,6 +1,6 @@
 /*
 SQLyog Community Edition- MySQL GUI v7.02 
-MySQL - 5.5.5-10.1.9-MariaDB : Database - sovaly
+MySQL - 5.5.32 : Database - sovaly
 *********************************************************************
 */
 
@@ -201,7 +201,7 @@ CREATE TABLE `race_group` (
 
 /*Data for the table `race_group` */
 
-insert  into `race_group`(`id`,`group_name`) values (1,'Groupe I'),(2,'Groupe II'),(3,'Groupe III'),(4,'Standard'),(5,'2 ans'),(6,'Driver/Jockey');
+insert  into `race_group`(`id`,`group_name`) values (1,'Groupe I'),(2,'Groupe II'),(3,'Groupe III'),(4,'Standard'),(5,'Course'),(6,'Driver/Jockey');
 
 /*Table structure for table `race_hippodrome` */
 
@@ -246,11 +246,11 @@ CREATE TABLE `race_participant` (
   `gain` int(11) DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 /*Data for the table `race_participant` */
 
-insert  into `race_participant`(`id`,`race_id`,`horse_id`,`jockey_id`,`numero`,`is_recul`,`cote`,`rang`,`gain`,`status`) values (1,1,49,1,15,NULL,12,3,750,1),(2,3,49,1,2,NULL,14,9,0,1),(3,4,49,1,6,NULL,5,14,0,0);
+insert  into `race_participant`(`id`,`race_id`,`horse_id`,`jockey_id`,`numero`,`is_recul`,`cote`,`rang`,`gain`,`status`) values (1,1,49,1,15,NULL,12,3,750,1),(2,3,49,1,2,NULL,14,9,0,1),(3,4,49,1,6,NULL,5,14,0,0),(4,5,43,NULL,1,NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `race_piste` */
 
@@ -281,7 +281,7 @@ CREATE TABLE `race_type` (
 
 /*Data for the table `race_type` */
 
-insert  into `race_type`(`id`,`code`,`title`,`group_ids`) values (1,'m','Trot MontÃ©','1,2,4'),(2,'a','Trot AttelÃ©','1,2,3,4,5,6'),(3,'p','Galop Plat','1,2,3,4,5');
+insert  into `race_type`(`id`,`code`,`title`,`group_ids`) values (1,'m','MontÃ©','1,2,4'),(2,'a','AttelÃ©','1,2,3,4,5,6'),(3,'p','Plat','1,2,3,4,5');
 
 /*Table structure for table `races` */
 
@@ -314,7 +314,7 @@ CREATE TABLE `races` (
 
 /*Data for the table `races` */
 
-insert  into `races`(`id`,`category_id`,`name`,`lenght`,`type_id`,`hippodrome_id`,`piste_id`,`group_id`,`corde`,`price`,`recul_gain`,`recul_meter`,`max_gain`,`age_min`,`age_max`,`victory_price`,`status`,`created_at`,`meeting`,`race_number`,`race_date`) values (1,1,'Prix d\'antilles 45',2400,2,3,1,6,'G',1000,0,0,10000,3,3,'',1,'2016-05-31 13:21:30',NULL,NULL,'2016-05-31 13:21:30'),(3,4,'prix de test 3 ',2000,1,1,1,3,'D',200,0,0,2000,4,4,'0',1,'2016-05-31 15:13:33',NULL,NULL,'2016-06-01 14:30:00'),(4,4,'prix de test2',2800,3,3,2,1,'G',2300,40000,25,80000,5,6,'0',1,'2016-05-31 15:20:46',NULL,NULL,'2016-06-01 15:30:00'),(5,4,'Prix de vichy I',2200,2,3,1,4,'D',200,0,0,10000,3,3,'',1,'2016-06-05 20:03:41',1,1,'2016-06-05 12:00:00'),(6,4,'Prix de vichy 2',2750,2,3,1,4,'D',200,0,0,5000,5,6,'23000|10000|6000|4000|2000|1000',1,'2016-06-05 20:07:54',1,2,'2016-06-05 12:30:00'),(7,6,'Prix de vichy 3',2400,2,3,3,4,'G',100,0,0,0,3,3,'',1,'2016-06-05 20:09:34',1,3,'2016-06-05 13:00:00'),(8,4,'Prix de vichy 4',2850,1,3,3,1,'D',1000,0,0,50000,6,0,'',0,'2016-06-05 20:10:42',2,1,'2016-06-05 13:30:00'),(9,1,'Prix de Vincennes Q1',2000,2,1,1,5,'D',0,0,0,0,2,2,'',1,'2016-06-05 20:11:45',3,1,'2016-06-05 14:30:00'),(10,1,'Prix de Vincennes Q2',2000,2,1,3,4,'G',0,0,0,0,3,3,'',1,'2016-06-05 20:13:06',3,2,'2016-06-05 15:00:00');
+insert  into `races`(`id`,`category_id`,`name`,`lenght`,`type_id`,`hippodrome_id`,`piste_id`,`group_id`,`corde`,`price`,`recul_gain`,`recul_meter`,`max_gain`,`age_min`,`age_max`,`victory_price`,`status`,`created_at`,`meeting`,`race_number`,`race_date`) values (1,1,'Prix d\'antilles 45',2400,2,3,1,6,'G',1000,0,0,10000,3,3,'',1,'2016-05-31 13:21:30',NULL,NULL,'2016-05-31 13:21:30'),(3,4,'prix de test 3 ',2000,1,1,1,3,'D',200,0,0,2000,4,4,'0',1,'2016-05-31 15:13:33',NULL,NULL,'2016-06-01 14:30:00'),(4,4,'prix de test2',2800,3,3,2,1,'G',2300,40000,25,80000,5,6,'0',1,'2016-05-31 15:20:46',NULL,NULL,'2016-06-01 15:30:00'),(5,4,'Prix de vichy I',2200,2,3,1,4,'D',200,0,0,10000,3,3,'',1,'2016-06-05 20:03:41',1,1,'2016-06-06 12:00:00'),(6,4,'Prix de vichy 2',2750,2,3,1,4,'D',200,0,0,5000,5,6,'23000|10000|6000|4000|2000|1000',1,'2016-06-05 20:07:54',1,2,'2016-06-06 12:30:00'),(7,6,'Prix de vichy 3',2400,2,3,3,4,'G',100,0,0,0,3,3,'',1,'2016-06-05 20:09:34',1,3,'2016-06-06 13:00:00'),(8,4,'Prix de vichy 4',2850,1,3,3,1,'D',1000,0,0,50000,6,0,'',0,'2016-06-05 20:10:42',2,1,'2016-06-06 13:30:00'),(9,1,'Prix de Vincennes Q1',2000,2,1,1,5,'D',0,0,0,0,2,2,'',1,'2016-06-05 20:11:45',3,1,'2016-06-06 14:30:00'),(10,1,'Prix de Vincennes Q2',2000,2,1,3,4,'G',0,0,0,0,3,3,'',1,'2016-06-05 20:13:06',3,2,'2016-06-06 15:00:00');
 
 /*Table structure for table `saillies` */
 
