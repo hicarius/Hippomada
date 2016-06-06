@@ -131,7 +131,7 @@ class RaceModel extends Model_Abstract
         }
     }
 
-    public function getHorsesEngaged()
+    public function getHorsesEngaged($raceId = null)
     {
         $additionalColumns = ", h.name, h.age, h.sexe";
         $additionalColumns .= ", CONCAT_WS(' ', s2.firstname, s2.lastname) AS entraineur  ";
@@ -143,7 +143,13 @@ class RaceModel extends Model_Abstract
         $query = "SELECT rp.* $additionalColumns FROM race_participant rp $joins";
         $query .= " WHERE rp.race_id = :race_id";
         $stmt = Database::prepare($query);
-        $stmt->bindParam(':race_id', $this->_data['id']);
+
+        if($raceId==null){
+            $stmt->bindParam(':race_id', $this->_data['id']);
+        }else{
+            $stmt->bindParam(':race_id',  $raceId);
+        }
+
         $stmt->execute();
         return $stmt->fetchAll();
     }

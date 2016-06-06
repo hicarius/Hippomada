@@ -23,7 +23,7 @@ Good work... and good luck! :)
 http://www.cssfontstack.com/Web-Fonts
 ********************************************/
 
-/* latin FOR all Body*/
+/*
 @font-face {
     font-family: 'Questrial';
     font-style: normal;
@@ -32,7 +32,6 @@ http://www.cssfontstack.com/Web-Fonts
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }
 
-/* latin FOR Menu*/
 @font-face {
     font-family: 'Chewy';
     font-style: normal;
@@ -41,7 +40,6 @@ http://www.cssfontstack.com/Web-Fonts
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }
 
-/* latin */
 @font-face {
     font-family: 'Cabin';
     font-style: normal;
@@ -50,7 +48,6 @@ http://www.cssfontstack.com/Web-Fonts
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }
 
-/* latin */
 @font-face {
     font-family: 'Cabin Condensed';
     font-style: normal;
@@ -58,15 +55,33 @@ http://www.cssfontstack.com/Web-Fonts
     src: local('Cabin Condensed'), local('CabinCondensed'), url(../fonts/CabinCondensed.woff2) format('woff2');
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }
+*/
+
+/* latin-ext */
+@font-face {
+    font-family: 'Oswald';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Oswald Regular'), local('Oswald-Regular'), url(../fonts/Oswald-le.woff2) format('woff2');
+    unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+    font-family: 'Oswald';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Oswald Regular'), local('Oswald-Regular'), url(../fonts/Oswald-l.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
 
 body{
-    font-family: 'Cabin';
+    font-family: 'Arial';
     font-weight: normal;
 }
 #header div.menu > ul > li > a {
     color: #727272;
-    font-family: "Chewy";
-    font-size: 15px;
+    font-family: "Oswald";
+    font-size: 14px;
     font-style: normal;
     font-weight: normal;
     text-transform: uppercase;
@@ -88,7 +103,7 @@ body{
 
 #topbar a , #topbar a:hover {
     color: #fff;
-    font-family: "Cabin";
+    font-family: "Arial";
     font-size: 14px;
     font-weight: normal;
 }
@@ -98,7 +113,7 @@ body{
 }
 
 h1 {
-    font-family: "Chewy";
+    font-family: "Oswald";
     font-size: 18px;
     margin-top: 0;
     overflow: hidden;
@@ -114,6 +129,15 @@ h1::after {
     position: absolute;
     top: 0.6em;
     width: 100%;
+}
+
+h1 > i {
+    padding-top: 2px;
+    vertical-align: top;
+}
+
+h4{
+    font-family: "Oswald";
 }
 
 .panel-heading span.special-color1{
@@ -159,7 +183,7 @@ td.a-left{
 }
 
 .btn-success, .btn-danger {
-    box-shadow: 0 3px 5px #fff inset;
+    box-shadow: 0 1px 1px #fff inset;
 }
 
 .reunion-choice{
@@ -170,7 +194,7 @@ td.a-left{
 a.reunion-choice, a.reunion-choice:hover{
     background: #5aa445;
     border: 1px solid #5aa445;
-    box-shadow: 0 3px 5px #fff inset;
+    box-shadow: 0 1px 1px #fff inset;
 }
 
 span.reunion-choice, span.reunion-choice:hover{
@@ -192,7 +216,7 @@ span.reunion-choice.name{
 
 .course-title.nav-pills > li > a {
     border-radius: 7px;
-    box-shadow: 0 3px 5px #fff inset;
+    box-shadow: 0 1px 1px #fff inset;
 }
 
 .course-title.nav > li > a {
@@ -217,4 +241,38 @@ span.reunion-choice.name{
 .course-content h4 {
     font-size: 15px;
     text-transform: uppercase;
+}
+
+.ico-trot-monte {
+    background: rgba(0, 0, 0, 0) url("../images/icons/horse-trot-monte.png") no-repeat scroll 0 0 / contain ;
+    display: table;
+    height: 22px;
+    width: 35px;
+}
+
+.ico-trot-attele {
+    background: rgba(0, 0, 0, 0) url("../images/icons/horse-trot-attele.png") no-repeat scroll 0 0 / contain ;
+    display: table;
+    height: 22px;
+    width: 35px;
+}
+
+.ico-galop-plat {
+    background: rgba(0, 0, 0, 0) url("../images/icons/horse-galop-plat.png") no-repeat scroll 0 0 / contain ;
+    display: table;
+    height: 22px;
+    width: 35px;
+}
+
+.ico-galop-haie {
+    background: rgba(0, 0, 0, 0) url("../images/icons/horse-galop-haie.png") no-repeat scroll 0 0 / contain ;
+    display: table;
+    height: 22px;
+    width: 35px;
+}
+
+.ico-race{
+    height: 40px;
+    width: 50px;
+    float: right;
 }

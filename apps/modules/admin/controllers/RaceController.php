@@ -57,10 +57,10 @@ class RaceController extends Controller
 
         $id = $this->getRequest()->getParam('id');
 
-        $oHorse = Apps::getModel('Race')->load($id);
-        $data = $oHorse->getData();
+        $oRace = Apps::getModel('Race')->load($id);
+        $data = $oRace->getData();
 
-        $horses = $oHorse->getHorsesEngaged();
+        $horses = $oRace->getHorsesEngaged();
         $this->getView()->addVar('horses', $horses);
 
         if( Request::getInstance()->isPost()){

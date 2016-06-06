@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<!-- START HEAD -->
+<head>
+    <meta charset="UTF-8" />
+
+    <!-- this line will appear only if the website is visited with an iPad -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.2, user-scalable=yes" />
+
+    <!-- celestino web template --->
+    <?php
+    $sessionUser = Session::getUser();
+    $stable = Apps::getModel('Stable')->load($sessionUser['id'])->getData();
+    ?>
+    <title>Turfoland - Ecurie <?php echo $stable['name'] ?></title>
+
+    <!-- RESET STYLESHEET -->
+    <link rel="stylesheet" type="text/css" media="all" href="/themes/front/css/reset.css" />
+    <!-- BOOTSTRAP STYLESHEET -->
+    <link rel="stylesheet" type="text/css" media="all" href="/themes/admin/css/bootstrap.min.css" />
+    <!--link rel="stylesheet" type="text/css" media="all" href="/themes/front/css/bootstrap.css" /-->
+    <!-- MAIN THEME STYLESHEET -->
+    <link rel="stylesheet" type="text/css" media="all" href="/themes/front/css/style.css" />
+    <link rel='stylesheet' id='responsive-css'  href='/themes/front/css/responsive.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='fonts-css'  href='/themes/front/css/font-awesome.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='custom-css'  href='/themes/front/css/custom.css' type='text/css' media='all' />
+    <!-- [favicon] begin -->
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <!-- [favicon] end -->
+    <!-- For iPad3 with retina display: -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="apple-touch-icon-144x.png" />
+    <!-- For first- and second-generation iPad: -->
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="apple-touch-icon-114x.png" />
+    <!-- For first- and second-generation iPad: -->
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="apple-touch-icon-72x.png">
+    <!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+    <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-57x.png" />
+
+    <script type='text/javascript' src='/themes/front/js/jquery.min.js'></script>
+    <script type='text/javascript' src='/themes/front/js/bootstrap.min.js'></script>
+</head>
+<!-- END HEAD -->
+<!-- START BODY -->
+<body class="page no_js responsive">
+<!-- START BG SHADOW -->
+<div class="bg-shadow">
+    <!-- START WRAPPER -->
+    <div id="wrapper" class="container group">
+        <!-- START PRIMARY -->
+        <div id="primary" class="sidebar-right">
+            <div class="container group">
+                <!-- START CONTENT -->
+                <div id="content-home" class="col-lg-12 content group">
+                    <?php echo Layout::renderView($content) ?>
+                </div>
+                <!-- END CONTENT -->
+            </div>
+        </div>
+        <!-- END PRIMARY -->
+
+    </div>
+    <!-- END WRAPPER -->
+
+</div>
+<!-- END BG SHADOW -->
+
+<script type='text/javascript' src='/themes/front/js/responsive.js'></script>
+<script type='text/javascript' src='/themes/front/js/jquery.mobilemenu.js'></script>
+<script type='text/javascript' src='/themes/front/js/script.js'></script>
+</body>
+<!-- END BODY -->
+</html>

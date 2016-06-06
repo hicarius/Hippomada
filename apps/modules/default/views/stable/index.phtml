@@ -43,7 +43,7 @@ $chevauxDeEcurie = $oStable->getHorsesForStable();
                     </li>
                     <li>
                         <?php $nbrHorseMax= $oStable->getMaxHorse() ?>
-                        <span class="col-xs-6">Nombre des chévaux</span><span class="col-xs-6"><?php echo count($chevauxDeEcurie)?> / <?php echo ($nbrHorseMax!=0) ? "$nbrHorseMax max" : 'illimité' ?></span>
+                        <span class="col-xs-6">Nbre des chévaux</span><span class="col-xs-6"><?php echo count($chevauxDeEcurie)?> / <?php echo ($nbrHorseMax!=0) ? "$nbrHorseMax max" : 'illimité' ?></span>
                     </li>
                 </ul>
                 <button class="btn btn-outline btn-primary btn-xs pull-right" type="button">Mise à niveau à 500 000 <?php echo Text::__('turfoos') ?></button>
@@ -58,7 +58,7 @@ $chevauxDeEcurie = $oStable->getHorsesForStable();
             <div class="panel-body">
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#last-race" aria-expanded="false">05 dern. courses</a></li>
+                    <li class="active"><a data-toggle="tab" href="#last-race" aria-expanded="false">05 Derniers courses</a></li>
                     <li class=""><a data-toggle="tab" href="#stat-result" aria-expanded="false">Résultats</a></li>
                     <li class=""><a data-toggle="tab" href="#gains" aria-expanded="false">Gains</a></li>
                 </ul>
@@ -74,7 +74,7 @@ $chevauxDeEcurie = $oStable->getHorsesForStable();
                             </thead>
                             <tbody>
                             <tr>
-                                <td class="a-left"><a href="javascript:void(0)" rel="" class="horse-name">Mark</a></td><td>image</td><td>Prix d'armville</td><td>2 400</td><td>Disq</td>
+                                <td class="a-left"><a href="javascript:void(0)" rel="1|Mark" class="horse-name">Mark</a></td><td><i class="fa ico-trot-monte"></i></td><td>Prix d'armville</td><td>2 400</td><td>Disq</td>
                             </tr>
                             </tbody>
                         </table>
@@ -156,7 +156,7 @@ $chevauxDeEcurie = $oStable->getHorsesForStable();
             </thead>
             <tbody>
             <tr>
-                <td class="a-left"><a href="javascript:void(0)" rel="" class="horse-name">Mark</a></td>
+                <td class="a-left"><a href="javascript:void(0)" rel="1|Mark" class="horse-name">Mark</a></td>
                 <td>F5</td>
                 <td>
                     <?php $qa = 5/2; for( $i=1; $i<=5; $i++){ ?>
@@ -226,7 +226,7 @@ $chevauxDeEcurie = $oStable->getHorsesForStable();
                     $horse = $oHorse->getData();
             ?>
                     <tr>
-                        <td class="a-left"><a href="javascript:void(0)" rel="<?php echo $horse['id'] ?>" class="horse-name"><?php echo $horse['name'] ?></a></td>
+                        <td class="a-left"><a href="javascript:void(0)" rel="<?php echo $horse['id'] ?>|<?php echo $horse['name'] ?>" class="horse-name"><?php echo $horse['name'] ?></a></td>
                         <td><?php echo $horse['sexe'] ?><?php echo $horse['age'] ?></td>
                         <td><?php echo $oHorse->getIndice() ?></td>
                         <td><?php echo $oHorse->getSpecialite() ?></td>
@@ -264,7 +264,7 @@ $chevauxDeEcurie = $oStable->getHorsesForStable();
                     $horse = $oHorse->getData();
                     ?>
                     <tr>
-                        <td class="a-left"><a href="javascript:void(0)" rel="<?php echo $horse['id'] ?>" class="horse-name"><?php echo $horse['name'] ?></a></td>
+                        <td class="a-left"><a href="javascript:void(0)" rel="<?php echo $horse['id'] ?>|<?php echo $horse['name'] ?>" class="horse-name"><?php echo $horse['name'] ?></a></td>
                         <td><?php echo $horse['sexe'] ?><?php echo $horse['age'] ?></td>
                         <td><?php echo $oHorse->getIndice() ?></td>
                         <td><?php echo $oHorse->getSpecialite() ?></td>

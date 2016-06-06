@@ -30,14 +30,14 @@ $meetings = Apps::getModel('Race')->getMeetingsAndRaceNumber($allRaces);
                 foreach($allRaces as $i => $race){
                 ?>
                 <div id="r<?php echo $race['meeting'] ?>-c<?php echo $race['race_number'] ?>" class="course-subcontent tab-pane fade <?php if($i==0) { ?>in active <?php } ?>">
-                    <h4><?php echo date('d M Y', strtotime($race['race_date'])) ?> - <b><?php echo date('H\Hi', strtotime($race['race_date'])) ?></b> - R<?php echo $race['meeting'] ?>C<?php echo $race['race_number'] ?> - <b><?php echo $race['name'] ?></b> - <b><?php echo $race['hippodrome_name'] ?></b></h4>
+                    <h4><?php echo date('d M Y', strtotime($race['race_date'])) ?> - <b><?php echo date('H\Hi', strtotime($race['race_date'])) ?></b> - R<?php echo $race['meeting'] ?>C<?php echo $race['race_number'] ?> - <b><?php echo $race['name'] ?></b> - <b><?php echo $race['hippodrome_name'] ?></b><i class="ico-race ico-trot-attele"></i></h4>
                     <div class="course-detail">
                         <ul class="col-md-6" style="list-style: none">
                             <li><span class="col-xs-4"><b>Type :</b></span><span class="col-xs-6"><?php echo $race['type_name'] ?></span></li>
                             <li><span class="col-xs-4"><b>Distance :</b></span><span class="col-xs-6"><?php echo number_format($race['lenght'], 0, '.', ' ') ?>m</span></li>
                         </ul>
                         <ul class="col-md-6" style="list-style: none">
-                            <li><span class="col-xs-4"><b>Piste :</b></span><span class="col-xs-6">en <?php echo $race['piste_name'] ?></span></li>
+                            <li><span class="col-xs-4"><b>Piste :</b></span><span class="col-xs-6"> <?php echo $race['piste_name'] ?></span></li>
                             <li><span class="col-xs-4"><b>Corde :</b></span><span class="col-xs-6"><?php echo Apps::getModel('Race')->getCorde($race); ?></span></li>
                         </ul>
                         <div style="padding-left: 10px;">
@@ -62,17 +62,20 @@ $meetings = Apps::getModel('Race')->getMeetingsAndRaceNumber($allRaces);
                                 </tr>
                             </thead>
                             <tbody>
-
-                                <tr>
-                                    <td>1</td>
-                                    <td>Mark</td>
+                            <?php
+                            $horses = Apps::getModel('Race')->getHorsesEngaged($race['id']);
+                            foreach($horses as $item) {
+                            ?>
+                                <tr class="">
+                                    <td><?php echo $item['id'] ?></td>
+                                    <td><a href="javascript:void(0)" rel="<?php echo $item['id'] ?>|<?php echo $item['name'] ?>" class="horse-name"><?php echo $item['name'] ?></a></td>
                                     <td>image</td>
-                                    <td>F7</td>
-                                    <td>J. Dreux</td>
-                                    <td>A. Fergusson</td>
-                                    <td>4m0m8mDmQa</td>
+                                    <td><?php echo $item['sexe'] ?>/<?php echo $item['age'] ?></td>
+                                    <td><?php echo $item['entraineur'] ?></td>
+                                    <td><?php echo $item['jockey'] ?></td>
+                                    <td><?php echo Apps::getModel('Horse')->get5LastPerfs($item['sexe'], $item['id']) ?></td>
                                 </tr>
-
+                            <?php } ?>
                             </tbody>
                         </table>
                     </div>
