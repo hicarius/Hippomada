@@ -3,6 +3,7 @@ $oHorse = Apps::getModel('Horse')->load($horseId);
 $horse = $oHorse->getData();
 //print_r($horse);
 ?>
+<input type="hidden" id="horse_id" value="<?php echo $horse['id'] ?>" />
 <div class="col-md-12">
 	<div class="panel panel-success">
 		<a href="javascript:history.back()" class="pull-left"><b><i class="fa fa-arrow-circle-left "></i> Retour</b></a>
@@ -111,13 +112,13 @@ $horse = $oHorse->getData();
 				var actual_fatigue, ecart_fatigue, add_fatigue, new_fatigue;
 				var total_perf, previous_perf;
 			</script>
-			<div class="col-xs-2">&nbsp;</div><div class="col-xs-4">&nbsp;</div><div class="col-xs-1"></div><div class="col-xs-4 a-center"><b>Entrainement (15 heures réstants)</b></div><div class="col-xs-1">&nbsp;</div>
+			<div class="col-xs-2">&nbsp;</div><div class="col-xs-4">&nbsp;</div><div class="col-xs-1">&nbsp;</div><div class="col-xs-4 a-center"><b>Entrainement (15 heures réstants)</b></div><div class="col-xs-1">&nbsp;</div>
 			<?php $perfKey = array(
 					'trot' => array('_current', 600, '#0563ac', ''),
 					'galop' => array('_current', 600, '#0563ac', ''),
 					'endurance' => array('_current', 600, '#0563ac', ''),
 					'vitesse' => array('_current', 600, '#0563ac', ''),
-					'physique' => array('', 100, '#5aa445', '%'),
+					'physique' => array('', 100, '#5aa445', '/<sub>100</sub>'),
 					'fatigue' => array('', 100, '#FF7FB6', '%')
 				);
 			?>
@@ -131,7 +132,19 @@ $horse = $oHorse->getData();
 					if($horse[$perf . $value[0]] == 100){
 						$disabled = 'true';
 						$horse['training_' . $perf] = 0;
+						$physiqueMarge = 0;
+					}else{
+						$physiqueMarge = $horse['physique'] + (10 * $horse['training_' . $perf]);
 					}
+				}
+
+				$totalPerf = $horse['training_trot'] + $horse['training_galop'] + $horse['training_endurance'] + $horse['training_vitesse']+ $horse['training_physique'];
+				if( ($totalPerf)> 8){
+					$horse['fatigue'] = ($totalPerf - 8) * 10;
+				}
+
+				if($horse['training_fatigue'] > 0){
+					$horse['fatigue'] = $horse['training_fatigue'];
 				}
 			?>
 			<div class="row" style="margin-top: 10px">
@@ -140,13 +153,14 @@ $horse = $oHorse->getData();
 				<span class="col-xs-2 perf-value current-<?php echo $perf ?>">
 					<b><?php echo $horse[$perf . $value[0] ] ?><?php echo $value[3]?></b>
 					<?php if($perf== 'physique'){ ?>
-					<span>5%</span>
+					<span class="phys-percent"><?php echo $physiqueMarge ?></span><span>/<sub>100</sub></span>
+						<input type="hidden" id="phys-percent-value" value="<?php echo $physiqueMarge ?>" />
 					<?php } ?>
-					<input type="hidden" id="current-<?php echo $perf ?>-value" value="<?php echo $horse[$perf . $value[0] ] ?>"/>
+					<input type="hidden" id="current-<?php echo $perf ?>-value" value="<?php echo $horse[$perf . $value[0]] ?>"/>
 				</span>
 				<?php if($perf!= 'fatigue'){ ?>
 				<div id="slider-<?php echo $perf ?>" class="col-xs-4 sliderbar"></div>
-				<input type="text" disabled id="training-<?php echo $perf ?>" value="" size="1" class=" training-value"/>
+				<input type="text" disabled id="training-<?php echo $perf ?>" value="" size="1" class=" training-value" />
 				<?php } ?>
 				<script type="text/javascript">
 					var progressbar_<?php echo $perf ?> = $( "#progressbar-<?php echo $perf ?>" ).progressbar({value: <?php echo $horse[$perf . $value[0]] ?>, max: <?php echo $value[1] ?> }).find( ".ui-progressbar-value").css({"background": '<?php echo $value[2] ?>'});
@@ -161,15 +175,30 @@ $horse = $oHorse->getData();
 							add_fatigue = ecart_slider * 10;
 							new_fatigue = actual_fatigue + add_fatigue;
 
-							$( "#progressbar-fatigue").progressbar({value: new_fatigue});
+							/*if( total_perf <= 8)							{
+								new_fatigue = 0;
+							}*/
+							$("#progressbar-fatigue").progressbar({value: new_fatigue});
 							$('#current-fatigue-value').val(new_fatigue);
 
 							//juste affichage
-							if(new_fatigue < 0){
+							if (new_fatigue < 0) {
 								new_fatigue = 0;
 							}
 							$('.current-fatigue b').html(new_fatigue + '%');
 
+							<?php if($perf== 'physique'){ ?>
+							var phys_percent = parseInt($('#phys-percent-value').val()) + (10*ecart_slider);
+							if(phys_percent > 100){
+								var phys_percent_affichage = 100;
+							}else if(phys_percent < parseInt($('#current-physique').val())){
+								var phys_percent_affichage = $('#current-physique').val();
+							}else{
+								var phys_percent_affichage = phys_percent;
+							}
+							$('#phys-percent-value').val(phys_percent);
+							$('span.phys-percent').html(phys_percent_affichage);
+							<?php } ?>
 						},start: function( event, ui ) {
 							previous_perf = parseInt($( "#slider-physique" ).slider( "value" )) + parseInt($( "#slider-vitesse" ).slider( "value" )) +  parseInt($( "#slider-endurance" ).slider( "value" )) ;
 							<?php if($horse['galop_base']== 0){ ?>
@@ -193,7 +222,8 @@ $horse = $oHorse->getData();
 			<?php
 			}
 			?>
-			ajout bouton valider entrainement, test de 5max
+			<div id="alert-valid-training" title="Vos entrainements">Vos entrainements sont enregistrés ! <br>Ils se dérouleront jeudi soir, entre 23h30 et 23h59.</div>
+			<div class="col-xs-7"></div><div class="col-xs-5 a-center"><button class="valid-training btn btn-success btn-xs" type="button">Valider les entrainements</button></div>
 		</div>
 		<div id="courses" class="tab-pane fade" style="padding: 0 12px;">
 			<h4>Messages Tab</h4>
@@ -205,3 +235,20 @@ $horse = $oHorse->getData();
 		</div>
 	</div>
 </div>
+<script>
+	jQuery( document ).ready( function( $ ) {
+		$('#alert-valid-training').dialog({
+			autoOpen: false,
+			width: 400,
+			modal: true,
+			buttons: [
+				{
+					text: "Ok",
+					click: function () {
+						$(this).dialog("close");
+					}
+				}
+			]
+		});
+	});
+</script>

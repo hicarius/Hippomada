@@ -9,4 +9,11 @@ class HorseController extends Controller
         $this->getView()->addVar('horseId', $horseId);
     }
 
+    public function validTraining()
+    {
+        $this->setNoRender();
+        $data = $this->getRequest()->getPost();
+        $oTraining = Apps::getModel('Training')->updateTraining($data);
+    }
+
 }

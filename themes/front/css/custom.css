@@ -320,3 +320,10 @@ span.perf-value > span {
     font-weight: bold;
     text-transform: uppercase;
 }
+
+.ui-widget-header {
+    background: #dff0d8 none repeat scroll 0 0;
+    border: 1px solid #ddd;
+    color: #333;
+    font-weight: bold;
+}
