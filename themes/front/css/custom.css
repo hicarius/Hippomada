@@ -308,6 +308,15 @@ span.reunion-choice.name{
     margin-top: 3px;
 }
 
+span.perf-value > span {
+    color: #5aa445;
+}
+
 .a-center{
     text-align: center;
+}
+
+.fiche-cheval-sous-titre a, .fiche-cheval-sous-titre {
+    font-weight: bold;
+    text-transform: uppercase;
 }

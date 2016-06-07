@@ -8,7 +8,7 @@ class HorseModel extends Model_Abstract
 	{
 		$additionalColumns = "s1.name AS proprio, ";
 		$additionalColumns .= "CONCAT_WS(' ', s2.firstname, s2.lastname) AS trainer, ";
-		$additionalColumns .= "CONCAT_WS(' ', s3.firstname, s3.lastname) AS eleveur, ";
+		$additionalColumns .= "IF(h.eleveur_id=0, 'Inconnu', s3.name) AS eleveur, ";
 		$additionalColumns .= "IF(h.father_id=0, 'Inconnu', h2.name) AS father, ";
 		$additionalColumns .= "IF(h.mother_id=0, 'Inconnu', h3.name) AS mother, ";
 		$additionalColumns .= "IF(h.status=0, 'Inactif', 'Actif') AS status, ";
@@ -16,7 +16,7 @@ class HorseModel extends Model_Abstract
 		$additionalColumns .= "IF(h.type=0, 'Standard', IF(h.type=1, '- de 1 an', IF(h.type=2, 'Etalon', 'Poulini&egrave;re'))) AS type ";
 		$joins =  " INNER JOIN stables s1 ON s1.id = h.proprio_id";
 		$joins .=  " INNER JOIN stables s2 ON s2.id = h.trainer_id";
-		$joins .=  " INNER JOIN stables s3 ON s3.id = h.eleveur_id";
+		$joins .=  " LEFT JOIN stables s3 ON s3.id = h.eleveur_id";
 		$joins .=  " LEFT JOIN horses h2 ON h2.id = h.father_id";
 		$joins .=  " LEFT JOIN horses h3 ON h3.id = h.mother_id";
 		$query = "SELECT h.*, $additionalColumns FROM horses h $joins  ORDER BY id DESC";
@@ -29,7 +29,7 @@ class HorseModel extends Model_Abstract
 	{
 		$additionalColumns = "s1.name AS proprio, ";
 		$additionalColumns .= "CONCAT_WS(' ', s2.firstname, s2.lastname) AS trainer, ";
-		$additionalColumns .= "CONCAT_WS(' ', s3.firstname, s3.lastname) AS eleveur, ";
+		$additionalColumns .= "IF(h.eleveur_id=0, 'Inconnu', s3.name) AS eleveur, ";
 		$additionalColumns .= "IF(h.father_id=0, 'Inconnu', h2.name) AS father, ";
 		$additionalColumns .= "IF(h.mother_id=0, 'Inconnu', h3.name) AS mother, ";
 		$additionalColumns .= "IF(h.status=0, 'Inactif', 'Actif') AS status, ";
@@ -37,11 +37,11 @@ class HorseModel extends Model_Abstract
 		$additionalColumns .= "IF(h.type=0, IF(h.sexe='F', 'une femelle', 'un m&acirc;le'), IF(h.type=1, '- de 1 an', IF(h.type=2, 'un &eacute;talon', 'une poulini&egrave;re'))) AS type ";
 		$joins =  " INNER JOIN stables s1 ON s1.id = h.proprio_id";
 		$joins .=  " INNER JOIN stables s2 ON s2.id = h.trainer_id";
-		$joins .=  " INNER JOIN stables s3 ON s3.id = h.eleveur_id";
+		$joins .=  " LEFT JOIN stables s3 ON s3.id = h.eleveur_id";
 		$joins .=  " LEFT JOIN horses h2 ON h2.id = h.father_id";
 		$joins .=  " LEFT JOIN horses h3 ON h3.id = h.mother_id";
 
-		$query = "SELECT h.*, ht.training_trot,ht.training_galop,ht.training_endurance,ht.training_vitesse,ht.training_physique,
+		$query = "SELECT h.*, ht.training_trot,ht.training_galop,ht.training_endurance,ht.training_vitesse,ht.training_physique,ht.training_fatigue,
 								hc.itr,
 								hc.itr_year,
 								hc.btr,
@@ -654,7 +654,11 @@ class HorseModel extends Model_Abstract
 	public function getIndiceReproduction()
 	{
 		$html = '';
-		$qa = $this->_data['quality_production']; for( $i=1; $i<=5; $i++){
+		$qa = $this->_data['quality_production'];
+		if($this->_data['type'] == 0){
+			$qa = 0;
+		}
+		for( $i=1; $i<=5; $i++){
 		if( $qa>=1) {
 			$html .= '<span class="fa fa-star horse-note"></span>';
 		}else{

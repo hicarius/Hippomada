@@ -2,18 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c954102d-9b3a-4f7a-ad2a-6ba89682a942" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/modules/default/controllers/HorseController.php" afterPath="$PROJECT_DIR$/apps/modules/default/controllers/HorseController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/models/HorseModel.php" afterPath="$PROJECT_DIR$/apps/models/HorseModel.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/models/RaceModel.php" afterPath="$PROJECT_DIR$/apps/models/RaceModel.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/Router.php" afterPath="$PROJECT_DIR$/library/Router.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/modules/default/views/help/breedings.phtml" afterPath="$PROJECT_DIR$/apps/modules/default/views/help/breedings.phtml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/themes/front/css/custom.css" afterPath="$PROJECT_DIR$/themes/front/css/custom.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/modules/default/views/races/index.phtml" afterPath="$PROJECT_DIR$/apps/modules/default/views/races/index.phtml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/modules/default/views/stable/index.phtml" afterPath="$PROJECT_DIR$/apps/modules/default/views/stable/index.phtml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/layouts/popup.phtml" afterPath="$PROJECT_DIR$/apps/layouts/popup.phtml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/themes/front/js/script.js" afterPath="$PROJECT_DIR$/themes/front/js/script.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/configs/seo.ini" afterPath="$PROJECT_DIR$/apps/configs/seo.ini" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/modules/default/views/help/index.phtml" afterPath="$PROJECT_DIR$/apps/modules/default/views/help/index.phtml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/modules/default/views/trainer/index.phtml" afterPath="$PROJECT_DIR$/apps/modules/default/views/trainer/index.phtml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/modules/default/views/help/jockey.phtml" afterPath="$PROJECT_DIR$/apps/modules/default/views/help/jockey.phtml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/modules/default/views/help/races.phtml" afterPath="$PROJECT_DIR$/apps/modules/default/views/help/races.phtml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/modules/default/views/help/shop.phtml" afterPath="$PROJECT_DIR$/apps/modules/default/views/help/shop.phtml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/modules/default/views/help/stable.phtml" afterPath="$PROJECT_DIR$/apps/modules/default/views/help/stable.phtml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/modules/default/views/horse/view.phtml" afterPath="$PROJECT_DIR$/apps/modules/default/views/horse/view.phtml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="www.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -39,7 +37,7 @@
         <entry file="file://$PROJECT_DIR$/themes/front/css/custom.css">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="281" column="24" selection-start-line="281" selection-start-column="24" selection-end-line="281" selection-end-column="24" />
+              <caret line="311" column="18" selection-start-line="311" selection-start-column="18" selection-end-line="311" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -58,15 +56,9 @@
       <file leaf-file-name="RaceModel.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/models/RaceModel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.423077">
-              <caret line="135" column="71" selection-start-line="135" selection-start-column="71" selection-end-line="135" selection-end-column="71" />
-              <folding>
-                <marker date="1465233529413" expanded="true" signature="775:885" placeholder="SELECT r.*, ..races..." />
-                <marker date="1465233529413" expanded="true" signature="1640:1722" placeholder="SELECT r.*, ..races..." />
-                <marker date="1465233529413" expanded="true" signature="2196:2661" placeholder="INSERT INTO ..." />
-                <marker date="1465233529413" expanded="true" signature="4257:4916" placeholder="UPDATE races..." />
-                <marker date="1465233529413" expanded="true" signature="6934:6990" placeholder="SELECT rp.* ..." />
-              </folding>
+            <state vertical-scroll-proportion="0.0">
+              <caret line="136" column="55" selection-start-line="136" selection-start-column="55" selection-end-line="136" selection-end-column="55" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -74,30 +66,27 @@
       <file leaf-file-name="view.phtml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/apps/modules/default/views/horse/view.phtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7002288">
-              <caret line="96" column="87" selection-start-line="96" selection-start-column="87" selection-end-line="96" selection-end-column="87" />
+            <state vertical-scroll-proportion="0.29048413">
+              <caret line="161" column="71" selection-start-line="161" selection-start-column="71" selection-end-line="161" selection-end-column="71" />
               <folding>
-                <element signature="n#style#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#ul#0;n#div#1;n#div#0;n#div#1;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#ul#1;n#div#1;n#div#0;n#div#1;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#2;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#ul#0;n#div#0;n#div#0;n#div#2;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#ul#1;n#div#0;n#div#0;n#div#2;n#!!top" expanded="true" />
-                <marker date="1465246220934" expanded="true" signature="5048:5064" placeholder="..." />
-                <marker date="1465246220934" expanded="true" signature="5065:5288" placeholder="..." />
+                <element signature="n#style#0;n#div#0;n#div#0;n#div#2;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#0;n#div#3;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#5;n#div#0;n#div#0;n#div#3;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#div#0;n#div#3;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#2;n#div#0;n#div#3;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StableController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/modules/admin/controllers/StableController.php">
+      <file leaf-file-name="trainer.phtml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/modules/default/views/help/trainer.phtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-13.076923">
-              <caret line="20" column="46" selection-start-line="20" selection-start-column="46" selection-end-line="20" selection-end-column="46" />
-              <folding />
+            <state vertical-scroll-proportion="-5.4528303">
+              <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -105,24 +94,23 @@
       <file leaf-file-name="HorseModel.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/models/HorseModel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-25.576923">
-              <caret line="64" column="54" selection-start-line="64" selection-start-column="54" selection-end-line="64" selection-end-column="54" />
+            <state vertical-scroll-proportion="-7.923077">
+              <caret line="43" column="148" selection-start-line="43" selection-start-column="148" selection-end-line="43" selection-end-column="148" />
               <folding>
-                <marker date="1465244640436" expanded="true" signature="1082:1151" placeholder="SELECT h.*, ..horses..." />
-                <marker date="1465244640436" expanded="true" signature="2307:2980" placeholder="SELECT h.*, ..horses..." />
-                <marker date="1465244640436" expanded="true" signature="2307:3013" placeholder="SELECT h.*, ..horses..." />
-                <marker date="1465244640436" expanded="true" signature="3469:3558" placeholder="SELECT id, n..horses..." />
-                <marker date="1465244640436" expanded="true" signature="3875:4210" placeholder="INSERT INTO ..." />
-                <marker date="1465244640436" expanded="true" signature="5501:5564" placeholder="INSERT INTO ..." />
-                <marker date="1465244640436" expanded="true" signature="5859:6287" placeholder="UPDATE horse..." />
-                <marker date="1465244640436" expanded="true" signature="7463:7556" placeholder="INSERT INTO ..." />
-                <marker date="1465244640436" expanded="true" signature="8310:8504" placeholder="UPDATE horse..." />
-                <marker date="1465244640436" expanded="true" signature="9242:9325" placeholder="UPDATE horse..." />
-                <marker date="1465244640436" expanded="true" signature="17025:17089" placeholder="INSERT INTO ..." />
-                <marker date="1465244640436" expanded="true" signature="17399:17492" placeholder="INSERT INTO ..." />
-                <marker date="1465244640436" expanded="true" signature="17633:17696" placeholder="INSERT INTO ..." />
-                <marker date="1465244640436" expanded="true" signature="22034:22090" placeholder="SELECT * FRO..gain_race_horse..." />
-                <marker date="1465244640436" expanded="true" signature="22516:22583" placeholder="SELECT h.sex..race_participant..." />
+                <marker date="1465288828643" expanded="true" signature="1078:1147" placeholder="SELECT h.*, ..horses..." />
+                <marker date="1465288828643" expanded="true" signature="2299:3025" placeholder="SELECT h.*, ..horses..." />
+                <marker date="1465288828643" expanded="true" signature="3481:3570" placeholder="SELECT id, n..horses..." />
+                <marker date="1465288828643" expanded="true" signature="3887:4222" placeholder="INSERT INTO ..." />
+                <marker date="1465288828643" expanded="true" signature="5513:5576" placeholder="INSERT INTO ..." />
+                <marker date="1465288828643" expanded="true" signature="5871:6299" placeholder="UPDATE horse..." />
+                <marker date="1465288828643" expanded="true" signature="7475:7568" placeholder="INSERT INTO ..." />
+                <marker date="1465288828643" expanded="true" signature="8322:8516" placeholder="UPDATE horse..." />
+                <marker date="1465288828643" expanded="true" signature="9254:9337" placeholder="UPDATE horse..." />
+                <marker date="1465288828643" expanded="true" signature="17037:17101" placeholder="INSERT INTO ..." />
+                <marker date="1465288828643" expanded="true" signature="17411:17504" placeholder="INSERT INTO ..." />
+                <marker date="1465288828643" expanded="true" signature="17645:17708" placeholder="INSERT INTO ..." />
+                <marker date="1465288828643" expanded="true" signature="22097:22153" placeholder="SELECT * FRO..gain_race_horse..." />
+                <marker date="1465288828643" expanded="true" signature="22579:22646" placeholder="SELECT h.sex..race_participant..." />
               </folding>
             </state>
           </provider>
@@ -143,13 +131,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/apps/models/Race/TypeModel.php" />
-        <option value="$PROJECT_DIR$/apps/modules/admin/views/race/group.phtml" />
-        <option value="$PROJECT_DIR$/apps/modules/admin/views/race/type.phtml" />
-        <option value="$PROJECT_DIR$/apps/modules/admin/views/race/category.phtml" />
-        <option value="$PROJECT_DIR$/apps/models/Race/CategoryModel.php" />
-        <option value="$PROJECT_DIR$/apps/modules/admin/views/race/hippo.phtml" />
-        <option value="$PROJECT_DIR$/apps/models/Race/HippodromeModel.php" />
         <option value="$PROJECT_DIR$/apps/modules/admin/views/race/create.phtml" />
         <option value="$PROJECT_DIR$/apps/modules/admin/views/race/createauto.phtml" />
         <option value="$PROJECT_DIR$/apps/modules/admin/views/stable/create.phtml" />
@@ -179,7 +160,6 @@
         <option value="$PROJECT_DIR$/apps/modules/admin/views/race/createmanual.phtml" />
         <option value="$PROJECT_DIR$/apps/modules/default/controllers/RacesController.php" />
         <option value="$PROJECT_DIR$/apps/modules/admin/controllers/RaceController.php" />
-        <option value="$PROJECT_DIR$/apps/modules/default/views/help/jockey.phtml" />
         <option value="$PROJECT_DIR$/themes/front/css/bootstrap.min.css" />
         <option value="$PROJECT_DIR$/themes/admin/css/bootstrap.min.css" />
         <option value="$PROJECT_DIR$/themes/front/css/style.css" />
@@ -191,7 +171,15 @@
         <option value="$PROJECT_DIR$/apps/modules/default/views/stable/index.phtml" />
         <option value="$PROJECT_DIR$/apps/layouts/popup.phtml" />
         <option value="$PROJECT_DIR$/themes/front/js/script.js" />
+        <option value="$PROJECT_DIR$/apps/modules/default/views/help/index.phtml" />
+        <option value="$PROJECT_DIR$/apps/modules/default/views/help/breedings.phtml" />
+        <option value="$PROJECT_DIR$/apps/modules/default/views/help/jockey.phtml" />
+        <option value="$PROJECT_DIR$/apps/modules/default/views/help/races.phtml" />
+        <option value="$PROJECT_DIR$/apps/modules/default/views/help/shop.phtml" />
+        <option value="$PROJECT_DIR$/apps/modules/default/views/help/stable.phtml" />
+        <option value="$PROJECT_DIR$/apps/modules/default/views/trainer/index.phtml" />
         <option value="$PROJECT_DIR$/apps/models/HorseModel.php" />
+        <option value="$PROJECT_DIR$/apps/modules/default/views/help/trainer.phtml" />
         <option value="$PROJECT_DIR$/themes/front/css/custom.css" />
         <option value="$PROJECT_DIR$/apps/modules/default/views/horse/view.phtml" />
       </list>
@@ -211,8 +199,8 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1696" />
-    <option name="height" value="1036" />
+    <option name="width" value="1320" />
+    <option name="height" value="784" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -237,6 +225,8 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -251,7 +241,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
+              <option name="myItemId" value="sovaly" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -261,7 +251,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
+              <option name="myItemId" value="sovaly" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -275,25 +265,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="apps" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
+              <option name="myItemId" value="sovaly" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -304,10 +276,6 @@
               <option name="myItemId" value="modules" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="default" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -315,7 +283,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
+              <option name="myItemId" value="sovaly" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -330,10 +298,6 @@
               <option name="myItemId" value="default" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -341,7 +305,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
+              <option name="myItemId" value="sovaly" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -360,10 +324,6 @@
               <option name="myItemId" value="views" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="stable" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -371,7 +331,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
+              <option name="myItemId" value="sovaly" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -383,55 +343,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="apps" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="apps" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="admin" />
+              <option name="myItemId" value="default" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -439,7 +351,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="horse" />
+              <option name="myItemId" value="trainer" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -449,7 +361,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
+              <option name="myItemId" value="sovaly" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -457,72 +369,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="models" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
+              <option name="myItemId" value="modules" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="apps" />
+              <option name="myItemId" value="default" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="layouts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
+              <option name="myItemId" value="views" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="apps" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="layouts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="front" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="apps" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="configs" />
+              <option name="myItemId" value="help" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -533,17 +397,27 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\HTDOCS\hh\ch\sovaly\apps\modules\default\views\help" />
       <recent name="C:\HTDOCS\hh\ch\sovaly\apps\layouts" />
       <recent name="C:\HTDOCS\hh\ch\sovaly\apps\modules\default\views\horse" />
       <recent name="C:\HTDOCS\hh\ch\sovaly\apps\modules\default\controllers" />
       <recent name="J:\Perso\course-hippique\www\apps\modules\admin\views\horse" />
-      <recent name="J:\Perso\course-hippique\www\apps\modules\admin\controllers" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="J:\Perso\course-hippique\www\apps\models\Race" />
     </key>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="#PerlConfigurationType" factoryName="Perl">
+      <option name="SCRIPT_PATH" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="CHARSET" />
+      <option name="USE_ALTERNATIVE_SDK" value="false" />
+      <option name="ALTERNATIVE_SDK_PATH" />
+      <method />
+    </configuration>
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
       <method />
     </configuration>
@@ -551,7 +425,14 @@
       <TestRunner />
       <method />
     </configuration>
+    <configuration default="true" type="PhpBehatConfigurationType" factoryName="Behat">
+      <BehatRunner />
+      <method />
+    </configuration>
     <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
@@ -578,10 +459,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1696" height="1036" extended-state="0" />
+    <frame x="-8" y="-8" width="1320" height="784" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18035714" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.06587302" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -625,55 +506,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/dcs-themes/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dcs-themes/pages/panels-wells.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6304348">
-          <caret line="700" column="73" selection-start-line="700" selection-start-column="4" selection-end-line="700" selection-end-column="73" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/themes/front/js/jquery/jquery.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dcs-themes/bower_components/jquery/dist/jquery.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dcs-themes/bower_components/jquery/dist/jquery.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/themes/front/js/jquery.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/themes/front/js/jquery.custom.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/themes/front/css/shortcodes.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.67444444">
@@ -700,7 +532,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-1.0251716">
           <caret line="11" column="74" selection-start-line="11" selection-start-column="74" selection-end-line="11" selection-end-column="74" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -762,13 +593,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/modules/default/views/help/jockey.phtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7161937">
-          <caret line="61" column="17" selection-start-line="61" selection-start-column="17" selection-end-line="61" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/apps/modules/admin/views/race/edit.phtml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.14858097">
@@ -819,9 +643,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="166" column="0" selection-start-line="166" selection-start-column="0" selection-end-line="166" selection-end-column="0" />
-          <folding>
-            <marker date="1465232140625" expanded="true" signature="-1:-1" placeholder="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -829,7 +651,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.1361556">
           <caret line="7" column="55" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="55" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -837,7 +658,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.1750572">
           <caret line="9" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="48" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -853,7 +673,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.4576659">
           <caret line="57" column="35" selection-start-line="57" selection-start-column="35" selection-end-line="57" selection-end-column="35" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -861,7 +680,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.26333332">
           <caret line="21" column="22" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -869,7 +687,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -893,7 +710,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5446224">
           <caret line="79" column="0" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -901,7 +717,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.1361556">
           <caret line="7" column="55" selection-start-line="7" selection-start-column="55" selection-end-line="7" selection-end-column="55" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -933,29 +748,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.48627">
           <caret line="25" column="133" selection-start-line="25" selection-start-column="133" selection-end-line="25" selection-end-column="166" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/modules/admin/controllers/StableController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.076923">
-          <caret line="20" column="46" selection-start-line="20" selection-start-column="46" selection-end-line="20" selection-end-column="46" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/models/RaceModel.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.423077">
-          <caret line="135" column="71" selection-start-line="135" selection-start-column="71" selection-end-line="135" selection-end-column="71" />
-          <folding>
-            <marker date="1465233529413" expanded="true" signature="775:885" placeholder="SELECT r.*, ..races..." />
-            <marker date="1465233529413" expanded="true" signature="1640:1722" placeholder="SELECT r.*, ..races..." />
-            <marker date="1465233529413" expanded="true" signature="2196:2661" placeholder="INSERT INTO ..." />
-            <marker date="1465233529413" expanded="true" signature="4257:4916" placeholder="UPDATE races..." />
-            <marker date="1465233529413" expanded="true" signature="6934:6990" placeholder="SELECT rp.* ..." />
-          </folding>
+        <state vertical-scroll-proportion="0.0">
+          <caret line="136" column="55" selection-start-line="136" selection-start-column="55" selection-end-line="136" selection-end-column="55" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -995,32 +795,103 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.7562929">
           <caret line="176" column="189" selection-start-line="167" selection-start-column="40" selection-end-line="176" selection-end-column="189" />
-          <folding>
-            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#div#1;n#form#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/modules/default/views/help/index.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.05676127">
+          <caret line="2" column="30" selection-start-line="2" selection-start-column="23" selection-end-line="2" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/modules/default/views/help/breedings.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.05676127">
+          <caret line="2" column="30" selection-start-line="2" selection-start-column="30" selection-end-line="2" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/modules/default/views/help/jockey.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.05676127">
+          <caret line="2" column="30" selection-start-line="2" selection-start-column="30" selection-end-line="2" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/modules/default/views/help/races.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.05676127">
+          <caret line="2" column="30" selection-start-line="2" selection-start-column="30" selection-end-line="2" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/modules/default/views/help/shop.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.05676127">
+          <caret line="2" column="30" selection-start-line="2" selection-start-column="30" selection-end-line="2" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/modules/default/views/trainer/index.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/modules/default/views/help/stable.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.312187">
+          <caret line="11" column="12" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/models/HorseModel.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-25.576923">
-          <caret line="64" column="54" selection-start-line="64" selection-start-column="54" selection-end-line="64" selection-end-column="54" />
+        <state vertical-scroll-proportion="-7.923077">
+          <caret line="43" column="148" selection-start-line="43" selection-start-column="148" selection-end-line="43" selection-end-column="148" />
           <folding>
-            <marker date="1465244640436" expanded="true" signature="1082:1151" placeholder="SELECT h.*, ..horses..." />
-            <marker date="1465244640436" expanded="true" signature="2307:2980" placeholder="SELECT h.*, ..horses..." />
-            <marker date="1465244640436" expanded="true" signature="2307:3013" placeholder="SELECT h.*, ..horses..." />
-            <marker date="1465244640436" expanded="true" signature="3469:3558" placeholder="SELECT id, n..horses..." />
-            <marker date="1465244640436" expanded="true" signature="3875:4210" placeholder="INSERT INTO ..." />
-            <marker date="1465244640436" expanded="true" signature="5501:5564" placeholder="INSERT INTO ..." />
-            <marker date="1465244640436" expanded="true" signature="5859:6287" placeholder="UPDATE horse..." />
-            <marker date="1465244640436" expanded="true" signature="7463:7556" placeholder="INSERT INTO ..." />
-            <marker date="1465244640436" expanded="true" signature="8310:8504" placeholder="UPDATE horse..." />
-            <marker date="1465244640436" expanded="true" signature="9242:9325" placeholder="UPDATE horse..." />
-            <marker date="1465244640436" expanded="true" signature="17025:17089" placeholder="INSERT INTO ..." />
-            <marker date="1465244640436" expanded="true" signature="17399:17492" placeholder="INSERT INTO ..." />
-            <marker date="1465244640436" expanded="true" signature="17633:17696" placeholder="INSERT INTO ..." />
-            <marker date="1465244640436" expanded="true" signature="22034:22090" placeholder="SELECT * FRO..gain_race_horse..." />
-            <marker date="1465244640436" expanded="true" signature="22516:22583" placeholder="SELECT h.sex..race_participant..." />
+            <marker date="1465288828643" expanded="true" signature="1078:1147" placeholder="SELECT h.*, ..horses..." />
+            <marker date="1465288828643" expanded="true" signature="2299:3025" placeholder="SELECT h.*, ..horses..." />
+            <marker date="1465288828643" expanded="true" signature="3481:3570" placeholder="SELECT id, n..horses..." />
+            <marker date="1465288828643" expanded="true" signature="3887:4222" placeholder="INSERT INTO ..." />
+            <marker date="1465288828643" expanded="true" signature="5513:5576" placeholder="INSERT INTO ..." />
+            <marker date="1465288828643" expanded="true" signature="5871:6299" placeholder="UPDATE horse..." />
+            <marker date="1465288828643" expanded="true" signature="7475:7568" placeholder="INSERT INTO ..." />
+            <marker date="1465288828643" expanded="true" signature="8322:8516" placeholder="UPDATE horse..." />
+            <marker date="1465288828643" expanded="true" signature="9254:9337" placeholder="UPDATE horse..." />
+            <marker date="1465288828643" expanded="true" signature="17037:17101" placeholder="INSERT INTO ..." />
+            <marker date="1465288828643" expanded="true" signature="17411:17504" placeholder="INSERT INTO ..." />
+            <marker date="1465288828643" expanded="true" signature="17645:17708" placeholder="INSERT INTO ..." />
+            <marker date="1465288828643" expanded="true" signature="22097:22153" placeholder="SELECT * FRO..gain_race_horse..." />
+            <marker date="1465288828643" expanded="true" signature="22579:22646" placeholder="SELECT h.sex..race_participant..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/modules/admin/controllers/StableController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="20" column="46" selection-start-line="20" selection-start-column="46" selection-end-line="20" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/modules/default/views/help/trainer.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.4528303">
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1028,26 +899,21 @@
     <entry file="file://$PROJECT_DIR$/themes/front/css/custom.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="281" column="24" selection-start-line="281" selection-start-column="24" selection-end-line="281" selection-end-column="24" />
+          <caret line="311" column="18" selection-start-line="311" selection-start-column="18" selection-end-line="311" selection-end-column="18" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/modules/default/views/horse/view.phtml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7002288">
-          <caret line="96" column="87" selection-start-line="96" selection-start-column="87" selection-end-line="96" selection-end-column="87" />
+        <state vertical-scroll-proportion="0.29048413">
+          <caret line="161" column="71" selection-start-line="161" selection-start-column="71" selection-end-line="161" selection-end-column="71" />
           <folding>
-            <element signature="n#style#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#ul#0;n#div#1;n#div#0;n#div#1;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#ul#1;n#div#1;n#div#0;n#div#1;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#2;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#ul#0;n#div#0;n#div#0;n#div#2;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#ul#1;n#div#0;n#div#0;n#div#2;n#!!top" expanded="true" />
-            <marker date="1465246220934" expanded="true" signature="5048:5064" placeholder="..." />
-            <marker date="1465246220934" expanded="true" signature="5065:5288" placeholder="..." />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#2;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#3;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#5;n#div#0;n#div#0;n#div#3;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#div#3;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#2;n#div#0;n#div#3;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
