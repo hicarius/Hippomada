@@ -1,19 +1,22 @@
 <?php
+$sessionUser = Session::getUser();
+$stable = Apps::getModel('Stable')->load($sessionUser['id'])->getData();
+
 $oHorse = Apps::getModel('Horse')->load($horseId);
 $horse = $oHorse->getData();
-//print_r($horse);
+//print_r($horse);die;
 ?>
 <input type="hidden" id="horse_id" value="<?php echo $horse['id'] ?>" />
 <div class="col-md-12">
-	<div class="panel panel-success">
-		<a href="javascript:history.back()" class="pull-left"><b><i class="fa fa-arrow-circle-left "></i> Retour</b></a>
+	<div class="panel panel-info">
+		<!--a href="javascript:history.back()" class="pull-left"><b><i class="fa fa-arrow-circle-left "></i> Retour</b></a-->
 		<a href="javascript:void(0)" onclick="window.opener.location.reload();window.close()" class="pull-right"><b><i class="fa fa-refresh  "></i> Fermer et actualiser</b></a>
 	</div>
 	<div style="clear:both"></div>
 </div>
 
 <div class="col-md-12 course-content horse-detailed" style="margin-top: 20px">
-	<div class="panel panel-success">
+	<div class="panel panel-info">
 		<div class="panel-heading" style="padding: 5px 10px;">
 			<h4 style="float:left;margin:0;font-size: 19px;"><?php echo $horse['name'] ?></h4>
 			<span class="col-xs-7" style="font-size: 15px;color:#5f5e5e;">- <?php echo $horse['type'] ?> de <?php echo $horse['age'] ?> ans -</span>
@@ -22,7 +25,7 @@ $horse = $oHorse->getData();
 		<div class="panel-body">
 			<ul class="col-xs-6" style="list-style: none;">
 				<li>
-					<span class="col-xs-7"><b>Specialisation :</b></span><span class="col-xs-5"><?php echo $oHorse->getSpecialization() ?></span>
+					<span class="col-xs-7"><b>Specialité :</b></span><span class="col-xs-5"><?php echo $oHorse->getSpecialite() ?></span>
 				</li>
 				<li>
 					<span class="col-xs-7"><b>Indice :</b></span><span class="col-xs-5"><?php echo $oHorse->getIndice() ?></span>
@@ -37,6 +40,9 @@ $horse = $oHorse->getData();
 					<span class="col-xs-7"><b>Valeur :</b></span><span class="col-xs-5"><?php echo number_format($horse['price'], 0, '.', ' ') ?> <?php echo Text::__('turfoos') ?></span>
 				</li>
 				<li>
+					<span class="col-xs-7"><b>Résultats :</b></span><span class="col-xs-5"><?php echo $oHorse->getResultats() ?></span>
+				</li>
+				<li>
 					<span class="col-xs-7"><b>Gains :</b></span><span class="col-xs-5"><?php echo number_format($horse['gains'], 0, '.', ' ') ?> <?php echo Text::__('turfoos') ?></span>
 				</li>
 				<li>
@@ -48,32 +54,20 @@ $horse = $oHorse->getData();
 				<li>
 					<span class="col-xs-7"><b>Père :</b></span>
 					<span class="col-xs-5">
-						<?php if($horse['father'] == 'Inconnu'){ ?>
-							<?php echo $horse['father'] ?>
-						<?php }else{ ?>
-						<a href="javascript:void(0)" rel="<?php echo $horse['father_id'] ?>" class="horse-name"><?php echo $horse['father'] ?></a>
-						<?php } ?>
+						<?php echo $oHorse->getName($horse['father'], $horse['father_id'], $horse['father_status']) ?>
 					</span>
 				</li>
 				<li>
 					<span class="col-xs-7"><b>Mère :</b></span>
 					<span class="col-xs-5">
-						<?php if($horse['mother'] == 'Inconnu'){ ?>
-							<?php echo $horse['mother'] ?>
-						<?php }else{ ?>
-							<a href="javascript:void(0)" rel="<?php echo $horse['mother_id'] ?>" class="horse-name"><?php echo $horse['mother'] ?></a>
-						<?php } ?>
+						<?php echo $oHorse->getName($horse['mother'], $horse['mother_id'], $horse['mother_status']) ?>
 					</span>
 				</li>
 				<li>
-					<?php $fatherOfMotherData = $oHorse->getFatherOfMother() ?>
+					<?php //$fatherOfMotherData = $oHorse->getFatherOfMother() ?>
 					<span class="col-xs-7"><b>Père de mère :</b></span>
 					<span class="col-xs-5">
-						<?php if($fatherOfMotherData == NULL){ ?>
-							Inconnu
-						<?php }else{ ?>
-							<a href="javascript:void(0)" rel="<?php echo $fatherOfMotherData['id'] ?>>" class="horse-name"><?php echo $fatherOfMotherData['name'] ?></a>
-						<?php } ?>
+						<?php echo $oHorse->getName($horse['father_mother'], $horse['father_mother_id'], $horse['father_mother_status']) ?>
 					</span>
 				</li>
 				<li>
@@ -91,7 +85,7 @@ $horse = $oHorse->getData();
 </div>
 
 <div class="col-md-12 course-content horse-detailed" style="margin-top: 20px">
-	<div class="panel panel-success">
+	<div class="panel panel-info">
 		<div class="panel-body"style="padding-left:11px;">
 			<span class="col-md-12 fiche-cheval-sous-titre">Courses prévues</span>
 		</div>
@@ -100,14 +94,60 @@ $horse = $oHorse->getData();
 <div class="col-md-12 horse-detailed">
 	<!-- Nav tabs -->
 	<ul class="nav nav-tabs">
-		<li class="active fiche-cheval-sous-titre"><a data-toggle="tab" href="#caracteres">Caractéristiques et Entrainements</a></li>
-		<li class="fiche-cheval-sous-titre"><a data-toggle="tab" href="#courses">Courses</a></li>
-		<li class="fiche-cheval-sous-titre"><a data-toggle="tab" href="#genetiques">Génétiques</a></li>
+		<li class="active fiche-cheval-sous-titre"><a data-toggle="tab" href="#courses">Courses</a></li>
+		<?php if($horse['proprio_id'] == $stable['id']){ ?>
+		<li class="fiche-cheval-sous-titre"><a data-toggle="tab" href="#caracteres">Caractéristiques et Entrainements</a></li>
+		<?php } ?>
+		<li class="fiche-cheval-sous-titre"><a data-toggle="tab" href="#reproductions">Réproductions</a></li>
 	</ul>
 
 	<!-- Tab panes -->
 	<div class="tab-content">
-		<div id="caracteres" class="tab-pane fade in active" style="padding: 0 12px;">
+		<div id="courses" class="tab-pane fade in active horse-race-list" style="padding: 12px;">
+			<table class="table">
+				<thead>
+				<tr>
+					<td class="a-left"><b>Date</b></td>
+					<td>&nbsp;</td>
+					<td><b>Hippodrome</b></td>
+					<td><b>Prix</b></td>
+					<td><b>Corde</b></td>
+					<td><b>Distance</b></td>
+					<td><b>Place</b></td>
+					<td><b>Gains</b></td>
+				</tr>
+				</thead>
+				<tbody>
+					<?php
+					$horseRaceDone = $oHorse->getRacesDone();
+					if(count($horseRaceDone) > 0){
+						foreach( $horseRaceDone as $raceDone) {
+						?>
+						<tr>
+							<td class="a-left"><?php echo date('d-m-Y', strtotime($raceDone['race_date'])) ?></td>
+							<td><i class="fa ico-course-<?php echo $raceDone['code'] ?>"></i></td>
+							<td><?php echo $raceDone['hippo'] ?></td>
+							<td><a href="javascript:void(0)" class="race-name"
+								   rel="<?php echo $raceDone['id'] ?>"><?php echo $raceDone['name'] ?></a></td>
+							<td><?php echo $raceDone['corde'] ?></td>
+							<td><?php echo number_format($raceDone['lenght'], 0, '.', ' ') ?> m</td>
+							<td><?php echo $raceDone['place'] ?><?php echo $raceDone['code'] ?></td>
+							<td><?php echo $raceDone['gain'] ?></td>
+						</tr>
+						<?php
+						}
+					}else{ ?>
+						<tr>
+							<td colspan="8">Ce chéval n'a jamais courue</td>
+						</tr>
+					<?php
+					}
+					?>
+				</tbody>
+			</table>
+		</div>
+		<?php if($horse['proprio_id'] == $stable['id']){ ?>
+		<div id="caracteres" class="tab-pane fade horse-race-list" style="padding: 12px;">
 			<script>
 				var actual_fatigue, ecart_fatigue, add_fatigue, new_fatigue;
 				var total_perf, previous_perf;
@@ -223,15 +263,66 @@ $horse = $oHorse->getData();
 			}
 			?>
 			<div id="alert-valid-training" title="Vos entrainements">Vos entrainements sont enregistrés ! <br>Ils se dérouleront jeudi soir, entre 23h30 et 23h59.</div>
-			<div class="col-xs-7"></div><div class="col-xs-5 a-center"><button class="valid-training btn btn-success btn-xs" type="button">Valider les entrainements</button></div>
+			<div class="col-xs-7"></div><div class="col-xs-5 a-center"><button class="valid-training btn btn-success btn-xs" type="button"><b>Valider les entrainements</b></button></div>
+			<div class="clear" style="margin-top: 40px;"></div>
 		</div>
-		<div id="courses" class="tab-pane fade" style="padding: 0 12px;">
-			<h4>Messages Tab</h4>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-		</div>
-		<div id="genetiques" class="tab-pane fade" style="padding: 0 12px;">
-			<h4>Settings Tab</h4>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		<?php } ?>
+		<div id="reproductions" class="tab-pane fade horse-race-list" style="padding: 12px;">
+			<ul class="col-xs-6" style="list-style: none;">
+				<li>
+					<span class="col-xs-7"><b>ITR :</b></span><span class="col-xs-5"><?php echo $horse['itr'] ?></span>
+				</li>
+			</ul>
+			<ul class="col-xs-6" style="list-style: none;">
+				<li>
+					<span class="col-xs-7"><b>BTR :</b></span><span class="col-xs-5"><?php echo $horse['btr'] ?></span>
+				</li>
+			</ul>
+			<div class="col-xs-12">
+				<b class="col-xs-12">Ces progénitures :</b>
+				<table class="table">
+					<thead>
+					<tr>
+						<td class="a-left"><b>Cheval</b></td>
+						<td><b>Age/Sexe</b></td>
+						<td><b>Mère</b></td>
+						<td><b>Père de mère</b></td>
+						<td><b>Indice</b></td>
+					</tr>
+					</thead>
+					<tbody>
+					<?php
+					$horseProgenitures = $oHorse->getProgenitures();
+					if(count($horseProgenitures) > 0){
+						foreach( $horseProgenitures as $enfant) {
+							?>
+							<tr>
+								<td class="a-left">
+									<?php echo $oHorse->getName($enfant['name'], $enfant['id']) ?>
+								</td>
+								<td><?php echo $enfant['sexe'] ?>/<?php echo $enfant['age'] ?></td>
+								<td>
+									<?php echo $oHorse->getName($enfant['mother'], $enfant['mother_id'], $enfant['mother_status']) ?>
+								</td>
+								<td>
+									<?php echo $oHorse->getName($enfant['father_mother'], $enfant['father_mother_id'], $enfant['father_mother_status']) ?>
+								</td>
+								<td><?php echo $oHorse->getIndice($enfant['quality']) ?></td>
+							</tr>
+							<?php
+						}
+					}else{ ?>
+						<tr>
+							<td colspan="8">Ce chéval n'a jamais réproduit.</td>
+						</tr>
+						<?php
+					}
+					?>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="clear" style="margin-top: 40px;"></div>
 		</div>
 	</div>
 </div>

@@ -170,9 +170,19 @@ span.special-color1 {
 
 a.horse-name, a.horse-name:hover {
     color: #5aa445;
-    text-decoration: underline;
+    border-bottom: 1px dotted;
     text-transform: uppercase;
+    font-size: 13px;
 }
+
+a.race-name, a.race-name:hover {
+    border-bottom: 1px dotted;
+}
+
+a.horse-name.inactif, a.horse-name.inactif:hover{
+    color: #5f5e5e;
+}
+
 
 .statistique td{
     text-align: center;
@@ -243,28 +253,28 @@ span.reunion-choice.name{
     text-transform: uppercase;
 }
 
-.ico-trot-monte {
+.ico-course-m {
     background: rgba(0, 0, 0, 0) url("../images/icons/horse-trot-monte.png") no-repeat scroll 0 0 / contain ;
     display: table;
     height: 22px;
     width: 35px;
 }
 
-.ico-trot-attele {
+.ico-course-a {
     background: rgba(0, 0, 0, 0) url("../images/icons/horse-trot-attele.png") no-repeat scroll 0 0 / contain ;
     display: table;
     height: 22px;
     width: 35px;
 }
 
-.ico-galop-plat {
+.ico-course-p {
     background: rgba(0, 0, 0, 0) url("../images/icons/horse-galop-plat.png") no-repeat scroll 0 0 / contain ;
     display: table;
     height: 22px;
     width: 35px;
 }
 
-.ico-galop-haie {
+.ico-course-h {
     background: rgba(0, 0, 0, 0) url("../images/icons/horse-galop-haie.png") no-repeat scroll 0 0 / contain ;
     display: table;
     height: 22px;
@@ -316,9 +326,25 @@ span.perf-value > span {
     text-align: center;
 }
 
-.fiche-cheval-sous-titre a, .fiche-cheval-sous-titre {
+.nav-tabs > li.fiche-cheval-sous-titre.active a{
+    background: #d9edf7 none repeat scroll 0 0;
+    border-color: #bce8f1 #bce8f1 transparent;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.nav-tabs > li.fiche-cheval-sous-titre a{
+    border-color: transparent transparent #bce8f1;
+}
+
+.fiche-cheval-sous-titre a,  .fiche-cheval-sous-titre {
     font-weight: bold;
     text-transform: uppercase;
+}
+
+.horse-race-list{
+    border: 1px solid;
+    border-color: transparent #bce8f1 #bce8f1;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
 }
 
 .ui-widget-header {
@@ -326,4 +352,20 @@ span.perf-value > span {
     border: 1px solid #ddd;
     color: #333;
     font-weight: bold;
+}
+
+.timeline > li > .timeline-badge {
+    background-color: #999999;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 1.4em;
+    height: 40px;
+    left: 50%;
+    line-height: 50px;
+    margin-left: -25px;
+    position: absolute;
+    text-align: center;
+    top: 16px;
+    width: 40px;
+    z-index: 100;
 }

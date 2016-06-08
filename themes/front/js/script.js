@@ -12,6 +12,12 @@ jQuery( document ).ready( function( $ ) {
         open_fiche('/horse/view/id/' + horse[0]);
     });
 
+    $('.race-name').click( function(){
+        var race = $(this).attr('rel').split('|');
+        open_fiche('/race/view/id/' + race[0]);
+    });
+
+
     $('.valid-training').click( function(){
         if( parseInt($('#training-trot').val()) > 4 ||
             parseInt($('#training-galop').val()) > 4 ||
@@ -42,7 +48,7 @@ jQuery( document ).ready( function( $ ) {
 
 function open_fiche(url)
 {
-    var w = window.open(url,'Fiche du cheval' + Math.floor((Math.random() * 100) + 1),'menubar=no, scrollbars=yes, width=800, height=800');
+    var w = window.open(url,'Fiche ' + Math.floor((Math.random() * 100) + 1),'menubar=no, scrollbars=yes, width=800, height=800');
 }
 
 

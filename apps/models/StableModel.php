@@ -54,7 +54,16 @@ class StableModel extends Model_Abstract
 
 			$stmt->execute();
 
-			return Database::lastInsertId('stables');
+			$id = Database::lastInsertId('stables');
+
+			//create gain line
+			$query = "INSERT INTO gain_race_stable (stable_id)
+ 				  VALUES(:stable_id)";
+			$stmt = Database::prepare($query);
+			$stmt->bindParam(':stable_id', $id);
+			$stmt->execute();
+
+			return $id;
 		}catch (Exception $e){
 			$this->addMessage($e->getMessage(), 'danger');
 			return FALSE;

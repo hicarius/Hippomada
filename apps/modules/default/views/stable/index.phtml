@@ -226,7 +226,9 @@ $chevauxDeEcurie = $oStable->getHorsesForStable();
                     $horse = $oHorse->getData();
             ?>
                     <tr>
-                        <td class="a-left"><a href="javascript:void(0)" rel="<?php echo $horse['id'] ?>" class="horse-name"><?php echo $horse['name'] ?></a></td>
+                        <td class="a-left">
+                            <?php echo $oHorse->getName($horse['name'], $horse['id'], $horse['status_value']) ?>
+                        </td>
                         <td><?php echo $horse['sexe'] ?><?php echo $horse['age'] ?></td>
                         <td><?php echo $oHorse->getIndice() ?></td>
                         <td><?php echo $oHorse->getSpecialite() ?></td>
@@ -264,7 +266,9 @@ $chevauxDeEcurie = $oStable->getHorsesForStable();
                     $horse = $oHorse->getData();
                     ?>
                     <tr>
-                        <td class="a-left"><a href="javascript:void(0)" rel="<?php echo $horse['id'] ?>" class="horse-name"><?php echo $horse['name'] ?></a></td>
+                        <td class="a-left">
+                            <?php echo $oHorse->getName($horse['name'], $horse['id'], $horse['status_value']) ?>
+                        </td>
                         <td><?php echo $horse['sexe'] ?><?php echo $horse['age'] ?></td>
                         <td><?php echo $oHorse->getIndice() ?></td>
                         <td><?php echo $oHorse->getSpecialite() ?></td>

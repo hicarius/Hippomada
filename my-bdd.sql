@@ -1,6 +1,6 @@
 /*
 SQLyog Community Edition- MySQL GUI v7.02 
-MySQL - 5.5.5-10.1.9-MariaDB : Database - sovaly
+MySQL - 5.5.32 : Database - sovaly
 *********************************************************************
 */
 
@@ -37,22 +37,24 @@ DROP TABLE IF EXISTS `gain_race_horse`;
 CREATE TABLE `gain_race_horse` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `horse_id` int(11) DEFAULT NULL,
-  `carrer_race` int(11) DEFAULT NULL,
-  `carrer_win` int(11) DEFAULT NULL,
-  `carrer_placed` int(11) DEFAULT NULL,
-  `carrer_gain` int(11) DEFAULT NULL,
-  `year_race` int(11) DEFAULT NULL,
-  `year_win` int(11) DEFAULT NULL,
-  `year_placed` int(11) DEFAULT NULL,
-  `year_gain` int(11) DEFAULT NULL,
-  `mounth_race` int(11) DEFAULT NULL,
-  `mounth_win` int(11) DEFAULT NULL,
-  `mounth_placed` int(11) DEFAULT NULL,
-  `mounth_gain` int(11) DEFAULT NULL,
+  `carrer_race` int(11) DEFAULT '0',
+  `carrer_win` int(11) DEFAULT '0',
+  `carrer_placed` int(11) DEFAULT '0',
+  `carrer_gain` int(11) DEFAULT '0',
+  `year_race` int(11) DEFAULT '0',
+  `year_win` int(11) DEFAULT '0',
+  `year_placed` int(11) DEFAULT '0',
+  `year_gain` int(11) DEFAULT '0',
+  `mounth_race` int(11) DEFAULT '0',
+  `mounth_win` int(11) DEFAULT '0',
+  `mounth_placed` int(11) DEFAULT '0',
+  `mounth_gain` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 /*Data for the table `gain_race_horse` */
+
+insert  into `gain_race_horse`(`id`,`horse_id`,`carrer_race`,`carrer_win`,`carrer_placed`,`carrer_gain`,`year_race`,`year_win`,`year_placed`,`year_gain`,`mounth_race`,`mounth_win`,`mounth_placed`,`mounth_gain`) values (1,61,3,0,1,750,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `gain_race_stable` */
 
@@ -61,18 +63,18 @@ DROP TABLE IF EXISTS `gain_race_stable`;
 CREATE TABLE `gain_race_stable` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `stable_id` int(11) DEFAULT NULL,
-  `carrer_race` int(11) DEFAULT NULL,
-  `carrer_win` int(11) DEFAULT NULL,
-  `carrer_placed` int(11) DEFAULT NULL,
-  `carrer_gain` int(11) DEFAULT NULL,
-  `year_race` int(11) DEFAULT NULL,
-  `year_win` int(11) DEFAULT NULL,
-  `year_placed` int(11) DEFAULT NULL,
-  `year_gain` int(11) DEFAULT NULL,
-  `mounth_race` int(11) DEFAULT NULL,
-  `mounth_win` int(11) DEFAULT NULL,
-  `mounth_placed` int(11) DEFAULT NULL,
-  `mounth_gain` int(11) DEFAULT NULL,
+  `carrer_race` int(11) DEFAULT '0',
+  `carrer_win` int(11) DEFAULT '0',
+  `carrer_placed` int(11) DEFAULT '0',
+  `carrer_gain` int(11) DEFAULT '0',
+  `year_race` int(11) DEFAULT '0',
+  `year_win` int(11) DEFAULT '0',
+  `year_placed` int(11) DEFAULT '0',
+  `year_gain` int(11) DEFAULT '0',
+  `mounth_race` int(11) DEFAULT '0',
+  `mounth_win` int(11) DEFAULT '0',
+  `mounth_placed` int(11) DEFAULT '0',
+  `mounth_gain` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -111,7 +113,7 @@ CREATE TABLE `horses` (
 
 /*Data for the table `horses` */
 
-insert  into `horses`(`id`,`name`,`proprio_id`,`trainer_id`,`eleveur_id`,`father_id`,`mother_id`,`age`,`robe`,`sexe`,`specialization`,`corde`,`gains`,`origine`,`quality`,`quality_production`,`production_price`,`evaluation_price`,`price`,`status`,`type`,`is_qualified`,`is_system`) values (1,'General de poummeau',5,5,5,0,0,12,NULL,'M','T',NULL,3750000,'France/Europe',10,5,125000,0,125000,0,2,1,1),(25,'Coktail Jet',5,5,5,0,0,19,NULL,'M','T','D',3654000,'France/Europe',6,3,50000,0,50000,0,2,1,1),(26,'Insert gÃ©dÃ©',5,5,5,0,0,21,NULL,'M','T','G',278000,'France/Europe',9,1,5000,0,5000,0,2,1,1),(27,'Poule 1',4,4,4,1,0,10,NULL,'F','T','G',278000,'France/Europe',6,5,125000,0,125000,0,3,1,1),(36,'Poule 2',3,3,3,25,0,7,NULL,'F','T','G',0,'France/Europe',4,3,50000,0,50000,0,3,0,1),(40,'NoName29248',2,2,2,26,27,5,NULL,'F','T','D',0,'France/Europe',6,1,0,35000,35000,1,0,0,0),(41,'NoName4130',2,2,2,26,27,5,NULL,'F','T','G',0,'France/Europe',8,1,0,100000,100000,1,0,0,0),(42,'NoName26608',3,3,3,26,27,9,NULL,'M','T','G',0,'France/Europe',6,0,0,35000,35000,1,0,0,0),(43,'NoName92167',2,2,2,26,27,5,NULL,'M','T','G',0,'France/Europe',10,0,0,500000,500000,1,0,0,0),(44,'NoName33513',3,3,3,26,27,7,NULL,'F','T','G',0,'France/Europe',6,1,0,35000,35000,1,0,0,0),(45,'NoName58260',3,3,3,26,27,9,NULL,'M','T','D',0,'France/Europe',9,0,0,250000,250000,1,0,0,0),(46,'NoName50556',3,3,3,26,27,7,NULL,'F','T','G',0,'France/Europe',6,1,0,35000,35000,1,0,0,0),(47,'NoName36400',3,3,3,26,27,9,NULL,'F','T','G',0,'France/Europe',9,1,0,250000,250000,1,0,0,0),(48,'NoName3356',3,3,3,1,27,8,NULL,'F','T','D',0,'France/Europe',8,5,0,100000,100000,1,0,0,0),(49,'NoName30391',1,1,1,1,27,3,NULL,'M','T','D',0,'France/Europe',10,0,0,500000,500000,1,0,0,0),(50,'NoName67625',1,1,1,1,27,2,NULL,'M','T','D',0,'France/Europe',7,0,0,75000,75000,1,0,0,0),(51,'NoName22459',4,4,4,1,27,10,NULL,'M','T','D',0,'France/Europe',5,0,0,15000,15000,1,0,0,0),(52,'NoName20791',3,3,3,1,27,9,NULL,'F','T','G',0,'France/Europe',5,5,0,15000,15000,1,0,0,0),(53,'NoName50184',3,3,3,1,27,9,NULL,'F','T','D',0,'France/Europe',9,5,0,250000,250000,1,0,0,0),(54,'NoName51174',4,4,4,1,27,10,NULL,'F','T','D',0,'France/Europe',7,5,0,75000,75000,1,0,0,0),(55,'NoName74872',2,2,2,26,36,6,NULL,'F','T','G',0,'France/Europe',7,1,0,75000,75000,1,0,0,0),(56,'NoName71156',3,3,3,26,36,7,NULL,'M','T','D',0,'France/Europe',3,0,0,5000,5000,1,0,0,0),(57,'NoName75476',3,3,3,26,36,9,NULL,'M','T','G',0,'France/Europe',7,0,0,75000,75000,1,0,0,0),(58,'NoName45540',3,3,3,26,36,8,NULL,'F','T','G',0,'France/Europe',4,1,0,10000,10000,1,0,0,0),(59,'NoName48492',3,3,3,26,36,9,'','M','T','G',0,'France/Europe',3,0,0,5000,5000,1,0,0,0),(60,'NoName84390',2,2,2,26,36,5,'','F','T','G',0,'France/Europe',5,1,0,15000,15000,1,0,0,0),(61,'NoName27148',2,2,2,25,36,4,'Azelan','F','T','G',0,'France/Europe',6,3,0,35000,35000,1,0,0,0);
+insert  into `horses`(`id`,`name`,`proprio_id`,`trainer_id`,`eleveur_id`,`father_id`,`mother_id`,`age`,`robe`,`sexe`,`specialization`,`corde`,`gains`,`origine`,`quality`,`quality_production`,`production_price`,`evaluation_price`,`price`,`status`,`type`,`is_qualified`,`is_system`) values (1,'General de poummeau',5,5,5,0,0,12,NULL,'M','T',NULL,3750000,'France/Europe',10,5,125000,0,125000,0,2,1,1),(25,'Coktail Jet',5,5,5,0,0,19,NULL,'M','T','D',3654000,'France/Europe',6,3,50000,0,50000,0,2,1,1),(26,'Insert gÃ©dÃ©',5,5,5,0,0,21,NULL,'M','T','G',278000,'France/Europe',9,1,5000,0,5000,0,2,1,1),(27,'Poule 1',4,4,4,1,36,10,NULL,'F','T','G',278000,'France/Europe',6,5,125000,0,125000,0,3,1,1),(36,'Poule 2',3,3,3,25,0,7,NULL,'F','T','G',0,'France/Europe',4,3,50000,0,50000,1,3,0,1),(40,'NoName29248',2,2,2,26,27,5,NULL,'F','T','D',0,'France/Europe',6,1,0,35000,35000,1,0,0,0),(41,'NoName4130',2,2,2,26,27,5,NULL,'F','T','G',0,'France/Europe',8,1,0,100000,100000,1,0,0,0),(42,'NoName26608',3,3,3,26,27,9,NULL,'M','T','G',0,'France/Europe',6,0,0,35000,35000,1,0,0,0),(43,'NoName92167',2,2,2,26,27,5,NULL,'M','T','G',0,'France/Europe',10,0,0,500000,500000,1,0,0,0),(44,'NoName33513',3,3,3,26,27,7,NULL,'F','T','G',0,'France/Europe',6,1,0,35000,35000,1,0,0,0),(45,'NoName58260',3,3,3,26,27,9,NULL,'M','T','D',0,'France/Europe',9,0,0,250000,250000,1,0,0,0),(46,'NoName50556',3,3,3,26,27,7,NULL,'F','T','G',0,'France/Europe',6,1,0,35000,35000,1,0,0,0),(47,'NoName36400',3,3,3,26,27,9,NULL,'F','T','G',0,'France/Europe',9,1,0,250000,250000,1,0,0,0),(48,'NoName3356',3,3,3,1,36,8,NULL,'F','T','D',0,'France/Europe',8,5,0,100000,100000,1,0,0,0),(49,'NoName30391',1,1,1,1,36,3,NULL,'M','T','D',0,'France/Europe',10,0,0,500000,500000,1,0,0,0),(50,'NoName67625',1,1,1,1,36,2,NULL,'M','T','D',0,'France/Europe',7,0,0,75000,75000,1,0,0,0),(51,'NoName22459',4,4,4,1,36,10,NULL,'M','T','D',0,'France/Europe',5,0,0,15000,15000,1,0,0,0),(52,'NoName20791',3,3,3,1,36,9,NULL,'F','T','G',0,'France/Europe',5,5,0,15000,15000,1,0,0,0),(53,'NoName50184',3,3,3,1,36,9,NULL,'F','T','D',0,'France/Europe',9,5,0,250000,250000,1,0,0,0),(54,'NoName51174',4,4,4,1,36,10,NULL,'F','T','D',0,'France/Europe',7,5,0,75000,75000,1,0,0,0),(55,'NoName74872',2,2,2,26,36,6,NULL,'F','T','G',0,'France/Europe',7,1,0,75000,75000,1,0,0,0),(56,'NoName71156',3,3,3,26,36,7,NULL,'M','T','D',0,'France/Europe',3,0,0,5000,5000,1,0,0,0),(57,'NoName75476',3,3,3,26,36,9,NULL,'M','T','G',0,'France/Europe',7,0,0,75000,75000,1,0,0,0),(58,'NoName45540',3,3,3,26,36,8,NULL,'F','T','G',0,'France/Europe',4,1,0,10000,10000,1,0,0,0),(59,'NoName48492',3,3,3,26,36,9,'','M','T','G',0,'France/Europe',3,0,0,5000,5000,1,0,0,0),(60,'NoName84390',2,2,2,26,36,5,'','F','T','G',0,'France/Europe',5,1,0,15000,15000,1,0,0,0),(61,'NoName27148',2,2,2,25,36,4,'Azelan','F','T','G',750,'France/Europe',6,3,0,35000,35000,1,0,0,0);
 
 /*Table structure for table `horses_caracteristique` */
 
@@ -162,7 +164,7 @@ CREATE TABLE `horses_training` (
 
 /*Data for the table `horses_training` */
 
-insert  into `horses_training`(`id`,`horse_id`,`training_trot`,`training_galop`,`training_endurance`,`training_vitesse`,`training_physique`,`training_fatigue`) values (1,61,3,0,2,2,2,10);
+insert  into `horses_training`(`id`,`horse_id`,`training_trot`,`training_galop`,`training_endurance`,`training_vitesse`,`training_physique`,`training_fatigue`) values (1,61,2,0,2,2,2,0);
 
 /*Table structure for table `jockeys` */
 
@@ -207,7 +209,7 @@ CREATE TABLE `race_category` (
 
 /*Data for the table `race_category` */
 
-insert  into `race_category`(`id`,`title`,`group_ids`) values (1,'Qualification','5,6'),(3,'Amateur','4'),(4,'Nationale','1,2,3,4'),(5,'Internationale','4'),(6,'A reclamer','4');
+insert  into `race_category`(`id`,`title`,`group_ids`) values (1,'Qualif','5,6'),(3,'Amat.','4'),(4,'Nat','1,2,3,4'),(5,'Inter','4'),(6,'Recl','4');
 
 /*Table structure for table `race_group` */
 
@@ -238,18 +240,6 @@ CREATE TABLE `race_hippodrome` (
 
 insert  into `race_hippodrome`(`id`,`title`,`group_ids`) values (1,'Vincennes','1,2,3,4,5,6'),(2,'Languedoc','4'),(3,'Vichy','5,6');
 
-/*Table structure for table `race_hyppodrome` */
-
-DROP TABLE IF EXISTS `race_hyppodrome`;
-
-CREATE TABLE `race_hyppodrome` (
-  `ID` int(11) NOT NULL,
-  `TITLE` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-/*Data for the table `race_hyppodrome` */
-
 /*Table structure for table `race_participant` */
 
 DROP TABLE IF EXISTS `race_participant`;
@@ -270,7 +260,7 @@ CREATE TABLE `race_participant` (
 
 /*Data for the table `race_participant` */
 
-insert  into `race_participant`(`id`,`race_id`,`horse_id`,`jockey_id`,`numero`,`is_recul`,`cote`,`rang`,`gain`,`status`) values (1,1,49,1,15,NULL,12,3,750,1),(2,3,49,1,2,NULL,14,9,0,1),(3,4,49,1,6,NULL,5,14,0,0),(4,5,43,NULL,1,NULL,NULL,NULL,NULL,NULL);
+insert  into `race_participant`(`id`,`race_id`,`horse_id`,`jockey_id`,`numero`,`is_recul`,`cote`,`rang`,`gain`,`status`) values (1,1,61,1,15,NULL,12,3,750,1),(2,3,61,1,2,NULL,14,9,0,1),(3,4,61,1,6,NULL,5,14,0,0),(4,5,43,NULL,1,NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `race_piste` */
 
@@ -334,7 +324,7 @@ CREATE TABLE `races` (
 
 /*Data for the table `races` */
 
-insert  into `races`(`id`,`category_id`,`name`,`lenght`,`type_id`,`hippodrome_id`,`piste_id`,`group_id`,`corde`,`price`,`recul_gain`,`recul_meter`,`max_gain`,`age_min`,`age_max`,`victory_price`,`status`,`created_at`,`meeting`,`race_number`,`race_date`) values (1,1,'Prix d\'antilles 45',2400,2,3,1,6,'G',1000,0,0,10000,3,3,'',1,'2016-05-31 13:21:30',NULL,NULL,'2016-05-31 13:21:30'),(3,4,'prix de test 3 ',2000,1,1,1,3,'D',200,0,0,2000,4,4,'0',1,'2016-05-31 15:13:33',NULL,NULL,'2016-06-01 14:30:00'),(4,4,'prix de test2',2800,3,3,2,1,'G',2300,40000,25,80000,5,6,'0',1,'2016-05-31 15:20:46',NULL,NULL,'2016-06-01 15:30:00'),(5,4,'Prix de vichy I',2200,2,3,1,4,'D',200,0,0,10000,3,3,'',1,'2016-06-05 20:03:41',1,1,'2016-06-06 12:00:00'),(6,4,'Prix de vichy 2',2750,2,3,1,4,'D',200,0,0,5000,5,6,'23000|10000|6000|4000|2000|1000',1,'2016-06-05 20:07:54',1,2,'2016-06-06 12:30:00'),(7,6,'Prix de vichy 3',2400,2,3,3,4,'G',100,0,0,0,3,3,'',1,'2016-06-05 20:09:34',1,3,'2016-06-06 13:00:00'),(8,4,'Prix de vichy 4',2850,1,3,3,1,'D',1000,0,0,50000,6,0,'',0,'2016-06-05 20:10:42',2,1,'2016-06-06 13:30:00'),(9,1,'Prix de Vincennes Q1',2000,2,1,1,5,'D',0,0,0,0,2,2,'',1,'2016-06-05 20:11:45',3,1,'2016-06-06 14:30:00'),(10,1,'Prix de Vincennes Q2',2000,2,1,3,4,'G',0,0,0,0,3,3,'',1,'2016-06-05 20:13:06',3,2,'2016-06-06 15:00:00');
+insert  into `races`(`id`,`category_id`,`name`,`lenght`,`type_id`,`hippodrome_id`,`piste_id`,`group_id`,`corde`,`price`,`recul_gain`,`recul_meter`,`max_gain`,`age_min`,`age_max`,`victory_price`,`status`,`created_at`,`meeting`,`race_number`,`race_date`) values (1,1,'Qualifications',2400,2,3,1,6,'G',1000,0,0,10000,3,3,'',0,'2016-05-31 13:21:30',NULL,NULL,'2016-05-31 13:21:30'),(3,4,'prix de test 3 ',2000,1,1,1,3,'D',200,0,0,2000,4,4,'0',0,'2016-05-31 15:13:33',NULL,NULL,'2016-06-01 14:30:00'),(4,4,'prix de test2',2800,3,3,2,1,'G',2300,40000,25,80000,5,6,'0',0,'2016-05-31 15:20:46',NULL,NULL,'2016-06-01 15:30:00'),(5,4,'Prix de vichy I',2200,2,3,1,4,'D',200,0,0,10000,3,3,'',0,'2016-06-05 20:03:41',1,1,'2016-06-06 12:00:00'),(6,4,'Prix de vichy 2',2750,2,3,1,4,'D',200,0,0,5000,5,6,'23000|10000|6000|4000|2000|1000',0,'2016-06-05 20:07:54',1,2,'2016-06-06 12:30:00'),(7,6,'Prix de vichy 3',2400,2,3,3,4,'G',100,0,0,0,3,3,'',1,'2016-06-05 20:09:34',1,3,'2016-06-08 13:00:00'),(8,4,'Prix de vichy 4',2850,1,3,3,1,'D',1000,0,0,50000,6,0,'',1,'2016-06-05 20:10:42',2,1,'2016-06-08 13:30:00'),(9,1,'Qualifications',2000,2,1,1,5,'D',0,0,0,0,2,2,'',1,'2016-06-05 20:11:45',3,1,'2016-06-08 14:30:00'),(10,1,'Qualifications',2000,2,1,3,4,'G',0,0,0,0,3,3,'',1,'2016-06-08 20:13:06',3,2,'2016-06-08 15:00:00');
 
 /*Table structure for table `saillies` */
 

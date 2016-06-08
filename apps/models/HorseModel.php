@@ -30,16 +30,18 @@ class HorseModel extends Model_Abstract
 		$additionalColumns = "s1.name AS proprio, ";
 		$additionalColumns .= "CONCAT_WS(' ', s2.firstname, s2.lastname) AS trainer, ";
 		$additionalColumns .= "IF(h.eleveur_id=0, 'Inconnu', s3.name) AS eleveur, ";
-		$additionalColumns .= "IF(h.father_id=0, 'Inconnu', h2.name) AS father, ";
-		$additionalColumns .= "IF(h.mother_id=0, 'Inconnu', h3.name) AS mother, ";
-		$additionalColumns .= "IF(h.status=0, 'Inactif', 'Actif') AS status, ";
+		$additionalColumns .= "IF(h.father_id=0, 'Inconnu', h2.name) AS father, h2.status AS father_status, ";
+		$additionalColumns .= "IF(h.mother_id=0, 'Inconnu', h3.name) AS mother, h3.status AS mother_status, ";
+		$additionalColumns .= "IF(h.status=0, 'Inactif', 'Actif') AS status, h.status AS status_value, ";
 		$additionalColumns .= "IF(h.is_system=0, 'Non', 'Oui') AS is_system, ";
-		$additionalColumns .= "IF(h.type=0, IF(h.sexe='F', 'une femelle', 'un m&acirc;le'), IF(h.type=1, '- de 1 an', IF(h.type=2, 'un &eacute;talon', 'une poulini&egrave;re'))) AS type ";
+		$additionalColumns .= "( IF(h3.father_id=0, 'Inconnu', h4.name) ) AS father_mother, h3.father_id as father_mother_id, h4.status AS father_mother_status, ";
+		$additionalColumns .= "h.type AS type_value, IF(h.type=0, IF(h.sexe='F', 'une femelle', 'un m&acirc;le'), IF(h.type=1, '- de 1 an', IF(h.type=2, 'un &eacute;talon', 'une poulini&egrave;re'))) AS type ";
 		$joins =  " INNER JOIN stables s1 ON s1.id = h.proprio_id";
 		$joins .=  " INNER JOIN stables s2 ON s2.id = h.trainer_id";
 		$joins .=  " LEFT JOIN stables s3 ON s3.id = h.eleveur_id";
 		$joins .=  " LEFT JOIN horses h2 ON h2.id = h.father_id";
 		$joins .=  " LEFT JOIN horses h3 ON h3.id = h.mother_id";
+		$joins .=  " LEFT JOIN horses h4 ON h4.id = h3.father_id";
 
 		$query = "SELECT h.*, ht.training_trot,ht.training_galop,ht.training_endurance,ht.training_vitesse,ht.training_physique,ht.training_fatigue,
 								hc.itr,
@@ -148,6 +150,14 @@ class HorseModel extends Model_Abstract
 			$stmt = Database::prepare($query);
 			$stmt->bindParam(':horse_id', $id);
 			$stmt->execute();
+
+			//create gain line
+			$query = "INSERT INTO gain_race_horse (horse_id)
+ 				  VALUES(:horse_id)";
+			$stmt = Database::prepare($query);
+			$stmt->bindParam(':horse_id', $id);
+			$stmt->execute();
+
 
 			$this->load($id);
 
@@ -526,6 +536,13 @@ class HorseModel extends Model_Abstract
 		$stmt->bindParam(':horse_id', $horseId);
 		$stmt->execute();
 
+		//create gain line
+		$query = "INSERT INTO gain_race_horse (horse_id)
+ 				  VALUES(:horse_id)";
+		$stmt = Database::prepare($query);
+		$stmt->bindParam(':horse_id', $horseId);
+		$stmt->execute();
+
 		return $horse;
 	}
 
@@ -615,6 +632,31 @@ class HorseModel extends Model_Abstract
 	/***********************************************************************************************************/
 
 	//GETTER
+
+
+	public function getName($horse_name, $horse_id, $actif = 1)
+	{
+		$cssInactif = '';
+		if($actif == 0){
+			$cssInactif = 'inactif';
+		}
+
+		if(is_null($horse_name) || $horse_name == '') {
+			$html = 'Inconnu';
+		}else{
+			if ($horse_name == 'Inconnu') {
+				$html = $horse_name;
+			} else {
+				$html = '<a href="javascript:void(0)" rel="' . $horse_id . '" class="horse-name ' . $cssInactif . '">' . $horse_name . '</a>';
+			}
+		}
+		return $html;
+	}
+
+	/**
+	 * Donnée du père de mère
+	 * @return $this|bool|HorseModel|mixed|null
+	 */
 	public function getFatherOfMother()
 	{
 		$motherData = $this->load($this->_data['mother_id'], false);
@@ -626,8 +668,11 @@ class HorseModel extends Model_Abstract
 		return $fatherOfMotherData;
 	}
 
-
-	public function getSpecialization()
+	/**
+	 * Spécialisation Trot ou Galop en fonction de specialization
+	 * @return string
+	 */
+	public function getSpecialite()
 	{
 		if($this->_data['specialization'] == 'T'){
 			return 'Troteur';
@@ -636,10 +681,19 @@ class HorseModel extends Model_Abstract
 		}
 	}
 
-	public function getIndice()
+	/**
+	 * Indice global en 05 étoiles
+	 * @return string
+	 */
+	public function getIndice($indice = null)
 	{
 		$html = '';
-		$qa = $this->_data['quality']/2; for( $i=1; $i<=5; $i++){
+		if($indice == null){
+			$qa = $this->_data['quality']/2;
+		}else{
+			$qa = $indice/2;
+		}
+		 for( $i=1; $i<=5; $i++){
 		if( $qa>=1) {
 				$html .= '<span class="fa fa-star horse-note"></span>';
 			}elseif($qa == 0.5){
@@ -651,11 +705,16 @@ class HorseModel extends Model_Abstract
 		return $html;
 	}
 
+
+	/**
+	 * Indice de réproduction en 05 étoiles
+	 * @return string
+	 */
 	public function getIndiceReproduction()
 	{
 		$html = '';
 		$qa = $this->_data['quality_production'];
-		if($this->_data['type'] == 0){
+		if($this->_data['type_value'] == 0){
 			$qa = 0;
 		}
 		for( $i=1; $i<=5; $i++){
@@ -668,15 +727,10 @@ class HorseModel extends Model_Abstract
 		return $html;
 	}
 
-	public function getSpecialite()
-	{
-		if($this->_data['specialization'] == 'T'){
-			return 'Trot';
-		}else{
-			return 'Galop';
-		}
-	}
-
+	/**
+	 * Statistique des nombres de course, victoire et placé
+	 * @return string
+	 */
 	public function getResultats()
 	{
 		$courue = 0;
@@ -687,8 +741,8 @@ class HorseModel extends Model_Abstract
 		$stmt = Database::prepare($query);
 		$stmt->bindParam(':horse_id', $this->_data['id']);
 		$stmt->execute();
-		$result = $stmt->fetchAll();
-		if (count($result)>0) {
+		$result = $stmt->fetch();
+		if (isset($result['horse_id'])>0) {
 			$courue = $result['carrer_race'];
 			$victoire = $result['carrer_win'];
 			$place = $result['carrer_placed'];
@@ -697,10 +751,16 @@ class HorseModel extends Model_Abstract
 		return "{$courue}C - {$victoire}V - {$place}P";
 	}
 
+	/**
+	 * Les 05 derniers résulats en musique
+	 * @param $sexe
+	 * @param null $horseId
+	 * @return string
+	 */
 	public function get5LastPerfs($sexe, $horseId = null)
 	{
 		$html = '';
-		$query = "SELECT h.sexe, rp.status, rp.rang, rt.code FROM race_participant rp";
+		$query = "SELECT r.category_id, h.sexe, rp.status, rp.rang, rt.code FROM race_participant rp";
 		$query .= " INNER JOIN races r ON r.id = rp.race_id";
 		$query .= " INNER JOIN race_type rt ON rt.id = r.type_id";
 		$query .= " INNER JOIN horses h ON h.id = rp.horse_id";
@@ -716,9 +776,11 @@ class HorseModel extends Model_Abstract
 		$results = $stmt->fetchAll();
 		if (count($results)>0) {
 			foreach($results as $item) {
-				if ($item['status'] == 0) {
+				if($item['category_id'] == 1) {
+					$html .= 'Q' . $item['code'];
+				}elseif ($item['status'] == 0) {
 					$html .= 'D' . $item['code'];
-				} elseif ($item['status'] > 9) {
+				} elseif ($item['rang'] > 9) {
 					$html .= '0' . $item['code'];
 				}else{
 					$html .= $item['rang'] . $item['code'];
@@ -730,5 +792,53 @@ class HorseModel extends Model_Abstract
 				$html .= 'e';
 		}
 		return $html;
+	}
+
+	/**
+	 * Nombres des courses faite par le cheval
+	 * @return array
+	 */
+	public function getRacesDone()
+	{
+		$query = "SELECT rp.*,
+						If(rp.status=0, 'D', IF(rp.rang>9, '0', rp.rang)) as place,
+						r.name, r.race_date,
+						IF(r.corde='G', 'Gauche', 'Droite') as corde,
+						r.lenght,
+						rc.title as category,
+						rh.title as hippo,
+						rt.code
+					FROM race_participant rp
+					INNER JOIN races r ON r.id = rp.race_id AND r.status = 0
+					LEFT JOIN race_hippodrome rh ON rh.id = r.hippodrome_id
+					LEFT JOIN race_type rt ON rt.id = r.type_id
+					LEFT JOIN race_category rc ON rc.id = r.category_id
+					WHERE rp.horse_id = :horse_id
+					ORDER BY r.race_date DESC
+					";
+		$stmt = Database::prepare($query);
+		$stmt->bindParam(':horse_id', $this->_data['id']);
+		$stmt->execute();
+		return $stmt->fetchAll();
+	}
+
+	public function getProgenitures()
+	{
+		$query = "SELECT
+						h.id,h.name,h.age, h.sexe, h.quality, h.status,
+						IF(h.father_id=0, 'Inconnu', h2.name) AS father, h.father_id, h2.status AS father_status,
+						IF(h.mother_id=0, 'Inconnu', h3.name) AS mother, h.mother_id, h3.status AS mother_status,
+						(IF(h3.father_id=0, 'Inconnu', h4.name) ) AS father_mother, h3.father_id as father_mother_id,  h4.status AS father_mother_status
+					FROM horses h
+					LEFT JOIN horses h2 ON h2.id = h.father_id
+					LEFT JOIN horses h3 ON h3.id = h.mother_id
+					LEFT JOIN horses h4 ON h4.id = h3.father_id
+					WHERE h.father_id = :horse_id OR h.mother_id = :horse_id
+					ORDER BY h.age DESC
+					";
+		$stmt = Database::prepare($query);
+		$stmt->bindParam(':horse_id', $this->_data['id']);
+		$stmt->execute();
+		return $stmt->fetchAll();
 	}
 }
