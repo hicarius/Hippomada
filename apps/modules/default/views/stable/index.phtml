@@ -13,7 +13,7 @@ $chevauxDeEcurie = $oStable->getHorsesForStable();
         </div>
     </div>
     <div class="col-lg-4">
-        <div class="panel panel-default" style="min-height: 285px;">
+        <div class="panel panel-default" style="min-height: 294px;">
             <div class="panel-heading">
                 <i class="fa fa-user"></i> Ecurie <span class="special-color1"><?php echo strtoupper($stable['name']) ?></span>
             </div>
@@ -51,7 +51,7 @@ $chevauxDeEcurie = $oStable->getHorsesForStable();
         </div>
     </div>
     <div class="col-lg-5">
-        <div class="panel panel-default" style="min-height: 285px;">
+        <div class="panel panel-default" style="min-height: 294px;">
             <div class="panel-heading">
                 <i class="fa fa-bar-chart"></i> Statistiques du carrière
             </div>
@@ -73,9 +73,18 @@ $chevauxDeEcurie = $oStable->getHorsesForStable();
                             </tr>
                             </thead>
                             <tbody>
+                            <?php
+
+                            foreach( $oStable->get5LastRaces() as $lastRace){
+                            ?>
                             <tr>
-                                <td class="a-left"><a href="javascript:void(0)" rel="1" class="horse-name">Mark</a></td><td><i class="fa ico-trot-monte"></i></td><td>Prix d'armville</td><td>2 400</td><td>Disq</td>
+                                <td class="a-left" data-placement="bottom" data-toggle="tooltip" type="button" data-original-title="<?php echo $lastRace['horse_name'] ?>"><?php echo Apps::getModel('Horse')->getName( substr($lastRace['horse_name'],0, 6), $lastRace['horse_id']) ?></td>
+                                <td><i class="fa ico-course-<?php echo $lastRace['code'] ?>"></i></td>
+                                <td class="a-left" data-placement="bottom" data-toggle="tooltip" type="button" data-original-title="<?php echo $lastRace['name'] ?>"><?php echo Apps::getModel('Race')->getName(substr($lastRace['name'],0,10), $lastRace['id']) ?></td>
+                                <td><?php echo $lastRace['lenght'] ?>m</td>
+                                <td><?php echo $lastRace['rang'] ?></td>
                             </tr>
+                            <?php } ?>
                             </tbody>
                         </table>
                     </div>
@@ -227,7 +236,7 @@ $chevauxDeEcurie = $oStable->getHorsesForStable();
             ?>
                     <tr>
                         <td class="a-left">
-                            <?php echo $oHorse->getName($horse['name'], $horse['id'], $horse['status_value']) ?>
+                            <?php echo $oHorse->getName($horse['name'], $horse['id'], $horse['status']) ?>
                         </td>
                         <td><?php echo $horse['sexe'] ?><?php echo $horse['age'] ?></td>
                         <td><?php echo $oHorse->getIndice() ?></td>
@@ -248,7 +257,7 @@ $chevauxDeEcurie = $oStable->getHorsesForStable();
 </div>
 
 <div class="col-lg-12">
-    <h1><i class="fa fa-object-group"></i> Chévaux inactifs et de réproduction</h1>
+    <h1><i class="fa fa-object-ungroup"></i> Chévaux inactifs et de réproduction</h1>
     <div class="table-responsive">
         <?php
         $inactiveHorse = $oStable->getInactiveHorse($stable['id']);
@@ -267,7 +276,7 @@ $chevauxDeEcurie = $oStable->getHorsesForStable();
                     ?>
                     <tr>
                         <td class="a-left">
-                            <?php echo $oHorse->getName($horse['name'], $horse['id'], $horse['status_value']) ?>
+                            <?php echo $oHorse->getName($horse['name'], $horse['id'], $horse['status']) ?>
                         </td>
                         <td><?php echo $horse['sexe'] ?><?php echo $horse['age'] ?></td>
                         <td><?php echo $oHorse->getIndice() ?></td>

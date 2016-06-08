@@ -14,7 +14,12 @@ jQuery( document ).ready( function( $ ) {
 
     $('.race-name').click( function(){
         var race = $(this).attr('rel').split('|');
-        open_fiche('/race/view/id/' + race[0]);
+        open_fiche('/races/view/id/' + race[0]);
+    });
+
+    $('.stable-name').click( function(){
+        var stable = $(this).attr('rel').split('|');
+        open_fiche('/stable/view/id/' + stable[0]);
     });
 
 
@@ -44,6 +49,12 @@ jQuery( document ).ready( function( $ ) {
             $("#alert-valid-training").dialog("open");
         }
     });
+
+    // tooltip demo
+    $('.bg-shadow').tooltip({
+        selector: "[data-toggle=tooltip]",
+        container: "body"
+    })
 });
 
 function open_fiche(url)

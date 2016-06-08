@@ -19,6 +19,8 @@
     <file url="file://$PROJECT_DIR$/apps/modules/admin/views/race/type.phtml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/apps/modules/admin/views/stable/create.phtml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/apps/modules/default/views/horse/view.phtml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/apps/modules/default/views/races/view.phtml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/apps/modules/default/views/stable/index.phtml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/apps/modules/default/views/stable/view.phtml" charset="UTF-8" />
   </component>
 </project>

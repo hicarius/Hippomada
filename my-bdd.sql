@@ -1,6 +1,6 @@
 /*
 SQLyog Community Edition- MySQL GUI v7.02 
-MySQL - 5.5.32 : Database - sovaly
+MySQL - 5.5.5-10.1.9-MariaDB : Database - sovaly
 *********************************************************************
 */
 
@@ -50,11 +50,11 @@ CREATE TABLE `gain_race_horse` (
   `mounth_placed` int(11) DEFAULT '0',
   `mounth_gain` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 
 /*Data for the table `gain_race_horse` */
 
-insert  into `gain_race_horse`(`id`,`horse_id`,`carrer_race`,`carrer_win`,`carrer_placed`,`carrer_gain`,`year_race`,`year_win`,`year_placed`,`year_gain`,`mounth_race`,`mounth_win`,`mounth_placed`,`mounth_gain`) values (1,61,3,0,1,750,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+insert  into `gain_race_horse`(`id`,`horse_id`,`carrer_race`,`carrer_win`,`carrer_placed`,`carrer_gain`,`year_race`,`year_win`,`year_placed`,`year_gain`,`mounth_race`,`mounth_win`,`mounth_placed`,`mounth_gain`) values (1,1,0,0,0,0,0,0,0,0,0,0,0,0),(2,2,0,0,0,0,0,0,0,0,0,0,0,0),(3,3,0,0,0,0,0,0,0,0,0,0,0,0),(4,4,0,0,0,0,0,0,0,0,0,0,0,0),(5,5,0,0,0,0,0,0,0,0,0,0,0,0),(6,6,0,0,0,0,0,0,0,0,0,0,0,0),(7,7,0,0,0,0,0,0,0,0,0,0,0,0),(8,8,0,0,0,0,0,0,0,0,0,0,0,0),(9,9,0,0,0,0,0,0,0,0,0,0,0,0),(10,10,0,0,0,0,0,0,0,0,0,0,0,0),(11,11,0,0,0,0,0,0,0,0,0,0,0,0),(12,12,0,0,0,0,0,0,0,0,0,0,0,0),(13,13,0,0,0,0,0,0,0,0,0,0,0,0),(14,14,0,0,0,0,0,0,0,0,0,0,0,0),(15,15,0,0,0,0,0,0,0,0,0,0,0,0),(16,16,0,0,0,0,0,0,0,0,0,0,0,0),(17,17,0,0,0,0,0,0,0,0,0,0,0,0),(18,18,0,0,0,0,0,0,0,0,0,0,0,0),(19,19,0,0,0,0,0,0,0,0,0,0,0,0),(20,20,0,0,0,0,0,0,0,0,0,0,0,0),(21,21,0,0,0,0,0,0,0,0,0,0,0,0),(22,22,0,0,0,0,0,0,0,0,0,0,0,0);
 
 /*Table structure for table `gain_race_stable` */
 
@@ -76,9 +76,11 @@ CREATE TABLE `gain_race_stable` (
   `mounth_placed` int(11) DEFAULT '0',
   `mounth_gain` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 /*Data for the table `gain_race_stable` */
+
+insert  into `gain_race_stable`(`id`,`stable_id`,`carrer_race`,`carrer_win`,`carrer_placed`,`carrer_gain`,`year_race`,`year_win`,`year_placed`,`year_gain`,`mounth_race`,`mounth_win`,`mounth_placed`,`mounth_gain`) values (1,1,0,0,0,0,0,0,0,0,0,0,0,0),(2,2,0,0,0,0,0,0,0,0,0,0,0,0),(3,3,0,0,0,0,0,0,0,0,0,0,0,0),(4,4,0,0,0,0,0,0,0,0,0,0,0,0),(5,5,0,0,0,0,0,0,0,0,0,0,0,0),(6,6,0,0,0,0,0,0,0,0,0,0,0,0);
 
 /*Table structure for table `horses` */
 
@@ -109,11 +111,11 @@ CREATE TABLE `horses` (
   `is_qualified` int(11) DEFAULT NULL,
   `is_system` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 
 /*Data for the table `horses` */
 
-insert  into `horses`(`id`,`name`,`proprio_id`,`trainer_id`,`eleveur_id`,`father_id`,`mother_id`,`age`,`robe`,`sexe`,`specialization`,`corde`,`gains`,`origine`,`quality`,`quality_production`,`production_price`,`evaluation_price`,`price`,`status`,`type`,`is_qualified`,`is_system`) values (1,'General de poummeau',5,5,5,0,0,12,NULL,'M','T',NULL,3750000,'France/Europe',10,5,125000,0,125000,0,2,1,1),(25,'Coktail Jet',5,5,5,0,0,19,NULL,'M','T','D',3654000,'France/Europe',6,3,50000,0,50000,0,2,1,1),(26,'Insert gÃ©dÃ©',5,5,5,0,0,21,NULL,'M','T','G',278000,'France/Europe',9,1,5000,0,5000,0,2,1,1),(27,'Poule 1',4,4,4,1,36,10,NULL,'F','T','G',278000,'France/Europe',6,5,125000,0,125000,0,3,1,1),(36,'Poule 2',3,3,3,25,0,7,NULL,'F','T','G',0,'France/Europe',4,3,50000,0,50000,1,3,0,1),(40,'NoName29248',2,2,2,26,27,5,NULL,'F','T','D',0,'France/Europe',6,1,0,35000,35000,1,0,0,0),(41,'NoName4130',2,2,2,26,27,5,NULL,'F','T','G',0,'France/Europe',8,1,0,100000,100000,1,0,0,0),(42,'NoName26608',3,3,3,26,27,9,NULL,'M','T','G',0,'France/Europe',6,0,0,35000,35000,1,0,0,0),(43,'NoName92167',2,2,2,26,27,5,NULL,'M','T','G',0,'France/Europe',10,0,0,500000,500000,1,0,0,0),(44,'NoName33513',3,3,3,26,27,7,NULL,'F','T','G',0,'France/Europe',6,1,0,35000,35000,1,0,0,0),(45,'NoName58260',3,3,3,26,27,9,NULL,'M','T','D',0,'France/Europe',9,0,0,250000,250000,1,0,0,0),(46,'NoName50556',3,3,3,26,27,7,NULL,'F','T','G',0,'France/Europe',6,1,0,35000,35000,1,0,0,0),(47,'NoName36400',3,3,3,26,27,9,NULL,'F','T','G',0,'France/Europe',9,1,0,250000,250000,1,0,0,0),(48,'NoName3356',3,3,3,1,36,8,NULL,'F','T','D',0,'France/Europe',8,5,0,100000,100000,1,0,0,0),(49,'NoName30391',1,1,1,1,36,3,NULL,'M','T','D',0,'France/Europe',10,0,0,500000,500000,1,0,0,0),(50,'NoName67625',1,1,1,1,36,2,NULL,'M','T','D',0,'France/Europe',7,0,0,75000,75000,1,0,0,0),(51,'NoName22459',4,4,4,1,36,10,NULL,'M','T','D',0,'France/Europe',5,0,0,15000,15000,1,0,0,0),(52,'NoName20791',3,3,3,1,36,9,NULL,'F','T','G',0,'France/Europe',5,5,0,15000,15000,1,0,0,0),(53,'NoName50184',3,3,3,1,36,9,NULL,'F','T','D',0,'France/Europe',9,5,0,250000,250000,1,0,0,0),(54,'NoName51174',4,4,4,1,36,10,NULL,'F','T','D',0,'France/Europe',7,5,0,75000,75000,1,0,0,0),(55,'NoName74872',2,2,2,26,36,6,NULL,'F','T','G',0,'France/Europe',7,1,0,75000,75000,1,0,0,0),(56,'NoName71156',3,3,3,26,36,7,NULL,'M','T','D',0,'France/Europe',3,0,0,5000,5000,1,0,0,0),(57,'NoName75476',3,3,3,26,36,9,NULL,'M','T','G',0,'France/Europe',7,0,0,75000,75000,1,0,0,0),(58,'NoName45540',3,3,3,26,36,8,NULL,'F','T','G',0,'France/Europe',4,1,0,10000,10000,1,0,0,0),(59,'NoName48492',3,3,3,26,36,9,'','M','T','G',0,'France/Europe',3,0,0,5000,5000,1,0,0,0),(60,'NoName84390',2,2,2,26,36,5,'','F','T','G',0,'France/Europe',5,1,0,15000,15000,1,0,0,0),(61,'NoName27148',2,2,2,25,36,4,'Azelan','F','T','G',750,'France/Europe',6,3,0,35000,35000,1,0,0,0);
+insert  into `horses`(`id`,`name`,`proprio_id`,`trainer_id`,`eleveur_id`,`father_id`,`mother_id`,`age`,`robe`,`sexe`,`specialization`,`corde`,`gains`,`origine`,`quality`,`quality_production`,`production_price`,`evaluation_price`,`price`,`status`,`type`,`is_qualified`,`is_system`) values (1,'General de poummeau',5,5,5,0,0,15,'blanc','M','T','D',3500000,'France/Europe',10,5,125000,0,125000,0,2,1,1),(2,'Cocktail jet',5,5,5,0,0,12,'azelan','M','T','G',1200000,'France/Europe',8,3,50000,0,50000,0,2,1,1),(3,'Insert gÃ©dÃ©',5,5,5,0,0,15,'azelan','M','T','G',2575000,'France/Europe',7,2,25000,0,25000,0,2,1,1),(4,'Quitus de mexique',5,5,5,0,0,22,'noir','M','T','D',3256000,'France/Europe',7,5,125000,0,125000,0,2,1,1),(5,'Aleged',5,5,5,0,0,17,'noir','M','G','G',1745000,'France/Europe',8,3,50000,0,50000,0,2,1,1),(6,'Dolce vita',3,3,3,2,0,7,'blanc','F','T','D',574000,'France/Europe',3,3,50000,0,50000,0,3,1,1),(7,'Belle Diva',3,3,3,4,0,9,'azelan','F','T','G',125000,'France/Europe',3,5,125000,0,125000,0,3,1,1),(8,'La FranÃ§aise',5,5,5,3,0,12,'azelan','F','T','D',85740,'France/Europe',6,2,25000,0,25000,0,3,1,1),(9,'Itiqu Vita',3,3,3,5,0,9,'noir','F','G','D',75000,'France/Europe',6,3,50000,0,50000,0,3,1,1),(10,'Ksar',5,5,5,0,0,23,'azelan','M','G','D',3967410,'France/Europe',9,5,125000,0,125000,0,2,1,1),(11,'NoName36178',1,1,1,10,9,2,'azelan','F','G','D',0,'France/Europe',6,5,0,35000,35000,1,0,0,0),(12,'NoName18919',3,3,3,1,6,7,'blanc','F','T','G',0,'France/Europe',8,5,0,100000,100000,1,0,0,0),(13,'NoName33312',1,1,1,2,7,3,'azelan','F','T','G',0,'France/Europe',4,3,0,10000,10000,1,0,0,0),(14,'NoName51418',4,4,4,2,8,10,'azelan','M','T','G',0,'France/Europe',4,0,0,10000,10000,1,0,0,0),(15,'NoName49074',3,3,3,1,7,9,'azelan','F','T','D',0,'France/Europe',4,5,0,10000,10000,1,0,0,0),(16,'NoName72473',2,2,2,1,7,4,'blanc','M','T','D',0,'France/Europe',6,0,0,35000,35000,1,0,0,0),(17,'NoName65372',2,2,2,1,7,4,'noir','F','T','G',0,'France/Europe',5,5,0,15000,15000,1,0,0,0),(18,'NoName19660',2,2,2,1,7,6,'azelan','F','T','D',0,'France/Europe',9,5,0,250000,250000,1,0,0,0),(19,'NoName5953',3,3,3,4,6,8,'noir','M','T','G',0,'France/Europe',4,0,0,10000,10000,1,0,0,0),(20,'NoName6718',2,2,2,4,6,6,'blanc','M','T','G',0,'France/Europe',5,0,0,15000,15000,1,0,0,0),(21,'NoName86250',1,1,1,4,6,2,'noir','F','T','D',0,'France/Europe',7,5,0,75000,75000,1,0,0,0),(22,'NoName63235',3,3,3,4,6,9,'blanc','M','T','G',0,'France/Europe',3,0,0,5000,5000,1,0,0,0);
 
 /*Table structure for table `horses_caracteristique` */
 
@@ -138,13 +140,13 @@ CREATE TABLE `horses_caracteristique` (
   `vitesse_current` int(11) DEFAULT NULL,
   `vitesse_gene` int(11) DEFAULT NULL,
   `physique` int(11) DEFAULT NULL,
-  `fatigue` int(11) DEFAULT NULL,
+  `fatigue` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 
 /*Data for the table `horses_caracteristique` */
 
-insert  into `horses_caracteristique`(`id`,`horse_id`,`itr`,`itr_year`,`btr`,`trot_base`,`trot_current`,`trot_gene`,`galop_base`,`galop_current`,`galop_gene`,`endurance_base`,`endurance_current`,`endurance_gene`,`vitesse_base`,`vitesse_current`,`vitesse_gene`,`physique`,`fatigue`) values (1,1,177,NULL,100,60,0,100,0,0,100,60,0,100,60,0,100,100,100),(18,25,161,NULL,50,57,0,80,0,0,80,53,0,80,56,0,100,100,100),(19,26,142,NULL,80,43,0,73,0,0,76,45,0,74,50,0,78,100,NULL),(20,27,100,NULL,NULL,65,0,100,0,0,100,60,0,100,53,0,100,100,NULL),(29,36,161,NULL,NULL,69,0,100,0,0,100,26,0,100,33,0,100,100,NULL),(31,40,142,NULL,92,40,220,91,0,0,92,40,220,91,40,220,93,100,NULL),(32,41,142,NULL,92,46,246,91,0,0,92,46,246,91,46,246,93,100,NULL),(33,42,1,NULL,92,39,399,91,0,0,92,39,399,91,39,399,93,100,NULL),(34,43,1,NULL,92,56,296,91,0,0,92,56,296,91,56,296,93,100,NULL),(35,44,142,NULL,92,36,306,91,0,0,92,36,306,91,36,306,93,100,NULL),(36,45,1,NULL,92,51,491,91,0,0,92,51,491,91,51,491,93,100,NULL),(37,46,142,NULL,92,36,306,91,0,0,92,36,306,91,36,306,93,100,NULL),(38,47,142,NULL,92,55,495,91,0,0,92,55,495,91,55,495,93,100,NULL),(39,48,177,NULL,100,49,399,100,0,0,100,48,398,100,47,397,100,100,NULL),(40,49,1,NULL,100,59,179,100,0,0,100,58,178,100,57,177,100,100,NULL),(41,50,1,NULL,100,43,88,100,0,0,100,42,87,100,41,86,100,100,NULL),(42,51,1,NULL,100,34,394,100,0,0,100,33,393,100,32,392,100,100,NULL),(43,52,177,NULL,100,36,356,100,0,0,100,35,355,100,34,354,100,100,NULL),(44,53,177,NULL,100,53,493,100,0,0,100,52,492,100,51,491,100,100,NULL),(45,54,177,NULL,100,44,449,100,0,0,100,43,448,100,42,447,100,100,NULL),(46,55,142,NULL,87,44,269,84,0,0,85,40,265,85,44,269,93,100,NULL),(47,56,1,NULL,87,23,203,84,0,0,85,19,199,85,23,203,93,100,NULL),(48,57,1,NULL,87,42,402,84,0,0,85,38,398,85,42,402,93,100,NULL),(49,58,142,NULL,87,31,311,84,0,0,85,27,307,85,31,311,93,100,NULL),(50,59,1,NULL,87,25,265,84,0,0,85,21,261,85,25,265,93,100,NULL),(51,60,142,NULL,87,35,195,84,0,0,85,31,191,85,35,195,93,100,NULL),(52,61,161,NULL,91,38,173,87,0,0,87,33,168,87,39,174,100,80,0);
+insert  into `horses_caracteristique`(`id`,`horse_id`,`itr`,`itr_year`,`btr`,`trot_base`,`trot_current`,`trot_gene`,`galop_base`,`galop_current`,`galop_gene`,`endurance_base`,`endurance_current`,`endurance_gene`,`vitesse_base`,`vitesse_current`,`vitesse_gene`,`physique`,`fatigue`) values (1,1,177,NULL,100,60,253,100,0,295,100,60,263,100,60,264,100,100,0),(2,2,162,NULL,60,49,0,73,0,0,0,52,0,87,43,0,81,100,0),(3,3,156,NULL,75,42,153,100,0,241,0,46,103,100,36,141,100,100,0),(4,4,172,NULL,66,43,0,84,0,0,0,53,0,97,37,0,81,100,0),(5,5,163,NULL,56,0,0,0,51,296,87,42,185,57,48,410,78,100,0),(6,6,162,NULL,62,24,0,85,0,0,0,19,0,75,28,0,88,100,0),(7,7,172,NULL,39,15,0,44,0,0,0,29,0,67,21,0,46,100,0),(8,8,156,NULL,56,32,0,73,0,0,0,41,0,86,34,0,65,100,0),(9,9,163,NULL,67,0,0,0,30,0,90,41,0,85,36,0,92,100,0),(10,10,171,NULL,65,0,0,0,50,0,85,56,0,92,51,0,83,100,0),(11,11,171,NULL,83,0,0,0,38,83,87,37,82,78,37,82,84,100,0),(12,12,177,NULL,88,21,321,86,0,0,33,60,360,87,60,360,90,100,0),(13,13,162,NULL,73,25,105,67,0,0,0,31,111,84,24,104,69,100,0),(14,14,1,NULL,85,25,385,82,0,0,0,29,389,91,23,383,82,100,0),(15,15,177,NULL,80,26,346,76,0,0,33,30,350,88,25,345,76,100,0),(16,16,1,NULL,80,37,172,76,0,0,33,41,176,88,36,171,76,100,0),(17,17,177,NULL,80,30,150,76,0,0,33,34,154,88,29,149,76,100,0),(18,18,177,NULL,80,52,327,76,0,0,33,56,331,88,51,326,76,100,0),(19,19,1,NULL,83,27,307,81,0,0,0,32,312,86,26,306,83,100,0),(20,20,1,NULL,83,31,231,81,0,0,0,36,236,86,30,230,83,100,0),(21,21,172,NULL,83,41,86,81,0,0,0,46,91,86,40,85,83,100,0),(22,22,1,NULL,83,21,261,81,0,0,0,26,266,86,20,260,83,100,0);
 
 /*Table structure for table `horses_training` */
 
@@ -158,13 +160,13 @@ CREATE TABLE `horses_training` (
   `training_endurance` int(11) DEFAULT '0',
   `training_vitesse` int(11) DEFAULT '0',
   `training_physique` int(11) DEFAULT '0',
-  `training_fatigue` int(11) DEFAULT NULL,
+  `training_fatigue` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 
 /*Data for the table `horses_training` */
 
-insert  into `horses_training`(`id`,`horse_id`,`training_trot`,`training_galop`,`training_endurance`,`training_vitesse`,`training_physique`,`training_fatigue`) values (1,61,2,0,2,2,2,0);
+insert  into `horses_training`(`id`,`horse_id`,`training_trot`,`training_galop`,`training_endurance`,`training_vitesse`,`training_physique`,`training_fatigue`) values (1,1,0,0,0,0,0,0),(2,2,0,0,0,0,0,0),(3,3,0,0,0,0,0,0),(4,4,0,0,0,0,0,0),(5,5,0,0,0,0,0,0),(6,6,0,0,0,0,0,0),(7,7,0,0,0,0,0,0),(8,8,0,0,0,0,0,0),(9,9,0,0,0,0,0,0),(10,10,0,0,0,0,0,0),(11,11,0,2,2,2,2,0),(12,12,2,0,2,2,2,0),(13,13,2,0,2,2,2,0),(14,14,2,0,2,2,2,0),(15,15,2,0,2,2,2,0),(16,16,2,0,2,2,2,0),(17,17,2,0,2,2,2,0),(18,18,2,0,2,2,2,0),(19,19,2,0,2,2,2,0),(20,20,2,0,2,2,2,0),(21,21,2,0,2,2,2,0),(22,22,2,0,2,2,2,0);
 
 /*Table structure for table `jockeys` */
 
@@ -239,6 +241,18 @@ CREATE TABLE `race_hippodrome` (
 /*Data for the table `race_hippodrome` */
 
 insert  into `race_hippodrome`(`id`,`title`,`group_ids`) values (1,'Vincennes','1,2,3,4,5,6'),(2,'Languedoc','4'),(3,'Vichy','5,6');
+
+/*Table structure for table `race_hyppodrome` */
+
+DROP TABLE IF EXISTS `race_hyppodrome`;
+
+CREATE TABLE `race_hyppodrome` (
+  `ID` int(11) NOT NULL,
+  `TITLE` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `race_hyppodrome` */
 
 /*Table structure for table `race_participant` */
 
@@ -364,7 +378,7 @@ CREATE TABLE `stables` (
 
 /*Data for the table `stables` */
 
-insert  into `stables`(`id`,`name`,`firstname`,`lastname`,`last_activity`,`country`,`continent`,`level`,`capital`,`banque`,`gold`,`email`,`password`) values (1,'Turfoland des 2/3 ans ','Benjamin','Gates','2016-06-06 06:56:10','France','Europe',3,300000,300000,5,'gates.benjamin@turfoland.com','e5672d625c2064615e69d21846cbda74'),(2,'Turfoland des 4/5/6 ans','Isaac','Iblou','2016-06-07 07:13:19','France','Europe',3,300000,300000,5,'iblou.isaac@turfoland.com','ff7824370af348209ad8474d488d6fc7'),(3,'Turfoland des 7/8/9 ans','Alexandre','Dupont','2016-05-31 06:16:23','France','Europe',3,300000,300000,5,'alex.dupont@turfoland.com','d43db12b94c641f769f66dbd62207492'),(4,'Turfoland des 10 ans','Pascal','Vozier','2016-05-31 06:17:17','France','Europe',3,300000,300000,5,'pascal.vozier@turfoland.com','bea14bb1a152167c9cdf0b4b580c7736'),(5,'Turfoland des Inactifs','Violette','Madison','2016-05-31 06:22:48','France','Europe',3,300000,300000,5,'madison.violette@turfoland.com','306fbc4f26ae3159c4f2292d30930eb4'),(6,'Maison Laffite','Alex','DuprÃ¨s','2016-06-01 06:25:47','France','Europe',0,300000,300000,5,'alex.dupres@turfoland.com','10a632cbbf80df92fb6b66671d6ac69d');
+insert  into `stables`(`id`,`name`,`firstname`,`lastname`,`last_activity`,`country`,`continent`,`level`,`capital`,`banque`,`gold`,`email`,`password`) values (1,'Turfoland des 2/3 ans ','Benjamin','Gates','2016-06-08 08:10:51','France','Europe',3,300000,300000,5,'gates.benjamin@turfoland.com','e5672d625c2064615e69d21846cbda74'),(2,'Turfoland des 4/5/6 ans','Isaac','Iblou','2016-06-08 08:46:08','France','Europe',3,300000,300000,5,'iblou.isaac@turfoland.com','ff7824370af348209ad8474d488d6fc7'),(3,'Turfoland des 7/8/9 ans','Alexandre','Dupont','2016-06-08 09:06:52','France','Europe',3,300000,300000,5,'alex.dupont@turfoland.com','d43db12b94c641f769f66dbd62207492'),(4,'Turfoland des 10 ans','Pascal','Vozier','2016-06-08 09:06:46','France','Europe',3,300000,300000,5,'pascal.vozier@turfoland.com','bea14bb1a152167c9cdf0b4b580c7736'),(5,'Turfoland des Inactifs','Violette','Madison','2016-06-08 09:00:53','France','Europe',3,300000,300000,5,'madison.violette@turfoland.com','306fbc4f26ae3159c4f2292d30930eb4'),(6,'Maison Laffite','Alex','DuprÃ¨s','2016-06-08 08:10:43','France','Europe',0,300000,300000,5,'alex.dupres@turfoland.com','10a632cbbf80df92fb6b66671d6ac69d');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

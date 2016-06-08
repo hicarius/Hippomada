@@ -30,7 +30,7 @@ $meetings = Apps::getModel('Race')->getMeetingsAndRaceNumber($allRaces);
                 foreach($allRaces as $i => $race){
                 ?>
                 <div id="r<?php echo $race['meeting'] ?>-c<?php echo $race['race_number'] ?>" class="course-subcontent tab-pane fade <?php if($i==0) { ?>in active <?php } ?>">
-                    <h4><?php echo date('d M Y', strtotime($race['race_date'])) ?> - <b><?php echo date('H\Hi', strtotime($race['race_date'])) ?></b> - R<?php echo $race['meeting'] ?>C<?php echo $race['race_number'] ?> - <b><?php echo $race['name'] ?></b> - <b><?php echo $race['hippodrome_name'] ?></b><i class="ico-race ico-trot-attele"></i></h4>
+                    <h4><?php echo date('d M Y', strtotime($race['race_date'])) ?> - <b><?php echo date('H\Hi', strtotime($race['race_date'])) ?></b> - R<?php echo $race['meeting'] ?>C<?php echo $race['race_number'] ?> - <b><?php echo $race['name'] ?></b> - <b><?php echo $race['hippodrome_name'] ?></b><i class="ico-race ico-course-<?php echo $race['code'] ?>"></i></h4>
                     <div class="course-detail">
                         <ul class="col-md-6" style="list-style: none">
                             <li><span class="col-xs-4"><b>Type :</b></span><span class="col-xs-6"><?php echo $race['type_name'] ?></span></li>
@@ -69,8 +69,7 @@ $meetings = Apps::getModel('Race')->getMeetingsAndRaceNumber($allRaces);
                                 <tr class="">
                                     <td><?php echo $item['id'] ?></td>
                                     <td>
-                                        <?php echo Apps::getModel('Horse')->getName($item['name'], $item['id']) ?>
-                                        <a href="javascript:void(0)" rel="<?php echo $item['horse_id'] ?>" class="horse-name"><?php echo $item['name'] ?></a>
+                                        <?php echo Apps::getModel('Horse')->getName($item['name'], $item['horse_id']) ?>
                                     </td>
                                     <td>image</td>
                                     <td><?php echo $item['sexe'] ?>/<?php echo $item['age'] ?></td>

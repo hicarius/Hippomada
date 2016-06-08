@@ -254,4 +254,39 @@ class StableModel extends Model_Abstract
 			);
 		}
 	}
+
+	public function getName($stable_name, $stable_id)
+	{
+
+		if(is_null($stable_name) || $stable_name == '') {
+			$html = 'Inconnu';
+		}else{
+			if ($stable_name == 'Inconnu') {
+				$html = $stable_name;
+			} else {
+				$html = '<a href="javascript:void(0)" rel="' . $stable_id . '" class="stable-name">' . $stable_name . '</a>';
+			}
+		}
+		return $html;
+	}
+
+	public function get5LastRaces($stableId = null)
+	{
+		$query = "SELECT h.name AS horse_name, rp.horse_id AS horse_id, r.id, r.name, r.lenght, h.sexe, rp.status, rp.rang, rt.code FROM race_participant rp";
+		$query .= " INNER JOIN races r ON r.id = rp.race_id";
+		$query .= " INNER JOIN race_type rt ON rt.id = r.type_id";
+		$query .= " INNER JOIN horses h ON h.id = rp.horse_id";
+		$query .= " WHERE h.proprio_id = :proprio_id AND r.status = 0 ORDER BY rp.id DESC LIMIT 3";
+		$stmt = Database::prepare($query);
+		if($stableId == null){
+			$stmt->bindParam(':proprio_id', $this->_data['id']);
+		}else{
+			$stmt->bindParam(':proprio_id', $stableId);
+		}
+
+		$stmt->execute();
+		$results = $stmt->fetchAll();
+
+		return $results;
+	}
 }

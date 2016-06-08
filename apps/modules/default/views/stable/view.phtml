@@ -1,0 +1,231 @@
+<?php
+$sessionUser = Session::getUser();
+$oStable = Apps::getModel('Stable');
+$stable = $oStable->load($sessionUser['id'])->getData();
+$chevauxDeEcurie = $oStable->getHorsesForStable();
+?>
+<div class="col-md-12">
+    <div class="panel panel-info">
+        <a href="javascript:void(0)" onclick="window.opener.location.reload();window.close()" class="pull-right"><b><i class="fa fa-refresh  "></i> Fermer et actualiser</b></a>
+    </div>
+    <div style="clear:both"></div>
+</div>
+<div class="col-xs-12 course-content horse-detailed" style="margin-top: 20px">
+    <div class="panel panel-info">
+        <div class="panel-heading" style="padding: 5px 10px;">
+            <h4 style="float:left;margin:0;font-size: 19px;"><?php echo $stable['name'] ?></h4>
+            <div style="clear:both"></div>
+        </div>
+        <div class="panel-body">
+            <div class="col-xs-6">
+                <div class="col-xs-12">
+                    <div class="panel panel-default" >
+                        <div class="panel-heading">
+                            <i class="fa fa-home"></i> Information de l'écurie
+                        </div>
+                        <div class="panel-body">
+                            <ul class="list-unstyled info-stable">
+                                <li>
+                                    <span class="col-xs-6">Proprietaire</span>
+                                    <span class="col-xs-6"><?php echo $stable['firstname'] ?> <?php echo strtoupper($stable['lastname']) ?></span>
+                                </li>
+                                <li>
+                                    <span class="col-xs-6">Entraineur</span>
+                                    <span class="col-xs-6"><?php echo $stable['firstname'] ?> <?php echo strtoupper($stable['lastname']) ?></span>
+                                </li>
+                                <li>
+                                    <span class="col-xs-6">Niveau de l'écurie</span>
+                                    <span class="col-xs-6">
+                                        <?php echo $oStable->getLevel()?>
+                                    </span>
+                                </li>
+                                <li>
+                                    <?php $nbrHorseMax= $oStable->getMaxHorse() ?>
+                                    <span class="col-xs-6">Nbre des chévaux</span><span class="col-xs-6"><?php echo count($chevauxDeEcurie)?> / <?php echo ($nbrHorseMax!=0) ? "$nbrHorseMax max" : 'illimité' ?></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-user"></i> Information du jockey
+                        </div>
+                        <div class="panel-body">
+                            <ul class="list-unstyled info-stable">
+                                <li>
+                                    <span class="col-xs-6">Nom</span>
+                                    <span class="col-xs-6"><?php echo $stable['firstname'] ?> <?php echo strtoupper($stable['lastname']) ?></span>
+                                </li>
+                                <li>
+                                    <span class="col-xs-6">Niveau de l'écurie</span>
+                                    <span class="col-xs-6">
+                                        <?php echo $oStable->getLevel()?>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="panel panel-default" style="min-height: 310px;">
+                    <div class="panel-heading">
+                        <i class="fa fa-bar-chart"></i> Statistiques du carrière
+                    </div>
+                    <div class="panel-body">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#stat-result" aria-expanded="false">Résultats</a></li>
+                            <li class=""><a data-toggle="tab" href="#gains" aria-expanded="false">Gains</a></li>
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content statistique">
+                            <div id="stat-result" class="tab-pane fade  in active">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <td class="a-left">#</td><td>Courues</td><td>Victoires</td><td>Placés</td>
+                                    </tr>
+                                    </thead>
+                                    <?php $resultats = $oStable->getResultats() ?>
+                                    <tbody>
+                                    <tr>
+                                        <td class="a-left">Mois</td>
+                                        <td><?php echo $resultats['mounth_race'] ?></td>
+                                        <td><?php echo $resultats['mounth_win'] ?> / <span class="special-color1"><?php echo @number_format($resultats['mounth_win'] / $resultats['mounth_race'] * 100) ?>%</span></td>
+                                        <td><?php echo $resultats['mounth_placed'] ?> / <span class="special-color1"><?php echo @number_format($resultats['mounth_placed'] / $resultats['mounth_race'] * 100) ?>%</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="a-left">Année</td>
+                                        <td><?php echo $resultats['year_race'] ?></td>
+                                        <td><?php echo $resultats['year_win'] ?> / <span class="special-color1"><?php echo @number_format($resultats['year_win'] / $resultats['year_race'] * 100) ?>%</span></td>
+                                        <td><?php echo $resultats['year_placed'] ?> / <span class="special-color1"><?php echo @number_format($resultats['year_placed'] / $resultats['year_race'] * 100) ?>%</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="a-left">Carrière</td>
+                                        <td><?php echo $resultats['carrer_race'] ?></td>
+                                        <td><?php echo $resultats['carrer_win'] ?> / <span class="special-color1"><?php echo @number_format($resultats['carrer_win'] / $resultats['carrer_race'] * 100) ?>%</span></td>
+                                        <td><?php echo $resultats['carrer_placed'] ?> / <span class="special-color1"><?php echo @number_format($resultats['carrer_placed'] / $resultats['carrer_race'] * 100) ?>%</span></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div id="gains" class="tab-pane fade">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <td class="a-left">#</td><td>Acquis</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="a-left">Mois</td><td><?php echo number_format($resultats['mounth_gain'], 0, '.', ' ') ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="a-left">Année</td><td><?php echo number_format($resultats['year_gain'], 0, '.', ' ') ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="a-left">Carrière</td><td><?php echo number_format($resultats['carrer_gain'], 0, '.', ' ') ?></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-object-group"></i> Chévaux en activité
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <?php
+                            $activeHorse = $oStable->getActiveHorse($stable['id']);
+                            if(count($activeHorse) > 0 ){
+                                ?>
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Cheval</th><th>Age/Sexe</th><th>Indice</th><th>Spéc.</th><th>Stat.</th><th>Musique</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php foreach( $activeHorse as $item) {
+                                        $oHorse = Apps::getModel('Horse')->load($item['id']);
+                                        $horse = $oHorse->getData();
+                                        ?>
+                                        <tr>
+                                            <td class="a-left">
+                                                <?php echo $oHorse->getName($horse['name'], $horse['id'], $horse['status']) ?>
+                                            </td>
+                                            <td><?php echo $horse['sexe'] ?><?php echo $horse['age'] ?></td>
+                                            <td><?php echo $oHorse->getIndice() ?></td>
+                                            <td><?php echo $oHorse->getSpecialite() ?></td>
+                                            <td><?php echo $oHorse->getResultats() ?></td>
+                                            <td><?php echo $oHorse->get5LastPerfs($horse['sexe']) ?></td>
+                                        </tr>
+                                    <?php } ?>
+                                    </tbody>
+                                </table>
+                                <?php
+                            }else{
+                                echo "<div class='row'>Aucun chévaux en activité</div>";
+                            }
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-object-ungroup"></i>  Chévaux inactifs et de réproduction
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <?php
+                            $inactiveHorse = $oStable->getInactiveHorse($stable['id']);
+                            if(count($inactiveHorse) > 0 ){
+                                ?>
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Cheval</th><th>Age/Sexe</th><th>Indice</th><th>Spéc.</th><th>Gains</th><th>Stat.</th><th>Musique</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php foreach( $inactiveHorse as $item) {
+                                        $oHorse = Apps::getModel('Horse')->load($item['id']);
+                                        $horse = $oHorse->getData();
+                                        ?>
+                                        <tr>
+                                            <td class="a-left">
+                                                <?php echo $oHorse->getName($horse['name'], $horse['id'], $horse['status']) ?>
+                                            </td>
+                                            <td><?php echo $horse['sexe'] ?><?php echo $horse['age'] ?></td>
+                                            <td><?php echo $oHorse->getIndice() ?></td>
+                                            <td><?php echo $oHorse->getSpecialite() ?></td>
+                                            <td><?php echo number_format($horse['gains'], 0, '.', ' ') ?></td>
+                                            <td><?php echo $oHorse->getResultats() ?></td>
+                                            <td><?php echo $oHorse->get5LastPerfs($horse['sexe']) ?></td>
+                                        </tr>
+                                    <?php } ?>
+                                    </tbody>
+                                </table>
+                                <?php
+                            }else{
+                                echo "<div class='row'>Aucun chévaux inactifs et de réproduction</div>";
+                            }
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

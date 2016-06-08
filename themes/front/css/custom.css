@@ -175,7 +175,7 @@ a.horse-name, a.horse-name:hover {
     font-size: 13px;
 }
 
-a.race-name, a.race-name:hover {
+a.race-name, a.race-name:hover, a.stable-name, a.stable-name:hover{
     border-bottom: 1px dotted;
 }
 

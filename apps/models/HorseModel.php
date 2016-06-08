@@ -11,9 +11,9 @@ class HorseModel extends Model_Abstract
 		$additionalColumns .= "IF(h.eleveur_id=0, 'Inconnu', s3.name) AS eleveur, ";
 		$additionalColumns .= "IF(h.father_id=0, 'Inconnu', h2.name) AS father, ";
 		$additionalColumns .= "IF(h.mother_id=0, 'Inconnu', h3.name) AS mother, ";
-		$additionalColumns .= "IF(h.status=0, 'Inactif', 'Actif') AS status, ";
-		$additionalColumns .= "IF(h.is_system=0, 'Non', 'Oui') AS is_system, ";
-		$additionalColumns .= "IF(h.type=0, 'Standard', IF(h.type=1, '- de 1 an', IF(h.type=2, 'Etalon', 'Poulini&egrave;re'))) AS type ";
+		$additionalColumns .= "IF(h.status=0, 'Inactif', 'Actif') AS status_name, ";
+		$additionalColumns .= "IF(h.is_system=0, 'Non', 'Oui') AS is_system_name, ";
+		$additionalColumns .= "IF(h.type=0, 'Standard', IF(h.type=1, '- de 1 an', IF(h.type=2, 'Etalon', 'Poulini&egrave;re'))) AS type_name ";
 		$joins =  " INNER JOIN stables s1 ON s1.id = h.proprio_id";
 		$joins .=  " INNER JOIN stables s2 ON s2.id = h.trainer_id";
 		$joins .=  " LEFT JOIN stables s3 ON s3.id = h.eleveur_id";
@@ -32,10 +32,10 @@ class HorseModel extends Model_Abstract
 		$additionalColumns .= "IF(h.eleveur_id=0, 'Inconnu', s3.name) AS eleveur, ";
 		$additionalColumns .= "IF(h.father_id=0, 'Inconnu', h2.name) AS father, h2.status AS father_status, ";
 		$additionalColumns .= "IF(h.mother_id=0, 'Inconnu', h3.name) AS mother, h3.status AS mother_status, ";
-		$additionalColumns .= "IF(h.status=0, 'Inactif', 'Actif') AS status, h.status AS status_value, ";
-		$additionalColumns .= "IF(h.is_system=0, 'Non', 'Oui') AS is_system, ";
+		$additionalColumns .= "IF(h.status=0, 'Inactif', 'Actif') AS status_name, ";
+		$additionalColumns .= "IF(h.is_system=0, 'Non', 'Oui') AS is_system_name, ";
 		$additionalColumns .= "( IF(h3.father_id=0, 'Inconnu', h4.name) ) AS father_mother, h3.father_id as father_mother_id, h4.status AS father_mother_status, ";
-		$additionalColumns .= "h.type AS type_value, IF(h.type=0, IF(h.sexe='F', 'une femelle', 'un m&acirc;le'), IF(h.type=1, '- de 1 an', IF(h.type=2, 'un &eacute;talon', 'une poulini&egrave;re'))) AS type ";
+		$additionalColumns .= "h.type AS type_value, IF(h.type=0, IF(h.sexe='F', 'une femelle', 'un m&acirc;le'), IF(h.type=1, '- de 1 an', IF(h.type=2, 'un &eacute;talon', 'une poulini&egrave;re'))) AS type_name ";
 		$joins =  " INNER JOIN stables s1 ON s1.id = h.proprio_id";
 		$joins .=  " INNER JOIN stables s2 ON s2.id = h.trainer_id";
 		$joins .=  " LEFT JOIN stables s3 ON s3.id = h.eleveur_id";
@@ -250,7 +250,7 @@ class HorseModel extends Model_Abstract
 
 		//save price and quality_production and ITR
 		$query = "UPDATE horses
-					SET evaluation_price = :evaluation_price, production_price = :production_price, price = :price, quality= :quality, quality_production = :quality_production
+					SET evaluation_price = :evaluation_price, production_price = :production_price, price = :price, quality= :quality, quality_production = :quality_production, specialization=:specialization
 					WHERE id = :id";
 		$stmt = Database::prepare($query);
 		$stmt->bindParam(':production_price', $production_price);
@@ -530,8 +530,15 @@ class HorseModel extends Model_Abstract
 		$stmt->execute();
 
 		//create training line
-		$query = "INSERT INTO horses_training (horse_id)
- 				  VALUES(:horse_id)";
+		if($horse->perf->galop_base == 0){
+			$training_trot = 2;
+			$training_galop = 0;
+		}else{
+			$training_trot = 0;
+			$training_galop = 2;
+		}
+		$query = "INSERT INTO horses_training (horse_id, training_trot, training_galop, training_endurance, training_vitesse, training_physique )
+ 				  VALUES(:horse_id,{$training_trot},{$training_galop},2,2,2)";
 		$stmt = Database::prepare($query);
 		$stmt->bindParam(':horse_id', $horseId);
 		$stmt->execute();
@@ -675,7 +682,7 @@ class HorseModel extends Model_Abstract
 	public function getSpecialite()
 	{
 		if($this->_data['specialization'] == 'T'){
-			return 'Troteur';
+			return 'Trotteur';
 		} else {
 			return 'Galopeur';
 		}
@@ -714,7 +721,7 @@ class HorseModel extends Model_Abstract
 	{
 		$html = '';
 		$qa = $this->_data['quality_production'];
-		if($this->_data['type_value'] == 0){
+		if($this->_data['type'] == 0){
 			$qa = 0;
 		}
 		for( $i=1; $i<=5; $i++){

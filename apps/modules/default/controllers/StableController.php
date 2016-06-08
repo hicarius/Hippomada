@@ -22,4 +22,11 @@ class StableController extends Controller
 			$this->getView()->redirect('/stable/success');
 		}
 	}
+
+	public function view()
+	{
+		Layout::setLayout('popup-stable');
+		$stableId = $this->getRequest()->getParam('id');
+		$this->getView()->addVar('stableId', $stableId);
+	}
 }

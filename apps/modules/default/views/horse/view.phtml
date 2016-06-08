@@ -19,7 +19,7 @@ $horse = $oHorse->getData();
 	<div class="panel panel-info">
 		<div class="panel-heading" style="padding: 5px 10px;">
 			<h4 style="float:left;margin:0;font-size: 19px;"><?php echo $horse['name'] ?></h4>
-			<span class="col-xs-7" style="font-size: 15px;color:#5f5e5e;">- <?php echo $horse['type'] ?> de <?php echo $horse['age'] ?> ans -</span>
+			<span class="col-xs-7" style="font-size: 15px;color:#5f5e5e;">- <?php echo $horse['type_name'] ?> de <?php echo $horse['age'] ?> ans -</span>
 			<div style="clear:both"></div>
 		</div>
 		<div class="panel-body">
@@ -34,7 +34,7 @@ $horse = $oHorse->getData();
 					<span class="col-xs-7"><b>Réproduction :</b></span><span class="col-xs-5"><?php echo $oHorse->getIndiceReproduction() ?></span>
 				</li>
 				<li>
-					<span class="col-xs-7"><b>Robe :</b></span><span class="col-xs-5"><?php echo (is_null($horse['robe'])) ? '-' : $horse['robe']; ?></span>
+					<span class="col-xs-7"><b>Robe :</b></span><span class="col-xs-5"><?php echo (is_null($horse['robe'])) ? '-' : ucfirst($horse['robe']); ?></span>
 				</li>
 				<li>
 					<span class="col-xs-7"><b>Valeur :</b></span><span class="col-xs-5"><?php echo number_format($horse['price'], 0, '.', ' ') ?> <?php echo Text::__('turfoos') ?></span>
@@ -71,13 +71,13 @@ $horse = $oHorse->getData();
 					</span>
 				</li>
 				<li>
-					<span class="col-xs-7"><b>Propriètaire :</b></span><span class="col-xs-5"><?php echo $horse['proprio'] ?></span>
+					<span class="col-xs-7"><b>Propriètaire :</b></span><span class="col-xs-5"><?php echo Apps::getModel('Stable')->getName($horse['proprio'], $horse['proprio_id']) ?></span>
 				</li>
 				<li>
-					<span class="col-xs-7"><b>Entraineur :</b></span><span class="col-xs-5"><?php echo $horse['trainer'] ?></span>
+					<span class="col-xs-7"><b>Entraineur :</b></span><span class="col-xs-5"><?php echo Apps::getModel('Stable')->getName($horse['trainer'], $horse['trainer_id']) ?></a></span>
 				</li>
 				<li>
-					<span class="col-xs-7"><b>Eleveur :</b></span><span class="col-xs-5"><?php echo $horse['eleveur'] ?></span>
+					<span class="col-xs-7"><b>Eleveur :</b></span><span class="col-xs-5"><?php echo Apps::getModel('Stable')->getName($horse['eleveur'], $horse['eleveur_id']) ?></span>
 				</li>
 			</ul>
 		</div>
@@ -127,8 +127,7 @@ $horse = $oHorse->getData();
 							<td class="a-left"><?php echo date('d-m-Y', strtotime($raceDone['race_date'])) ?></td>
 							<td><i class="fa ico-course-<?php echo $raceDone['code'] ?>"></i></td>
 							<td><?php echo $raceDone['hippo'] ?></td>
-							<td><a href="javascript:void(0)" class="race-name"
-								   rel="<?php echo $raceDone['id'] ?>"><?php echo $raceDone['name'] ?></a></td>
+							<td><?php echo Apps::getModel('Race')->getName($raceDone['name'], $raceDone['id']) ?></td>
 							<td><?php echo $raceDone['corde'] ?></td>
 							<td><?php echo number_format($raceDone['lenght'], 0, '.', ' ') ?> m</td>
 							<td><?php echo $raceDone['place'] ?><?php echo $raceDone['code'] ?></td>
@@ -215,9 +214,9 @@ $horse = $oHorse->getData();
 							add_fatigue = ecart_slider * 10;
 							new_fatigue = actual_fatigue + add_fatigue;
 
-							/*if( total_perf <= 8)							{
+							if( total_perf <= 8)							{
 								new_fatigue = 0;
-							}*/
+							}
 							$("#progressbar-fatigue").progressbar({value: new_fatigue});
 							$('#current-fatigue-value').val(new_fatigue);
 
@@ -246,6 +245,7 @@ $horse = $oHorse->getData();
 							<?php }else{ ?>
 							previous_perf+= parseInt($( "#slider-galop" ).slider( "value" ));
 							<?php } ?>
+							console.log(previous_perf);
 						},stop: function( event, ui ) {
 							total_perf = parseInt($( "#slider-physique" ).slider( "value" )) + parseInt($( "#slider-vitesse" ).slider( "value" )) +  parseInt($( "#slider-endurance" ).slider( "value" )) ;
 							<?php if($horse['galop_base']== 0){ ?>
@@ -253,6 +253,7 @@ $horse = $oHorse->getData();
 							<?php }else{ ?>
 							total_perf+= parseInt($( "#slider-galop" ).slider( "value" ));
 							<?php } ?>
+							console.log(total_perf);
 						}
 					});
 					$( "#training-<?php echo $perf ?>" ).val( $( "#slider-<?php echo $perf ?>" ).slider( "value" ) );
@@ -298,7 +299,7 @@ $horse = $oHorse->getData();
 							?>
 							<tr>
 								<td class="a-left">
-									<?php echo $oHorse->getName($enfant['name'], $enfant['id']) ?>
+									<?php echo $oHorse->getName($enfant['name'], $enfant['id'], $enfant['status']) ?>
 								</td>
 								<td><?php echo $enfant['sexe'] ?>/<?php echo $enfant['age'] ?></td>
 								<td>

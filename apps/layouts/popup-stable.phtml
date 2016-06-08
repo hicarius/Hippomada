@@ -8,10 +8,10 @@
 
     <!-- celestino web template --->
     <?php
-    $oHorse = Apps::getModel('Horse')->load($horseId);
-    $horse = $oHorse->getData();
+    $oStable = Apps::getModel('Stable')->load($stableId);
+    $stable = $oStable->getData();
     ?>
-    <title>Fiche de <?php echo strtoupper($horse['name']) ?></title>
+    <title>Fiche du <?php echo $stable['name'] ?></title>
 
     <!-- RESET STYLESHEET -->
     <link rel="stylesheet" type="text/css" media="all" href="/themes/front/css/reset.css" />

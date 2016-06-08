@@ -1,0 +1,78 @@
+<?php
+$sessionUser = Session::getUser();
+$stable = Apps::getModel('Stable')->load($sessionUser['id'])->getData();
+
+$oRace = Apps::getModel('Race')->load($raceId);
+$race = $oRace->getData();
+//print_r($horse);die;
+?>
+<div class="col-md-12">
+	<div class="panel panel-info">
+		<a href="javascript:void(0)" onclick="window.opener.location.reload();window.close()" class="pull-right"><b><i class="fa fa-refresh  "></i> Fermer et actualiser</b></a>
+	</div>
+	<div style="clear:both"></div>
+</div>
+<div class="col-md-12 course-content horse-detailed" style="margin-top: 20px">
+	<div class="panel panel-info">
+		<div class="panel-heading" style="padding: 5px 10px;">
+			<h4><?php echo date('d M Y', strtotime($race['race_date'])) ?> - <b><?php echo date('H\Hi', strtotime($race['race_date'])) ?></b> - R<?php echo $race['meeting'] ?>C<?php echo $race['race_number'] ?> - <b><?php echo $race['name'] ?></b> - <b><?php echo $race['hippodrome_name'] ?></b><i class="ico-race ico-course-<?php echo $race['code'] ?>"></i></h4>
+
+		</div>
+		<div class="panel-body">
+			<div class="col-xs-12 course-content horse-detailed" style="margin-top: 20px">
+				<div  class="course-subcontent">
+					<div class="course-detail">
+						<ul class="col-xs-6" style="list-style: none">
+							<li class="col-xs-12"><span class="col-xs-4"><b>Type :</b></span><span class="col-xs-6"><?php echo $race['type_name'] ?></span></li>
+							<li class="col-xs-12"><span class="col-xs-4"><b>Distance :</b></span><span class="col-xs-6"><?php echo number_format($race['lenght'], 0, '.', ' ') ?>m</span></li>
+						</ul>
+						<ul class="col-xs-6" style="list-style: none">
+							<li class="col-xs-12"><span class="col-xs-4"><b>Piste :</b></span><span class="col-xs-6"> <?php echo $race['piste_name'] ?></span></li>
+							<li class="col-xs-12"><span class="col-xs-4"><b>Corde :</b></span><span class="col-xs-6"><?php echo Apps::getModel('Race')->getCorde($race); ?></span></li>
+						</ul>
+						<div style="padding-left: 10px;">
+							<?php Apps::getModel('Race')->getAgeMinMax($race); ?>
+							Pour les chevaux de <b><?php echo Apps::getModel('Race')->getAgeMinMax($race); ?></b>
+							<?php echo Apps::getModel('Race')->getGainsMax($race); ?><br>
+							<?php echo Apps::getModel('Race')->getRacePrize($race); ?>
+						</div>
+					</div>
+					<h4>Les partants</h4>
+					<div class="table-responsive ">
+						<table class="table table-striped">
+							<thead>
+							<tr>
+								<th>#</th>
+								<th>Cheval</th>
+								<th>Cas.</th>
+								<th>Sexe/Age</th>
+								<th>Entraineur</th>
+								<th>Jockey</th>
+								<th>Musique</th>
+							</tr>
+							</thead>
+							<tbody>
+							<?php
+							$horses = Apps::getModel('Race')->getHorsesEngaged($race['id']);
+							foreach($horses as $item) {
+								?>
+								<tr class="">
+									<td><?php echo $item['id'] ?></td>
+									<td>
+										<?php echo Apps::getModel('Horse')->getName($item['name'], $item['horse_id']) ?>
+									</td>
+									<td>image</td>
+									<td><?php echo $item['sexe'] ?>/<?php echo $item['age'] ?></td>
+									<td><?php echo $item['entraineur'] ?></td>
+									<td><?php echo $item['jockey'] ?></td>
+									<td><?php echo Apps::getModel('Horse')->get5LastPerfs($item['sexe'], $item['id']) ?></td>
+								</tr>
+							<?php } ?>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

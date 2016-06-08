@@ -4,7 +4,7 @@ class RaceModel extends Model_Abstract
     public function getRaces($date=null)
     {
         $additionalColumns = "rc.title AS category_name, rg.group_name, rp.title AS piste_name, rh.title AS hippodrome_name";
-        $additionalColumns .= ", rt.title AS type_name";
+        $additionalColumns .= ", rt.title AS type_name, rt.code";
         $joins =  " INNER JOIN race_category rc ON rc.id = r.category_id";
         $joins .=  " INNER JOIN race_group rg ON rg.id = r.group_id";
         $joins .=  " INNER JOIN race_hippodrome rh ON rh.id = r.hippodrome_id";
@@ -26,7 +26,7 @@ class RaceModel extends Model_Abstract
     public function load($id, $setData = true)
     {
         $additionalColumns = "rc.title AS category_name, rg.group_name, rp.title AS piste_name, rh.title AS hippodrome_name";
-        $additionalColumns .= ", rt.title AS type_name, rp.title AS piste_name";
+        $additionalColumns .= ", rt.title AS type_name, rp.title AS piste_name, rt.code";
         $joins =  " INNER JOIN race_category rc ON rc.id = r.category_id";
         $joins .=  " INNER JOIN race_group rg ON rg.id = r.group_id";
         $joins .=  " INNER JOIN race_hippodrome rh ON rh.id = r.hippodrome_id";
@@ -212,5 +212,10 @@ class RaceModel extends Model_Abstract
         }else{
             return 'Gauche';
         }
+    }
+
+    public function getName($race_name, $race_id)
+    {
+        return '<a href="javascript:void(0)" rel="' . $race_id . '" class="race-name">' . $race_name . '</a>';
     }
 }
