@@ -23,4 +23,13 @@ class Race_TypeModel extends Model_Abstract
             return FALSE;
         }
     }
+
+    public function getTypeByCode($code)
+    {
+        $query = "SELECT * FROM race_type WHERE code = '$code'" ;
+        $stmt = Database::prepare($query);
+        $stmt->execute();
+        $result = $stmt->fetch();
+        return $result;
+    }
 }

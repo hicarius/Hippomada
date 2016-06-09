@@ -3,7 +3,7 @@ $allRaces = Apps::getModel('Race')->getRaces($date);
 $meetings = Apps::getModel('Race')->getMeetingsAndRaceNumber($allRaces);
 ?>
 <div class="col-lg-12">
-    <h1><i class="fa fa-tasks"></i> Les courses</h1>
+    <h1><i class="fa fa-flag"></i> Les courses</h1>
     <input type="hidden" id="cur_meeting" value="1" />
     <input type="hidden" id="max_meeting" value="<?php echo count($meetings)?>" />
     <div class="row course-content" style="margin-top: 20px">

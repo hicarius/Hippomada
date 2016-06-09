@@ -88,6 +88,8 @@ $horse = $oHorse->getData();
 	<div class="panel panel-info">
 		<div class="panel-body"style="padding-left:11px;">
 			<span class="col-md-12 fiche-cheval-sous-titre">Courses prévues</span>
+			<a href="javascript:void(0)" class="get-valid-race">Get Valide Race</a>
+			<div class="valid-race-list col-xs-12"></div>
 		</div>
 	</div>
 </div>
@@ -341,6 +343,17 @@ $horse = $oHorse->getData();
 					}
 				}
 			]
+		});
+
+		$('.get-valid-race').click( function(){
+			$.ajax({
+				type: 'post',
+				data: '',
+				url: '/horse/validRaceForEngagement/',
+				success: function(html){
+						$('.valid-race-list').html(html);
+				}
+			});
 		});
 	});
 </script>

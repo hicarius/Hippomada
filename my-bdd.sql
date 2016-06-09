@@ -1,6 +1,6 @@
 /*
 SQLyog Community Edition- MySQL GUI v7.02 
-MySQL - 5.5.5-10.1.13-MariaDB : Database - sovaly
+MySQL - 5.5.5-10.1.9-MariaDB : Database - sovaly
 *********************************************************************
 */
 
@@ -24,11 +24,11 @@ CREATE TABLE `config` (
   `config_key` varchar(100) DEFAULT NULL,
   `config_value` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 /*Data for the table `config` */
 
-insert  into `config`(`id`,`config_key`,`config_value`) values (1,'current_mounth','5'),(2,'current_year','2016');
+insert  into `config`(`id`,`config_key`,`config_value`) values (1,'current_mounth','5'),(2,'current_year','2016'),(3,'next_race_date','2016-06-09');
 
 /*Table structure for table `gain_race_horse` */
 
@@ -234,13 +234,13 @@ DROP TABLE IF EXISTS `race_hippodrome`;
 CREATE TABLE `race_hippodrome` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(50) DEFAULT NULL,
-  `code` varchar(2) DEFAULT NULL,
+  `code` varchar(5) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 /*Data for the table `race_hippodrome` */
 
-insert  into `race_hippodrome`(`id`,`title`,`code`) values (1,'Vincennes','t'),(2,'Caen','t'),(3,'Cagnes-sur-Mer','t'),(4,'Enghien','t'),(5,'Vichy','t'),(6,'Longchamp','g'),(7,'Chantilly','g'),(8,'Deauville','g'),(9,'Auteil','g');
+insert  into `race_hippodrome`(`id`,`title`,`code`) values (1,'Vincennes','a,m'),(2,'Caen','a,m'),(3,'Cagnes-sur-Mer','a,m'),(4,'Enghien','a,m'),(5,'Vichy','a,m'),(6,'Longchamp','p'),(7,'Chantilly','p'),(8,'Deauville','p'),(9,'Auteil','p');
 
 /*Table structure for table `race_participant` */
 
@@ -261,6 +261,22 @@ CREATE TABLE `race_participant` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `race_participant` */
+
+/*Table structure for table `race_participant_tmp` */
+
+DROP TABLE IF EXISTS `race_participant_tmp`;
+
+CREATE TABLE `race_participant_tmp` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `race_tmp_id` int(11) DEFAULT NULL,
+  `horse_id` int(11) DEFAULT NULL,
+  `jockey_id` int(11) DEFAULT NULL,
+  `is_recul` int(11) DEFAULT NULL,
+  `gain` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `race_participant_tmp` */
 
 /*Table structure for table `race_piste` */
 
@@ -320,11 +336,41 @@ CREATE TABLE `races` (
   `race_number` int(11) DEFAULT NULL,
   `race_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `races` */
 
-insert  into `races`(`id`,`category_id`,`name`,`lenght`,`type_id`,`hippodrome_id`,`piste_id`,`group_id`,`corde`,`price`,`recul_gain`,`recul_meter`,`max_gain`,`age_min`,`age_max`,`victory_price`,`status`,`created_at`,`meeting`,`race_number`,`race_date`) values (1,1,'Prix d\'HadÃ¨s',2000,2,2,2,5,'D',1000,0,0,12000,6,8,'',1,'2016-06-09 16:13:06',1,1,'2016-06-09 14:00:00');
+/*Table structure for table `races_tmp` */
+
+DROP TABLE IF EXISTS `races_tmp`;
+
+CREATE TABLE `races_tmp` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `meeting` int(11) DEFAULT NULL,
+  `category_id` int(11) DEFAULT NULL,
+  `name` varchar(100) DEFAULT NULL,
+  `lenght` int(11) DEFAULT NULL,
+  `type_id` int(11) DEFAULT NULL,
+  `hippodrome_id` int(11) DEFAULT NULL,
+  `piste_id` int(11) DEFAULT NULL,
+  `group_id` int(11) DEFAULT NULL,
+  `corde` varchar(2) DEFAULT NULL,
+  `price` int(11) DEFAULT NULL,
+  `recul_gain` int(11) DEFAULT NULL,
+  `recul_meter` int(11) DEFAULT NULL,
+  `max_gain` int(11) DEFAULT NULL,
+  `age_min` int(11) DEFAULT NULL,
+  `age_max` int(11) DEFAULT NULL,
+  `victory_price` varchar(255) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `race_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+/*Data for the table `races_tmp` */
+
+insert  into `races_tmp`(`id`,`meeting`,`category_id`,`name`,`lenght`,`type_id`,`hippodrome_id`,`piste_id`,`group_id`,`corde`,`price`,`recul_gain`,`recul_meter`,`max_gain`,`age_min`,`age_max`,`victory_price`,`status`,`created_at`,`race_date`) values (1,1,3,'Qualifications',2000,2,1,1,5,'D',0,0,0,0,3,10,'',1,'2016-06-09 21:00:40','2016-06-09 12:00:00'),(2,1,4,'Qualifications Jockey/Driver',2000,2,1,2,5,'G',0,0,0,0,3,10,'',1,'2016-06-09 21:01:48','2016-06-09 12:30:00'),(3,2,1,'Prix de Zeus',2400,1,3,3,5,'D',100,0,0,0,4,4,'',1,'2016-06-09 21:04:46','2016-06-09 12:00:00'),(4,2,1,'Prix d\'HadÃ¨s',2150,2,3,2,5,'G',10,0,0,0,3,3,'',1,'2016-06-09 21:20:41','2016-06-09 12:00:00');
 
 /*Table structure for table `saillies` */
 
@@ -364,7 +410,7 @@ CREATE TABLE `stables` (
 
 /*Data for the table `stables` */
 
-insert  into `stables`(`id`,`name`,`firstname`,`lastname`,`last_activity`,`country`,`continent`,`level`,`capital`,`banque`,`gold`,`email`,`password`) values (1,'Turfoland des 2/3 ans ','Benjamin','Gates','2016-06-08 08:10:51','France','Europe',3,300000,300000,5,'gates.benjamin@turfoland.com','e5672d625c2064615e69d21846cbda74'),(2,'Turfoland des 4/5/6 ans','Isaac','Iblou','2016-06-09 11:09:01','France','Europe',3,300000,300000,5,'iblou.isaac@turfoland.com','ff7824370af348209ad8474d488d6fc7'),(3,'Turfoland des 7/8/9 ans','Alexandre','Dupont','2016-06-08 09:06:52','France','Europe',3,300000,300000,5,'alex.dupont@turfoland.com','d43db12b94c641f769f66dbd62207492'),(4,'Turfoland des 10 ans','Pascal','Vozier','2016-06-08 09:06:46','France','Europe',3,300000,300000,5,'pascal.vozier@turfoland.com','bea14bb1a152167c9cdf0b4b580c7736'),(5,'Turfoland des Inactifs','Violette','Madison','2016-06-08 09:00:53','France','Europe',3,300000,300000,5,'madison.violette@turfoland.com','306fbc4f26ae3159c4f2292d30930eb4'),(6,'Maison Laffite','Alex','DuprÃ¨s','2016-06-08 08:10:43','France','Europe',0,300000,300000,5,'alex.dupres@turfoland.com','10a632cbbf80df92fb6b66671d6ac69d');
+insert  into `stables`(`id`,`name`,`firstname`,`lastname`,`last_activity`,`country`,`continent`,`level`,`capital`,`banque`,`gold`,`email`,`password`) values (1,'Turfoland des 2/3 ans ','Benjamin','Gates','2016-06-08 08:10:51','France','Europe',3,300000,300000,5,'gates.benjamin@turfoland.com','e5672d625c2064615e69d21846cbda74'),(2,'Turfoland des 4/5/6 ans','Isaac','Iblou','2016-06-09 06:29:38','France','Europe',3,300000,300000,5,'iblou.isaac@turfoland.com','ff7824370af348209ad8474d488d6fc7'),(3,'Turfoland des 7/8/9 ans','Alexandre','Dupont','2016-06-08 09:06:52','France','Europe',3,300000,300000,5,'alex.dupont@turfoland.com','d43db12b94c641f769f66dbd62207492'),(4,'Turfoland des 10 ans','Pascal','Vozier','2016-06-08 09:06:46','France','Europe',3,300000,300000,5,'pascal.vozier@turfoland.com','bea14bb1a152167c9cdf0b4b580c7736'),(5,'Turfoland des Inactifs','Violette','Madison','2016-06-08 09:00:53','France','Europe',3,300000,300000,5,'madison.violette@turfoland.com','306fbc4f26ae3159c4f2292d30930eb4'),(6,'Maison Laffite','Alex','DuprÃ¨s','2016-06-08 08:10:43','France','Europe',0,300000,300000,5,'alex.dupres@turfoland.com','10a632cbbf80df92fb6b66671d6ac69d');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

@@ -23,4 +23,13 @@ class Race_PisteModel extends Model_Abstract
             return FALSE;
         }
     }
+
+    public function getPisteByCode($typeCode)
+    {
+        $query = "SELECT * FROM race_piste WHERE type LIKE '%$typeCode%'" ;
+        $stmt = Database::prepare($query);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+        return $result;
+    }
 }

@@ -16,4 +16,12 @@ class HorseController extends Controller
         $oTraining = Apps::getModel('Training')->updateTraining($data);
     }
 
+    public function validRaceForEngagement()
+    {
+        Layout::setLayout('ajax');
+        $data = $this->getRequest()->getPost();
+        $races = Apps::getModel('Race_Tmp')->getvalidRaceForEngagement($data);
+        $this->getView()->addVar('races', $races);
+    }
+
 }

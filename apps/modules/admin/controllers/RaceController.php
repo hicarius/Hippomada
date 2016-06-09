@@ -10,6 +10,14 @@ class RaceController extends Controller
         $this->getView()->addVar('races', $races);
     }
 
+    public function indexTmp()
+    {
+        Layout::setLayout('admin');
+
+        $races = Apps::getModel('Race_Tmp')->getRaces();
+        $this->getView()->addVar('races', $races);
+    }
+
     public function createmanual()
     {
         Layout::setLayout('admin');
@@ -32,7 +40,6 @@ class RaceController extends Controller
             'victory_price' => '',
             'status' => '',
             'meeting' => '',
-            'race_number' => '',
         );
 
         if( Request::getInstance()->isPost()){
@@ -46,9 +53,39 @@ class RaceController extends Controller
         $this->getView()->addVar('data', $data);
     }
 
-    public function createauto()
+    public function createTmp()
     {
         Layout::setLayout('admin');
+        $data = array(
+            'name' => '',
+            'category_id' => '',
+            'group_id' => '',
+            'type_id' => '',
+            'piste_id' => '',
+            'hippodrome_id' => '',
+            'lenght' => '',
+            'corde' => '',
+            'race_date' => '',
+            'price' => '',
+            'recul_gain' => '',
+            'recul_meter' => '',
+            'max_gain' => '',
+            'age_min' => '',
+            'age_max' => '',
+            'victory_price' => '',
+            'status' => '',
+            'meeting' => '',
+        );
+
+        if( Request::getInstance()->isPost()){
+            $data = Request::getInstance()->getPost();
+            $id = Apps::getModel('Race_Tmp')->create($data);
+            if( $id ) {
+                $this->getView()->redirect('/admin/race/');
+            }
+        }
+
+        $this->getView()->addVar('data', $data);
     }
 
     public function edit()
@@ -66,6 +103,29 @@ class RaceController extends Controller
         if( Request::getInstance()->isPost()){
             $data = Request::getInstance()->getPost();
             $id = Apps::getModel('Race')->update($data);
+            if( $id ) {
+                $this->getView()->redirect('/admin/race/');
+            }
+        }
+
+        $this->getView()->addVar('data', $data);
+    }
+
+    public function editTmp()
+    {
+        Layout::setLayout('admin');
+
+        $id = $this->getRequest()->getParam('id');
+
+        $oRace = Apps::getModel('Race_Tmp')->load($id);
+        $data = $oRace->getData();
+
+        $horses = $oRace->getHorsesEngaged();
+        $this->getView()->addVar('horses', $horses);
+
+        if( Request::getInstance()->isPost()){
+            $data = Request::getInstance()->getPost();
+            $id = Apps::getModel('Race_Tmp')->update($data);
             if( $id ) {
                 $this->getView()->redirect('/admin/race/');
             }

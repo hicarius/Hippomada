@@ -4,6 +4,21 @@ $(function() {
 
 });
 
+
+function formatDate(d) {
+    var dd = d.getDate()
+    if ( dd < 10 ) dd = '0' + dd
+
+    var mm = d.getMonth()+1
+    if ( mm < 10 ) mm = '0' + mm
+
+    var yy = d.getFullYear()
+    if ( yy < 10 ) yy = '0' + yy
+
+    return yy+'-'+mm+'-'+dd;
+}
+
+
 //Loads the correct sidebar on window load,
 //collapses the sidebar on window resize.
 // Sets the min-height of #page-wrapper to window size
@@ -33,4 +48,13 @@ $(function() {
     if (element.is('li')) {
         element.addClass('active');
     }
+
+    $( "#datepicker" ).datepicker({
+        inline: true,
+        dateFormat: "yy-mm-dd",
+        onSelect: function(){
+            var d = new Date($(this).datepicker( "getDate" ));
+            $('input[name=race_date]').val(formatDate(d));
+        }
+    });
 });
