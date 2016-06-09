@@ -53,7 +53,7 @@
                                     foreach(Apps::getModel('Race_Hippodrome')->getHippodromes() as $item){
                                         $selected = ($item['id'] == $data['hippodrome_id']) ? 'selected="selected"' : '';
                                         ?>
-                                        <option <?php echo $selected ?> value="<?php echo $item['id'] ?>"><?php echo $item['title'] ?></option>
+                                        <option <?php echo $selected ?> value="<?php echo $item['id'] ?>"><?php echo $item['title'] ?> - <?php echo $item['code'] ?></option>
                                         <?php
                                     }
                                     ?>

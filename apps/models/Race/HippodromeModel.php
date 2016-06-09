@@ -8,13 +8,6 @@ class Race_HippodromeModel extends Model_Abstract
         $stmt->execute();
         $data = $stmt->fetchAll();
         if(count($data) > 0){
-            foreach($data as $i => $item) {
-                $query = "SELECT group_concat(group_name) as groups FROM race_group WHERE id IN (" . $item['group_ids'] . ")";
-                $stmt = Database::prepare($query);
-                $stmt->execute();
-                $group = $stmt->fetch();
-                $data[$i]['groups'] = $group['groups'];
-            }
             return $data;
         }
     }
