@@ -7,23 +7,27 @@ jQuery( document ).ready( function( $ ) {
         document.location.href = '/index/disconnect/';
     });
 
-    $('.horse-name').click( function(){
+    $('body').on('click', '.horse-name', function(){
         var horse = $(this).attr('rel').split('|');
         open_fiche('/horse/view/id/' + horse[0]);
     });
 
-    $('.race-name').click( function(){
+    $('body').on('click', '.race-name', function(){
         var race = $(this).attr('rel').split('|');
-        open_fiche('/races/view/id/' + race[0]);
+        if(typeof race[1] != 'undefined'){
+            open_fiche('/races/view/id/' + race[0] + '/t/1');
+        }else{
+            open_fiche('/races/view/id/' + race[0]);
+        }
+
     });
 
-    $('.stable-name').click( function(){
+    $('body').on('click', '.stable-name', function(){
         var stable = $(this).attr('rel').split('|');
         open_fiche('/stable/view/id/' + stable[0]);
     });
 
-
-    $('.valid-training').click( function(){
+    $('.valid-training').on( 'click', function(){
         if( parseInt($('#training-trot').val()) > 4 ||
             parseInt($('#training-galop').val()) > 4 ||
             parseInt($('#training-endurance').val()) > 4 ||
@@ -43,10 +47,9 @@ jQuery( document ).ready( function( $ ) {
                 url: '/horse/validTraining/',
                 data: $data,
                 success: function () {
-
+                    $("#alert-valid-training").dialog("open");
                 }
             });
-            $("#alert-valid-training").dialog("open");
         }
     });
 
@@ -55,6 +58,41 @@ jQuery( document ).ready( function( $ ) {
         selector: "[data-toggle=tooltip]",
         container: "body"
     })
+
+    $('body').on('click', '.get-valid-race', function(){
+        $.ajax({
+            type: 'post',
+            data: 'horse_id=' + $('#horse_id').val(),
+            url: '/horse/validRaceForEngagement/',
+            success: function(html){
+                $('.valid-race-list').html(html);
+            }
+        });
+    });
+
+    $('body').on('click', '.engaged-this-race', function(){
+        var race = $(this).attr('rel').split('|');
+        $.ajax({
+            type: 'post',
+            data: 'horse_id=' + $('#horse_id').val() + '&race_id=' + race[0] + '&price=' + race[1] ,
+            url: '/horse/engagedThisRace/',
+            success: function(html){
+                $("#alert-engaged-success").dialog("open");
+            }
+        });
+    });
+
+    $('body').on('click', '.disengaged-this-race', function(){
+        var race = $(this).attr('rel').split('|');
+        $.ajax({
+            type: 'post',
+            data: 'horse_id=' + $('#horse_id').val() + '&race_id=' + race[0] + '&price=' + race[1] ,
+            url: '/horse/disengagedThisRace/',
+            success: function(html){
+                $("#alert-disengaged-success").dialog("open");
+            }
+        });
+    });
 });
 
 function open_fiche(url)

@@ -46,7 +46,7 @@ $chevauxDeEcurie = $oStable->getHorsesForStable();
                         <span class="col-xs-6">Nbre des chévaux</span><span class="col-xs-6"><?php echo count($chevauxDeEcurie)?> / <?php echo ($nbrHorseMax!=0) ? "$nbrHorseMax max" : 'illimité' ?></span>
                     </li>
                 </ul>
-                <button class="btn btn-outline btn-primary btn-xs pull-right" type="button">Mise à niveau à 500 000 <?php echo Text::__('turfoos') ?></button>
+                <button class="btn btn-success btn-xs pull-right btn-social" type="button"><i class="fa fa-level-up"></i><b>Mise à niveau à 500 000</b> <?php echo Text::__('turfoos') ?></button>
             </div>
         </div>
     </div>
@@ -185,8 +185,8 @@ $chevauxDeEcurie = $oStable->getHorsesForStable();
                 <td>Proposition</td>
                 <td>2 000</td>
                 <td>
-                    <button class="btn btn-success btn-xs" type="button">Accepter</button>
-                    <button class="btn btn-danger btn-xs" type="button">Réfuser</button>
+                    <button class="btn btn-success btn-xs btn-social" type="button"><i class="fa fa-thumbs-o-up "></i> <b>Oui</b></button>
+                    <button class="btn btn-danger btn-xs btn-social" type="button"><i class="fa fa-thumbs-o-down"></i> <b>Non</b></button>
                 </td>
             </tr>
             <tr>

@@ -23,28 +23,6 @@ class RaceModel extends Model_Abstract
         return $stmt->fetchAll();
     }
 
-    public function getRacesTmp($date=null)
-    {
-        $additionalColumns = "rc.title AS category_name, rg.group_name, rp.title AS piste_name, rh.title AS hippodrome_name";
-        $additionalColumns .= ", rt.title AS type_name, rt.code";
-        $joins =  " INNER JOIN race_category rc ON rc.id = r.category_id";
-        $joins .=  " INNER JOIN race_group rg ON rg.id = r.group_id";
-        $joins .=  " INNER JOIN race_hippodrome rh ON rh.id = r.hippodrome_id";
-        $joins .=  " INNER JOIN race_type rt ON rt.id = r.type_id";
-        $joins .=  " INNER JOIN race_piste rp ON rp.id = r.piste_id";
-
-        $where = '';
-        if($date != null){
-            $where = " WHERE r.race_date LIKE '$date%'";
-        }
-
-        $query = "SELECT r.*, $additionalColumns FROM races_tmp r  $joins $where GROUP BY r.id ORDER BY r.meeting ASC";
-
-        $stmt = Database::prepare($query);
-        $stmt->execute();
-        return $stmt->fetchAll();
-    }
-
     public function load($id, $setData = true)
     {
         $additionalColumns = "rc.title AS category_name, rg.group_name, rp.title AS piste_name, rh.title AS hippodrome_name";
@@ -77,7 +55,7 @@ class RaceModel extends Model_Abstract
         try{
 
             $query = "INSERT INTO races (name, category_id, group_id, type_id, piste_id, hippodrome_id, meeting, race_number, lenght, corde, race_date, price, recul_gain, recul_meter, max_gain, age_min, age_max, victory_price, status, created_at )
- 				  VALUES(:name, :category_id, :group_id, :type_id, :piste_id, :hippodrome_id, :meeting, :race_number, :lenght, :corde, :race_date, :price, :recul_gain, :recul_meter, :max_gain, :age_min, :age_max, :victory_price, :status, :created_at)";
+ 				  VALUES(:name, :category_id, :group_id, :type_id, :piste_id, :hippodrome_id, :meeting, :race_number, :lenght, :corde, :race_date, :price, :recul_gain, :recul_meter, :max_gain, :age_min, :age_max, sexe = :sexe, :victory_price, :status, :created_at)";
             $stmt = Database::prepare($query);
 
             $stmt->bindParam(':name', $data['name']);
@@ -97,6 +75,7 @@ class RaceModel extends Model_Abstract
             $stmt->bindParam(':max_gain', $data['max_gain']);
             $stmt->bindParam(':age_min', $data['age_min']);
             $stmt->bindParam(':age_max', $data['age_max']);
+            $stmt->bindParam(':sexe', $data['sexe']);
             $stmt->bindParam(':victory_price', $data['victory_price']);
             $stmt->bindParam(':status', $data['status']);
             $stmt->bindParam(':created_at', date('Y-m-d H:i:s'));
@@ -110,42 +89,6 @@ class RaceModel extends Model_Abstract
         }
     }
 
-    public function createTmp($data)
-    {
-        try{
-
-            $query = "INSERT INTO races_tmp (name, category_id, group_id, type_id, piste_id, hippodrome_id, meeting, lenght, corde, race_date, price, recul_gain, recul_meter, max_gain, age_min, age_max, victory_price, status, created_at )
- 				  VALUES(:name, :category_id, :group_id, :type_id, :piste_id, :hippodrome_id, :meeting, :lenght, :corde, :race_date, :price, :recul_gain, :recul_meter, :max_gain, :age_min, :age_max, :victory_price, :status, :created_at)";
-            $stmt = Database::prepare($query);
-
-            $stmt->bindParam(':name', $data['name']);
-            $stmt->bindParam(':category_id', $data['category_id']);
-            $stmt->bindParam(':group_id', $data['group_id']);
-            $stmt->bindParam(':type_id', $data['type_id']);
-            $stmt->bindParam(':piste_id', $data['piste_id']);
-            $stmt->bindParam(':hippodrome_id', $data['hippodrome_id']);
-            $stmt->bindParam(':meeting', $data['meeting']);
-            $stmt->bindParam(':lenght', $data['lenght']);
-            $stmt->bindParam(':corde', $data['corde']);
-            $stmt->bindParam(':race_date', $data['race_date']);
-            $stmt->bindParam(':price', $data['price']);
-            $stmt->bindParam(':recul_gain', $data['recul_gain']);
-            $stmt->bindParam(':recul_meter', $data['recul_meter']);
-            $stmt->bindParam(':max_gain', $data['max_gain']);
-            $stmt->bindParam(':age_min', $data['age_min']);
-            $stmt->bindParam(':age_max', $data['age_max']);
-            $stmt->bindParam(':victory_price', $data['victory_price']);
-            $stmt->bindParam(':status', $data['status']);
-            $stmt->bindParam(':created_at', date('Y-m-d H:i:s'));
-
-            $stmt->execute();
-
-            return Database::lastInsertId('races_tmp');
-        }catch (Exception $e){
-            $this->addMessage($e->getMessage(), 'danger');
-            return FALSE;
-        }
-    }
 
     public function update($data)
     {
@@ -154,7 +97,7 @@ class RaceModel extends Model_Abstract
             $query = "UPDATE races
                       SET name = :name, category_id = :category_id, group_id = :group_id, type_id = :type_id, piste_id = :piste_id,
                                         hippodrome_id = :hippodrome_id, meeting = :meeting, race_number = :race_number,
-                                        lenght = :lenght, corde = :corde, race_date = :race_date,
+                                        lenght = :lenght, corde = :corde, race_date = :race_date, sexe = :sexe,
                                         price = :price, recul_gain = :recul_gain, recul_meter = :recul_meter, max_gain = :max_gain,
                                         age_min = :age_min, age_max = :age_max, victory_price = :victory_price, status = :status
                      WHERE id = :id";
@@ -177,49 +120,7 @@ class RaceModel extends Model_Abstract
             $stmt->bindParam(':recul_meter', $data['recul_meter']);
             $stmt->bindParam(':max_gain', $data['max_gain']);
             $stmt->bindParam(':age_min', $data['age_min']);
-            $stmt->bindParam(':age_max', $data['age_max']);
-            $stmt->bindParam(':victory_price', $data['victory_price']);
-            $stmt->bindParam(':status', $data['status']);
-
-            $stmt->execute();
-
-            return $data['id'];
-        }catch (Exception $e){
-            $this->addMessage($e->getMessage(), 'danger');
-            return FALSE;
-        }
-    }
-
-
-    public function updateTmp($data)
-    {
-        try{
-
-            $query = "UPDATE races_tmp
-                      SET name = :name, category_id = :category_id, group_id = :group_id, type_id = :type_id, piste_id = :piste_id,
-                                        hippodrome_id = :hippodrome_id, meeting = :meeting,
-                                        lenght = :lenght, corde = :corde, race_date = :race_date,
-                                        price = :price, recul_gain = :recul_gain, recul_meter = :recul_meter, max_gain = :max_gain,
-                                        age_min = :age_min, age_max = :age_max, victory_price = :victory_price, status = :status
-                     WHERE id = :id";
-            $stmt = Database::prepare($query);
-
-            $stmt->bindParam(':id', $data['id']);
-            $stmt->bindParam(':name', $data['name']);
-            $stmt->bindParam(':category_id', $data['category_id']);
-            $stmt->bindParam(':group_id', $data['group_id']);
-            $stmt->bindParam(':type_id', $data['type_id']);
-            $stmt->bindParam(':piste_id', $data['piste_id']);
-            $stmt->bindParam(':hippodrome_id', $data['hippodrome_id']);
-            $stmt->bindParam(':meeting', $data['meeting']);
-            $stmt->bindParam(':lenght', $data['lenght']);
-            $stmt->bindParam(':corde', $data['corde']);
-            $stmt->bindParam(':race_date', $data['race_date']);
-            $stmt->bindParam(':price', $data['price']);
-            $stmt->bindParam(':recul_gain', $data['recul_gain']);
-            $stmt->bindParam(':recul_meter', $data['recul_meter']);
-            $stmt->bindParam(':max_gain', $data['max_gain']);
-            $stmt->bindParam(':age_min', $data['age_min']);
+            $stmt->bindParam(':sexe', $data['sexe']);
             $stmt->bindParam(':age_max', $data['age_max']);
             $stmt->bindParam(':victory_price', $data['victory_price']);
             $stmt->bindParam(':status', $data['status']);
@@ -349,11 +250,11 @@ class RaceModel extends Model_Abstract
     public function getGainsMax($race)
     {
         $html = '';
-        if($race['category_id'] == 1){
+        if( in_array($race['category_id'], array(3,4))){
             return $html;
         }
-        if( !is_null($race['max_gain']) ){
-            $html .= " qui ont gagné <b>".number_format($race['max_gain'], 0, '.', ' ')." max</b>.";
+        if( $race['max_gain'] != -1 ){
+            $html .= " qui ont gagnés <b>".number_format($race['max_gain'], 0, '.', ' ')." ".Text::__('turfoos')." max</b>.";
         }
         return $html;
     }
@@ -369,6 +270,16 @@ class RaceModel extends Model_Abstract
         return $html;
     }
 
+    public function getRacePrizeAjax($race)
+    {
+        $html = '';
+        if($race['victory_price']){
+            $data = explode('|', $race['victory_price']);
+            $html .= number_format($data[0], 0, '.', ' ');
+        }
+        return $html;
+    }
+
     public function getCorde($race)
     {
         if($race['corde'] == 'D'){
@@ -378,8 +289,24 @@ class RaceModel extends Model_Abstract
         }
     }
 
-    public function getName($race_name, $race_id)
+    public function getName($race_name, $race_id, $isTemp = false)
     {
-        return '<a href="javascript:void(0)" rel="' . $race_id . '" class="race-name">' . $race_name . '</a>';
+        if($isTemp){
+            return '<a href="javascript:void(0)" rel="' . $race_id . '|1" class="race-name">' . $race_name . '</a>';
+        }else{
+            return '<a href="javascript:void(0)" rel="' . $race_id . '" class="race-name">' . $race_name . '</a>';
+        }
+
+    }
+
+    public function getSexe($race)
+    {
+        if($race['sexe'] == 'F') {
+            return 'Femelle';
+        }elseif($race['sexe'] == 'F'){
+            return 'Mâle';
+        }else{
+            return 'Tous';
+        }
     }
 }

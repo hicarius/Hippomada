@@ -87,7 +87,7 @@ abstract class Request_Abstract
 
     public function getParam( $sKey )
     {
-        return $this->_tArgs[$sKey];
+        return isset($this->_tArgs[$sKey]) ? $this->_tArgs[$sKey] : NULL;
     }
 
     public function setPrematuredSessionEnd()

@@ -20,8 +20,22 @@ class HorseController extends Controller
     {
         Layout::setLayout('ajax');
         $data = $this->getRequest()->getPost();
-        $races = Apps::getModel('Race_Tmp')->getvalidRaceForEngagement($data);
+        $races = Apps::getModel('Race_Tmp')->getValidRaceForEngagement($data);
         $this->getView()->addVar('races', $races);
+    }
+
+    public function engagedThisRace()
+    {
+        $this->setNoRender();
+        $data = $this->getRequest()->getPost();
+        Apps::getModel('Race_Tmp')->setEngagedThisRace($data);
+    }
+
+    public function disengagedThisRace()
+    {
+        $this->setNoRender();
+        $data = $this->getRequest()->getPost();
+        Apps::getModel('Race_Tmp')->setDisengagedThisRace($data);
     }
 
 }

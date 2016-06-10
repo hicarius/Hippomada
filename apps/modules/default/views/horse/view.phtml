@@ -86,10 +86,62 @@ $horse = $oHorse->getData();
 
 <div class="col-md-12 course-content horse-detailed" style="margin-top: 20px">
 	<div class="panel panel-info">
+		<div style="padding: 5px 10px;" class="panel-heading">
+			<span class="col-md-12 fiche-cheval-sous-titre">Prochaine course</span>
+		</div>
 		<div class="panel-body"style="padding-left:11px;">
-			<span class="col-md-12 fiche-cheval-sous-titre">Courses prévues</span>
-			<a href="javascript:void(0)" class="get-valid-race">Get Valide Race</a>
-			<div class="valid-race-list col-xs-12"></div>
+
+			<div class="valid-race-list col-xs-12" style="margin-top: 20px;">
+				<?php
+				$isEngagedInRace = $oHorse->isEngagedInRace();
+				if( $isEngagedInRace ) {
+					if(isset($isEngagedInRace['race_id'])) {
+						$race = Apps::getModel('Race')->load($isEngagedInRace['race_id'])->getData();
+					}else{
+						$race = Apps::getModel('Race_Tmp')->load($isEngagedInRace['race_tmp_id'])->getData();
+					}
+				?>
+				<div class="col-xs-12 well well-sm" style="padding: 0;">
+					<h4 class="col-xs-7" style="font-size: 12px"><?php echo date('d M Y', strtotime($race['race_date'])) ?> -
+						<b><a href=""><?php echo Apps::getModel('Race')->getName($race['name'], $race['id'], true) ?></b> -
+						<b><?php echo Apps::getModel('Race_Hippodrome')->getName($race['hippodrome_id']) ?></b> - <i style="font-family: Arial; text-transform: none"><?php echo $race['category_name'] ?></i>
+						<br>
+						<i style="font-family: Arial; text-transform: none">
+							<?php echo $race['group_name'] ?> - <?php echo number_format($race['lenght'], 0, '.', ' ') ?>m -
+							<?php echo ($race['code'] == 'a') ? 'Attelé' : (($race['code']=='m') ? 'Monté' : 'Plat') ; ?> -
+							Corde à <?php echo Apps::getModel('Race')->getCorde($race); ?> -
+							Piste en <?php echo $race['piste_name'] ?> <br />
+							Pour les chevaux de <b><?php echo Apps::getModel('Race')->getAgeMinMax($race); ?></b>
+							<?php echo Apps::getModel('Race')->getGainsMax($race); ?><br>
+
+						</i>
+					</h4>
+					<span class="col-xs-5">
+						<ul class="col-xs-12" style="list-style: none;margin-top: 10px;">
+							<li class="col-xs-12">
+								<span class="col-xs-4"><b>Gains :</b></span>
+								<span class="col-xs-8 a-right"><?php echo Apps::getModel('Race')->getRacePrizeAjax($race) . ' '  .Text::__('turfoos'); ?></span>
+							</li>
+							<li class="col-xs-12">
+								<span class="col-xs-4"><b>Engagement :</b></span>
+								<span class="col-xs-8 a-right"><?php echo number_format($race['price'], 0, '.', ' ') . ' '  .Text::__('turfoos') ?></span>
+							</li>
+						</ul>
+						<?php
+						if(isset($isEngagedInRace['race_tmp_id']) && $isEngagedInRace['status'] == 1) {
+						?>
+						<span class="col-xs-5 pull-right" style="margin: 10px 11px 10px;">
+							<button type="button" class=" pull-right disengaged-this-race btn btn-success btn-xs btn-social" rel="<?php echo $race['id'] ?>|<?php echo $race['price'] ?>"><i class="fa fa-times "></i> <b>Se désinscrire</b></button>
+						</span>
+						<?php } ?>
+					</span>
+				</div>
+				<?php }else{ ?>
+				<ul class="col-xs-12" style="list-style: none;">
+					<li><button type="button" class="get-valid-race btn btn-success btn-xs btn-social"><i class="fa fa-pencil-square-o"></i> <b>S'engager dans une course</b></button></li>
+				</ul>
+				<?php } ?>
+			</div>
 		</div>
 	</div>
 </div>
@@ -265,8 +317,7 @@ $horse = $oHorse->getData();
 			<?php
 			}
 			?>
-			<div id="alert-valid-training" title="Vos entrainements">Vos entrainements sont enregistrés ! <br>Ils se dérouleront jeudi soir, entre 23h30 et 23h59.</div>
-			<div class="col-xs-7"></div><div class="col-xs-5 a-center"><button class="valid-training btn btn-success btn-xs" type="button"><b>Valider les entrainements</b></button></div>
+			<div class="col-xs-7"></div><div class="col-xs-5 a-center"><button class=" btn-social valid-training btn btn-success btn-xs" type="button"><i class="fa fa-sliders"></i><b>Valider les entrainements</b></button></div>
 			<div class="clear" style="margin-top: 40px;"></div>
 		</div>
 		<?php } ?>
@@ -329,8 +380,19 @@ $horse = $oHorse->getData();
 		</div>
 	</div>
 </div>
+<div id="alert-engaged-success" title="Inscription à une course">
+	Vous êtes inscrit à cette course et le droit d'engagement correspondant a été deduit de votre compte. <br>
+	Merci de passer à la préparation de votre prochaine course.
+</div>
+<div id="alert-disengaged-success" title="Désinscription à une course">
+	Vous êtes désinscrit de cette course et le droit d'engagement correspondant deduit a été réstitué vers votre compte.
+</div>
+<div id="alert-valid-training" title="Vos entrainements">
+	Vos entrainements sont enregistrés ! <br>Ils se dérouleront jeudi soir, entre 23h30 et 23h59.
+</div>
 <script>
 	jQuery( document ).ready( function( $ ) {
+
 		$('#alert-valid-training').dialog({
 			autoOpen: false,
 			width: 400,
@@ -345,15 +407,32 @@ $horse = $oHorse->getData();
 			]
 		});
 
-		$('.get-valid-race').click( function(){
-			$.ajax({
-				type: 'post',
-				data: '',
-				url: '/horse/validRaceForEngagement/',
-				success: function(html){
-						$('.valid-race-list').html(html);
+		$('#alert-engaged-success').dialog({
+			autoOpen: false,
+			width: 400,
+			modal: true,
+			buttons: [
+				{
+					text: "Ok",
+					click: function () {
+						document.location.reload();
+					}
 				}
-			});
+			]
+		});
+
+		$('#alert-disengaged-success').dialog({
+			autoOpen: false,
+			width: 400,
+			modal: true,
+			buttons: [
+				{
+					text: "Ok",
+					click: function () {
+						document.location.reload();
+					}
+				}
+			]
 		});
 	});
 </script>

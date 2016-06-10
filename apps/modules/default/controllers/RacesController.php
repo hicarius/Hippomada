@@ -14,6 +14,8 @@ class RacesController extends Controller
 	{
 		Layout::setLayout('popup-race');
 		$raceId = $this->getRequest()->getParam('id');
+		$isTemp = $this->getRequest()->getParam('t');
 		$this->getView()->addVar('raceId', $raceId);
+		$this->getView()->addVar('isTemp', $isTemp);
 	}
 }

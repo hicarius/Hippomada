@@ -40,6 +40,7 @@ class RaceController extends Controller
             'victory_price' => '',
             'status' => '',
             'meeting' => '',
+            'sexe' => '',
         );
 
         if( Request::getInstance()->isPost()){
@@ -75,13 +76,14 @@ class RaceController extends Controller
             'victory_price' => '',
             'status' => '',
             'meeting' => '',
+            'sexe' => '',
         );
 
         if( Request::getInstance()->isPost()){
             $data = Request::getInstance()->getPost();
             $id = Apps::getModel('Race_Tmp')->create($data);
             if( $id ) {
-                $this->getView()->redirect('/admin/race/');
+                $this->getView()->redirect('/admin/race/indexTmp/');
             }
         }
 
@@ -104,7 +106,7 @@ class RaceController extends Controller
             $data = Request::getInstance()->getPost();
             $id = Apps::getModel('Race')->update($data);
             if( $id ) {
-                $this->getView()->redirect('/admin/race/');
+                $this->getView()->redirect('/admin/race/indexTmp/');
             }
         }
 

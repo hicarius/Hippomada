@@ -55,8 +55,8 @@ class Race_TmpModel extends Model_Abstract
     {
         try{
 
-            $query = "INSERT INTO races_tmp (name, category_id, group_id, type_id, piste_id, hippodrome_id, meeting, lenght, corde, race_date, price, recul_gain, recul_meter, max_gain, age_min, age_max, victory_price, status, created_at )
- 				  VALUES(:name, :category_id, :group_id, :type_id, :piste_id, :hippodrome_id, :meeting, :lenght, :corde, :race_date, :price, :recul_gain, :recul_meter, :max_gain, :age_min, :age_max, :victory_price, :status, :created_at)";
+            $query = "INSERT INTO races_tmp (name, category_id, group_id, type_id, piste_id, hippodrome_id, meeting, lenght, corde, race_date, price, recul_gain, recul_meter, max_gain, age_min, age_max, sexe, victory_price, status, created_at )
+ 				  VALUES(:name, :category_id, :group_id, :type_id, :piste_id, :hippodrome_id, :meeting, :lenght, :corde, :race_date, :price, :recul_gain, :recul_meter, :max_gain, :age_min, :age_max, :sexe, :victory_price, :status, :created_at)";
             $stmt = Database::prepare($query);
 
             $stmt->bindParam(':name', $data['name']);
@@ -75,6 +75,7 @@ class Race_TmpModel extends Model_Abstract
             $stmt->bindParam(':max_gain', $data['max_gain']);
             $stmt->bindParam(':age_min', $data['age_min']);
             $stmt->bindParam(':age_max', $data['age_max']);
+            $stmt->bindParam(':sexe', $data['sexe']);
             $stmt->bindParam(':victory_price', $data['victory_price']);
             $stmt->bindParam(':status', $data['status']);
             $stmt->bindParam(':created_at', date('Y-m-d H:i:s'));
@@ -96,7 +97,7 @@ class Race_TmpModel extends Model_Abstract
             $query = "UPDATE races_tmp
                       SET name = :name, category_id = :category_id, group_id = :group_id, type_id = :type_id, piste_id = :piste_id,
                                         hippodrome_id = :hippodrome_id, meeting = :meeting,
-                                        lenght = :lenght, corde = :corde, race_date = :race_date,
+                                        lenght = :lenght, corde = :corde, race_date = :race_date, sexe = :sexe,
                                         price = :price, recul_gain = :recul_gain, recul_meter = :recul_meter, max_gain = :max_gain,
                                         age_min = :age_min, age_max = :age_max, victory_price = :victory_price, status = :status
                      WHERE id = :id";
@@ -119,6 +120,7 @@ class Race_TmpModel extends Model_Abstract
             $stmt->bindParam(':max_gain', $data['max_gain']);
             $stmt->bindParam(':age_min', $data['age_min']);
             $stmt->bindParam(':age_max', $data['age_max']);
+            $stmt->bindParam(':sexe', $data['sexe']);
             $stmt->bindParam(':victory_price', $data['victory_price']);
             $stmt->bindParam(':status', $data['status']);
 
@@ -135,9 +137,78 @@ class Race_TmpModel extends Model_Abstract
     ///////////////////GETTER/////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////
 
-    public function getvalidRaceForEngagement($data)
+    public function getValidRaceForEngagement($data)
     {
+        $dateMax = date('Y-m-d', strtotime('+30days'));
+        $horse = Apps::getModel('Horse')->load($data['horse_id'], false);
+        $aTypeCodes = ($horse['specialization'] == 'T') ? array('a', 'm') : array('p') ;
 
+        $query = "SELECT rt.*, rc.title AS category_name, rp.title AS piste_name, rty.code, rg.group_name FROM races_tmp rt";
+        $query .=  " LEFT JOIN race_category rc ON rc.id = rt.category_id";
+        $query .= " LEFT JOIN race_type rty ON rty.id = rt.type_id ";
+        $query .= " LEFT JOIN race_group rg ON rg.id = rt.group_id";
+        $query .=  " LEFT JOIN race_piste rp ON rp.id = rt.piste_id";
+        $query .= " WHERE (rt.age_min >= :age AND rt.age_max <= :age )";
+        $query .= " AND rt.max_gain >= :gains";
+        $query .= " AND rt.sexe LIKE  '%{$horse['sexe']}%'";
+        $query .= " AND rt.race_date <= :dateMax";
+        $query .= " AND rty.code IN ('".implode("','", $aTypeCodes)."')";
+        $query .= " AND rt.status = 1";
+
+        $stmt = Database::prepare($query);
+        $stmt->bindParam(':age', $horse['age']);
+        $stmt->bindParam(':gains', $horse['gains']);
+        $stmt->bindParam(':dateMax', $dateMax);
+
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    public function setEngagedThisRace($data)
+    {
+        $sessionUser = Session::getUser();
+
+        //get current banque
+        $stable = Apps::getModel('Stable')->load($sessionUser['id'])->getData();
+
+        if( $stable['banque'] >= $data['price']){
+            //Deduction du montant d'engagement
+            $query = "UPDATE stables s SET s.banque = (s.banque - {$data['price']}) WHERE s.id=" . $sessionUser['id'];
+            $stmt = Database::prepare($query);
+            $stmt->execute();
+
+            //@todo: Ajout code pour le livre de compte du  - $data['price']
+
+            //Inscription
+            $query = "INSERT INTO race_participant_tmp (race_tmp_id, horse_id, status )
+ 				  VALUES(:race_tmp_id, :horse_id, 1)";
+            $stmt = Database::prepare($query);
+            $stmt->bindParam(':race_tmp_id', $data['race_id']);
+            $stmt->bindParam(':horse_id', $data['horse_id']);
+            $stmt->execute();
+        }
+    }
+
+    public function setDisengagedThisRace($data)
+    {
+        $sessionUser = Session::getUser();
+        //get current race price
+        $race = Apps::getModel('Race_Tmp')->load($data['race_id'])->getData();
+
+        //Deduction du montant d'engagement
+        $query = "UPDATE stables s SET s.banque = (s.banque + {$race['price']}) WHERE s.id=" . $sessionUser['id'];
+        $stmt = Database::prepare($query);
+        $stmt->execute();
+
+        //@todo: Ajout code pour le livre de compte du  + $data['price']
+
+        //Inscription
+        $query = "DELETE FROM race_participant_tmp
+                  WHERE race_tmp_id = :race_tmp_id AND horse_id = :horse_id";
+        $stmt = Database::prepare($query);
+        $stmt->bindParam(':race_tmp_id', $data['race_id']);
+        $stmt->bindParam(':horse_id', $data['horse_id']);
+        $stmt->execute();
     }
 
     /**

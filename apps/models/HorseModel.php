@@ -848,4 +848,27 @@ class HorseModel extends Model_Abstract
 		$stmt->execute();
 		return $stmt->fetchAll();
 	}
+
+	public function isEngagedInRace()
+	{
+		//Test dans race_participant table
+		$query = "SELECT * FROM race_participant WHERE horse_id = :horse_id";
+		$stmt = Database::prepare($query);
+		$stmt->bindParam(':horse_id', $this->_data['id']);
+		$stmt->execute();
+		$result = $stmt->fetch();
+		if($result['id']==0){
+			//Test dans race_participant_tmp table
+			$query = "SELECT * FROM race_participant_tmp WHERE horse_id = :horse_id";
+			$stmt = Database::prepare($query);
+			$stmt->bindParam(':horse_id', $this->_data['id']);
+			$stmt->execute();
+			$result = $stmt->fetch();
+			if($result['id'] == 0){
+				return false;
+			}
+		}
+
+		return $result;
+	}
 }

@@ -8,7 +8,12 @@
 
     <!-- celestino web template --->
     <?php
-    $oRace = Apps::getModel('Race')->load($raceId);
+    if( !isset($isTemp) ){
+        $raceModel = 'Race';
+    }else{
+        $raceModel = 'Race_Tmp';
+    }
+    $oRace = Apps::getModel($raceModel)->load($raceId);
     $race = $oRace->getData();
     ?>
     <title>Fiche du <?php echo $race['name'] ?></title>

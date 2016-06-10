@@ -164,6 +164,12 @@ span.special-color1 {
     font-weight: normal;
 }
 
+.panel-info > .panel-heading {
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+    color: #555;
+}
+
 #primary .col-lg-12{
     padding-bottom: 10px;
 }
@@ -188,12 +194,33 @@ a.horse-name.inactif, a.horse-name.inactif:hover{
     text-align: center;
 }
 
+.a-center{
+    text-align: center;
+}
+
+.a-left{
+    text-align: left;
+}
+
+.a-right{
+    text-align: right;
+}
+
+
+
 td.a-left{
     text-align: left;
 }
 
-.btn-success, .btn-danger {
+.btn-success, .btn-danger, .btn-info, .btn-warning {
     box-shadow: 0 1px 1px #fff inset;
+    background: /*#428bca;*/ #286090;
+    border: 1px solid #286090;
+}
+
+.btn-success:hover, .btn-danger:hover, .btn-info:hover, .btn-warning:hover {
+    background: #428bca;/* #286090;*/
+    border: 1px solid #428bca;
 }
 
 .reunion-choice{
@@ -314,16 +341,50 @@ span.reunion-choice.name{
     font-weight: bold;
 }
 
+.btn-social.btn-xs{padding-left:30px}.btn-social.btn-xs :first-child{line-height:20px;width:20px;font-size:1.2em}
+.btn-social-icon.btn-xs{padding-left:30px}.btn-social-icon.btn-xs :first-child{line-height:20px;width:20px;font-size:1.2em}
+
+.btn-block + .btn-block {
+    margin-top: 5px;
+}
+
+.btn-twitter{color:#fff;background-color:#f0ad4e;border-color:rgba(0,0,0,0.2)}
+.btn-twitter:hover,.btn-twitter:focus,.btn-twitter:active,.btn-twitter.active,.open>.dropdown-toggle.btn-twitter{color:#fff;background-color:#ec971f;border-color:rgba(0,0,0,0.2)}
+.btn-twitter:active,.btn-twitter.active,.open>.dropdown-toggle.btn-twitter{background-image:none}
+.btn-twitter.disabled,.btn-twitter[disabled],fieldset[disabled] .btn-twitter,.btn-twitter.disabled:hover,.btn-twitter[disabled]:hover,fieldset[disabled] .btn-twitter:hover,.btn-twitter.disabled:focus,.btn-twitter[disabled]:focus,fieldset[disabled] .btn-twitter:focus,.btn-twitter.disabled:active,.btn-twitter[disabled]:active,fieldset[disabled] .btn-twitter:active,.btn-twitter.disabled.active,.btn-twitter[disabled].active,fieldset[disabled] .btn-twitter.active{background-color:#55acee;border-color:rgba(0,0,0,0.2)}
+.btn-twitter .badge{color:#55acee;background-color:#fff}
+
+.btn-social {
+    overflow: hidden;
+    padding-left: 44px;
+    position: relative;
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    box-shadow: 0 1px 1px #fff inset;
+}
+.btn-social > *:first-child {
+    border-right: 1px dotted #e7e7e7;
+    bottom: 0;
+    font-size: 1.6em;
+    left: 0;
+    line-height: 34px;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 32px;
+}
+.btn-block {
+    display: block;
+    width: 100%;
+}
+
 .perf-value {
     margin-top: 3px;
 }
 
 span.perf-value > span {
     color: #5aa445;
-}
-
-.a-center{
-    text-align: center;
 }
 
 .nav-tabs > li.fiche-cheval-sous-titre.active a{
@@ -337,8 +398,8 @@ span.perf-value > span {
 }
 
 .fiche-cheval-sous-titre a,  .fiche-cheval-sous-titre {
-    font-weight: bold;
     text-transform: uppercase;
+    font-family: Oswald;
 }
 
 .horse-race-list{

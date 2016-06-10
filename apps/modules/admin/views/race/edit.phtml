@@ -161,6 +161,15 @@
                                 <span class="input-group-addon">turfoos</span>
                             </div>
                             <div class="form-group input-group">
+                                <span class="input-group-addon">Sexe</span>
+                                <select class="form-control" name="sexe">
+                                    <option>--choisir--</option>
+                                    <option <?php echo ($data['sexe'] == 'M,F') ? 'selected="selected"' : ''; ?> value="M,F">Tous</option>
+                                    <option <?php echo ($data['sexe'] == 'M') ? 'selected="selected"' : ''; ?> value="M">Mâle</option>
+                                    <option <?php echo ($data['sexe'] == 'F') ? 'selected="selected"' : ''; ?> value="F">Femelle</option>
+                                </select>
+                            </div>
+                            <div class="form-group input-group">
                                 <span class="input-group-addon">Prize</span>
                                 <input type="text" name="victory_price" class="form-control" value="<?php echo $data['victory_price'] ?>" />
                                 <span class="input-group-addon">turfoos</span>
@@ -169,8 +178,9 @@
                                 <span class="input-group-addon">Statut</span>
                                 <select class="form-control" name="status">
                                     <option>--choisir--</option>
-                                    <option <?php echo ($data['status'] == '1') ? 'selected="selected"' : ''; ?> value="1">Activé</option>
-                                    <option <?php echo ($data['status'] == '0') ? 'selected="selected"' : ''; ?> value="0">Désactivé</option>
+                                    <option <?php echo ($data['status'] == '1') ? 'selected="selected"' : ''; ?> value="1">Ouverte</option>
+                                    <option <?php echo ($data['status'] == '2') ? 'selected="selected"' : ''; ?> value="2">Fermée</option>
+                                    <option <?php echo ($data['status'] == '0') ? 'selected="selected"' : ''; ?> value="0">Terminée</option>
                                 </select>
                             </div>
                             <button class="btn btn-success" type="submit">Sauvegarder</button>

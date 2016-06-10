@@ -1,5 +1,46 @@
-<ul class="col-xs-12">
-    <li>
-        dsddqdqddq
-    </li>
+<ul class="col-xs-12" style="list-style: none;">
+    <?php if(count($races) > 0) { ?>
+        <?php foreach($races as $race){ ?>
+        <li>
+            <div class="col-xs-12 well well-sm" style="padding: 0;">
+                <h4 class="col-xs-7" style="font-size: 12px"><?php echo date('d M Y', strtotime($race['race_date'])) ?> -
+                    <b><a href=""><?php echo Apps::getModel('Race')->getName($race['name'], $race['id'], true) ?></b> -
+                    <b><?php echo Apps::getModel('Race_Hippodrome')->getName($race['hippodrome_id']) ?></b> - <i style="font-family: Arial; text-transform: none"><?php echo $race['category_name'] ?></i>
+                    <br>
+                    <i style="font-family: Arial; text-transform: none">
+                        <?php echo $race['group_name'] ?> - <?php echo number_format($race['lenght'], 0, '.', ' ') ?>m -
+                        <?php echo ($race['code'] == 'a') ? 'Attelé' : (($race['code']=='m') ? 'Monté' : 'Plat') ; ?> -
+                        Corde à <?php echo Apps::getModel('Race')->getCorde($race); ?> -
+                        Piste en <?php echo $race['piste_name'] ?> <br />
+                        Pour les chevaux de <b><?php echo Apps::getModel('Race')->getAgeMinMax($race); ?></b>
+                        <?php echo Apps::getModel('Race')->getGainsMax($race); ?><br>
+
+                    </i>
+                </h4>
+                <span class="col-xs-5">
+                    <ul class="col-xs-12" style="list-style: none;margin-top: 10px;">
+                        <li class="col-xs-12">
+                            <span class="col-xs-4"><b>Gains :</b></span>
+                            <span class="col-xs-8 a-right"><?php echo Apps::getModel('Race')->getRacePrizeAjax($race) . ' '  .Text::__('turfoos'); ?></span>
+                        </li>
+                        <li class="col-xs-12">
+                            <span class="col-xs-4"><b>Engagement :</b></span>
+                            <span class="col-xs-8 a-right"><?php echo number_format($race['price'], 0, '.', ' ') . ' '  .Text::__('turfoos') ?></span>
+                        </li>
+                    </ul>
+                    <span class="col-xs-5 pull-right" style="margin: 10px 11px 10px;">
+                        <button type="button" class=" pull-right engaged-this-race btn btn-success btn-xs btn-social" rel="<?php echo $race['id'] ?>|<?php echo $race['price'] ?>"><i class="fa fa-pencil-square-o"></i> <b>S'inscrire</b></button>
+                    </span>
+                </span>
+            </div>
+        </li>
+        <?php } ?>
+    <?php }else{ ?>
+        <li>
+            <button type="button" class="get-valid-race btn btn-success btn-xs btn-social"><i class="fa fa-pencil-square-o"></i> <b>S'engager dans une course</b></button>
+        </li>
+        <li>
+            Aucun course trouvé pour l'instant.
+        </li>
+    <?php } ?>
 </ul>
