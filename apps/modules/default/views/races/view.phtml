@@ -52,11 +52,16 @@ $race = $oRace->getData();
 					</div>
 					<h4>
 						<?php if( !isset($isTemp) ){ ?>
-							Les partants
+							<?php if( $race['status'] == 2 ){ ?>
+								Les partants
+							<?php }else{ ?>
+								Résultats
+							<?php } ?>
 						<?php }else{ ?>
 							Les inscrits
 						<?php } ?>
 					</h4>
+					<?php if($race['status']==2){ ?>
 					<div class="table-responsive ">
 						<table class="table table-striped">
 							<thead>
@@ -76,7 +81,11 @@ $race = $oRace->getData();
 							foreach($horses as $item) {
 								?>
 								<tr class="">
-									<td><?php echo $item['id'] ?></td>
+									<?php if( !isset($isTemp) ){ ?>
+									<td><?php echo $item['numero'] ?></td>
+									<?php }else{ ?>
+										<td><?php echo $item['id'] ?></td>
+									<?php } ?>
 									<td>
 										<?php echo Apps::getModel('Horse')->getName($item['name'], $item['horse_id']) ?>
 									</td>
@@ -90,6 +99,43 @@ $race = $oRace->getData();
 							</tbody>
 						</table>
 					</div>
+					<?php } elseif($race['status']==0) { ?>
+					<div class="table-responsive ">
+						<table class="table table-striped">
+							<thead>
+							<tr>
+								<th>Rang</th>
+								<th>Cheval</th>
+								<th>Cas.</th>
+								<th>Sexe/Age</th>
+								<th>Entraineur</th>
+								<th>Jockey</th>
+								<th>Temps</th>
+								<th>Gain</th>
+							</tr>
+							</thead>
+							<tbody>
+							<?php
+							$horses = Apps::getModel($raceModel)->getHorsesEngaged($race['id']);
+							foreach($horses as $item) {
+								?>
+								<tr class="">
+									<td><?php echo $item['rang'] ?></td>
+									<td>
+										<?php echo Apps::getModel('Horse')->getName($item['name'], $item['horse_id']) ?>
+									</td>
+									<td>image</td>
+									<td><?php echo $item['sexe'] ?>/<?php echo $item['age'] ?></td>
+									<td><?php echo $item['entraineur'] ?></td>
+									<td><?php echo $item['jockey'] ?></td>
+									<td><?php echo $item['temps'] ?></td>
+									<td><?php echo $item['gain'] ?></td>
+								</tr>
+							<?php } ?>
+							</tbody>
+						</table>
+					</div>
+					<?php } ?>
 				</div>
 			</div>
 		</div>

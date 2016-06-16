@@ -6,7 +6,7 @@ class RaceController extends Controller
     {
         Layout::setLayout('admin');
 
-        $races = Apps::getModel('Race')->getRaces();
+        $races = Apps::getModel('Race')->getRacesOfficial();
         $this->getView()->addVar('races', $races);
     }
 
@@ -15,6 +15,14 @@ class RaceController extends Controller
         Layout::setLayout('admin');
 
         $races = Apps::getModel('Race_Tmp')->getRaces();
+        $this->getView()->addVar('races', $races);
+    }
+
+    public function indexEnd()
+    {
+        Layout::setLayout('admin');
+
+        $races = Apps::getModel('Race')->getRacesEnd();
         $this->getView()->addVar('races', $races);
     }
 
@@ -47,7 +55,7 @@ class RaceController extends Controller
             $data = Request::getInstance()->getPost();
             $id = Apps::getModel('Race')->create($data);
             if( $id ) {
-                $this->getView()->redirect('/admin/race/');
+                $this->getView()->redirect('/admin/race/index/');
             }
         }
 
@@ -106,7 +114,7 @@ class RaceController extends Controller
             $data = Request::getInstance()->getPost();
             $id = Apps::getModel('Race')->update($data);
             if( $id ) {
-                $this->getView()->redirect('/admin/race/indexTmp/');
+                $this->getView()->redirect('/admin/race/index/');
             }
         }
 
@@ -129,7 +137,7 @@ class RaceController extends Controller
             $data = Request::getInstance()->getPost();
             $id = Apps::getModel('Race_Tmp')->update($data);
             if( $id ) {
-                $this->getView()->redirect('/admin/race/');
+                $this->getView()->redirect('/admin/race/indexTmp/');
             }
         }
 
@@ -177,6 +185,25 @@ class RaceController extends Controller
     {
         $this->setNoRender();
         $race_id = $this->getRequest()->getParam('race_id');
-        Apps::getModel('Race_Tmp')->validRace($race_id);
+        if($race_id){
+            Apps::getModel('Race_Tmp')->validRace($race_id);
+        }else{
+            $allRaces = Apps::getModel('Race_Tmp')->getAllRaceDay();
+            if($allRaces){
+                foreach( $allRaces as $race ){
+                    Apps::getModel('Race_Tmp')->validRace($race['id']);
+                }
+            }
+        }
+        $this->getView()->redirect('/admin/race/indexTmp/');
+    }
+
+    public function simulation()
+    {
+        $this->setNoRender();
+        $id = $this->getRequest()->getParam('id');
+
+        Apps::getModel('Race')->simulate($id);
+        //$this->getView()->redirect('/admin/race/index/');
     }
 }

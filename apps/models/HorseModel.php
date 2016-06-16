@@ -856,7 +856,7 @@ class HorseModel extends Model_Abstract
 	public function isEngagedInRace()
 	{
 		//Test dans race_participant table
-		$query = "SELECT * FROM race_participant WHERE horse_id = :horse_id";
+		$query = "SELECT * FROM race_participant rp LEFT JOIN races r ON r.id = rp.race_id WHERE rp.horse_id = :horse_id AND r.status = 2";
 		$stmt = Database::prepare($query);
 		$stmt->bindParam(':horse_id', $this->_data['id']);
 		$stmt->execute();

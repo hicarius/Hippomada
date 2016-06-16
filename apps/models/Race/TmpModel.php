@@ -252,7 +252,20 @@ class Race_TmpModel extends RaceModel
         return $html;
     }
 
-    //http://www.turfoland.com/admin/race/validRace/race_id/8 <--------teste
+    public function getAllRaceDay()
+    {
+        $date = date('Y-m-d');
+        $query = "SELECT id FROM races_tmp WHERE race_date LIKE '$date%' ORDER BY meeting ASC";
+        $stmt = Database::prepare($query);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+        if($result){
+            return $result;
+        }else{
+            return false;
+        }
+    }
+
     public function validRace($raceTmpId)
     {
         $gpP = array('0', 'A', 'B', 'C', 'D', 'E');
@@ -265,43 +278,46 @@ class Race_TmpModel extends RaceModel
 
         //collect race_participant_tmp information
         $race_part_tmp = $this->getHorsesEngaged();
-        Debugger::dump(count($race_part_tmp));
 
         //get number of group to create
         $nbrGroup = ceil(count($race_part_tmp)/RACE_GROUP_PARTICIPANT_MAX);
 
+        if(count($race_part_tmp) > 0) {
 
-        //création de race groupe
-        $nextParticipant = 0;
-        for($i=1; $i <= $nbrGroup; $i++){
-            $data = $race_tmp;
-            if($nbrGroup > 1){
-                $data['name'] = "{$data['name']} {$gpP[$i]} ";
-            }
-            $data['status'] = 2; //fermée
-            $data['race_number'] = $raceModel->getNextRaceNumberForMeeting( date('Y-m-d', strtotime($data['race_date'])), $data['meeting']);
-            $raceId = $raceModel->create($data);
+            //création de race groupe
+            $nextParticipant = 1;
+            $debut = 0;
+            for ($i = 1; $i <= $nbrGroup; $i++) {
+                $data = $race_tmp;
+                if ($nbrGroup > 1) {
+                    $data['name'] = "{$data['name']} {$gpP[$i]} ";
+                }
+                $data['status'] = 2; //fermée
+                $data['race_number'] = $raceModel->getNextRaceNumberForMeeting(date('Y-m-d', strtotime($data['race_date'])), $data['meeting']);
+                $data['race_date'] = $raceModel->getNextRaceDateForJourney(date('Y-m-d', strtotime($data['race_date'])));
+                $raceId = $raceModel->create($data);
 
-            //add participant
-            foreach($race_part_tmp as $k => $participant) {
-                if( $k >= $nextParticipant ) {
+                $numberInRace = RACE_GROUP_PARTICIPANT_MAX;
+                $participants = array_slice($race_part_tmp, $debut, $numberInRace);
+
+                //add participant
+                $numero = 1;
+                foreach ($participants as $k => $participant) {
                     $data_p = array(
                         'race_id' => $raceId,
                         'horse_id' => $participant['horse_id'],
                         'jockey_id' => $participant['jockey_id'],
                         'is_recul' => $participant['is_recul'],
-                        'numero' => $k + 1,
+                        'numero' => $numero,
                     );
                     $raceModel->setEngagedThisRace($data_p);
+                    $numero++;
                 }
-
-                if( ($k+1) > RACE_GROUP_PARTICIPANT_MAX){
-                    $nextParticipant = $k+1;
-                    break;
-                }
+                $debut += $numberInRace;
             }
         }
-        Debugger::dump($raceId);die;
-        //création du race à partir du temp
+
+        $query = "DELETE FROM races_tmp WHERE id = {$raceTmpId}; DELETE FROM race_participant_tmp WHERE race_tmp_id = {$raceTmpId};";
+        Database::prepare($query)->execute();
     }
 }

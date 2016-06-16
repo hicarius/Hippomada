@@ -47,40 +47,80 @@ $meetings = Apps::getModel('Race')->getMeetingsAndRaceNumber($allRaces);
                             <?php echo Apps::getModel('Race')->getRacePrize($race); ?>
                         </div>
                     </div>
-                    <h4>Les partants</h4>
-                    <div class="table-responsive ">
-                        <table class="table table-striped">
-                            <thead>
+                    <?php if($race['status']==2){ ?>
+                        <h4>Les partants</h4>
+                        <div class="table-responsive ">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Cheval</th>
+                                        <th>Cas.</th>
+                                        <th>Sexe/Age</th>
+                                        <th>Entraineur</th>
+                                        <th>Jockey</th>
+                                        <th>Musique</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                $horses = Apps::getModel('Race')->getHorsesEngaged($race['id']);
+                                foreach($horses as $item) {
+                                ?>
+                                    <tr class="">
+                                        <td><?php echo $item['numero'] ?></td>
+                                        <td>
+                                            <?php echo Apps::getModel('Horse')->getName($item['name'], $item['horse_id']) ?>
+                                        </td>
+                                        <td>image</td>
+                                        <td><?php echo $item['sexe'] ?>/<?php echo $item['age'] ?></td>
+                                        <td><?php echo $item['entraineur'] ?></td>
+                                        <td><?php echo $item['jockey'] ?></td>
+                                        <td><?php echo Apps::getModel('Horse')->get5LastPerfs($item['sexe'], $item['id']) ?></td>
+                                    </tr>
+                                <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    <?php } elseif($race['status']==0) { ?>
+                        <h4>Résultats</h4>
+                        <div class="table-responsive ">
+                            <table class="table table-striped">
+                                <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>Rang</th>
                                     <th>Cheval</th>
                                     <th>Cas.</th>
                                     <th>Sexe/Age</th>
                                     <th>Entraineur</th>
                                     <th>Jockey</th>
-                                    <th>Musique</th>
+                                    <th>Temps</th>
+                                    <th>Gain</th>
                                 </tr>
-                            </thead>
-                            <tbody>
-                            <?php
-                            $horses = Apps::getModel('Race')->getHorsesEngaged($race['id']);
-                            foreach($horses as $item) {
-                            ?>
-                                <tr class="">
-                                    <td><?php echo $item['id'] ?></td>
-                                    <td>
-                                        <?php echo Apps::getModel('Horse')->getName($item['name'], $item['horse_id']) ?>
-                                    </td>
-                                    <td>image</td>
-                                    <td><?php echo $item['sexe'] ?>/<?php echo $item['age'] ?></td>
-                                    <td><?php echo $item['entraineur'] ?></td>
-                                    <td><?php echo $item['jockey'] ?></td>
-                                    <td><?php echo Apps::getModel('Horse')->get5LastPerfs($item['sexe'], $item['id']) ?></td>
-                                </tr>
-                            <?php } ?>
-                            </tbody>
-                        </table>
-                    </div>
+                                </thead>
+                                <tbody>
+                                <?php
+                                $horses = Apps::getModel('Race')->getRaceResult($race['id']);
+                                foreach($horses as $item) {
+                                    ?>
+                                    <tr class="">
+                                        <td><?php echo $item['rang'] ?></td>
+                                        <td>
+                                            <?php echo Apps::getModel('Horse')->getName($item['name'], $item['horse_id']) ?>
+                                        </td>
+                                        <td>image</td>
+                                        <td><?php echo $item['sexe'] ?>/<?php echo $item['age'] ?></td>
+                                        <td><?php echo $item['entraineur'] ?></td>
+                                        <td><?php echo $item['jockey'] ?></td>
+                                        <td><?php echo $item['temps'] ?></td>
+                                        <td><?php echo $item['gain'] ?></td>
+                                    </tr>
+                                <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    <?php } ?>
+
                 </div>
                 <?php
                 }

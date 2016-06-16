@@ -23,6 +23,44 @@ class RaceModel extends Model_Abstract
         return $stmt->fetchAll();
     }
 
+    public function getRacesOfficial()
+    {
+        $additionalColumns = "rc.title AS category_name, rg.group_name, rp.title AS piste_name, rh.title AS hippodrome_name";
+        $additionalColumns .= ", rt.title AS type_name, rt.code";
+        $joins =  " INNER JOIN race_category rc ON rc.id = r.category_id";
+        $joins .=  " INNER JOIN race_group rg ON rg.id = r.group_id";
+        $joins .=  " INNER JOIN race_hippodrome rh ON rh.id = r.hippodrome_id";
+        $joins .=  " INNER JOIN race_type rt ON rt.id = r.type_id";
+        $joins .=  " INNER JOIN race_piste rp ON rp.id = r.piste_id";
+
+        $where = " WHERE r.status = 2";
+
+        $query = "SELECT r.*, $additionalColumns FROM races r  $joins $where GROUP BY r.id ORDER BY r.meeting, r.race_number ASC";
+
+        $stmt = Database::prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    public function getRacesEnd()
+    {
+        $additionalColumns = "rc.title AS category_name, rg.group_name, rp.title AS piste_name, rh.title AS hippodrome_name";
+        $additionalColumns .= ", rt.title AS type_name, rt.code";
+        $joins =  " INNER JOIN race_category rc ON rc.id = r.category_id";
+        $joins .=  " INNER JOIN race_group rg ON rg.id = r.group_id";
+        $joins .=  " INNER JOIN race_hippodrome rh ON rh.id = r.hippodrome_id";
+        $joins .=  " INNER JOIN race_type rt ON rt.id = r.type_id";
+        $joins .=  " INNER JOIN race_piste rp ON rp.id = r.piste_id";
+
+        $where = " WHERE r.status = 0";
+
+        $query = "SELECT r.*, $additionalColumns FROM races r  $joins $where GROUP BY r.id ORDER BY r.meeting, r.race_number ASC";
+
+        $stmt = Database::prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
     public function load($id, $setData = true)
     {
         $additionalColumns = "rc.title AS category_name, rg.group_name, rp.title AS piste_name, rh.title AS hippodrome_name";
@@ -218,14 +256,38 @@ class RaceModel extends Model_Abstract
         return $stmt->fetchAll();
     }
 
+    public function getRaceResult($raceId = null)
+    {
+        $additionalColumns = ", h.name, h.age, h.sexe, h.id as horse_id";
+        $additionalColumns .= ", CONCAT_WS(' ', s2.firstname, s2.lastname) AS entraineur  ";
+        $additionalColumns .= ", CONCAT_WS(' ', s3.firstname, s3.lastname) AS jockey ";
+        $joins =  " INNER JOIN horses h ON h.id = rp.horse_id";
+        $joins .=  " INNER JOIN stables s2 ON s2.id = h.trainer_id";
+        $joins .=  " LEFT JOIN stables s3 ON s3.id = rp.jockey_id";
+
+        $query = "SELECT rp.* $additionalColumns FROM race_participant rp $joins ";
+        $query .= " WHERE rp.race_id = :race_id";
+        $stmt = Database::prepare($query . " ORDER BY rp.rang ASC");
+
+        if($raceId==null){
+            $stmt->bindParam(':race_id', $this->_data['id']);
+        }else{
+            $stmt->bindParam(':race_id',  $raceId);
+        }
+
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
     public function setEngagedThisRace($data)
     {
         //Inscription to the officiel race
-        $query = "INSERT INTO race_participant (race_id, horse_id, status )
-              VALUES(:race_id, :horse_id, 0)";
+        $query = "INSERT INTO race_participant (race_id, horse_id, status, numero )
+              VALUES(:race_id, :horse_id, 0, :numero)";
         $stmt = Database::prepare($query);
         $stmt->bindParam(':race_id', $data['race_id']);
         $stmt->bindParam(':horse_id', $data['horse_id']);
+        $stmt->bindParam(':numero', $data['numero']);
         $stmt->execute();
 
     }
@@ -325,7 +387,7 @@ class RaceModel extends Model_Abstract
     public function getNextRaceNumberForMeeting($date, $meeting)
     {
         $query = "SELECT IF(race_number=null, 1, race_number+1) as race_number FROM races
-                  WHERE race_date LIKE '%$date%' AND meeting =  :meeting ORDER BY race_number DESC LIMIT 1";
+                  WHERE race_date LIKE '$date%' AND meeting =  :meeting ORDER BY race_number DESC LIMIT 1";
         $stmt = Database::prepare($query);
         $stmt->bindParam(':meeting',  $meeting);
         $stmt->execute();
@@ -336,4 +398,86 @@ class RaceModel extends Model_Abstract
             return 1;
         }
     }
+
+    public function getNextRaceDateForJourney($date)
+    {
+        $query = "SELECT IF(race_date=null, '$date 12:00:00', race_date) as race_date FROM races
+                  WHERE race_date LIKE '$date%'ORDER BY race_date DESC LIMIT 1";
+        $stmt = Database::prepare($query);
+        $stmt->execute();
+        $result = $stmt->fetch();
+        if($result['race_date']){
+            return date('Y-m-d H:i:s', strtotime('+30minutes', strtotime($result['race_date'])));
+        }else{
+            return "$date 12:00:00";
+        }
+    }
+
+    /**
+     * Status , 0 = disq, 1 = ok avec temps
+     * @param $raceId
+     */
+    public function simulate($raceId)
+    {
+        $race = $this->load($raceId, false);
+
+        //Get gains
+        $gains = explode('|', $race['victory_price']);
+
+        $horses = $this->getHorsesEngaged($raceId);
+
+        //simulation du course à travailler
+        shuffle($horses);
+
+        foreach($horses as $k => $horse){
+            //get stable by horse
+            $stable = Apps::getModel('Stable')->load($horse['proprio_id'])->getData();
+
+            $rang = $k+1;
+            $query = "UPDATE race_participant SET rang = $rang, status = 1 WHERE id = {$horse['id']}";
+            Database::prepare($query)->execute();
+
+            if(!in_array($race['category_id'], array(3,4))){
+                //Mise à jour du horses (gains, is_qualified, réevaluation price, type(etal, poule) )
+                $gain = isset($gains[$k]) ? $gains[$k] : 0 ;
+                Database::prepare("UPDATE horses SET gains = (gains+$gain) WHERE id = {$horse['id']}")->execute();
+
+                //Mise à jour du gain_race_horse
+                $placed = ( $rang >= 5 ) ? 1 : 0 ;
+                $win = ( $rang == 1 ) ? 1 : 0 ;
+                $query =    "UPDATE gain_race_horse SET " .
+                    "carrer_race = (carrer_race+1), carrer_win = (carrer_win+$win), carrer_placed = (carrer_placed+$placed), carrer_gain = (carrer_gain+$gain), " .
+                    "year_race = (year_race+1), year_win = (year_win+$win), year_placed = (year_placed+$placed), year_gain = (year_gain+$gain), " .
+                    "mounth_race = (mounth_race+1), mounth_win = (mounth_win+$win), mounth_placed = (mounth_placed+$placed), mounth_gain = (mounth_gain+$gain)" .
+                    " WHERE horse_id = {$horse['id']}";
+                Database::prepare($query)->execute();
+
+                //Mise à jour du stable (banque, gains)
+                Database::prepare("UPDATE stables SET banque = (banque+$gain) WHERE id = {$stable['id']}")->execute();
+                //@todo : mise à jour du finances du stable
+
+                //Mise à jour du gain_race_stable
+                $placed = ( $rang >= 5 ) ? 1 : 0 ;
+                $win = ( $rang == 1 ) ? 1 : 0 ;
+                $query =    "UPDATE gain_race_stable SET " .
+                            "carrer_race = (carrer_race+1), carrer_win = (carrer_win+$win), carrer_placed = (carrer_placed+$placed), carrer_gain = (carrer_gain+$gain), " .
+                            "year_race = (year_race+1), year_win = (year_win+$win), year_placed = (year_placed+$placed), year_gain = (year_gain+$gain), " .
+                            "mounth_race = (mounth_race+1), mounth_win = (mounth_win+$win), mounth_placed = (mounth_placed+$placed), mounth_gain = (mounth_gain+$gain)" .
+                            " WHERE stable_id = {$stable['id']}";
+                Database::prepare($query)->execute();
+
+            }elseif($race['category_id'] == 3){
+                //Mise à jour du horses (is_qualified )
+                //@todo: ajout test sur temps atteint
+                Database::prepare("UPDATE horses SET is_qualified = 1 WHERE id = {$horse['id']}")->execute();
+            }elseif($race['category_id'] == 4){
+                //@todo : mise à jour du jockey si temps atteint
+            }
+
+        }
+
+        //Mise à jour du course
+        Database::prepare("UPDATE races SET status = 0 WHERE id = {$raceId}")->execute();
+    }
+
 }

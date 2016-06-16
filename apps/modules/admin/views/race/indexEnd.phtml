@@ -4,15 +4,13 @@
 
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header">Les courses provisoires</h1>
+        <h1 class="page-header">Les courses términées</h1>
     </div>
     <!-- /.col-lg-12 -->
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <button class="btn btn-primary btn-create-race-manual" type="button">Création manuelle</button>
-                    <button class="btn btn-primary btn-valid-race-day" type="button">Valider les courses du jour</button>
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
@@ -36,7 +34,7 @@
                                 <th>Gain max.</th>
                                 <th>Age min.</th>
                                 <th>Age max.</th>
-                                <th>Status</th>
+                                <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -45,7 +43,7 @@
                                     <td><?php echo $race['race_date'] ?></td>
                                     <td><?php echo $race['hippodrome_name'] ?></td>
                                     <td><?php echo $race['meeting'] ?></td>
-                                    <td><a href="/admin/race/editTmp/id/<?php echo $race['id'] ?>"><?php echo $race['name'] ?></a></td>
+                                    <td><a href="/admin/race/edit/id/<?php echo $race['id'] ?>"><?php echo $race['name'] ?></a></td>
                                     <td><?php echo $race['category_name'] ?></td>
                                     <td><?php echo $race['type_name'] ?></td>
                                     <td><?php echo $race['group_name'] ?></td>
@@ -58,7 +56,6 @@
                                     <td><?php echo $race['max_gain'] ?></td>
                                     <td><?php echo $race['age_min'] ?></td>
                                     <td><?php echo $race['age_max'] ?></td>
-                                    <td><?php echo $race['status'] ?></td>
                                 </tr>
                             <?php } ?>
                             </tbody>
@@ -81,10 +78,10 @@
             responsive: true
         });
         $('.btn-create-race-manual').click(function(){
-            document.location.href= '/admin/race/createTmp/'
+            document.location.href= '/admin/race/createmanual/'
         });
-        $('.btn-valid-race-day').click(function(){
-            document.location.href= '/admin/race/validRace/'
+        $('.btn-create-race-auto').click(function(){
+            document.location.href= '/admin/race/createauto/'
         });
     });
 </script>

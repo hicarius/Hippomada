@@ -1,7 +1,7 @@
 <?php
 $sessionUser = Session::getUser();
 $oStable = Apps::getModel('Stable');
-$stable = $oStable->load($sessionUser['id'])->getData();
+$stable = $oStable->load($stableId)->getData();
 $chevauxDeEcurie = $oStable->getHorsesForStable();
 ?>
 <div class="col-md-12">

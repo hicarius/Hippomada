@@ -97,13 +97,18 @@ $horse = $oHorse->getData();
 				if( $isEngagedInRace ) {
 					if(isset($isEngagedInRace['race_id'])) {
 						$race = Apps::getModel('Race')->load($isEngagedInRace['race_id'])->getData();
+						$isTemp = false;
 					}else{
 						$race = Apps::getModel('Race_Tmp')->load($isEngagedInRace['race_tmp_id'])->getData();
+						$isTemp = true;
 					}
 				?>
 				<div class="col-xs-12 well well-sm" style="padding: 0;">
 					<h4 class="col-xs-7" style="font-size: 12px"><?php echo date('d M Y', strtotime($race['race_date'])) ?> -
-						<b><a href=""><?php echo Apps::getModel('Race')->getName($race['name'], $race['id'], true) ?></b> -
+						<?php if(!$isTemp) { ?>
+							<?php echo date('H\Hi', strtotime($race['race_date'])) ?>	-
+						<?php } ?>
+						<b><a href=""><?php echo Apps::getModel('Race')->getName($race['name'], $race['id'], $isTemp) ?></b> -
 						<b><?php echo Apps::getModel('Race_Hippodrome')->getName($race['hippodrome_id']) ?></b> - <i style="font-family: Arial; text-transform: none"><?php echo $race['category_name'] ?></i>
 						<br>
 						<i style="font-family: Arial; text-transform: none">
@@ -131,7 +136,7 @@ $horse = $oHorse->getData();
 						<?php } ?>
 						<?php
 						if($oHorse->isOwner($stable['id'])){
-							if(isset($isEngagedInRace['race_tmp_id']) && $isEngagedInRace['status'] == 1) {
+							if($isTemp && $isEngagedInRace['status'] == 1) {
 						?>
 								<span class="col-xs-5 pull-right" style="margin: 10px 11px 10px;">
 									<button type="button" class=" pull-right disengaged-this-race btn btn-success btn-xs btn-social" rel="<?php echo $race['id'] ?>|<?php echo $race['price'] ?>"><i class="fa fa-times "></i> <b>Se désinscrire</b></button>
@@ -146,7 +151,7 @@ $horse = $oHorse->getData();
 
 				<ul class="col-xs-12" style="list-style: none;">
 					<li><?php echo strtoupper($horse['name']) ?> n'est pas inscrit(e) dans une course</li>
-					<?php if($oHorse->isOwner($stable['id'])){ ?>
+					<?php if($oHorse->isOwner($stable['id']) && $horse['status'] == 1 ){ ?>
 					<li><button type="button" class="get-valid-race btn btn-success btn-xs btn-social"><i class="fa fa-pencil-square-o"></i> <b>S'engager dans une course</b></button></li>
 					<?php } ?>
 				</ul>
