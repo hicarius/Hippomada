@@ -117,6 +117,7 @@ $horse = $oHorse->getData();
 						</i>
 					</h4>
 					<span class="col-xs-5">
+						<?php if($oHorse->getData('is_qualified')) { ?>
 						<ul class="col-xs-12" style="list-style: none;margin-top: 10px;">
 							<li class="col-xs-12">
 								<span class="col-xs-4"><b>Gains :</b></span>
@@ -127,18 +128,27 @@ $horse = $oHorse->getData();
 								<span class="col-xs-8 a-right"><?php echo number_format($race['price'], 0, '.', ' ') . ' '  .Text::__('turfoos') ?></span>
 							</li>
 						</ul>
-						<?php
-						if(isset($isEngagedInRace['race_tmp_id']) && $isEngagedInRace['status'] == 1) {
-						?>
-						<span class="col-xs-5 pull-right" style="margin: 10px 11px 10px;">
-							<button type="button" class=" pull-right disengaged-this-race btn btn-success btn-xs btn-social" rel="<?php echo $race['id'] ?>|<?php echo $race['price'] ?>"><i class="fa fa-times "></i> <b>Se désinscrire</b></button>
-						</span>
 						<?php } ?>
+						<?php
+						if($oHorse->isOwner($stable['id'])){
+							if(isset($isEngagedInRace['race_tmp_id']) && $isEngagedInRace['status'] == 1) {
+						?>
+								<span class="col-xs-5 pull-right" style="margin: 10px 11px 10px;">
+									<button type="button" class=" pull-right disengaged-this-race btn btn-success btn-xs btn-social" rel="<?php echo $race['id'] ?>|<?php echo $race['price'] ?>"><i class="fa fa-times "></i> <b>Se désinscrire</b></button>
+								</span>
+						<?php
+							}
+						}
+						?>
 					</span>
 				</div>
 				<?php }else{ ?>
+
 				<ul class="col-xs-12" style="list-style: none;">
+					<li><?php echo strtoupper($horse['name']) ?> n'est pas inscrit(e) dans une course</li>
+					<?php if($oHorse->isOwner($stable['id'])){ ?>
 					<li><button type="button" class="get-valid-race btn btn-success btn-xs btn-social"><i class="fa fa-pencil-square-o"></i> <b>S'engager dans une course</b></button></li>
+					<?php } ?>
 				</ul>
 				<?php } ?>
 			</div>
@@ -149,7 +159,7 @@ $horse = $oHorse->getData();
 	<!-- Nav tabs -->
 	<ul class="nav nav-tabs">
 		<li class="active fiche-cheval-sous-titre"><a data-toggle="tab" href="#courses">Courses</a></li>
-		<?php if($horse['proprio_id'] == $stable['id']){ ?>
+		<?php if($oHorse->isOwner($stable['id'])){ ?>
 		<li class="fiche-cheval-sous-titre"><a data-toggle="tab" href="#caracteres">Caractéristiques et Entrainements</a></li>
 		<?php } ?>
 		<li class="fiche-cheval-sous-titre"><a data-toggle="tab" href="#reproductions">Réproductions</a></li>
@@ -191,7 +201,7 @@ $horse = $oHorse->getData();
 						}
 					}else{ ?>
 						<tr>
-							<td colspan="8">Ce chéval n'a jamais courue</td>
+							<td colspan="8"><?php echo strtoupper($horse['name']) ?> n'a jamais courue</td>
 						</tr>
 					<?php
 					}
@@ -199,7 +209,7 @@ $horse = $oHorse->getData();
 				</tbody>
 			</table>
 		</div>
-		<?php if($horse['proprio_id'] == $stable['id']){ ?>
+		<?php if($oHorse->isOwner($stable['id'])){ ?>
 		<div id="caracteres" class="tab-pane fade horse-race-list" style="padding: 12px;">
 			<script>
 				var actual_fatigue, ecart_fatigue, add_fatigue, new_fatigue;
@@ -367,7 +377,7 @@ $horse = $oHorse->getData();
 						}
 					}else{ ?>
 						<tr>
-							<td colspan="8">Ce chéval n'a jamais réproduit.</td>
+							<td colspan="8"><?php echo strtoupper($horse['name']) ?> n'a jamais réproduit</td>
 						</tr>
 						<?php
 					}

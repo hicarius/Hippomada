@@ -172,4 +172,11 @@ class RaceController extends Controller
         $hippos = Apps::getModel('Race_Piste')->getPistes();
         $this->getView()->addVar('hippos', $hippos);
     }
+
+    public function validRace()
+    {
+        $this->setNoRender();
+        $race_id = $this->getRequest()->getParam('race_id');
+        Apps::getModel('Race_Tmp')->validRace($race_id);
+    }
 }

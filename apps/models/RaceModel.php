@@ -54,8 +54,8 @@ class RaceModel extends Model_Abstract
     {
         try{
 
-            $query = "INSERT INTO races (name, category_id, group_id, type_id, piste_id, hippodrome_id, meeting, race_number, lenght, corde, race_date, price, recul_gain, recul_meter, max_gain, age_min, age_max, victory_price, status, created_at )
- 				  VALUES(:name, :category_id, :group_id, :type_id, :piste_id, :hippodrome_id, :meeting, :race_number, :lenght, :corde, :race_date, :price, :recul_gain, :recul_meter, :max_gain, :age_min, :age_max, sexe = :sexe, :victory_price, :status, :created_at)";
+            $query = "INSERT INTO races (name, category_id, group_id, type_id, piste_id, hippodrome_id, meeting, race_number, lenght, corde, race_date, price, recul_gain, recul_meter, max_gain, age_min, age_max, sexe, victory_price, status, created_at )
+ 				  VALUES(:name, :category_id, :group_id, :type_id, :piste_id, :hippodrome_id, :meeting, :race_number, :lenght, :corde, :race_date, :price, :recul_gain, :recul_meter, :max_gain, :age_min, :age_max, :sexe, :victory_price, :status, :created_at)";
             $stmt = Database::prepare($query);
 
             $stmt->bindParam(':name', $data['name']);
@@ -218,6 +218,18 @@ class RaceModel extends Model_Abstract
         return $stmt->fetchAll();
     }
 
+    public function setEngagedThisRace($data)
+    {
+        //Inscription to the officiel race
+        $query = "INSERT INTO race_participant (race_id, horse_id, status )
+              VALUES(:race_id, :horse_id, 0)";
+        $stmt = Database::prepare($query);
+        $stmt->bindParam(':race_id', $data['race_id']);
+        $stmt->bindParam(':horse_id', $data['horse_id']);
+        $stmt->execute();
+
+    }
+
 
     public function getMeetingsAndRaceNumber($races)
     {
@@ -302,11 +314,26 @@ class RaceModel extends Model_Abstract
     public function getSexe($race)
     {
         if($race['sexe'] == 'F') {
-            return 'Femelle';
-        }elseif($race['sexe'] == 'F'){
-            return 'Mâle';
+            return 'femelles';
+        }elseif($race['sexe'] == 'M'){
+            return 'mâles';
         }else{
-            return 'Tous';
+            return 'chevaux';
+        }
+    }
+
+    public function getNextRaceNumberForMeeting($date, $meeting)
+    {
+        $query = "SELECT IF(race_number=null, 1, race_number+1) as race_number FROM races
+                  WHERE race_date LIKE '%$date%' AND meeting =  :meeting ORDER BY race_number DESC LIMIT 1";
+        $stmt = Database::prepare($query);
+        $stmt->bindParam(':meeting',  $meeting);
+        $stmt->execute();
+        $result = $stmt->fetch();
+        if($result['race_number']){
+            return    $result['race_number'];
+        }else{
+            return 1;
         }
     }
 }

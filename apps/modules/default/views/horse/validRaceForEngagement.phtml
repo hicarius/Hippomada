@@ -1,3 +1,8 @@
+<?php
+$sessionUser = Session::getUser();
+$stable = Apps::getModel('Stable')->load($sessionUser['id'])->getData();
+$oHorse = Apps::getModel('Horse')->load($horseId);
+?>
 <ul class="col-xs-12" style="list-style: none;">
     <?php if(count($races) > 0) { ?>
         <?php foreach($races as $race){ ?>
@@ -12,12 +17,13 @@
                         <?php echo ($race['code'] == 'a') ? 'Attelé' : (($race['code']=='m') ? 'Monté' : 'Plat') ; ?> -
                         Corde à <?php echo Apps::getModel('Race')->getCorde($race); ?> -
                         Piste en <?php echo $race['piste_name'] ?> <br />
-                        Pour les chevaux de <b><?php echo Apps::getModel('Race')->getAgeMinMax($race); ?></b>
+                        Pour les <?php echo Apps::getModel('Race')->getSexe($race); ?> de <b><?php echo Apps::getModel('Race')->getAgeMinMax($race); ?></b>
                         <?php echo Apps::getModel('Race')->getGainsMax($race); ?><br>
 
                     </i>
                 </h4>
                 <span class="col-xs-5">
+                    <?php if($oHorse->getData('is_qualified')) { ?>
                     <ul class="col-xs-12" style="list-style: none;margin-top: 10px;">
                         <li class="col-xs-12">
                             <span class="col-xs-4"><b>Gains :</b></span>
@@ -28,9 +34,12 @@
                             <span class="col-xs-8 a-right"><?php echo number_format($race['price'], 0, '.', ' ') . ' '  .Text::__('turfoos') ?></span>
                         </li>
                     </ul>
+                    <?php } ?>
+                    <?php if($oHorse->isOwner($stable['id'])){ ?>
                     <span class="col-xs-5 pull-right" style="margin: 10px 11px 10px;">
                         <button type="button" class=" pull-right engaged-this-race btn btn-success btn-xs btn-social" rel="<?php echo $race['id'] ?>|<?php echo $race['price'] ?>"><i class="fa fa-pencil-square-o"></i> <b>S'inscrire</b></button>
                     </span>
+                    <?php } ?>
                 </span>
             </div>
         </li>

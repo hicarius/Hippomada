@@ -258,9 +258,11 @@ CREATE TABLE `race_participant` (
   `gain` int(11) DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 /*Data for the table `race_participant` */
+
+insert  into `race_participant`(`id`,`race_id`,`horse_id`,`jockey_id`,`numero`,`is_recul`,`cote`,`rang`,`gain`,`status`) values (1,1,17,NULL,NULL,NULL,NULL,NULL,NULL,0),(2,1,16,NULL,NULL,NULL,NULL,NULL,NULL,0),(3,1,20,NULL,NULL,NULL,NULL,NULL,NULL,0),(4,3,17,NULL,NULL,NULL,NULL,NULL,NULL,0),(5,3,16,NULL,NULL,NULL,NULL,NULL,NULL,0),(6,3,20,NULL,NULL,NULL,NULL,NULL,NULL,0);
 
 /*Table structure for table `race_participant_tmp` */
 
@@ -274,11 +276,11 @@ CREATE TABLE `race_participant_tmp` (
   `is_recul` int(11) DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 /*Data for the table `race_participant_tmp` */
 
-insert  into `race_participant_tmp`(`id`,`race_tmp_id`,`horse_id`,`jockey_id`,`is_recul`,`status`) values (1,5,17,NULL,NULL,1),(3,3,16,NULL,NULL,1);
+insert  into `race_participant_tmp`(`id`,`race_tmp_id`,`horse_id`,`jockey_id`,`is_recul`,`status`) values (7,7,12,NULL,NULL,1),(8,6,19,NULL,NULL,1),(9,8,17,NULL,NULL,1),(10,8,16,NULL,NULL,1),(11,8,20,NULL,NULL,1),(13,8,18,NULL,NULL,1);
 
 /*Table structure for table `race_piste` */
 
@@ -339,9 +341,11 @@ CREATE TABLE `races` (
   `race_number` int(11) DEFAULT NULL,
   `race_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 /*Data for the table `races` */
+
+insert  into `races`(`id`,`category_id`,`name`,`lenght`,`type_id`,`hippodrome_id`,`piste_id`,`group_id`,`corde`,`price`,`recul_gain`,`recul_meter`,`max_gain`,`age_min`,`age_max`,`sexe`,`victory_price`,`status`,`created_at`,`meeting`,`race_number`,`race_date`) values (1,3,'Qualification A ',2000,2,4,1,5,'D',0,0,0,-1,3,10,'M,F','',2,'2016-06-16 16:49:17',1,1,'2016-06-16 00:00:00'),(2,3,'Qualification B ',2000,2,4,1,5,'D',0,0,0,-1,3,10,'M,F','',2,'2016-06-16 16:49:17',1,2,'2016-06-16 00:00:00'),(3,3,'Qualification A ',2000,2,4,1,5,'D',0,0,0,-1,3,10,'M,F','',2,'2016-06-16 16:50:15',1,3,'2016-06-16 00:00:00'),(4,3,'Qualification B ',2000,2,4,1,5,'D',0,0,0,-1,3,10,'M,F','',2,'2016-06-16 16:50:15',1,4,'2016-06-16 00:00:00');
 
 /*Table structure for table `races_tmp` */
 
@@ -370,11 +374,11 @@ CREATE TABLE `races_tmp` (
   `created_at` datetime DEFAULT NULL,
   `race_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 /*Data for the table `races_tmp` */
 
-insert  into `races_tmp`(`id`,`meeting`,`category_id`,`name`,`lenght`,`type_id`,`hippodrome_id`,`piste_id`,`group_id`,`corde`,`price`,`recul_gain`,`recul_meter`,`max_gain`,`age_min`,`age_max`,`sexe`,`victory_price`,`status`,`created_at`,`race_date`) values (1,1,3,'Qualifications',2000,2,1,1,5,'D',0,0,0,'-1',3,10,'M,F','',1,'2016-06-09 21:00:40','2016-06-09 12:00:00'),(2,1,4,'Qualifications Jockey/Driver',2000,2,1,2,5,'G',0,0,0,'-1',3,10,'M,F','',1,'2016-06-09 21:01:48','2016-06-09 12:30:00'),(3,2,1,'Prix de Zeus',2400,1,3,3,4,'D',100,0,0,'0',4,4,'M,F','18000|5000|3500|2000|1250|500',1,'2016-06-09 21:04:46','2016-06-09 12:00:00'),(4,2,1,'Prix d\'HadÃ¨s',2150,2,3,2,4,'G',10,0,0,'0',3,3,'M,F','18000|5000|3500|2000|1250|500',1,'2016-06-09 21:20:41','2016-06-09 12:00:00'),(5,1,1,'Prix Jean Jacques',2100,2,1,1,5,'G',500,0,0,'50000',4,4,'M,F','25000|9000|7000|5000|2500|1500',1,'2016-06-10 14:22:49','2016-06-14 00:00:00');
+insert  into `races_tmp`(`id`,`meeting`,`category_id`,`name`,`lenght`,`type_id`,`hippodrome_id`,`piste_id`,`group_id`,`corde`,`price`,`recul_gain`,`recul_meter`,`max_gain`,`age_min`,`age_max`,`sexe`,`victory_price`,`status`,`created_at`,`race_date`) values (1,1,3,'Qualifications',2000,2,1,1,5,'D',0,0,0,'-1',3,10,'M,F','',1,'2016-06-09 21:00:40','2016-06-09 00:00:00'),(2,1,4,'Qualifications Jockey/Driver',2000,2,1,2,5,'G',0,0,0,'-1',3,10,'M,F','',1,'2016-06-09 21:01:48','2016-06-09 00:00:00'),(3,2,1,'Prix de Zeus',2400,1,3,3,4,'D',100,0,0,'0',4,4,'M,F','18000|5000|3500|2000|1250|500',1,'2016-06-09 21:04:46','2016-06-09 00:00:00'),(4,2,1,'Prix d\'HadÃ¨s',2150,2,3,2,4,'G',10,0,0,'0',3,3,'M,F','18000|5000|3500|2000|1250|500',1,'2016-06-09 21:20:41','2016-06-09 00:00:00'),(5,1,1,'Prix Jean Jacques',2100,2,1,1,5,'G',500,0,0,'50000',4,4,'M,F','25000|9000|7000|5000|2500|1500',1,'2016-06-10 14:22:49','2016-06-14 00:00:00'),(6,1,1,'Prix de Montana',1800,2,2,2,5,'G',250,0,0,'0',4,8,'M','25000|9000|7000|5000|2500|1500',1,'2016-06-16 14:17:45','2016-06-18 00:00:00'),(7,1,1,'Prix d\'Arkansas',2540,1,2,3,5,'D',130,0,0,'12000',4,8,'F','25000|9000|7000|5000|2500|1500',1,'2016-06-16 14:19:13','2016-06-18 00:00:00'),(8,1,3,'Qualification',2000,2,4,1,5,'D',0,0,0,'-1',3,10,'M,F','',1,'2016-06-16 15:09:06','2016-06-16 00:00:00'),(9,1,3,'Qualification',2000,2,1,1,5,'D',0,0,0,'-1',3,10,'M,F','',1,'2016-06-16 15:36:32','2016-06-23 00:00:00');
 
 /*Table structure for table `saillies` */
 
@@ -414,7 +418,7 @@ CREATE TABLE `stables` (
 
 /*Data for the table `stables` */
 
-insert  into `stables`(`id`,`name`,`firstname`,`lastname`,`last_activity`,`country`,`continent`,`level`,`capital`,`banque`,`gold`,`email`,`password`) values (1,'Turfoland des 2/3 ans ','Benjamin','Gates','2016-06-08 08:10:51','France','Europe',3,300000,300000,5,'gates.benjamin@turfoland.com','e5672d625c2064615e69d21846cbda74'),(2,'Turfoland des 4/5/6 ans','Isaac','Iblou','2016-06-09 06:29:38','France','Europe',3,300000,299400,5,'iblou.isaac@turfoland.com','ff7824370af348209ad8474d488d6fc7'),(3,'Turfoland des 7/8/9 ans','Alexandre','Dupont','2016-06-08 09:06:52','France','Europe',3,300000,300000,5,'alex.dupont@turfoland.com','d43db12b94c641f769f66dbd62207492'),(4,'Turfoland des 10 ans','Pascal','Vozier','2016-06-08 09:06:46','France','Europe',3,300000,300000,5,'pascal.vozier@turfoland.com','bea14bb1a152167c9cdf0b4b580c7736'),(5,'Turfoland des Inactifs','Violette','Madison','2016-06-08 09:00:53','France','Europe',3,300000,300000,5,'madison.violette@turfoland.com','306fbc4f26ae3159c4f2292d30930eb4'),(6,'Maison Laffite','Alex','DuprÃ¨s','2016-06-08 08:10:43','France','Europe',0,300000,300000,5,'alex.dupres@turfoland.com','10a632cbbf80df92fb6b66671d6ac69d');
+insert  into `stables`(`id`,`name`,`firstname`,`lastname`,`last_activity`,`country`,`continent`,`level`,`capital`,`banque`,`gold`,`email`,`password`) values (1,'Turfoland des 2/3 ans ','Benjamin','Gates','2016-06-08 08:10:51','France','Europe',3,300000,300000,5,'gates.benjamin@turfoland.com','e5672d625c2064615e69d21846cbda74'),(2,'Turfoland des 4/5/6 ans','Isaac','Iblou','2016-06-16 02:49:13','France','Europe',3,300000,300000,5,'iblou.isaac@turfoland.com','ff7824370af348209ad8474d488d6fc7'),(3,'Turfoland des 7/8/9 ans','Alexandre','Dupont','2016-06-16 02:48:17','France','Europe',3,300000,299620,5,'alex.dupont@turfoland.com','d43db12b94c641f769f66dbd62207492'),(4,'Turfoland des 10 ans','Pascal','Vozier','2016-06-08 09:06:46','France','Europe',3,300000,300000,5,'pascal.vozier@turfoland.com','bea14bb1a152167c9cdf0b4b580c7736'),(5,'Turfoland des Inactifs','Violette','Madison','2016-06-08 09:00:53','France','Europe',3,300000,300000,5,'madison.violette@turfoland.com','306fbc4f26ae3159c4f2292d30930eb4'),(6,'Maison Laffite','Alex','DuprÃ¨s','2016-06-16 02:47:57','France','Europe',0,300000,300000,5,'alex.dupres@turfoland.com','10a632cbbf80df92fb6b66671d6ac69d');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

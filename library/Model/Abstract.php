@@ -27,8 +27,12 @@ abstract class Model_Abstract
         Session::addMessage($msg, $code);
     }
 
-    public function getData()
+    public function getData($key = null)
     {
-        return $this->_data;
+        if($key != null){
+            return $this->_data[$key];
+        }else{
+            return $this->_data;
+        }
     }
 }

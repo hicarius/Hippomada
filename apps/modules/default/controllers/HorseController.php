@@ -22,6 +22,7 @@ class HorseController extends Controller
         $data = $this->getRequest()->getPost();
         $races = Apps::getModel('Race_Tmp')->getValidRaceForEngagement($data);
         $this->getView()->addVar('races', $races);
+        $this->getView()->addVar('horseId', $data['horse_id']);
     }
 
     public function engagedThisRace()

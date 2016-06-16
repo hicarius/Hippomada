@@ -1,5 +1,5 @@
 <?php
-class Race_TmpModel extends Model_Abstract
+class Race_TmpModel extends RaceModel
 {
 
     public function getRaces($date=null)
@@ -140,6 +140,7 @@ class Race_TmpModel extends Model_Abstract
     public function getValidRaceForEngagement($data)
     {
         $dateMax = date('Y-m-d', strtotime('+30days'));
+        $curDate = date('Y-m-d');
         $horse = Apps::getModel('Horse')->load($data['horse_id'], false);
         $aTypeCodes = ($horse['specialization'] == 'T') ? array('a', 'm') : array('p') ;
 
@@ -148,17 +149,19 @@ class Race_TmpModel extends Model_Abstract
         $query .= " LEFT JOIN race_type rty ON rty.id = rt.type_id ";
         $query .= " LEFT JOIN race_group rg ON rg.id = rt.group_id";
         $query .=  " LEFT JOIN race_piste rp ON rp.id = rt.piste_id";
-        $query .= " WHERE (rt.age_min >= :age AND rt.age_max <= :age )";
-        $query .= " AND rt.max_gain >= :gains";
+        $query .= " WHERE (rt.age_min <= '{$horse['age']}' AND rt.age_max >= '{$horse['age']}' )";
         $query .= " AND rt.sexe LIKE  '%{$horse['sexe']}%'";
-        $query .= " AND rt.race_date <= :dateMax";
+        $query .= " AND ( rt.race_date >= '$curDate' AND rt.race_date <= '$dateMax')";
         $query .= " AND rty.code IN ('".implode("','", $aTypeCodes)."')";
         $query .= " AND rt.status = 1";
 
+        if(!$horse['is_qualified']){
+            $query .= " AND rt.category_id = 3";
+        }else{
+            $query .= " AND rt.max_gain >= '{$horse['gains']}'";
+        }
+
         $stmt = Database::prepare($query);
-        $stmt->bindParam(':age', $horse['age']);
-        $stmt->bindParam(':gains', $horse['gains']);
-        $stmt->bindParam(':dateMax', $dateMax);
 
         $stmt->execute();
         return $stmt->fetchAll();
@@ -238,46 +241,6 @@ class Race_TmpModel extends Model_Abstract
         return $stmt->fetchAll();
     }
 
-    public function getMeetingsAndRaceNumber($races)
-    {
-        $meetings = array();
-        foreach($races as $race){
-            if(!isset($meetings[ $race['meeting'] ])) {
-                $meetings[$race['meeting']] = array('name' => $race['hippodrome_name']);
-            }
-            $meetings[$race['meeting']]['course'][$race['race_number']] = $race['race_number'];
-        }
-
-        return $meetings;
-    }
-
-    public function getAgeMinMax($race)
-    {
-        $html = '';
-        if( $race['age_min'] == $race['age_max']){
-            $html .= $race['age_min'] . " ans";
-        }else{
-            if($race['age_max'] == 0){
-                $html .= $race['age_min'] . " ans et plus";
-            } else {
-                $html .= $race['age_min'] . " ans à " .$race['age_max'] . " ans";
-            }
-        }
-        return $html;
-    }
-
-    public function getGainsMax($race)
-    {
-        $html = '';
-        if($race['category_id'] == 1){
-            return $html;
-        }
-        if( !is_null($race['max_gain']) ){
-            $html .= " qui ont gagné <b>".number_format($race['max_gain'], 0, '.', ' ')." max</b>.";
-        }
-        return $html;
-    }
-
     public function getRacePrize($race)
     {
         $html = '';
@@ -289,17 +252,56 @@ class Race_TmpModel extends Model_Abstract
         return $html;
     }
 
-    public function getCorde($race)
+    //http://www.turfoland.com/admin/race/validRace/race_id/8 <--------teste
+    public function validRace($raceTmpId)
     {
-        if($race['corde'] == 'D'){
-            return 'Droite';
-        }else{
-            return 'Gauche';
-        }
-    }
+        $gpP = array('0', 'A', 'B', 'C', 'D', 'E');
 
-    public function getName($race_name, $race_id)
-    {
-        return '<a href="javascript:void(0)" rel="' . $race_id . '" class="race-name">' . $race_name . '</a>';
+        $raceModel = Apps::getModel('Race');
+
+        //collect race_tmp information
+        $race_tmp = $this->load($raceTmpId)->getData();
+        //Debugger::dump($race_tmp);
+
+        //collect race_participant_tmp information
+        $race_part_tmp = $this->getHorsesEngaged();
+        Debugger::dump(count($race_part_tmp));
+
+        //get number of group to create
+        $nbrGroup = ceil(count($race_part_tmp)/RACE_GROUP_PARTICIPANT_MAX);
+
+
+        //création de race groupe
+        $nextParticipant = 0;
+        for($i=1; $i <= $nbrGroup; $i++){
+            $data = $race_tmp;
+            if($nbrGroup > 1){
+                $data['name'] = "{$data['name']} {$gpP[$i]} ";
+            }
+            $data['status'] = 2; //fermée
+            $data['race_number'] = $raceModel->getNextRaceNumberForMeeting( date('Y-m-d', strtotime($data['race_date'])), $data['meeting']);
+            $raceId = $raceModel->create($data);
+
+            //add participant
+            foreach($race_part_tmp as $k => $participant) {
+                if( $k >= $nextParticipant ) {
+                    $data_p = array(
+                        'race_id' => $raceId,
+                        'horse_id' => $participant['horse_id'],
+                        'jockey_id' => $participant['jockey_id'],
+                        'is_recul' => $participant['is_recul'],
+                        'numero' => $k + 1,
+                    );
+                    $raceModel->setEngagedThisRace($data_p);
+                }
+
+                if( ($k+1) > RACE_GROUP_PARTICIPANT_MAX){
+                    $nextParticipant = $k+1;
+                    break;
+                }
+            }
+        }
+        Debugger::dump($raceId);die;
+        //création du race à partir du temp
     }
 }

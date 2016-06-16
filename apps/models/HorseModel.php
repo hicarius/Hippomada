@@ -640,6 +640,10 @@ class HorseModel extends Model_Abstract
 
 	//GETTER
 
+	public function isOwner($stable_id)
+	{
+		return ($this->_data['proprio_id'] == $stable_id);
+	}
 
 	public function getName($horse_name, $horse_id, $actif = 1)
 	{
