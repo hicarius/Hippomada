@@ -3,7 +3,7 @@ $allRaces = Apps::getModel('Race')->getRaces($date);
 $meetings = Apps::getModel('Race')->getMeetingsAndRaceNumber($allRaces);
 ?>
 <div class="col-lg-12">
-    <h1><i class="fa fa-flag"></i> Les courses</h1>
+    <h1><i class="fa fa-flag-checkered"></i> Les courses</h1>
     <input type="hidden" id="cur_meeting" value="1" />
     <input type="hidden" id="max_meeting" value="<?php echo count($meetings)?>" />
     <div class="row course-content" style="margin-top: 20px">
@@ -30,7 +30,18 @@ $meetings = Apps::getModel('Race')->getMeetingsAndRaceNumber($allRaces);
                 foreach($allRaces as $i => $race){
                 ?>
                 <div id="r<?php echo $race['meeting'] ?>-c<?php echo $race['race_number'] ?>" class="course-subcontent tab-pane fade <?php if($i==0) { ?>in active <?php } ?>">
-                    <h4><?php echo date('d M Y', strtotime($race['race_date'])) ?> - <b><?php echo date('H\Hi', strtotime($race['race_date'])) ?></b> - R<?php echo $race['meeting'] ?>C<?php echo $race['race_number'] ?> - <b><?php echo $race['name'] ?></b> - <b><?php echo $race['hippodrome_name'] ?></b><i class="ico-race ico-course-<?php echo $race['code'] ?>"></i></h4>
+                    <h4>
+                        <?php echo date('d M Y', strtotime($race['race_date'])) ?> -
+                        <b><?php echo date('H\Hi', strtotime($race['race_date'])) ?></b> -
+                        R<?php echo $race['meeting'] ?>C<?php echo $race['race_number'] ?> -
+                        <b><?php echo $race['name'] ?></b> -
+                        <b><?php echo $race['hippodrome_name'] ?></b> -
+                        <?php if($race['status'] == 0) { ?>
+                            <b style="color: #ed2000">Terminée</b>
+                        <?php }else{ ?>
+                            <b style="color: #35a81b">A venir</b>
+                        <?php } ?>
+                        <i class="ico-race ico-course-<?php echo $race['code'] ?>"></i></h4>
                     <div class="course-detail">
                         <ul class="col-md-6" style="list-style: none">
                             <li><span class="col-xs-4"><b>Type :</b></span><span class="col-xs-6"><?php echo $race['type_name'] ?></span></li>

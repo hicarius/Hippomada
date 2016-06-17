@@ -223,6 +223,16 @@ td.a-left{
     border: 1px solid #428bca;
 }
 
+.btn-circle {
+    border-radius: 15px;
+    font-size: 12px;
+    height: 30px;
+    line-height: 1.42857;
+    padding: 6px 0;
+    text-align: center;
+    width: 30px;
+}
+
 .reunion-choice{
     background: #5aa445;
     border: 1px solid #5aa445;
@@ -312,6 +322,16 @@ span.reunion-choice.name{
     height: 40px;
     width: 50px;
     float: right;
+}
+
+.icon-etalon{
+    color: #00008b;
+    font-weight: bold;
+}
+
+.icon-pouliniere{
+    color: #ff1493;
+    font-weight: bold;
 }
 
 .ktr-title,  .horse-detailed b{

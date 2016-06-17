@@ -1,93 +1,208 @@
-<div>
-	Niveau : même niveau que l'écurie
+<?php
+$sessionUser = Session::getUser();
+$oStable = Apps::getModel('Stable');
+$oStable->load($sessionUser['id']);
+$stable = $oStable->getData();
+$chevauxDeEcurie = $oStable->getHorsesForStable();
+?>
+<div class="col-lg-12">
+	<h1><i class="fa fa-ticket"></i> Vos demandes des saillies réçus</h1>
+	<?php //@todo: demande de saillie  ?>
 </div>
-<div>
-	Vos Etalons<br>
-	<ul>
-		<li>
-			Qualification :
-			<ul>
-				<li>être un male</li>
-				<li>âge entre 5 à 25 ans</li>
-				<li>Soit avoir été classés dans les trois premiers d’une course de Groupe I. (100 saillies annuelles)</li>
-				<li>Soit avoir obtenu au cours de leur carrière, lors de courses victorieuses enregistrées dans des épreuves organisées sur des hippodromes homologués, 6 fois une réduction kilométrique inférieure ou égale à :
-					<ul>
-						<li>1’16”5 à l’âge de 3 ans,</li>
-						<li>1’15”5 à l’âge de 4 ans,</li>
-						<li>1’14”5 à l’âge de 5 ans,</li>
-						<li>1’13”5 à l’âge de 6 ans ou plus</li>
-					</ul>
-					Une  victoire  dans  une  course  de Groupe  II  équivaut  à  deux  victoires  avec  le  record  requis,  tandis qu’un classement de 2ème
-					ou de 3ème dans cette catégorie de courses équivaut à une victoire avec le record requis.
-					(100 saillies annuelles)
-				</li>
-				<li>être fils d’une jument ou frère utérin d’un cheval ayant gagné une course de Groupe I ou II, (60 saillies annuelles)</li>
-				<li>Soit avoir obtenu un total de gains d’un minimum de 100.000 € à quatre ans, ou 200.000 € à cinq ans ou 280.000 € à six ans ou plus, (60 saillies annuelles)</li>
-			</ul>
-		</li>
-		<li>
-			Niveau de réproduction de 1 à 5 selon l'ITR.
-			<ul>
-				<li>
-					Classement de l'ITR :
-					<ul>
-						<li>ITR entre 170 et + évaluation élevage ------à 125 000 oros(approuvé)</li>
-						<li>ITR entre 160 et 169 évaluation élevage ------à 75 000 oros(autorisé)</li>
-						<li>ITR entre 150 et 159 évaluation élevage ------à 50 000 oros(autorisé)</li>
-						<li>ITR entre 140 et 149 évaluation élevage ------à 25 000 oros(accepté)</li>
-						<li>ITR entre 120 et 139 évaluation élevage ------à 12 500 oros(accepté)</li>
-					</ul>
-				</li>
-				<li>
-					Comment avoir l'ITR :<br>
-					<ul>
-						<li>combine le gain annuel et le classement des chevaux (chacun vaut 50% de l’indice)</li>
-					</ul>
-				</li>
-			</ul>
-		</li>
-		<li>
-			Héritage génétique
-			<ul>
-				<li>
-					A la naissance du poulain, son BTR est déterminé en faisant la moyenne des BTR de ses parents,
-				</li>
-				<li>
-					puis l'indice évolue au cours de sa vie, en fonction de ses performances.
-				</li>
-			</ul>
-		</li>
-	</ul>
 
-	Vos poulinières<br>
-	<ul>
-		<li>
-			Qualification :
-			<ul>
-				<li>âge entre 5 à 12 ans</li>
-				<li>être qualifiée</li>
-				<li>avoir obtenu une victoire au moins dans une course</li>
-			</ul>
-		</li>
-		<li>
-			Niveau de réproduction de 1 à 5 selon le niveau réproducteur du père.<br>
-			Mais on peut l'augmenter en fonction de votre ITR si supérieur à l'ITR du père<br>
-			http://tpetrotteursfrancais.weebly.com/leacutelevage.html
-		</li>
-	</ul>
+<div class="col-lg-12">
+	<h1><i class="fa fa-flask"></i> Saillies en stock</h1>
+	<?php //@todo: saillie en stock  ?>
+</div>
 
-	Vos Poulains<br>
-	<ul>
-		<li>Vente entre Septembre et Novembre seulement (pour les 18 mois)</li>
-	</ul>
+<div class="col-lg-12">
+	<h1><i class="fa fa-mars"></i> Mes Etalons</h1>
+	<div class="table-responsive">
+		<?php
+		$allHorsesBreedings = $oStable->getHorsesForStable(2);
+		if(count($allHorsesBreedings) > 0 ){
+			?>
+			<table class="table">
+				<thead>
+				<tr>
+					<th>Cheval</th>
+					<th>Age/Sexe</th>
+					<th>Père</th>
+					<th>Père du mère</th>
+					<th>Gains</th>
+					<th>Repr.</th>
+					<th>Saillies</th>
+					<th>Prix</th>
+					<th>Etat</th>
+				</tr>
+				</thead>
+				<tbody>
+				<?php foreach( $allHorsesBreedings as $item) {
+					$oHorse = Apps::getModel('Horse')->load($item['id']);
+					$horse = $oHorse->getData();
+					?>
+					<tr>
+						<td class="a-left">
+							<?php echo $oHorse->getName($horse['name'], $horse['id'], $horse['status']) ?>
+						</td>
+						<td><?php echo $horse['sexe'] ?><?php echo $horse['age'] ?></td>
+						<td><?php echo $oHorse->getName($horse['father'], $horse['father_id'], $horse['father_status']) ?></td>
+						<td><?php echo $oHorse->getName($horse['father_mother'], $horse['father_mother_id'], $horse['father_mother_status']) ?></td>
+						<td><?php echo number_format($horse['gains'], 0, '.', ' ') ?></td>
+						<td><?php echo $oHorse->getIndiceReproduction() ?></td>
+						<?php //@todo: nombre saillie, prix et etat  ?>
+						<td><span style="color: #5aa445">14</span>/20</td>
+						<td>10 000</td>
+						<td>Enchère</td>
+					</tr>
+				<?php } ?>
+				</tbody>
+			</table>
+			<?php
+		}else{
+			echo "<div class='row'>Aucun étalon en votre possession</div>";
+		}
+		?>
+	</div>
 </div>
-<div>
-	Affichage :
-	<ul>
-		<li>Liste de stock des saillies</li>
-		<li>Liste de vos étalons</li>
-		<li>Liste de vos poulinières</li>
-		<li>Liste de vos poulains</li>
-		<li>Liste de vos chevals entant qu'eleveur</li>
-	</ul>
+
+<div class="col-lg-12">
+	<h1><i class="fa fa-venus"></i> Mes Poulinières</h1>
+	<div class="table-responsive" style="overflow-x: visible;">
+		<?php
+		$allHorsesBreedings = $oStable->getHorsesForStable(3);
+		if(count($allHorsesBreedings) > 0 ){
+			?>
+			<table class="table">
+				<thead>
+				<tr>
+					<th>Cheval</th>
+					<th>Age/Sexe</th>
+					<th>Père</th>
+					<th>Père du mère</th>
+					<th>Gains</th>
+					<th>Repr.</th>
+					<th></th>
+				</tr>
+				</thead>
+				<tbody>
+				<?php foreach( $allHorsesBreedings as $item) {
+					$oHorse = Apps::getModel('Horse')->load($item['id']);
+					$horse = $oHorse->getData();
+					?>
+					<tr>
+						<td class="a-left">
+							<?php echo $oHorse->getName($horse['name'], $horse['id'], $horse['status']) ?>
+						</td>
+						<td><?php echo $horse['sexe'] ?><?php echo $horse['age'] ?></td>
+						<td><?php echo $oHorse->getName($horse['father'], $horse['father_id'], $horse['father_status']) ?></td>
+						<td><?php echo $oHorse->getName($horse['father_mother'], $horse['father_mother_id'], $horse['father_mother_status']) ?></td>
+						<td><?php echo number_format($horse['gains'], 0, '.', ' ') ?></td>
+						<td><?php echo $oHorse->getIndiceReproduction() ?></td>
+						<td>
+							<?php //@todo: faire saillir  ?>
+							<div class="btn-group">
+								<button data-toggle="dropdown" class="btn btn-default btn-xs dropdown-toggle" type="button" aria-expanded="true">
+									Faire saillire
+									<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu slidedown">
+									<li><a href="">Saillie 1</a></li>
+									<li><a href="">Saillie 2</a></li>
+									<li><a href="">Saillie 1</a></li>
+									<li><a href="">Saillie 1</a></li>
+								</ul>
+							</div>
+						</td>
+					</tr>
+				<?php } ?>
+				</tbody>
+			</table>
+			<?php
+		}else{
+			echo "<div class='row'>Aucune poulinière en votre possession</div>";
+		}
+		?>
+	</div>
 </div>
+
+<div class="col-lg-12">
+	<h1><i class="fa fa-paw"></i> Mes Poulins et pouliches</h1>
+	<div class="table-responsive">
+		<?php
+		$allHorsesBreedings = $oStable->getHorsesForStable(1);
+		if(count($allHorsesBreedings) > 0 ){
+			?>
+			<table class="table">
+				<thead>
+				<tr>
+					<th>Cheval</th><th>Age/Sexe</th><th>Père</th><th>Mère</th><th>Père du mère</th><th>Indice</th>
+				</tr>
+				</thead>
+				<tbody>
+				<?php foreach( $allHorsesBreedings as $item) {
+					$oHorse = Apps::getModel('Horse')->load($item['id']);
+					$horse = $oHorse->getData();
+					?>
+					<tr>
+						<td class="a-left">
+							<?php echo $oHorse->getName($horse['name'], $horse['id'], $horse['status']) ?>
+						</td>
+						<td><?php echo $horse['sexe'] ?><?php echo $horse['age'] ?></td>
+						<td><?php echo $oHorse->getName($horse['father'], $horse['father_id'], $horse['father_status']) ?></td>
+						<td><?php echo $oHorse->getName($horse['mother'], $horse['mother_id'], $horse['mother_status']) ?></td>
+						<td><?php echo $oHorse->getName($horse['father_mother'], $horse['father_mother_id'], $horse['father_mother_status']) ?></td>
+						<td><?php echo $oHorse->getIndice() ?></td>
+					</tr>
+				<?php } ?>
+				</tbody>
+			</table>
+			<?php
+		}else{
+			echo "<div class='row'>Aucun poulain ou/et pouliche en votre possession</div>";
+		}
+		?>
+	</div>
+</div>
+
+<div class="col-lg-12">
+	<h1><i class="fa fa-sitemap"></i> Mes chévaux entant qu'éléveur</h1>
+	<div class="table-responsive">
+		<?php
+		$allHorsesBreedings = $oStable->getAllHorsesBreedings();
+		if(count($allHorsesBreedings) > 0 ){
+			?>
+			<table class="table">
+				<thead>
+				<tr>
+					<th>Cheval</th><th>Age/Sexe</th><th>Père</th><th>Mère</th><th>Père du mère</th><th>Gains</th><th>Stat.</th><th>Indice</th>
+				</tr>
+				</thead>
+				<tbody>
+				<?php foreach( $allHorsesBreedings as $item) {
+					$oHorse = Apps::getModel('Horse')->load($item['id']);
+					$horse = $oHorse->getData();
+					?>
+					<tr>
+						<td class="a-left">
+							<?php echo $oHorse->getName($horse['name'], $horse['id'], $horse['status']) ?>
+						</td>
+						<td><?php echo $horse['sexe'] ?><?php echo $horse['age'] ?></td>
+						<td><?php echo $oHorse->getName($horse['father'], $horse['father_id'], $horse['father_status']) ?></td>
+						<td><?php echo $oHorse->getName($horse['mother'], $horse['mother_id'], $horse['mother_status']) ?></td>
+						<td><?php echo $oHorse->getName($horse['father_mother'], $horse['father_mother_id'], $horse['father_mother_status']) ?></td>
+						<td><?php echo number_format($horse['gains'], 0, '.', ' ') ?></td>
+						<td><?php echo $oHorse->getResultats() ?></td>
+						<td><?php echo $oHorse->getIndice() ?></td>
+					</tr>
+				<?php } ?>
+				</tbody>
+			</table>
+			<?php
+		}else{
+			echo "<div class='row'>Aucun chévaux entant qu'éléveur</div>";
+		}
+		?>
+	</div>
+</div>
+

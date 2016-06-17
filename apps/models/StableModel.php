@@ -216,7 +216,7 @@ class StableModel extends Model_Abstract
 		return $stmt->fetchAll();
 	}
 
-	public function getHorsesForStable()
+	public function getHorsesForStable($type = null)
 	{
 		$proprio_id = $this->_data['id'];
 		$additionalColumns = "s1.name AS proprio, ";
@@ -231,8 +231,30 @@ class StableModel extends Model_Abstract
 		$joins .=  " INNER JOIN stables s2 ON s2.id = h.trainer_id";
 		$joins .=  " INNER JOIN stables s3 ON s3.id = h.eleveur_id";
 		$query = "SELECT h.*, $additionalColumns FROM horses h $joins WHERE h.proprio_id = :proprio_id";
+		if($type != null){
+			$query .= " AND type = $type";
+		}
+		$query .= " ORDER BY h.age DESC";
 		$stmt = Database::prepare($query);
 		$stmt->bindParam(':proprio_id', $proprio_id);
+		$stmt->execute();
+		return $stmt->fetchAll();
+	}
+
+	public function getAllHorsesBreedings()
+	{
+		$stableId = $this->_data['id'];
+
+		$additionalColumns = "IF(h.father_id=0, 'Inconnu', h2.name) AS father, h2.status AS father_status, ";
+		$additionalColumns .= "IF(h.mother_id=0, 'Inconnu', h1.name) AS mother, h1.status AS mother_status, ";
+		$additionalColumns .= "( IF(h1.father_id=0, 'Inconnu', h3.name) ) AS father_mother, h1.father_id as father_mother_id, h3.status AS father_mother_status ";
+		$joins =  " INNER JOIN horses h1 ON h1.id = h.mother_id";
+		$joins .=  " INNER JOIN horses h2 ON h2.id = h.father_id";
+		$joins .=  " LEFT JOIN horses h3 ON h3.id = h1.father_id";
+
+		$query = "SELECT h.id, $additionalColumns FROM horses h $joins WHERE h.eleveur_id = :eleveur_id ORDER BY h.age DESC";
+		$stmt = Database::prepare($query);
+		$stmt->bindParam(':eleveur_id', $stableId);
 		$stmt->execute();
 		return $stmt->fetchAll();
 	}

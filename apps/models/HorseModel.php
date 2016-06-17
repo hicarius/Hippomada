@@ -48,16 +48,16 @@ class HorseModel extends Model_Abstract
 								hc.itr_year,
 								hc.btr,
 								hc.trot_base,
-								hc.trot_current,
+								floor(hc.trot_current) as trot_current,
 								hc.trot_gene,
 								hc.galop_base,
-								hc.galop_current,
+								floor(hc.galop_current) as galop_current,
 								hc.galop_gene,
 								hc.endurance_base,
-								hc.endurance_current,
+								floor(hc.endurance_current) as endurance_current,
 								hc.endurance_gene,
 								hc.vitesse_base,
-								hc.vitesse_current,
+								floor(hc.vitesse_current) as vitesse_current,
 								hc.vitesse_gene,
 								hc.physique,
 								hc.fatigue,
@@ -647,9 +647,17 @@ class HorseModel extends Model_Abstract
 
 	public function getName($horse_name, $horse_id, $actif = 1)
 	{
+		$horse = $this->load($horse_id, false);
 		$cssInactif = '';
 		if($actif == 0){
 			$cssInactif = 'inactif';
+		}
+
+		$type = '';
+		if($horse['type'] == 2){
+			$type = " <i class='fa fa-mars icon-etalon'></i>";
+		}elseif($horse['type'] == 3){
+			$type = " <i class='fa fa-venus icon-pouliniere'></i>";
 		}
 
 		if(is_null($horse_name) || $horse_name == '') {
@@ -661,7 +669,7 @@ class HorseModel extends Model_Abstract
 				$html = '<a href="javascript:void(0)" rel="' . $horse_id . '" class="horse-name ' . $cssInactif . '">' . $horse_name . '</a>';
 			}
 		}
-		return $html;
+		return $html . ' ' . $type;
 	}
 
 	/**
@@ -787,7 +795,7 @@ class HorseModel extends Model_Abstract
 		$results = $stmt->fetchAll();
 		if (count($results)>0) {
 			foreach($results as $item) {
-				if($item['category_id'] == 1) {
+				if(in_array($item['category_id'], array(3,4))) {
 					$html .= 'Q' . $item['code'];
 				}elseif ($item['status'] == 0) {
 					$html .= 'D' . $item['code'];
@@ -815,7 +823,7 @@ class HorseModel extends Model_Abstract
 						If(rp.status=0, 'D', IF(rp.rang>9, '0', rp.rang)) as place,
 						r.name, r.race_date,
 						IF(r.corde='G', 'Gauche', 'Droite') as corde,
-						r.lenght,
+						r.lenght, r.category_id,
 						rc.title as category,
 						rh.title as hippo,
 						rt.code

@@ -235,7 +235,7 @@ class RaceModel extends Model_Abstract
      */
     public function getHorsesEngaged($raceId = null)
     {
-        $additionalColumns = ", h.name, h.age, h.sexe, h.id as horse_id";
+        $additionalColumns = ", h.proprio_id, h.specialization, h.name, h.age, h.sexe, h.id as horse_id";
         $additionalColumns .= ", CONCAT_WS(' ', s2.firstname, s2.lastname) AS entraineur  ";
         $additionalColumns .= ", CONCAT_WS(' ', s3.firstname, s3.lastname) AS jockey ";
         $joins =  " INNER JOIN horses h ON h.id = rp.horse_id";
@@ -325,11 +325,18 @@ class RaceModel extends Model_Abstract
     {
         $html = '';
         if( in_array($race['category_id'], array(3,4))){
+            if($race['type_id'] == 1){
+                $html .= "<br/>Pour être qualifié, il faut atteindre : <br />2 ans : 1'22.0, 3 ans : 1'20.5, 4 ans : 1'18.5, 5 ans et + : 1'18.0";
+            }elseif($race['type_id'] == 2){
+                $html .= "<br/>Pour être qualifié, il faut atteindre : <br />2 ans : 1'21.5, 3 ans : 1'20.0, 4 ans : 1'18.0, 5 ans et + : 1'17.5";
+            }
+
             return $html;
         }
         if( $race['max_gain'] != -1 ){
             $html .= " qui ont gagnés <b>".number_format($race['max_gain'], 0, '.', ' ')." ".Text::__('turfoos')." max</b>.";
         }
+
         return $html;
     }
 
@@ -413,6 +420,29 @@ class RaceModel extends Model_Abstract
         }
     }
 
+    public function getAddPointPerf($horse)
+    {
+        $age = $horse['age'];
+        switch($age){
+            case ($age <= 4 && $age >= 1) :
+                $value = 0.16;
+                break;
+            case ($age == 5) :
+                $value = 0.33;
+                break;
+            default:
+                $value = 0.5;
+                break;
+        }
+        if($horse['specialization'] == 'G') {
+            $critere = Commons::array_random(array('galop', 'vitesse', 'endurance'));
+        }else {
+            $critere = Commons::array_random(array('trot', 'vitesse', 'endurance'));
+        }
+
+        return array('critere' => $critere . '_current', 'value' => $value);
+    }
+
     /**
      * Status , 0 = disq, 1 = ok avec temps
      * @param $raceId
@@ -426,7 +456,7 @@ class RaceModel extends Model_Abstract
 
         $horses = $this->getHorsesEngaged($raceId);
 
-        //simulation du course à travailler
+        //@todo : simulation du course à travailler
         shuffle($horses);
 
         foreach($horses as $k => $horse){
@@ -434,22 +464,36 @@ class RaceModel extends Model_Abstract
             $stable = Apps::getModel('Stable')->load($horse['proprio_id'])->getData();
 
             $rang = $k+1;
-            $query = "UPDATE race_participant SET rang = $rang, status = 1 WHERE id = {$horse['id']}";
+            $gain = isset($gains[$rang]) ? $gains[$rang] : 0 ;
+
+            $query = "UPDATE race_participant SET rang = $rang, status = 1, gain = '$gain' WHERE horse_id = {$horse['horse_id']}";
+            Database::prepare($query)->execute();
+
+            //Mise à jour horses_caracteristique (fatigue, physique, radom perf)
+            $addPointPerf = $this->getAddPointPerf($horse);
+            $fatigue = 20;
+            $randomPerf = $addPointPerf['critere'];
+            $additionalPerf =  $addPointPerf['value'];
+            $query =  "UPDATE horses_caracteristique SET
+                        $randomPerf = ($randomPerf + $additionalPerf),
+                        physique = (physique-20),
+                        fatigue = $fatigue
+                       WHERE horse_id = {$horse['horse_id']}";
             Database::prepare($query)->execute();
 
             if(!in_array($race['category_id'], array(3,4))){
-                //Mise à jour du horses (gains, is_qualified, réevaluation price, type(etal, poule) )
-                $gain = isset($gains[$k]) ? $gains[$k] : 0 ;
-                Database::prepare("UPDATE horses SET gains = (gains+$gain) WHERE id = {$horse['id']}")->execute();
+                //Mise à jour du horses (gains, réevaluation price, type(etal, poule) )
+                Database::prepare("UPDATE horses SET gains = (gains+$gain) WHERE id = {$horse['horse_id']}")->execute();
+                //@todo : Mise à jour ITR, BTR
 
                 //Mise à jour du gain_race_horse
-                $placed = ( $rang >= 5 ) ? 1 : 0 ;
+                $placed = ( $rang <= 5 ) ? 1 : 0 ;
                 $win = ( $rang == 1 ) ? 1 : 0 ;
                 $query =    "UPDATE gain_race_horse SET " .
                     "carrer_race = (carrer_race+1), carrer_win = (carrer_win+$win), carrer_placed = (carrer_placed+$placed), carrer_gain = (carrer_gain+$gain), " .
                     "year_race = (year_race+1), year_win = (year_win+$win), year_placed = (year_placed+$placed), year_gain = (year_gain+$gain), " .
                     "mounth_race = (mounth_race+1), mounth_win = (mounth_win+$win), mounth_placed = (mounth_placed+$placed), mounth_gain = (mounth_gain+$gain)" .
-                    " WHERE horse_id = {$horse['id']}";
+                    " WHERE horse_id = {$horse['horse_id']}";
                 Database::prepare($query)->execute();
 
                 //Mise à jour du stable (banque, gains)
@@ -457,8 +501,6 @@ class RaceModel extends Model_Abstract
                 //@todo : mise à jour du finances du stable
 
                 //Mise à jour du gain_race_stable
-                $placed = ( $rang >= 5 ) ? 1 : 0 ;
-                $win = ( $rang == 1 ) ? 1 : 0 ;
                 $query =    "UPDATE gain_race_stable SET " .
                             "carrer_race = (carrer_race+1), carrer_win = (carrer_win+$win), carrer_placed = (carrer_placed+$placed), carrer_gain = (carrer_gain+$gain), " .
                             "year_race = (year_race+1), year_win = (year_win+$win), year_placed = (year_placed+$placed), year_gain = (year_gain+$gain), " .
@@ -469,7 +511,7 @@ class RaceModel extends Model_Abstract
             }elseif($race['category_id'] == 3){
                 //Mise à jour du horses (is_qualified )
                 //@todo: ajout test sur temps atteint
-                Database::prepare("UPDATE horses SET is_qualified = 1 WHERE id = {$horse['id']}")->execute();
+                Database::prepare("UPDATE horses SET is_qualified = 1 WHERE id = {$horse['horse_id']}")->execute();
             }elseif($race['category_id'] == 4){
                 //@todo : mise à jour du jockey si temps atteint
             }

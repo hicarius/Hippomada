@@ -196,11 +196,19 @@ $horse = $oHorse->getData();
 							<td class="a-left"><?php echo date('d-m-Y', strtotime($raceDone['race_date'])) ?></td>
 							<td><i class="fa ico-course-<?php echo $raceDone['code'] ?>"></i></td>
 							<td><?php echo $raceDone['hippo'] ?></td>
-							<td><?php echo Apps::getModel('Race')->getName($raceDone['name'], $raceDone['id']) ?></td>
+							<td><?php echo Apps::getModel('Race')->getName($raceDone['name'], $raceDone['race_id']) ?></td>
 							<td><?php echo $raceDone['corde'] ?></td>
 							<td><?php echo number_format($raceDone['lenght'], 0, '.', ' ') ?> m</td>
-							<td><?php echo $raceDone['place'] ?><?php echo $raceDone['code'] ?></td>
-							<td><?php echo $raceDone['gain'] ?></td>
+							<td>
+								<?php
+								if(in_array($raceDone['category_id'], array(3,4))) {
+									echo 'Q' . $raceDone['code'];
+								}else{
+									echo $raceDone['place'] . $raceDone['code'];
+								}
+								?>
+							</td>
+							<td><?php echo ($raceDone['gain']>0)?$raceDone['gain']:'-'; ?></td>
 						</tr>
 						<?php
 						}

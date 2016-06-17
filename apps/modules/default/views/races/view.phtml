@@ -28,7 +28,12 @@ $race = $oRace->getData();
 				R<?php echo $race['meeting'] ?>C<?php echo $race['race_number'] ?> -
 				<?php } ?>
 				<b><?php echo $race['name'] ?></b> -
-				<b><?php echo $race['hippodrome_name'] ?></b>
+				<b><?php echo $race['hippodrome_name'] ?></b> -
+				<?php if($race['status'] == 0) { ?>
+					<b style="color: #ed2000">Terminée</b>
+				<?php }else{ ?>
+					<b style="color: #35a81b">A venir</b>
+				<?php } ?>
 				<i class="ico-race ico-course-<?php echo $race['code'] ?>"></i>
 			</h4>
 		</div>
@@ -61,7 +66,7 @@ $race = $oRace->getData();
 							Les inscrits
 						<?php } ?>
 					</h4>
-					<?php if($race['status']==2){ ?>
+					<?php if($race['status']==2 || $race['status']==1){ ?>
 					<div class="table-responsive ">
 						<table class="table table-striped">
 							<thead>
@@ -78,13 +83,13 @@ $race = $oRace->getData();
 							<tbody>
 							<?php
 							$horses = Apps::getModel($raceModel)->getHorsesEngaged($race['id']);
-							foreach($horses as $item) {
+							foreach($horses as $num => $item) {
 								?>
 								<tr class="">
 									<?php if( !isset($isTemp) ){ ?>
 									<td><?php echo $item['numero'] ?></td>
 									<?php }else{ ?>
-										<td><?php echo $item['id'] ?></td>
+										<td><?php echo $num+1 ?></td>
 									<?php } ?>
 									<td>
 										<?php echo Apps::getModel('Horse')->getName($item['name'], $item['horse_id']) ?>
@@ -93,7 +98,7 @@ $race = $oRace->getData();
 									<td><?php echo $item['sexe'] ?>/<?php echo $item['age'] ?></td>
 									<td><?php echo $item['entraineur'] ?></td>
 									<td><?php echo $item['jockey'] ?></td>
-									<td><?php echo Apps::getModel('Horse')->get5LastPerfs($item['sexe'], $item['id']) ?></td>
+									<td><?php echo Apps::getModel('Horse')->get5LastPerfs($item['sexe'], $item['horse_id']) ?></td>
 								</tr>
 							<?php } ?>
 							</tbody>
@@ -116,7 +121,7 @@ $race = $oRace->getData();
 							</thead>
 							<tbody>
 							<?php
-							$horses = Apps::getModel($raceModel)->getHorsesEngaged($race['id']);
+							$horses = Apps::getModel($raceModel)->getRaceResult($race['id']);
 							foreach($horses as $item) {
 								?>
 								<tr class="">

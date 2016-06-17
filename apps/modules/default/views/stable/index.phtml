@@ -69,7 +69,7 @@ $chevauxDeEcurie = $oStable->getHorsesForStable();
                         <table class="table">
                             <thead>
                             <tr>
-                                <td class="a-left">Cheval</td><td>-</td><td>Prix</td><td>Distance</td><td>Place</td>
+                                <td class="a-left">Cheval</td><td>-</td><td>Prix</td><td>Place</td>
                             </tr>
                             </thead>
                             <tbody>
@@ -80,8 +80,7 @@ $chevauxDeEcurie = $oStable->getHorsesForStable();
                             <tr>
                                 <td class="a-left" data-placement="bottom" data-toggle="tooltip" type="button" data-original-title="<?php echo $lastRace['horse_name'] ?>"><?php echo Apps::getModel('Horse')->getName( substr($lastRace['horse_name'],0, 6), $lastRace['horse_id']) ?></td>
                                 <td><i class="fa ico-course-<?php echo $lastRace['code'] ?>"></i></td>
-                                <td class="a-left" data-placement="bottom" data-toggle="tooltip" type="button" data-original-title="<?php echo $lastRace['name'] ?>"><?php echo Apps::getModel('Race')->getName(substr($lastRace['name'],0,10), $lastRace['id']) ?></td>
-                                <td><?php echo $lastRace['lenght'] ?>m</td>
+                                <td class="a-left" data-placement="bottom" data-toggle="tooltip" type="button" data-original-title="<?php echo $lastRace['name'] ?>"><?php echo Apps::getModel('Race')->getName($lastRace['name'], $lastRace['id']) ?></td>
                                 <td><?php echo $lastRace['rang'] ?></td>
                             </tr>
                             <?php } ?>
@@ -220,7 +219,7 @@ $chevauxDeEcurie = $oStable->getHorsesForStable();
     <h1><i class="fa fa-object-group"></i> Chévaux en activité</h1>
     <div class="table-responsive">
         <?php
-        $activeHorse = $oStable->getActiveHorse($stable['id']);
+        $activeHorse = $oStable->getActiveHorse();
         if(count($activeHorse) > 0 ){
         ?>
         <table class="table">
