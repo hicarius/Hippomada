@@ -54,7 +54,7 @@ CREATE TABLE `gain_race_horse` (
 
 /*Data for the table `gain_race_horse` */
 
-insert  into `gain_race_horse`(`id`,`horse_id`,`carrer_race`,`carrer_win`,`carrer_placed`,`carrer_gain`,`year_race`,`year_win`,`year_placed`,`year_gain`,`mounth_race`,`mounth_win`,`mounth_placed`,`mounth_gain`) values (1,1,0,0,0,0,0,0,0,0,0,0,0,0),(2,2,0,0,0,0,0,0,0,0,0,0,0,0),(3,3,0,0,0,0,0,0,0,0,0,0,0,0),(4,4,0,0,0,0,0,0,0,0,0,0,0,0),(5,5,0,0,0,0,0,0,0,0,0,0,0,0),(6,6,0,0,0,0,0,0,0,0,0,0,0,0),(7,7,0,0,0,0,0,0,0,0,0,0,0,0),(8,8,0,0,0,0,0,0,0,0,0,0,0,0),(9,9,0,0,0,0,0,0,0,0,0,0,0,0),(10,10,0,0,0,0,0,0,0,0,0,0,0,0),(11,11,0,0,0,0,0,0,0,0,0,0,0,0),(12,12,0,0,0,0,0,0,0,0,0,0,0,0),(13,13,0,0,0,0,0,0,0,0,0,0,0,0),(14,14,0,0,0,0,0,0,0,0,0,0,0,0),(15,15,0,0,0,0,0,0,0,0,0,0,0,0),(16,16,0,0,0,0,0,0,0,0,0,0,0,0),(17,17,0,0,0,0,0,0,0,0,0,0,0,0),(18,18,0,0,0,0,0,0,0,0,0,0,0,0),(19,19,0,0,0,0,0,0,0,0,0,0,0,0),(20,20,0,0,0,0,0,0,0,0,0,0,0,0),(21,21,0,0,0,0,0,0,0,0,0,0,0,0),(22,22,0,0,0,0,0,0,0,0,0,0,0,0);
+insert  into `gain_race_horse`(`id`,`horse_id`,`carrer_race`,`carrer_win`,`carrer_placed`,`carrer_gain`,`year_race`,`year_win`,`year_placed`,`year_gain`,`mounth_race`,`mounth_win`,`mounth_placed`,`mounth_gain`) values (1,1,0,0,0,0,0,0,0,0,0,0,0,0),(2,2,0,0,0,0,0,0,0,0,0,0,0,0),(3,3,0,0,0,0,0,0,0,0,0,0,0,0),(4,4,0,0,0,0,0,0,0,0,0,0,0,0),(5,5,0,0,0,0,0,0,0,0,0,0,0,0),(6,6,0,0,0,0,0,0,0,0,0,0,0,0),(7,7,0,0,0,0,0,0,0,0,0,0,0,0),(8,8,0,0,0,0,0,0,0,0,0,0,0,0),(9,9,0,0,0,0,0,0,0,0,0,0,0,0),(10,10,0,0,0,0,0,0,0,0,0,0,0,0),(11,11,0,0,0,0,0,0,0,0,0,0,0,0),(12,12,0,0,0,0,0,0,0,0,0,0,0,0),(13,13,0,0,0,0,0,0,0,0,0,0,0,0),(14,14,0,0,0,0,0,0,0,0,0,0,0,0),(15,15,0,0,0,0,0,0,0,0,0,0,0,0),(16,16,1,1,0,25000,1,1,0,25000,1,1,0,25000),(17,17,1,0,0,7000,1,0,0,7000,1,0,0,7000),(18,18,1,1,0,9000,1,1,0,9000,1,1,0,9000),(19,19,0,0,0,0,0,0,0,0,0,0,0,0),(20,20,1,0,0,9000,1,0,0,9000,1,0,0,9000),(21,21,0,0,0,0,0,0,0,0,0,0,0,0),(22,22,0,0,0,0,0,0,0,0,0,0,0,0);
 
 /*Table structure for table `gain_race_stable` */
 
@@ -80,7 +80,7 @@ CREATE TABLE `gain_race_stable` (
 
 /*Data for the table `gain_race_stable` */
 
-insert  into `gain_race_stable`(`id`,`stable_id`,`carrer_race`,`carrer_win`,`carrer_placed`,`carrer_gain`,`year_race`,`year_win`,`year_placed`,`year_gain`,`mounth_race`,`mounth_win`,`mounth_placed`,`mounth_gain`) values (1,1,0,0,0,0,0,0,0,0,0,0,0,0),(2,2,0,0,0,0,0,0,0,0,0,0,0,0),(3,3,0,0,0,0,0,0,0,0,0,0,0,0),(4,4,0,0,0,0,0,0,0,0,0,0,0,0),(5,5,0,0,0,0,0,0,0,0,0,0,0,0),(6,6,0,0,0,0,0,0,0,0,0,0,0,0);
+insert  into `gain_race_stable`(`id`,`stable_id`,`carrer_race`,`carrer_win`,`carrer_placed`,`carrer_gain`,`year_race`,`year_win`,`year_placed`,`year_gain`,`mounth_race`,`mounth_win`,`mounth_placed`,`mounth_gain`) values (1,1,0,0,0,0,0,0,0,0,0,0,0,0),(2,2,4,2,0,50000,4,2,0,50000,4,2,0,50000),(3,3,0,0,0,0,0,0,0,0,0,0,0,0),(4,4,0,0,0,0,0,0,0,0,0,0,0,0),(5,5,0,0,0,0,0,0,0,0,0,0,0,0),(6,6,0,0,0,0,0,0,0,0,0,0,0,0);
 
 /*Table structure for table `horses` */
 
@@ -115,7 +115,7 @@ CREATE TABLE `horses` (
 
 /*Data for the table `horses` */
 
-insert  into `horses`(`id`,`name`,`proprio_id`,`trainer_id`,`eleveur_id`,`father_id`,`mother_id`,`age`,`robe`,`sexe`,`specialization`,`corde`,`gains`,`origine`,`quality`,`quality_production`,`production_price`,`evaluation_price`,`price`,`status`,`type`,`is_qualified`,`is_system`) values (1,'General de poummeau',5,5,5,0,0,15,'blanc','M','T','D',3500000,'France/Europe',10,5,125000,0,125000,0,2,1,1),(2,'Cocktail jet',5,5,5,0,0,12,'azelan','M','T','G',1200000,'France/Europe',8,3,50000,0,50000,0,2,1,1),(3,'Insert gÃ©dÃ©',5,5,5,0,0,15,'azelan','M','T','G',2575000,'France/Europe',7,2,25000,0,25000,0,2,1,1),(4,'Quitus de mexique',5,5,5,0,0,22,'noir','M','T','D',3256000,'France/Europe',7,5,125000,0,125000,0,2,1,1),(5,'Aleged',5,5,5,0,0,17,'noir','M','G','G',1745000,'France/Europe',8,3,50000,0,50000,0,2,1,1),(6,'Dolce vita',3,3,3,2,0,7,'blanc','F','T','D',574000,'France/Europe',3,3,50000,0,50000,0,3,1,1),(7,'Belle Diva',3,3,3,4,0,9,'azelan','F','T','G',125000,'France/Europe',3,5,125000,0,125000,0,3,1,1),(8,'La FranÃ§aise',5,5,5,3,0,12,'azelan','F','T','D',85740,'France/Europe',6,2,25000,0,25000,0,3,1,1),(9,'Itiqu Vita',3,3,3,5,0,9,'noir','F','G','D',75000,'France/Europe',6,3,50000,0,50000,0,3,1,1),(10,'Ksar',5,5,5,0,0,23,'azelan','M','G','D',3967410,'France/Europe',9,5,125000,0,125000,0,2,1,1),(11,'NoName36178',1,1,1,10,9,2,'azelan','F','G','D',0,'France/Europe',6,5,0,35000,35000,1,0,0,0),(12,'NoName18919',3,3,3,1,6,7,'blanc','F','T','G',0,'France/Europe',8,5,0,100000,100000,1,0,0,0),(13,'NoName33312',1,1,1,2,7,3,'azelan','F','T','G',0,'France/Europe',4,3,0,10000,10000,1,0,0,0),(14,'NoName51418',4,4,4,2,8,10,'azelan','M','T','G',0,'France/Europe',4,0,0,10000,10000,1,0,0,0),(15,'NoName49074',3,3,3,1,7,9,'azelan','F','T','D',0,'France/Europe',4,5,0,10000,10000,1,0,0,0),(16,'NoName72473',2,2,2,1,7,4,'blanc','M','T','D',0,'France/Europe',6,0,0,35000,35000,1,0,0,0),(17,'NoName65372',2,2,2,1,7,4,'noir','F','T','G',0,'France/Europe',5,5,0,15000,15000,1,0,0,0),(18,'NoName19660',2,2,2,1,7,6,'azelan','F','T','D',0,'France/Europe',9,5,0,250000,250000,1,0,0,0),(19,'NoName5953',3,3,3,4,6,8,'noir','M','T','G',0,'France/Europe',4,0,0,10000,10000,1,0,0,0),(20,'NoName6718',2,2,2,4,6,6,'blanc','M','T','G',0,'France/Europe',5,0,0,15000,15000,1,0,0,0),(21,'NoName86250',1,1,1,4,6,2,'noir','F','T','D',0,'France/Europe',7,5,0,75000,75000,1,0,0,0),(22,'NoName63235',3,3,3,4,6,9,'blanc','M','T','G',0,'France/Europe',3,0,0,5000,5000,1,0,0,0);
+insert  into `horses`(`id`,`name`,`proprio_id`,`trainer_id`,`eleveur_id`,`father_id`,`mother_id`,`age`,`robe`,`sexe`,`specialization`,`corde`,`gains`,`origine`,`quality`,`quality_production`,`production_price`,`evaluation_price`,`price`,`status`,`type`,`is_qualified`,`is_system`) values (1,'General de poummeau',5,5,5,0,0,15,'blanc','M','T','D',3500000,'France/Europe',10,5,125000,0,125000,0,2,1,1),(2,'Cocktail jet',5,5,5,0,0,12,'azelan','M','T','G',1200000,'France/Europe',8,3,50000,0,50000,0,2,1,1),(3,'Insert gÃ©dÃ©',5,5,5,0,0,15,'azelan','M','T','G',2575000,'France/Europe',7,2,25000,0,25000,0,2,1,1),(4,'Quitus de mexique',5,5,5,0,0,22,'noir','M','T','D',3256000,'France/Europe',7,5,125000,0,125000,0,2,1,1),(5,'Aleged',5,5,5,0,0,17,'noir','M','G','G',1745000,'France/Europe',8,3,50000,0,50000,0,2,1,1),(6,'Dolce vita',3,3,3,2,0,7,'blanc','F','T','D',574000,'France/Europe',3,3,50000,0,50000,0,3,1,1),(7,'Belle Diva',3,3,3,4,0,9,'azelan','F','T','G',125000,'France/Europe',3,5,125000,0,125000,0,3,1,1),(8,'La FranÃ§aise',5,5,5,3,0,12,'azelan','F','T','D',85740,'France/Europe',6,2,25000,0,25000,0,3,1,1),(9,'Itiqu Vita',3,3,3,5,0,9,'noir','F','G','D',75000,'France/Europe',6,3,50000,0,50000,0,3,1,1),(10,'Ksar',5,5,5,0,0,23,'azelan','M','G','D',3967410,'France/Europe',9,5,125000,0,125000,0,2,1,1),(11,'NoName36178',1,1,1,10,9,2,'azelan','F','G','D',0,'France/Europe',6,5,0,35000,35000,1,0,0,0),(12,'NoName18919',3,3,3,1,6,7,'blanc','F','T','G',0,'France/Europe',8,5,0,100000,100000,1,0,1,0),(13,'NoName33312',1,1,1,2,7,3,'azelan','F','T','G',0,'France/Europe',4,3,0,10000,10000,1,0,0,0),(14,'NoName51418',4,4,4,2,8,10,'azelan','M','T','G',0,'France/Europe',4,0,0,10000,10000,1,0,0,0),(15,'NoName49074',3,3,3,1,7,9,'azelan','F','T','D',0,'France/Europe',4,5,0,10000,10000,1,0,1,0),(16,'NoName72473',2,2,2,1,7,4,'blanc','M','T','D',25000,'France/Europe',6,0,0,35000,35000,1,0,1,0),(17,'NoName65372',2,2,2,1,7,4,'noir','F','T','G',7000,'France/Europe',5,5,0,15000,15000,1,0,1,0),(18,'NoName19660',2,2,2,1,7,6,'azelan','F','T','D',9000,'France/Europe',9,5,0,250000,250000,1,0,1,0),(19,'NoName5953',3,3,3,4,6,8,'noir','M','T','G',0,'France/Europe',4,0,0,10000,10000,1,0,1,0),(20,'NoName6718',2,2,2,4,6,6,'blanc','M','T','G',9000,'France/Europe',5,0,0,15000,15000,1,0,1,0),(21,'NoName86250',1,1,1,4,6,2,'noir','F','T','D',0,'France/Europe',7,5,0,75000,75000,1,0,0,0),(22,'NoName63235',3,3,3,4,6,9,'blanc','M','T','G',0,'France/Europe',3,0,0,5000,5000,1,0,1,0);
 
 /*Table structure for table `horses_caracteristique` */
 
@@ -128,16 +128,16 @@ CREATE TABLE `horses_caracteristique` (
   `itr_year` int(11) DEFAULT NULL,
   `btr` int(11) DEFAULT NULL,
   `trot_base` int(11) DEFAULT NULL,
-  `trot_current` int(11) DEFAULT NULL,
+  `trot_current` float(6,2) DEFAULT NULL,
   `trot_gene` int(11) DEFAULT NULL,
   `galop_base` int(11) DEFAULT NULL,
-  `galop_current` int(11) DEFAULT NULL,
+  `galop_current` float(6,2) DEFAULT NULL,
   `galop_gene` int(11) DEFAULT NULL,
   `endurance_base` int(11) DEFAULT NULL,
-  `endurance_current` int(11) DEFAULT NULL,
+  `endurance_current` float(6,2) DEFAULT NULL,
   `endurance_gene` int(11) DEFAULT NULL,
   `vitesse_base` int(11) DEFAULT NULL,
-  `vitesse_current` int(11) DEFAULT NULL,
+  `vitesse_current` float(6,2) DEFAULT NULL,
   `vitesse_gene` int(11) DEFAULT NULL,
   `physique` int(11) DEFAULT NULL,
   `fatigue` int(11) DEFAULT '0',
@@ -146,7 +146,7 @@ CREATE TABLE `horses_caracteristique` (
 
 /*Data for the table `horses_caracteristique` */
 
-insert  into `horses_caracteristique`(`id`,`horse_id`,`itr`,`itr_year`,`btr`,`trot_base`,`trot_current`,`trot_gene`,`galop_base`,`galop_current`,`galop_gene`,`endurance_base`,`endurance_current`,`endurance_gene`,`vitesse_base`,`vitesse_current`,`vitesse_gene`,`physique`,`fatigue`) values (1,1,177,NULL,100,60,253,100,0,295,100,60,263,100,60,264,100,100,0),(2,2,162,NULL,60,49,0,73,0,0,0,52,0,87,43,0,81,100,0),(3,3,156,NULL,75,42,153,100,0,241,0,46,103,100,36,141,100,100,0),(4,4,172,NULL,66,43,0,84,0,0,0,53,0,97,37,0,81,100,0),(5,5,163,NULL,56,0,0,0,51,296,87,42,185,57,48,410,78,100,0),(6,6,162,NULL,62,24,0,85,0,0,0,19,0,75,28,0,88,100,0),(7,7,172,NULL,39,15,0,44,0,0,0,29,0,67,21,0,46,100,0),(8,8,156,NULL,56,32,0,73,0,0,0,41,0,86,34,0,65,100,0),(9,9,163,NULL,67,0,0,0,30,0,90,41,0,85,36,0,92,100,0),(10,10,171,NULL,65,0,0,0,50,0,85,56,0,92,51,0,83,100,0),(11,11,171,NULL,83,0,0,0,38,83,87,37,82,78,37,82,84,100,0),(12,12,177,NULL,88,21,321,86,0,0,33,60,360,87,60,360,90,100,0),(13,13,162,NULL,73,25,105,67,0,0,0,31,111,84,24,104,69,100,0),(14,14,1,NULL,85,25,385,82,0,0,0,29,389,91,23,383,82,100,0),(15,15,177,NULL,80,26,346,76,0,0,33,30,350,88,25,345,76,100,0),(16,16,1,NULL,80,37,172,76,0,0,33,41,176,88,36,171,76,100,0),(17,17,177,NULL,80,30,150,76,0,0,33,34,154,88,29,149,76,100,0),(18,18,177,NULL,80,52,327,76,0,0,33,56,331,88,51,326,76,100,0),(19,19,1,NULL,83,27,307,81,0,0,0,32,312,86,26,306,83,100,0),(20,20,1,NULL,83,31,231,81,0,0,0,36,236,86,30,230,83,100,0),(21,21,172,NULL,83,41,86,81,0,0,0,46,91,86,40,85,83,100,0),(22,22,1,NULL,83,21,261,81,0,0,0,26,266,86,20,260,83,100,0);
+insert  into `horses_caracteristique`(`id`,`horse_id`,`itr`,`itr_year`,`btr`,`trot_base`,`trot_current`,`trot_gene`,`galop_base`,`galop_current`,`galop_gene`,`endurance_base`,`endurance_current`,`endurance_gene`,`vitesse_base`,`vitesse_current`,`vitesse_gene`,`physique`,`fatigue`) values (1,1,177,NULL,100,60,99.99,100,0,99.99,100,60,99.99,100,60,99.99,100,100,0),(2,2,162,NULL,60,49,0.00,73,0,0.00,0,52,0.00,87,43,0.00,81,100,0),(3,3,156,NULL,75,42,99.99,100,0,99.99,0,46,99.99,100,36,99.99,100,100,0),(4,4,172,NULL,66,43,0.00,84,0,0.00,0,53,0.00,97,37,0.00,81,100,0),(5,5,163,NULL,56,0,0.00,0,51,99.99,87,42,99.99,57,48,99.99,78,100,0),(6,6,162,NULL,62,24,0.00,85,0,0.00,0,19,0.00,75,28,0.00,88,100,0),(7,7,172,NULL,39,15,0.00,44,0,0.00,0,29,0.00,67,21,0.00,46,100,0),(8,8,156,NULL,56,32,0.00,73,0,0.00,0,41,0.00,86,34,0.00,65,100,0),(9,9,163,NULL,67,0,0.00,0,30,0.00,90,41,0.00,85,36,0.00,92,100,0),(10,10,171,NULL,65,0,0.00,0,50,0.00,85,56,0.00,92,51,0.00,83,100,0),(11,11,171,NULL,83,0,0.00,0,38,83.00,87,37,82.00,78,37,82.00,84,100,0),(12,12,177,NULL,88,21,99.99,86,0,0.00,33,60,99.99,87,60,100.49,90,80,20),(13,13,162,NULL,73,25,99.99,67,0,0.00,0,31,99.99,84,24,99.99,69,100,0),(14,14,1,NULL,85,25,99.99,82,0,0.00,0,29,99.99,91,23,99.99,82,100,0),(15,15,177,NULL,80,26,99.99,76,0,0.00,33,30,100.49,88,25,99.99,76,80,20),(16,16,1,NULL,80,37,99.99,76,0,0.00,33,41,100.31,88,36,99.99,76,80,20),(17,17,177,NULL,80,30,99.99,76,0,0.00,33,34,99.99,88,29,100.31,76,80,20),(18,18,177,NULL,80,52,99.99,76,0,0.00,33,56,100.99,88,51,99.99,76,60,20),(19,19,1,NULL,83,27,99.99,81,0,0.00,0,32,100.49,86,26,99.99,83,80,20),(20,20,1,NULL,83,31,100.49,81,0,0.00,0,36,99.99,86,30,100.49,83,80,20),(21,21,172,NULL,83,41,86.00,81,0,0.00,0,46,91.00,86,40,85.00,83,100,0),(22,22,1,NULL,83,21,99.99,81,0,0.00,0,26,100.49,86,20,99.99,83,80,20);
 
 /*Table structure for table `horses_training` */
 
@@ -255,14 +255,15 @@ CREATE TABLE `race_participant` (
   `is_recul` int(11) DEFAULT NULL,
   `cote` int(11) DEFAULT NULL,
   `rang` int(11) DEFAULT NULL,
+  `temps` varchar(50) DEFAULT NULL,
   `gain` int(11) DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 /*Data for the table `race_participant` */
 
-insert  into `race_participant`(`id`,`race_id`,`horse_id`,`jockey_id`,`numero`,`is_recul`,`cote`,`rang`,`gain`,`status`) values (1,1,17,NULL,NULL,NULL,NULL,NULL,NULL,0),(2,1,16,NULL,NULL,NULL,NULL,NULL,NULL,0),(3,1,20,NULL,NULL,NULL,NULL,NULL,NULL,0),(4,3,17,NULL,NULL,NULL,NULL,NULL,NULL,0),(5,3,16,NULL,NULL,NULL,NULL,NULL,NULL,0),(6,3,20,NULL,NULL,NULL,NULL,NULL,NULL,0);
+insert  into `race_participant`(`id`,`race_id`,`horse_id`,`jockey_id`,`numero`,`is_recul`,`cote`,`rang`,`temps`,`gain`,`status`) values (1,1,17,NULL,1,NULL,NULL,3,NULL,NULL,1),(2,1,16,NULL,2,NULL,NULL,1,NULL,NULL,1),(3,1,20,NULL,3,NULL,NULL,2,NULL,NULL,1),(4,2,18,NULL,1,NULL,NULL,1,NULL,NULL,1),(5,2,12,NULL,2,NULL,NULL,3,NULL,NULL,1),(6,2,19,NULL,3,NULL,NULL,1,NULL,NULL,1),(7,3,22,NULL,1,NULL,NULL,2,NULL,NULL,1),(8,3,15,NULL,2,NULL,NULL,1,NULL,NULL,1),(9,4,17,NULL,1,NULL,NULL,3,NULL,NULL,1),(10,4,20,NULL,2,NULL,NULL,2,NULL,NULL,1),(11,4,16,NULL,3,NULL,NULL,1,NULL,9000,1),(12,5,18,NULL,1,NULL,NULL,1,NULL,9000,1);
 
 /*Table structure for table `race_participant_tmp` */
 
@@ -276,11 +277,9 @@ CREATE TABLE `race_participant_tmp` (
   `is_recul` int(11) DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 /*Data for the table `race_participant_tmp` */
-
-insert  into `race_participant_tmp`(`id`,`race_tmp_id`,`horse_id`,`jockey_id`,`is_recul`,`status`) values (7,7,12,NULL,NULL,1),(8,6,19,NULL,NULL,1),(9,8,17,NULL,NULL,1),(10,8,16,NULL,NULL,1),(11,8,20,NULL,NULL,1),(13,8,18,NULL,NULL,1);
 
 /*Table structure for table `race_piste` */
 
@@ -341,11 +340,11 @@ CREATE TABLE `races` (
   `race_number` int(11) DEFAULT NULL,
   `race_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 /*Data for the table `races` */
 
-insert  into `races`(`id`,`category_id`,`name`,`lenght`,`type_id`,`hippodrome_id`,`piste_id`,`group_id`,`corde`,`price`,`recul_gain`,`recul_meter`,`max_gain`,`age_min`,`age_max`,`sexe`,`victory_price`,`status`,`created_at`,`meeting`,`race_number`,`race_date`) values (1,3,'Qualification A ',2000,2,4,1,5,'D',0,0,0,-1,3,10,'M,F','',2,'2016-06-16 16:49:17',1,1,'2016-06-16 00:00:00'),(2,3,'Qualification B ',2000,2,4,1,5,'D',0,0,0,-1,3,10,'M,F','',2,'2016-06-16 16:49:17',1,2,'2016-06-16 00:00:00'),(3,3,'Qualification A ',2000,2,4,1,5,'D',0,0,0,-1,3,10,'M,F','',2,'2016-06-16 16:50:15',1,3,'2016-06-16 00:00:00'),(4,3,'Qualification B ',2000,2,4,1,5,'D',0,0,0,-1,3,10,'M,F','',2,'2016-06-16 16:50:15',1,4,'2016-06-16 00:00:00');
+insert  into `races`(`id`,`category_id`,`name`,`lenght`,`type_id`,`hippodrome_id`,`piste_id`,`group_id`,`corde`,`price`,`recul_gain`,`recul_meter`,`max_gain`,`age_min`,`age_max`,`sexe`,`victory_price`,`status`,`created_at`,`meeting`,`race_number`,`race_date`) values (1,3,'Qualification A ',2000,1,1,1,5,'D',0,0,0,0,3,10,'M,F','',0,'2016-06-17 08:55:38',1,1,'2016-06-17 12:00:00'),(2,3,'Qualification B ',2000,1,1,1,5,'D',0,0,0,0,3,10,'M,F','',0,'2016-06-17 08:55:38',1,2,'2016-06-17 12:30:00'),(3,3,'Qualification C ',2000,1,1,1,5,'D',0,0,0,0,3,10,'M,F','',0,'2016-06-17 08:55:39',1,3,'2016-06-17 13:00:00'),(4,1,'Prix des Amoureux A ',2400,2,5,2,4,'G',250,0,0,0,4,6,'M,F','25000|9000|7000|5000|2500|1500',0,'2016-06-17 10:13:58',2,1,'2016-06-17 13:30:00'),(5,1,'Prix des Amoureux B ',2400,2,5,2,4,'G',250,0,0,0,4,6,'M,F','25000|9000|7000|5000|2500|1500',0,'2016-06-17 10:13:58',2,2,'2016-06-17 14:00:00');
 
 /*Table structure for table `races_tmp` */
 
@@ -374,11 +373,11 @@ CREATE TABLE `races_tmp` (
   `created_at` datetime DEFAULT NULL,
   `race_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 /*Data for the table `races_tmp` */
 
-insert  into `races_tmp`(`id`,`meeting`,`category_id`,`name`,`lenght`,`type_id`,`hippodrome_id`,`piste_id`,`group_id`,`corde`,`price`,`recul_gain`,`recul_meter`,`max_gain`,`age_min`,`age_max`,`sexe`,`victory_price`,`status`,`created_at`,`race_date`) values (1,1,3,'Qualifications',2000,2,1,1,5,'D',0,0,0,'-1',3,10,'M,F','',1,'2016-06-09 21:00:40','2016-06-09 00:00:00'),(2,1,4,'Qualifications Jockey/Driver',2000,2,1,2,5,'G',0,0,0,'-1',3,10,'M,F','',1,'2016-06-09 21:01:48','2016-06-09 00:00:00'),(3,2,1,'Prix de Zeus',2400,1,3,3,4,'D',100,0,0,'0',4,4,'M,F','18000|5000|3500|2000|1250|500',1,'2016-06-09 21:04:46','2016-06-09 00:00:00'),(4,2,1,'Prix d\'HadÃ¨s',2150,2,3,2,4,'G',10,0,0,'0',3,3,'M,F','18000|5000|3500|2000|1250|500',1,'2016-06-09 21:20:41','2016-06-09 00:00:00'),(5,1,1,'Prix Jean Jacques',2100,2,1,1,5,'G',500,0,0,'50000',4,4,'M,F','25000|9000|7000|5000|2500|1500',1,'2016-06-10 14:22:49','2016-06-14 00:00:00'),(6,1,1,'Prix de Montana',1800,2,2,2,5,'G',250,0,0,'0',4,8,'M','25000|9000|7000|5000|2500|1500',1,'2016-06-16 14:17:45','2016-06-18 00:00:00'),(7,1,1,'Prix d\'Arkansas',2540,1,2,3,5,'D',130,0,0,'12000',4,8,'F','25000|9000|7000|5000|2500|1500',1,'2016-06-16 14:19:13','2016-06-18 00:00:00'),(8,1,3,'Qualification',2000,2,4,1,5,'D',0,0,0,'-1',3,10,'M,F','',1,'2016-06-16 15:09:06','2016-06-16 00:00:00'),(9,1,3,'Qualification',2000,2,1,1,5,'D',0,0,0,'-1',3,10,'M,F','',1,'2016-06-16 15:36:32','2016-06-23 00:00:00');
+insert  into `races_tmp`(`id`,`meeting`,`category_id`,`name`,`lenght`,`type_id`,`hippodrome_id`,`piste_id`,`group_id`,`corde`,`price`,`recul_gain`,`recul_meter`,`max_gain`,`age_min`,`age_max`,`sexe`,`victory_price`,`status`,`created_at`,`race_date`) values (11,1,1,'Prix de Mont Blanc',2400,2,1,1,4,'D',150,0,0,'0',3,3,'M,F','6000|2500|1500|1000|750|250',1,'2016-06-17 08:43:56','2016-06-18 00:00:00');
 
 /*Table structure for table `saillies` */
 
@@ -418,7 +417,7 @@ CREATE TABLE `stables` (
 
 /*Data for the table `stables` */
 
-insert  into `stables`(`id`,`name`,`firstname`,`lastname`,`last_activity`,`country`,`continent`,`level`,`capital`,`banque`,`gold`,`email`,`password`) values (1,'Turfoland des 2/3 ans ','Benjamin','Gates','2016-06-08 08:10:51','France','Europe',3,300000,300000,5,'gates.benjamin@turfoland.com','e5672d625c2064615e69d21846cbda74'),(2,'Turfoland des 4/5/6 ans','Isaac','Iblou','2016-06-16 02:49:13','France','Europe',3,300000,300000,5,'iblou.isaac@turfoland.com','ff7824370af348209ad8474d488d6fc7'),(3,'Turfoland des 7/8/9 ans','Alexandre','Dupont','2016-06-16 02:48:17','France','Europe',3,300000,299620,5,'alex.dupont@turfoland.com','d43db12b94c641f769f66dbd62207492'),(4,'Turfoland des 10 ans','Pascal','Vozier','2016-06-08 09:06:46','France','Europe',3,300000,300000,5,'pascal.vozier@turfoland.com','bea14bb1a152167c9cdf0b4b580c7736'),(5,'Turfoland des Inactifs','Violette','Madison','2016-06-08 09:00:53','France','Europe',3,300000,300000,5,'madison.violette@turfoland.com','306fbc4f26ae3159c4f2292d30930eb4'),(6,'Maison Laffite','Alex','DuprÃ¨s','2016-06-16 02:47:57','France','Europe',0,300000,300000,5,'alex.dupres@turfoland.com','10a632cbbf80df92fb6b66671d6ac69d');
+insert  into `stables`(`id`,`name`,`firstname`,`lastname`,`last_activity`,`country`,`continent`,`level`,`capital`,`banque`,`gold`,`email`,`password`) values (1,'Turfoland des 2/3 ans ','Benjamin','Gates','2016-06-08 08:10:51','France','Europe',3,300000,300000,5,'gates.benjamin@turfoland.com','e5672d625c2064615e69d21846cbda74'),(2,'Turfoland des 4/5/6 ans','Isaac','Iblou','2016-06-17 02:19:07','France','Europe',3,300000,349000,5,'iblou.isaac@turfoland.com','ff7824370af348209ad8474d488d6fc7'),(3,'Turfoland des 7/8/9 ans','Alexandre','Dupont','2016-06-17 02:00:03','France','Europe',3,300000,299620,5,'alex.dupont@turfoland.com','d43db12b94c641f769f66dbd62207492'),(4,'Turfoland des 10 ans','Pascal','Vozier','2016-06-08 09:06:46','France','Europe',3,300000,300000,5,'pascal.vozier@turfoland.com','bea14bb1a152167c9cdf0b4b580c7736'),(5,'Turfoland des Inactifs','Violette','Madison','2016-06-17 02:09:45','France','Europe',3,300000,300000,5,'madison.violette@turfoland.com','306fbc4f26ae3159c4f2292d30930eb4'),(6,'Maison Laffite','Alex','DuprÃ¨s','2016-06-17 08:48:40','France','Europe',0,300000,300000,5,'alex.dupres@turfoland.com','10a632cbbf80df92fb6b66671d6ac69d');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
