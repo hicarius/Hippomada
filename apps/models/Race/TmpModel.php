@@ -158,7 +158,7 @@ class Race_TmpModel extends RaceModel
         if(!$horse['is_qualified']){
             $query .= " AND rt.category_id = 3";
         }else{
-            $query .= " AND rt.max_gain >= '{$horse['gains']}'";
+            $query .= " AND rt.max_gain >= {$horse['gains']}";
         }
 
         $stmt = Database::prepare($query);

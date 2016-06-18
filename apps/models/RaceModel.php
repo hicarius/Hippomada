@@ -454,36 +454,46 @@ class RaceModel extends Model_Abstract
         //Get gains
         $gains = explode('|', $race['victory_price']);
 
-        $horses = $this->getHorsesEngaged($raceId);
-
         //@todo : simulation du course à travailler
-        shuffle($horses);
+        $oSimulation = Apps::getModel('Simulation');
+        $horses = $oSimulation->setRace($race)
+                        ->run();
 
-        foreach($horses as $k => $horse){
+        foreach($horses as $k => $data){
+            $horse = Apps::getModel('Horse')->load($data['horse_id'], false);
+
             //get stable by horse
             $stable = Apps::getModel('Stable')->load($horse['proprio_id'])->getData();
 
             $rang = $k+1;
             $gain = isset($gains[$rang]) ? $gains[$rang] : 0 ;
 
-            $query = "UPDATE race_participant SET rang = $rang, status = 1, gain = '$gain' WHERE horse_id = {$horse['horse_id']}";
+            $query = "UPDATE race_participant SET
+                        rang = $rang,
+                        status = 1,
+                        gain = '$gain',
+                         resultat_string = '{$data['resultat_string']}',
+                         rk = '".addslashes($data['rk'])."',
+                         chrono = '".addslashes($data['chrono'])."',
+                         race_time = '{$data['race_time']}'
+                      WHERE race_id = {$raceId} AND horse_id = {$horse['id']}";
             Database::prepare($query)->execute();
 
             //Mise à jour horses_caracteristique (fatigue, physique, radom perf)
             $addPointPerf = $this->getAddPointPerf($horse);
-            $fatigue = 20;
+            $fatigue = ($data['resultat_string'] >= 100) ? 100 : $data['resultat_string'];
             $randomPerf = $addPointPerf['critere'];
             $additionalPerf =  $addPointPerf['value'];
             $query =  "UPDATE horses_caracteristique SET
                         $randomPerf = ($randomPerf + $additionalPerf),
-                        physique = (physique-20),
+                        physique = {$data['physique']},
                         fatigue = $fatigue
-                       WHERE horse_id = {$horse['horse_id']}";
+                       WHERE horse_id = {$horse['id']}";
             Database::prepare($query)->execute();
 
             if(!in_array($race['category_id'], array(3,4))){
                 //Mise à jour du horses (gains, réevaluation price, type(etal, poule) )
-                Database::prepare("UPDATE horses SET gains = (gains+$gain) WHERE id = {$horse['horse_id']}")->execute();
+                Database::prepare("UPDATE horses SET gains = (gains+$gain) WHERE id = {$horse['id']}")->execute();
                 //@todo : Mise à jour ITR, BTR
 
                 //Mise à jour du gain_race_horse
@@ -493,7 +503,7 @@ class RaceModel extends Model_Abstract
                     "carrer_race = (carrer_race+1), carrer_win = (carrer_win+$win), carrer_placed = (carrer_placed+$placed), carrer_gain = (carrer_gain+$gain), " .
                     "year_race = (year_race+1), year_win = (year_win+$win), year_placed = (year_placed+$placed), year_gain = (year_gain+$gain), " .
                     "mounth_race = (mounth_race+1), mounth_win = (mounth_win+$win), mounth_placed = (mounth_placed+$placed), mounth_gain = (mounth_gain+$gain)" .
-                    " WHERE horse_id = {$horse['horse_id']}";
+                    " WHERE horse_id = {$horse['id']}";
                 Database::prepare($query)->execute();
 
                 //Mise à jour du stable (banque, gains)
@@ -511,7 +521,7 @@ class RaceModel extends Model_Abstract
             }elseif($race['category_id'] == 3){
                 //Mise à jour du horses (is_qualified )
                 //@todo: ajout test sur temps atteint
-                Database::prepare("UPDATE horses SET is_qualified = 1 WHERE id = {$horse['horse_id']}")->execute();
+                Database::prepare("UPDATE horses SET is_qualified = 1 WHERE id = {$horse['id']}")->execute();
             }elseif($race['category_id'] == 4){
                 //@todo : mise à jour du jockey si temps atteint
             }

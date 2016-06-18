@@ -132,16 +132,16 @@
                         <?php
                         $performances = array(
                             'base' => array(
-                                array('name' => 'trot', 'min' => 0, 'max' => 60, 'value' => 60),
-                                array('name' => 'galop', 'min' => 0, 'max' => 60, 'value' => 60),
-                                array('name' => 'endurance', 'min' => 0, 'max' => 60, 'value' => 60),
-                                array('name' => 'vitesse', 'min' => 0, 'max' => 60, 'value' => 60),
+                                array('name' => 'trot', 'min' => 0, 'max' => 30, 'value' => 30),
+                                array('name' => 'galop', 'min' => 0, 'max' => 30, 'value' => 30),
+                                array('name' => 'endurance', 'min' => 0, 'max' => 30, 'value' => 30),
+                                array('name' => 'vitesse', 'min' => 0, 'max' => 45, 'value' => 45),
                             ),
                             'current' => array(
-                                array('name' => 'trot', 'min' => 0, 'max' => 750, 'value' => 0),
-                                array('name' => 'galop', 'min' => 0, 'max' => 750, 'value' => 0),
-                                array('name' => 'endurance', 'min' => 0, 'max' => 750, 'value' => 0),
-                                array('name' => 'vitesse', 'min' => 0, 'max' => 750, 'value' => 0),
+                                array('name' => 'trot', 'min' => 0, 'max' => 50, 'value' => 0),
+                                array('name' => 'galop', 'min' => 0, 'max' => 50, 'value' => 0),
+                                array('name' => 'endurance', 'min' => 0, 'max' => 50, 'value' => 0),
+                                array('name' => 'vitesse', 'min' => 0, 'max' => 65, 'value' => 0),
                             ),
                             'gene' => array(
                                 array('name' => 'trot', 'min' => 0, 'max' => 100, 'value' => 100),
@@ -243,16 +243,16 @@
                             </thead>
                             <?php
                             $arrayData = array(
-                                array('ecart' => 30, 'base' => 10),
-                                array('ecart' => 30, 'base' => 15),
-                                array('ecart' => 30, 'base' => 25),
-                                array('ecart' => 40, 'base' => 30),
-                                array('ecart' => 40, 'base' => 35),
-                                array('ecart' => 45, 'base' => 40),
-                                array('ecart' => 45, 'base' => 45),
-                                array('ecart' => 50, 'base' => 50),
-                                array('ecart' => 55, 'base' => 55),
-                                array('ecart' => 60, 'base' => 60),
+                                array('ecart' => 3.0, 'base' => 20),
+                                array('ecart' => 3.0, 'base' => 21.66),
+                                array('ecart' => 3.0, 'base' => 23.33),
+                                array('ecart' => 4.0, 'base' => 25),
+                                array('ecart' => 4.0, 'base' => 26.66),
+                                array('ecart' => 4.5, 'base' => 28.33),
+                                array('ecart' => 4.5, 'base' => 30),
+                                array('ecart' => 5.0, 'base' => 31.66),
+                                array('ecart' => 5.5, 'base' => 33.33),
+                                array('ecart' => 6, 'base' => 35),
                             );
                             ?>
                             <tbody>
@@ -263,7 +263,7 @@
                                 $base = $arrayItem['base'];
                                 for($i=1; $i <=10; $i++) {
                                 ?>
-                                    <td><?php echo $base ?> / <?php echo $base*4 ?></td>
+                                    <td><?php echo $base ?> / <?php echo $base*3 ?></td>
                                 <?php
                                     if( $i > 6){
                                         $base-=5;

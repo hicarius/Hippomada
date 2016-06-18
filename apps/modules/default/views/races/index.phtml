@@ -103,9 +103,8 @@ $meetings = Apps::getModel('Race')->getMeetingsAndRaceNumber($allRaces);
                                     <th>Cheval</th>
                                     <th>Cas.</th>
                                     <th>Sexe/Age</th>
-                                    <th>Entraineur</th>
-                                    <th>Jockey</th>
-                                    <th>Temps</th>
+                                    <th>Entraineur<br>Jockey</th>
+                                    <th>Temps<br><span class="rk">Red. km</span></th>
                                     <th>Gain</th>
                                 </tr>
                                 </thead>
@@ -121,9 +120,8 @@ $meetings = Apps::getModel('Race')->getMeetingsAndRaceNumber($allRaces);
                                         </td>
                                         <td>image</td>
                                         <td><?php echo $item['sexe'] ?>/<?php echo $item['age'] ?></td>
-                                        <td><?php echo $item['entraineur'] ?></td>
-                                        <td><?php echo $item['jockey'] ?></td>
-                                        <td><?php echo $item['temps'] ?></td>
+                                        <td><?php echo $item['entraineur'] ?><br><?php echo $item['jockey'] ?></td>
+                                        <td><?php echo $item['chrono'] ?><br><span class="rk"><?php echo $item['rk'] ?></span></td>
                                         <td><?php echo $item['gain'] ?></td>
                                     </tr>
                                 <?php } ?>

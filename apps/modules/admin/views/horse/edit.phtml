@@ -154,16 +154,16 @@
                         <?php
                         $performances = array(
                             'base' => array(
-                                array('name' => 'trot', 'min' => 0, 'max' => 120, 'value' => $data['trot_base'] ),
-                                array('name' => 'galop', 'min' => 0, 'max' => 120, 'value' => $data['galop_base'] ),
-                                array('name' => 'endurance', 'min' => 0, 'max' => 120, 'value' => $data['endurance_base']),
-                                array('name' => 'vitesse', 'min' => 0, 'max' => 120, 'value' => $data['vitesse_base']),
+                                array('name' => 'trot', 'min' => 0, 'max' => 30, 'value' => $data['trot_base'] ),
+                                array('name' => 'galop', 'min' => 0, 'max' =>30, 'value' => $data['galop_base'] ),
+                                array('name' => 'endurance', 'min' => 0, 'max' => 30, 'value' => $data['endurance_base']),
+                                array('name' => 'vitesse', 'min' => 0, 'max' => 45, 'value' => $data['vitesse_base']),
                             ),
                             'current' => array(
-                                array('name' => 'trot', 'min' => 0, 'max' => 1000, 'value' => $data['trot_current']),
-                                array('name' => 'galop', 'min' => 0, 'max' => 1000, 'value' => $data['galop_current']),
-                                array('name' => 'endurance', 'min' => 0, 'max' => 1000, 'value' => $data['endurance_current']),
-                                array('name' => 'vitesse', 'min' => 0, 'max' => 1000, 'value' => $data['vitesse_current']),
+                                array('name' => 'trot', 'min' => 0, 'max' => 50, 'value' => $data['trot_current']),
+                                array('name' => 'galop', 'min' => 0, 'max' => 50, 'value' => $data['galop_current']),
+                                array('name' => 'endurance', 'min' => 0, 'max' => 50, 'value' => $data['endurance_current']),
+                                array('name' => 'vitesse', 'min' => 0, 'max' => 50, 'value' => $data['vitesse_current']),
                             ),
                             'gene' => array(
                                 array('name' => 'trot', 'min' => 0, 'max' => 100, 'value' => $data['trot_gene']),
@@ -227,55 +227,7 @@
                         <?php } ?>
                     </div>
                 </div>
-                <div class="panel-footer" style="clear: both">
-                    <div>Génération des notes par rapport au total</div>
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th>Note (1 à 10)</th><th>1 ans</th><th>2 ans</th><th>3 ans</th><th>4 ans</th><th>5 ans</th>
-                                <th>6 ans</th><th>7 ans</th><th>8 ans</th><th>9 ans</th><th>10 ans</th>
-                            </tr>
-                            </thead>
-                            <?php
-                            $arrayData = array(
-                                array('ecart' => 30, 'base' => 10),
-                                array('ecart' => 30, 'base' => 15),
-                                array('ecart' => 30, 'base' => 25),
-                                array('ecart' => 40, 'base' => 30),
-                                array('ecart' => 40, 'base' => 35),
-                                array('ecart' => 45, 'base' => 40),
-                                array('ecart' => 45, 'base' => 45),
-                                array('ecart' => 50, 'base' => 50),
-                                array('ecart' => 55, 'base' => 55),
-                                array('ecart' => 60, 'base' => 60),
-                            );
-                            ?>
-                            <tbody>
-                            <?php foreach($arrayData as $key => $arrayItem) { ?>
-                                <tr>
-                                    <td><?php echo $key+1 ?> (+<?php echo $arrayItem['ecart'] ?>)</td>
-                                    <?php
-                                    $base = $arrayItem['base'];
-                                    for($i=1; $i <=10; $i++) {
-                                        ?>
-                                        <td><?php echo $base ?> / <?php echo $base*4 ?></td>
-                                        <?php
-                                        if( $i > 6){
-                                            $base-=5;
-                                        } else {
-                                            $base += $arrayItem['ecart'];
-                                        }
-                                    }
-                                    ?>
-
-                                </tr>
-                            <?php } ?>
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                
             </div>
         </form>
     </div>

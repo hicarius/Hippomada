@@ -450,3 +450,12 @@ span.perf-value > span {
     width: 40px;
     z-index: 100;
 }
+span.rk{
+    color: #2a840e;
+    font-size: 12px;
+}
+
+.table > thead > tr > th {
+    border-bottom: 2px solid #ddd;
+    vertical-align: top;
+}

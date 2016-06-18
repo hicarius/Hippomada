@@ -18,4 +18,16 @@ class RacesController extends Controller
 		$this->getView()->addVar('raceId', $raceId);
 		$this->getView()->addVar('isTemp', $isTemp);
 	}
+
+	public function simulate()
+	{
+		$this->setNoRender();
+		$oSimulation = Apps::getModel('Simulation');
+		$oRace = Apps::getModel('Race')->load(6, false);
+		$data = $oSimulation->setRace($oRace)
+					->run();
+
+		Debugger::dump($data);
+	}
+
 }

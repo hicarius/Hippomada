@@ -198,12 +198,11 @@ class RaceController extends Controller
         $this->getView()->redirect('/admin/race/indexTmp/');
     }
 
+
     public function simulation()
     {
         $this->setNoRender();
         $id = $this->getRequest()->getParam('id');
-
         Apps::getModel('Race')->simulate($id);
-        //$this->getView()->redirect('/admin/race/index/');
     }
 }

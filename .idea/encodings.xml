@@ -1,32 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
-    <file url="file://$PROJECT_DIR$/apps/models/HorseModel.php" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/apps/models/Race/TmpModel.php" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/apps/models/RaceModel.php" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/apps/models/StableModel.php" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/apps/modules/admin/views/horse/createauto.phtml" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/apps/modules/admin/views/horse/createmanual.phtml" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/apps/modules/admin/views/horse/edit.phtml" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/apps/modules/admin/views/horse/index.phtml" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/apps/modules/admin/views/race/category.phtml" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/apps/modules/admin/views/race/createTmp.phtml" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/apps/modules/admin/views/race/createauto.phtml" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/apps/modules/admin/views/race/createmanual.phtml" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/apps/modules/admin/views/race/createmanual2.phtml" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/apps/modules/admin/views/race/edit.phtml" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/apps/modules/admin/views/race/editTmp.phtml" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/apps/modules/admin/views/race/group.phtml" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/apps/modules/admin/views/race/hippo.phtml" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/apps/modules/admin/views/race/index.phtml" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/apps/modules/admin/views/race/indexTmp.phtml" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/apps/modules/admin/views/race/piste.phtml" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/apps/modules/admin/views/race/type.phtml" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/apps/modules/admin/views/stable/create.phtml" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/apps/modules/default/views/horse/validRaceForEngagement.phtml" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/apps/modules/default/views/horse/view.phtml" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/apps/modules/default/views/races/view.phtml" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/apps/modules/default/views/stable/index.phtml" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/apps/modules/default/views/stable/view.phtml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/apps/models/SimulationModel.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/apps/modules/default/controllers/RacesController.php" charset="UTF-8" />
   </component>
 </project>
