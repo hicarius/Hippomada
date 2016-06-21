@@ -37,6 +37,9 @@ $horse = $oHorse->getData();
 					<span class="col-xs-7"><b>Robe :</b></span><span class="col-xs-5"><?php echo (is_null($horse['robe'])) ? '-' : ucfirst($horse['robe']); ?></span>
 				</li>
 				<li>
+					<span class="col-xs-7"><b>Corde :</b></span><span class="col-xs-5"><?php echo ($horse['corde']=='G') ? 'Gauche' : 'Droite'; ?></span>
+				</li>
+				<li>
 					<span class="col-xs-7"><b>Valeur :</b></span><span class="col-xs-5"><?php echo number_format($horse['price'], 0, '.', ' ') ?> <?php echo Text::__('turfoos') ?></span>
 				</li>
 				<li>

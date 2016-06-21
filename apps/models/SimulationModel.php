@@ -110,6 +110,11 @@ class SimulationModel extends Model_Abstract
             $vitesse -=0.3;
         }
 
+        //Préférence corde
+        if($oHorse->getData('corde') != $this->_race['corde'] ){
+            $vitesse -=0.3;
+        }
+
         //vitesse en 100m / seconde
         $vitesse = (60*100) / (($vitesse*1000)/60);
 
