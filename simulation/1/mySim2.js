@@ -6,7 +6,6 @@ function init() {
     stage = new createjs.Stage(document.getElementById("raceCanvas"));
     w = stage.canvas.width;
     h = stage.canvas.height;
-    middleCanvas = w/2;
 
     loader = new createjs.LoadQueue(false);
     loader.addEventListener("complete", loadComplete);
@@ -30,16 +29,54 @@ function loadComplete()
     //cheval en course
     $.each(race.horses, function(i, item){
         //création du chéval
-        createHorse( item, firstLine + i );
+        var horsesData = {
+            framerate: item.b_framerate,
+            images: ["../images/" + race.type + "/50Horse" + item.color + ".png"],
+            frames: {"width": 160, "height": 120, "count": 12},
+            animations: {}
+        };
+
+        horseObject = createHorse(horsesData, firstLine + i);
     });
 
     text = new createjs.Text("Dist. : " + distance, "20px Arial", "#ff7700");
-    text.y = 20;
+    text.y = 100;
     text.textBaseline = "alphabetic";
     stage.addChild(text);
 
-    createjs.Ticker.setFPS(60);
+    createjs.Ticker.setFPS(30);
     createjs.Ticker.addEventListener("tick", handleTick);
+}
+
+function handleTick(event)
+{
+    if( hasHorseMiddle() ){
+        generateHorseVitesse(horseFirst);
+        var deltaS = event.delta / 1000;
+        ground.x = (ground.x - deltaS * 150) % ground.tileW;
+        rail.x = (rail.x - deltaS * 150) % rail.tileW;
+        rail2.x = (rail2.x - deltaS * 110) % rail2.tileW;
+        tree.x = (tree.x - deltaS * 80) % tree.tileW;
+        sky.x = (sky.x - deltaS * 3) % sky.tileW;
+
+    }else{
+        $.each(horses, function(i, item){
+            item.x += 2;
+            horseUp[item.id] = false;
+        });
+    }
+
+    synchronizeHorseObject();
+
+    //distance
+    text.text = "Dist. : " + distance + "/" + maxDistance + "m";
+    if(count%6 == 0) {
+        distance++;
+    }
+    count++;
+
+    stage.update(event);
+
 }
 
 function createScene()
@@ -81,14 +118,10 @@ function createScene()
 function createHorse(data, begin)
 {
     //Horse sprite
-    var horse = new createjs.SpriteSheet({
-        framerate: data.framerate * multiplicateurVitesse,
-        images: ["../images/" + race.type + "/50Horse" + data.color + ".png"],
-        frames: {"width": 160, "height": 120, "count": 12},
-        animations: {}
-    });
+    var horse = new createjs.SpriteSheet(data);
     var horseSprite = new createjs.Sprite(horse, "run");
     horseSprite.y = begin;
+    horseSprite.spriteSheet.framerate += (horseSprite.id+3);
     horses.push(horseSprite);
 
     //Jockey casaque sprite
@@ -136,49 +169,6 @@ function createHorse(data, begin)
     stage.addChild(numberSprite);
 }
 
-function handleTick(event)
-{
-    if(middleReach == false) {
-        $.each(horses, function (i, item) {
-            if (item.x <= middleCanvas && middleReach == false) {
-                item.x += race.horses[i].vitesse[0] * 3;
-                currentVitesse[i] = race.horses[i].vitesse[0];
-            } else {
-                if(middleReach == false) {
-                    middleReach = true;
-                    horseFirst = item;
-                }
-            }
-        });
-    }
-
-    if( middleReach  ){
-        generateHorseVitesse();
-        animationScene(event);
-    }
-
-    synchronizeHorseObject();
-
-    //Debugger
-    text.text = "Dist. : " + distance + "/" + race.lenght + "m \n";
-    text.text += "cv-h1 : " + currentVitesse[0] + " / lv-h1 : " + lastVitesse[0] + " / x : " + horses[0].x + " / y: " + horses[0].y + " \n";
-    text.text += "cv-h2 : " + currentVitesse[1] + " / lv-h2 : " + lastVitesse[1] + " / x : " + horses[1].x + " / y: " + horses[1].y + " \n";
-    text.text += "cv-h3 : " + currentVitesse[2] + " / lv-h3 : " + lastVitesse[2] + " / x : " + horses[2].x + " / y: " + horses[2].y + " \n";
-
-    //distance
-    if(count%8 == 0) {
-        distance++;
-        updateDistance = true
-    }else{
-        updateDistance = false;
-    }
-
-    count++;
-
-    stage.update(event);
-
-}
-
 function synchronizeHorseObject(){
     $.each(horses, function(i, item){
         casaques[i].x = item.x;
@@ -186,17 +176,6 @@ function synchronizeHorseObject(){
         numbers[i].x = item.x;
     });
 }
-
-function animationScene(event)
-{
-    var deltaS = event.delta / 1000 * multiplicateurVitesse;
-    ground.x = (ground.x - deltaS * 150) % ground.tileW;
-    rail.x = (rail.x - deltaS * 150) % rail.tileW;
-    rail2.x = (rail2.x - deltaS * 110) % rail2.tileW;
-    tree.x = (tree.x - deltaS * 80) % tree.tileW;
-    sky.x = (sky.x - deltaS * 3) % sky.tileW;
-}
-
 /**
  * @FIN : LES FONCTIONS POPUR AFFICHAGE DU CANVAS
  */
@@ -206,72 +185,41 @@ function animationScene(event)
 /**
  * @DEBUT : LES FONCTIONS NECESSAIRES POUR SIMULER LA COURSE
  */
+function hasHorseMiddle()
+{
+    if(middleReach == false) {
+        $.each(horses, function (i, item) {
+            if (item.x <= middleCanvas && middleReach == false) {
+                item.x += item.spriteSheet.framerate - item.id;
+            } else {
+                middleReach = true;
+                horseFirst = item;
+            }
+        });
+    }
+    return middleReach;
+}
+
 function generateHorseVitesse()
 {
-    ecartP[0] = false;
     $.each(horses, function(i, item){
-        var ecart;
-        if(distance%100 == 0){
-            if( updateDistance == true) {
-                lastVitesse[i] = currentVitesse[i];
-                currentVitesse[i] = race.horses[i].vitesse[distance];
-            }
-        }
-
-        // si nouvelle vitesse inférieur à l'anciene
-        if(lastVitesse[i] < currentVitesse[i]){
-            ecart = (currentVitesse[i] - lastVitesse[i])/5;
-
-            // si cheval n'est pas le premier
-            if(item.id != horseFirst.id){
-                // reduction du course avec l'ecart
-                item.x -= ecart;
+        if(item.id != horseFirst.id){
+            if(item.x > -200 && horseUp[item.id] == false){
+                item.x -= 4;
             }else{
-                ecartP[0] = true;
-                ecartP[1] = ecart;
-                ecartP[2] = '+';
-                ecartP[3] = currentVitesse[i];
-            }
-
-
-            // sinon
-        }else if(lastVitesse[i] > currentVitesse[i]){
-            ecart = (lastVitesse[i] - currentVitesse[i])/5;
-
-            // si cheval n'est pas le premier
-            if(item.id != horseFirst.id){
-                // augmentation du course avec l'ecart
-                item.x += ecart;
-            }else{
-                ecart = (lastVitesse[i] - currentVitesse[i])/5;
-                //si premier
-                ecartP[0] = true;
-                ecartP[1] = ecart;
-                ecartP[2] = '-';
-                ecartP[3] = currentVitesse[i];
-            }
-        }
-
-        if(ecartP[0] == true){
-            $.each(horses, function(i, item){
-                if(item.id != horseFirst.id){
-                    if(ecartP[3] > currentVitesse[i]) { //si first vitesse > current vitesse
-                        item.x -= (ecartP[3] - currentVitesse[i])/5;
-                    }else if(ecartP[3] < currentVitesse[i]) { //si first vitesse > current vitesse
-                        item.x += (currentVitesse[i] - ecartP[3])/3;
-                    }
-
+                item.x += 4;
+                if(horseUp[item.id] == false || horseUp[item.id] == null){
+                    horseUp[item.id] = true;
                 }
-            });
-        }
 
-
-        if(item.x >= middleCanvas){
-            horseFirst = item;
+                if(item.x > middleCanvas && middleReach == true) {
+                    item.x =  middleCanvas;
+                    horseFirst = item;
+                    horseUp[item.id] = false;
+                }
+            }
         }
     });
-
-
 }
 
 /**
