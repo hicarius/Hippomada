@@ -24,16 +24,16 @@ function init() {
 
 function loadComplete()
 {
-    //cr�ation du sc�ne
+    //création du scène
     createScene();
 
     //cheval en course
     $.each(race.horses, function(i, item){
-        //cr�ation du ch�val
+        //création du chéval
         createHorse( item, firstLine + i );
     });
 
-    text = new createjs.Text("Dist. : " + distance, "20px Arial", "#ff7700");
+    text = new createjs.Text("", "20px Arial", "#ff7700");
     text.y = 20;
     text.textBaseline = "alphabetic";
     stage.addChild(text);
@@ -117,10 +117,10 @@ function createHorse(data, begin)
     pantSprite.spriteSheet.framerate = horseSprite.spriteSheet.framerate; //synchronisation avec horse.framerate
     pants.push(pantSprite);
 
-    //Ajout des sprites (horse, casaque, jockeys) dans la sc�ne
+    //Ajout des sprites (horse, casaque, jockeys) dans la scène
     stage.addChild(horseSprite,casaqueSprite, pantSprite);
 
-    //num�ro du ch�val dans la course
+    //numéro du chéval dans la course
     var number =  new createjs.SpriteSheet(
         {
             images: ["../images/galop/50Unit_" +  (horses.length) + ".png"],
@@ -134,6 +134,8 @@ function createHorse(data, begin)
     numbers.push(numberSprite);
 
     stage.addChild(numberSprite);
+
+    distance.push({l:0, c:0, f:false}); //l: lenght, c: current key, f: is updated
 }
 
 function handleTick(event)
@@ -141,8 +143,9 @@ function handleTick(event)
     if(middleReach == false) {
         $.each(horses, function (i, item) {
             if (item.x <= middleCanvas && middleReach == false) {
-                item.x += race.horses[i].vitesse[0] * 3;
+                item.x += race.horses[i].vitesse[0] * 30;
                 currentVitesse[i] = race.horses[i].vitesse[0];
+                distance[i].l += currentVitesse[i];
             } else {
                 if(middleReach == false) {
                     middleReach = true;
@@ -160,20 +163,15 @@ function handleTick(event)
     synchronizeHorseObject();
 
     //Debugger
-    text.text = "Dist. : " + distance + "/" + race.lenght + "m \n";
-    text.text += "cv-h1 : " + currentVitesse[0] + " / lv-h1 : " + lastVitesse[0] + " / x : " + horses[0].x + " / y: " + horses[0].y + " \n";
-    text.text += "cv-h2 : " + currentVitesse[1] + " / lv-h2 : " + lastVitesse[1] + " / x : " + horses[1].x + " / y: " + horses[1].y + " \n";
-    text.text += "cv-h3 : " + currentVitesse[2] + " / lv-h3 : " + lastVitesse[2] + " / x : " + horses[2].x + " / y: " + horses[2].y + " \n";
+    text.text = "Dist. : " + race.lenght + "m \n";
+    if( race.horses.length >= 1)
+        text.text += "cv-h1 : " + currentVitesse[0] + " / lv-h1 : " + lastVitesse[0] + " / x : " + horses[0].x + " / y: " + horses[0].y + " / dist1 : " + distance[0].l + "\n";
 
-    //distance
-    if(count%8 == 0) {
-        distance++;
-        updateDistance = true
-    }else{
-        updateDistance = false;
-    }
+    if( race.horses.length >= 2)
+        text.text += "cv-h2 : " + currentVitesse[1] + " / lv-h2 : " + lastVitesse[1] + " / x : " + horses[1].x + " / y: " + horses[1].y + " / dist2 : " + distance[1].l + "\n";
 
-    count++;
+    if( race.horses.length >= 3)
+        text.text += "cv-h3 : " + currentVitesse[2] + " / lv-h3 : " + lastVitesse[2] + " / x : " + horses[2].x + " / y: " + horses[2].y + " / dist3 : " + distance[2].l + "\n";
 
     stage.update(event);
 
@@ -211,21 +209,22 @@ function generateHorseVitesse()
     ecartP[0] = false;
     $.each(horses, function(i, item){
         var ecart;
-        if(distance%100 == 0){
-            if( updateDistance == true) {
-                lastVitesse[i] = currentVitesse[i];
-                currentVitesse[i] = race.horses[i].vitesse[distance];
-            }
+        testDistance(i);
+        if( distance[i].f == true && distance[i].c % 100 ==0 ){
+            lastVitesse[i] = currentVitesse[i];
+            currentVitesse[i] = race.horses[i].vitesse[distance[i].c];
         }
 
-        // si nouvelle vitesse inf�rieur � l'anciene
+        distance[i].l += currentVitesse[i];
+
+        // si nouvelle vitesse inférieur à l'anciene
         if(lastVitesse[i] < currentVitesse[i]){
-            ecart = (currentVitesse[i] - lastVitesse[i])/5;
+            ecart = currentVitesse[i] - lastVitesse[i];
 
             // si cheval n'est pas le premier
             if(item.id != horseFirst.id){
                 // reduction du course avec l'ecart
-                item.x -= ecart;
+                item.x += ecart;
             }else{
                 ecartP[0] = true;
                 ecartP[1] = ecart;
@@ -236,14 +235,14 @@ function generateHorseVitesse()
 
             // sinon
         }else if(lastVitesse[i] > currentVitesse[i]){
-            ecart = (lastVitesse[i] - currentVitesse[i])/5;
+            ecart = lastVitesse[i] - currentVitesse[i];
 
             // si cheval n'est pas le premier
             if(item.id != horseFirst.id){
                 // augmentation du course avec l'ecart
-                item.x += ecart;
+                item.x -= ecart;
             }else{
-                ecart = (lastVitesse[i] - currentVitesse[i])/5;
+                ecart = lastVitesse[i] - currentVitesse[i];
                 //si premier
                 ecartP[0] = true;
                 ecartP[1] = ecart;
@@ -256,9 +255,9 @@ function generateHorseVitesse()
             $.each(horses, function(i, item){
                 if(item.id != horseFirst.id){
                     if(ecartP[3] > currentVitesse[i]) { //si first vitesse > current vitesse
-                        item.x -= (ecartP[3] - currentVitesse[i])/5;
-                    }else if(ecartP[3] < currentVitesse[i]) { //si first vitesse > current vitesse
-                        item.x += (currentVitesse[i] - ecartP[3])/3;
+                        item.x -= ecartP[3] - currentVitesse[i];
+                    }else if(ecartP[3] < currentVitesse[i]) { //si first vitesse < current vitesse
+                        item.x += currentVitesse[i] - ecartP[3];
                     }
 
                 }
@@ -271,7 +270,45 @@ function generateHorseVitesse()
         }
     });
 
+}
 
+function testDistance(i)
+{
+    $.each( distanceArray, function(x, item){
+        distance[i].f = false;
+        if(distance[i].c != item) {
+            if (distance[i].l >= item && distance[i].l < distanceArray[x + 1]) {
+                distance[i].c = item;
+                distance[i].f = true;
+                return false;
+            }
+        }
+    });
+}
+
+
+var centi = 0; // initialise les dixtièmes
+var secon = 0; //initialise les secondes
+var minu = 0; //initialise les minutes
+
+function chrono(){
+    centi++; //incrémentation des dixièmes de 1
+    if (centi > 9){centi = 0;secon++} //si les dixièmes > 9, on les réinitialise à 0 et on incrémente les secondes de 1
+    if (secon >59){secon = 0;minu++} //si les secondes > 59, on les réinitialise à 0 et on incrémente les minutes de 1
+    document.forsec.secc.value = " "+centi; //on affiche les dixièmes
+    document.forsec.seca.value = " "+secon; //on affiche les secondes
+    document.forsec.secb.value = " "+minu; //on affiche les minutes
+    compte = setTimeout('chrono()',100); //la fonction est relancée tous les 10° de secondes
+}
+
+function rasee(){ //fonction qui remet les compteurs à 0
+    clearTimeout(compte); //arrête la fonction chrono()
+    centi=0;
+    secon=0;
+    minu=0;
+    document.forsec.secc.value=" "+centi;
+    document.forsec.seca.value=" "+secon;
+    document.forsec.secb.value=" "+minu;
 }
 
 /**
