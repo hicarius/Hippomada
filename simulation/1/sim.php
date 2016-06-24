@@ -12,15 +12,15 @@
 		<script>
 			var stage, w, h, loader;
 			var sky, hill, hill1, ground2, rail, ground;
-			var horses = [], casaques = [], pants = [], numbers = [], horseFirst, lastVitesse = [], currentVitesse = [];
+			var horses = [], casaques = [], pants = [], numbers = [], horseFirst, lastVitesse = [], currentVitesse = [], bVitesse = [];
 			var middleReach = false;
 			var horseUp = [];
 			var middleCanvas;
 			var firstLine;
-			var distance = [], distanceArray = [];
+			var distance = [], distanceArray = [], curDistance = [];
 			var text ;
 			var distImg;
-			var multiplicateurVitesse = 2, ecartP = [false, 0];
+			var multiplicateurVitesseEcart = 5, multiplicateurVitesse = 2, ecartP = [false, 0];
 
 			/**
 			 * 0.2 : 812m/min

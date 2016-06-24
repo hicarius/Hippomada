@@ -89,7 +89,9 @@ function createHorse(data, begin)
     });
     var horseSprite = new createjs.Sprite(horse, "run");
     horseSprite.y = begin;
+    horseSprite.x = (w/2) - 200;
     horses.push(horseSprite);
+    bVitesse.push(data.vitesse[0]);
 
     //Jockey casaque sprite
     var casaque =  new createjs.SpriteSheet(
@@ -141,11 +143,26 @@ function createHorse(data, begin)
 function handleTick(event)
 {
     if(middleReach == false) {
+        animationScene(event);
         $.each(horses, function (i, item) {
             if (item.x <= middleCanvas && middleReach == false) {
-                item.x += race.horses[i].vitesse[0] * 30;
-                currentVitesse[i] = race.horses[i].vitesse[0];
+                testDistance(i);
+                if( distance[i].f == true && distance[i].c % 100 ==0 ){
+                    lastVitesse[i] = currentVitesse[i];
+                    currentVitesse[i] = race.horses[i].vitesse[distance[i].c];
+                }else{
+                    currentVitesse[i] = race.horses[i].vitesse[0];
+                }
+
+                var maxV = Math.max.apply(null, currentVitesse);
+                if(maxV > currentVitesse[i]){
+                    item.x -= (maxV + currentVitesse[i])*multiplicateurVitesseEcart ;
+                }else if(maxV == currentVitesse[i]){
+                    item.x += race.horses[i].vitesse[0]*multiplicateurVitesseEcart ;
+                }
+
                 distance[i].l += currentVitesse[i];
+                curDistance[i] = distance[i].l;
             } else {
                 if(middleReach == false) {
                     middleReach = true;
@@ -153,11 +170,28 @@ function handleTick(event)
                 }
             }
         });
-    }
+    }else{
+        if( Math.max.apply(null, curDistance) > race.lenght ){
+            $.each(horses, function (i, item) {
+                testDistance(i);
+                if( distance[i].f == true && distance[i].c % 100 ==0 ){
+                    lastVitesse[i] = currentVitesse[i];
+                    currentVitesse[i] = race.horses[i].vitesse[distance[i].c];
+                }else{
+                    currentVitesse[i] = race.horses[i].vitesse[0];
+                }
+                if(distance[i].l < 300){
+                    item.x += (currentVitesse[i]*multiplicateurVitesseEcart)*10 ;
+                    distance[i].l += currentVitesse[i];
+                }
 
-    if( middleReach  ){
-        generateHorseVitesse();
-        animationScene(event);
+            });
+        }else{
+            if( middleReach  ){
+                generateHorseVitesse();
+            }
+            animationScene(event);
+        }
     }
 
     synchronizeHorseObject();
@@ -208,65 +242,78 @@ function generateHorseVitesse()
 {
     ecartP[0] = false;
     $.each(horses, function(i, item){
-        var ecart;
-        testDistance(i);
-        if( distance[i].f == true && distance[i].c % 100 ==0 ){
-            lastVitesse[i] = currentVitesse[i];
-            currentVitesse[i] = race.horses[i].vitesse[distance[i].c];
-        }
-
-        distance[i].l += currentVitesse[i];
-
-        // si nouvelle vitesse inférieur à l'anciene
-        if(lastVitesse[i] < currentVitesse[i]){
-            ecart = currentVitesse[i] - lastVitesse[i];
-
-            // si cheval n'est pas le premier
-            if(item.id != horseFirst.id){
-                // reduction du course avec l'ecart
-                item.x += ecart;
-            }else{
-                ecartP[0] = true;
-                ecartP[1] = ecart;
-                ecartP[2] = '+';
-                ecartP[3] = currentVitesse[i];
+        if( distance[i].l < 100){
+            var maxV = Math.max.apply(null, bVitesse);
+            if(maxV > bVitesse[i]){
+                item.x -= (maxV + bVitesse[i])*multiplicateurVitesseEcart ;
+            }else if(maxV == bVitesse[i]){
+                item.x += bVitesse[i]*multiplicateurVitesseEcart ;
             }
 
-
-            // sinon
-        }else if(lastVitesse[i] > currentVitesse[i]){
-            ecart = lastVitesse[i] - currentVitesse[i];
-
-            // si cheval n'est pas le premier
-            if(item.id != horseFirst.id){
-                // augmentation du course avec l'ecart
-                item.x -= ecart;
-            }else{
-                ecart = lastVitesse[i] - currentVitesse[i];
-                //si premier
-                ecartP[0] = true;
-                ecartP[1] = ecart;
-                ecartP[2] = '-';
-                ecartP[3] = currentVitesse[i];
+            distance[i].l += bVitesse[i];
+            curDistance[i] = distance[i].l;
+        }else {
+            var ecart;
+            testDistance(i);
+            if (distance[i].f == true && distance[i].c % 100 == 0) {
+                lastVitesse[i] = currentVitesse[i];
+                currentVitesse[i] = race.horses[i].vitesse[distance[i].c];
             }
-        }
 
-        if(ecartP[0] == true){
-            $.each(horses, function(i, item){
-                if(item.id != horseFirst.id){
-                    if(ecartP[3] > currentVitesse[i]) { //si first vitesse > current vitesse
-                        item.x -= ecartP[3] - currentVitesse[i];
-                    }else if(ecartP[3] < currentVitesse[i]) { //si first vitesse < current vitesse
-                        item.x += currentVitesse[i] - ecartP[3];
-                    }
+            distance[i].l += currentVitesse[i];
+            curDistance[i] = distance[i].l;
 
+            // si nouvelle vitesse inférieur à l'anciene
+            if (lastVitesse[i] < currentVitesse[i]) {
+                ecart = currentVitesse[i] - lastVitesse[i];
+
+                // si cheval n'est pas le premier
+                if (item.id != horseFirst.id) {
+                    // reduction du course avec l'ecart
+                    item.x += ecart * multiplicateurVitesseEcart;
+                } else {
+                    ecartP[0] = true;
+                    ecartP[1] = ecart;
+                    ecartP[2] = '+';
+                    ecartP[3] = currentVitesse[i];
                 }
-            });
-        }
 
 
-        if(item.x >= middleCanvas){
-            horseFirst = item;
+                // sinon
+            } else if (lastVitesse[i] > currentVitesse[i]) {
+                ecart = lastVitesse[i] - currentVitesse[i];
+
+                // si cheval n'est pas le premier
+                if (item.id != horseFirst.id) {
+                    // augmentation du course avec l'ecart
+                    item.x -= ecart * multiplicateurVitesseEcart;
+                } else {
+                    ecart = lastVitesse[i] - currentVitesse[i];
+                    //si premier
+                    ecartP[0] = true;
+                    ecartP[1] = ecart;
+                    ecartP[2] = '-';
+                    ecartP[3] = currentVitesse[i];
+                }
+            }
+
+            if (ecartP[0] == true) {
+                $.each(horses, function (i, item) {
+                    if (item.id != horseFirst.id) {
+                        if (ecartP[3] > currentVitesse[i]) { //si first vitesse > current vitesse
+                            item.x -= (ecartP[3] - currentVitesse[i]) * multiplicateurVitesseEcart;
+                        } else if (ecartP[3] < currentVitesse[i]) { //si first vitesse < current vitesse
+                            item.x += (currentVitesse[i] - ecartP[3]) * multiplicateurVitesseEcart;
+                        }
+
+                    }
+                });
+            }
+
+
+            if (item.x >= middleCanvas) {
+                horseFirst = item;
+            }
         }
     });
 
@@ -310,6 +357,14 @@ function rasee(){ //fonction qui remet les compteurs à 0
     document.forsec.seca.value=" "+secon;
     document.forsec.secb.value=" "+minu;
 }
+
+Array.prototype.max = function() {
+    return Math.max.apply(null, this);
+};
+
+Array.prototype.min = function() {
+    return Math.min.apply(null, this);
+};
 
 /**
  * @FIN : LES FONCTIONS NECESSAIRES POUR SIMULER LA COURSE

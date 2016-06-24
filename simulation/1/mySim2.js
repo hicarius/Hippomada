@@ -6,6 +6,7 @@ function init() {
     stage = new createjs.Stage(document.getElementById("raceCanvas"));
     w = stage.canvas.width;
     h = stage.canvas.height;
+    middleCanvas = w/2;
 
     loader = new createjs.LoadQueue(false);
     loader.addEventListener("complete", loadComplete);
@@ -29,54 +30,16 @@ function loadComplete()
     //cheval en course
     $.each(race.horses, function(i, item){
         //création du chéval
-        var horsesData = {
-            framerate: item.b_framerate,
-            images: ["../images/" + race.type + "/50Horse" + item.color + ".png"],
-            frames: {"width": 160, "height": 120, "count": 12},
-            animations: {}
-        };
-
-        horseObject = createHorse(horsesData, firstLine + i);
+        createHorse( item, firstLine + i );
     });
 
-    text = new createjs.Text("Dist. : " + distance, "20px Arial", "#ff7700");
-    text.y = 100;
+    text = new createjs.Text("", "20px Arial", "#ff7700");
+    text.y = 20;
     text.textBaseline = "alphabetic";
     stage.addChild(text);
 
-    createjs.Ticker.setFPS(30);
+    createjs.Ticker.setFPS(60);
     createjs.Ticker.addEventListener("tick", handleTick);
-}
-
-function handleTick(event)
-{
-    if( hasHorseMiddle() ){
-        generateHorseVitesse(horseFirst);
-        var deltaS = event.delta / 1000;
-        ground.x = (ground.x - deltaS * 150) % ground.tileW;
-        rail.x = (rail.x - deltaS * 150) % rail.tileW;
-        rail2.x = (rail2.x - deltaS * 110) % rail2.tileW;
-        tree.x = (tree.x - deltaS * 80) % tree.tileW;
-        sky.x = (sky.x - deltaS * 3) % sky.tileW;
-
-    }else{
-        $.each(horses, function(i, item){
-            item.x += 2;
-            horseUp[item.id] = false;
-        });
-    }
-
-    synchronizeHorseObject();
-
-    //distance
-    text.text = "Dist. : " + distance + "/" + maxDistance + "m";
-    if(count%6 == 0) {
-        distance++;
-    }
-    count++;
-
-    stage.update(event);
-
 }
 
 function createScene()
@@ -118,18 +81,24 @@ function createScene()
 function createHorse(data, begin)
 {
     //Horse sprite
-    var horse = new createjs.SpriteSheet(data);
+    var horse = new createjs.SpriteSheet({
+        framerate: data.framerate * multiplicateurDelta,
+        images: ["../images/" + race.type + "/50Horse" + data.color + ".png"],
+        frames: {"width": 160, "height": 120, "count": 12},
+        animations: {"run" : [0, 11], "standby" : 0 }
+    });
     var horseSprite = new createjs.Sprite(horse, "run");
     horseSprite.y = begin;
-    horseSprite.spriteSheet.framerate += (horseSprite.id+3);
+    horseSprite.x = (w/2);
     horses.push(horseSprite);
+    bVitesse.push(data.vitesse[0]);
 
     //Jockey casaque sprite
     var casaque =  new createjs.SpriteSheet(
         {
             images: ["../images/galop/50JockeySilk.png"],
             frames: {"width":160, "height":120, "count": 12},
-            animations: {}
+            animations: {"run" : [0, 11], "standby" : 0 }
         }
     );
     var casaqueSprite = new createjs.Sprite(casaque, "run");
@@ -142,7 +111,7 @@ function createHorse(data, begin)
         {
             images: ["../images/galop/50Static.png"],
             frames: {"width":160, "height":120, "count": 12},
-            animations: {}
+            animations: {"run" : [0, 11], "standby" : 0 }
         }
     );
     var pantSprite = new createjs.Sprite(pant, "run");
@@ -158,7 +127,7 @@ function createHorse(data, begin)
         {
             images: ["../images/galop/50Unit_" +  (horses.length) + ".png"],
             frames: {"width":160, "height":120, "count": 12},
-            animations: {}
+            animations: {"run" : [0, 11], "standby" : 0 }
         }
     );
     var numberSprite = new createjs.Sprite(number, "run");
@@ -167,6 +136,64 @@ function createHorse(data, begin)
     numbers.push(numberSprite);
 
     stage.addChild(numberSprite);
+
+    distance.push({l:0, c:0}); //l: lenght, c: current key
+}
+
+function handleTick(event)
+{
+    animationScene(event);
+    synchronizeHorseObject(false);
+
+    $.each(horses, function (i, item) {
+        //si position du cheval > milieu
+        if(item.x > middleCanvas){
+            //on assigne le premier cheval
+            horseFirst = item;
+            //on reset tout les postions en fonction du milieu
+            resetHorsesX(item);
+        }
+
+        testDistance(i);
+        if(item != horseFirst) {
+            var maxV = Math.max.apply(null, bVitesse[distance[i].c]);
+            if (maxV > bVitesse[distance[i].c][i]) {
+                ///item.x -= (maxV - bVitesse[distance[i].c][i]) * multiplicateurVitesseEcart;
+                synchronizeHorseFramerate(i, race.horses[i].framerate - 2);
+            } else {
+                if(horseFirst == false){
+                    //item.x += bVitesse[distance[i].c][i] * multiplicateurVitesseEcart;
+                    synchronizeHorseFramerate(i, race.horses[i].framerate + 2);
+                }
+            }
+        }else{
+            var lastVitesse = ((distance[i].c - 100) <= 0) ? 0 : (distance[i].c - 100);
+            if( bVitesse[distance[i].c][i] > bVitesse[lastVitesse][i] ){
+                $.each(horses, function(x, item_x){
+                    if(item_x != horseFirst) {
+                        //item_x.x -= (bVitesse[distance[x].c][i] - bVitesse[lastVitesse][i]) * multiplicateurVitesseEcart;
+                    }
+                });
+            }else if( bVitesse[distance[i].c][i] < bVitesse[lastVitesse][i]){
+                $.each(horses, function(x, item_x){
+                    if(item_x != horseFirst) {
+                        //item_x.x += (bVitesse[lastVitesse][i] - bVitesse[distance[x].c][i]) * multiplicateurVitesseEcart;
+                    }
+                });
+            }
+        }
+
+        lastDistance[i] =  distance[i].l;
+        distance[i].l += bVitesse[distance[i].c][i];
+        nextDistance[i] = distance[i].l;
+
+        item.x += (nextDistance[i] - lastDistance[i])*5;
+    });
+
+    //Debugger
+    showDebugger();
+
+    stage.update(event);
 }
 
 function synchronizeHorseObject(){
@@ -176,6 +203,54 @@ function synchronizeHorseObject(){
         numbers[i].x = item.x;
     });
 }
+
+function synchronizeHorseFramerate(i, framerate)
+{
+    casaques[i].spriteSheet.framerate = framerate * multiplicateurDelta;
+    pants[i].spriteSheet.framerate = framerate * multiplicateurDelta;
+    numbers[i].spriteSheet.framerate = framerate * multiplicateurDelta;
+    horses[i].spriteSheet.framerate = framerate * multiplicateurDelta;
+}
+
+function horseStop(i)
+{
+    horses[i].gotoAndStop("standby");
+    casaques[i].gotoAndStop("standby");
+    pants[i].gotoAndStop("standby");
+    numbers[i].gotoAndStop("standby");
+}
+
+function resetHorsesX(horse){
+    var ecart = horse.x - middleCanvas ;
+    $.each(horses, function (i, item){
+        item.x -= ecart;
+    });
+}
+
+function animationScene(event)
+{
+    var deltaS = event.delta / 1000 * multiplicateurDelta;
+    ground.x = (ground.x - deltaS * 150) % ground.tileW;
+    rail.x = (rail.x - deltaS * 150) % rail.tileW;
+    rail2.x = (rail2.x - deltaS * 110) % rail2.tileW;
+    tree.x = (tree.x - deltaS * 80) % tree.tileW;
+    sky.x = (sky.x - deltaS * 3) % sky.tileW;
+}
+
+function showDebugger()
+{
+    text.text = "Dist. : " + race.lenght + "m \n";
+    if( race.horses.length >= 1) {
+        text.text += "cv-h1 : " + bVitesse[distance[0].c][0] + " / lv-h1 : " + bVitesse[(distance[0].c <=0)?0:(distance[0].c-100)][0] + " / x : " + Math.round(horses[0].x) + " / y: " + Math.round(horses[0].y) + " / dist1 : " + Math.round(distance[0].l) + "\n";
+    }
+    if( race.horses.length >= 2) {
+        text.text += "cv-h2 : " + bVitesse[distance[1].c][1] + " / lv-h2 : " + bVitesse[(distance[1].c <=0)?0:(distance[1].c-100)][1] + " / x : " + Math.round(horses[1].x) + " / y: " + Math.round(horses[1].y) + " / dist2 : " + Math.round(distance[1].l) + "\n";
+    }
+    if( race.horses.length >= 3) {
+        text.text += "cv-h3 : " + bVitesse[distance[2].c][2] + " / lv-h3 : " + bVitesse[(distance[2].c <=0)?0:(distance[2].c-100)][2] + " / x : " + Math.round(horses[2].x) + " / y: " + Math.round(horses[2].y) + " / dist3 : " + Math.round(distance[2].l) + "\n";
+    }
+}
+
 /**
  * @FIN : LES FONCTIONS POPUR AFFICHAGE DU CANVAS
  */
@@ -185,42 +260,50 @@ function synchronizeHorseObject(){
 /**
  * @DEBUT : LES FONCTIONS NECESSAIRES POUR SIMULER LA COURSE
  */
-function hasHorseMiddle()
+function testDistance(i)
 {
-    if(middleReach == false) {
-        $.each(horses, function (i, item) {
-            if (item.x <= middleCanvas && middleReach == false) {
-                item.x += item.spriteSheet.framerate - item.id;
-            } else {
-                middleReach = true;
-                horseFirst = item;
-            }
-        });
-    }
-    return middleReach;
-}
-
-function generateHorseVitesse()
-{
-    $.each(horses, function(i, item){
-        if(item.id != horseFirst.id){
-            if(item.x > -200 && horseUp[item.id] == false){
-                item.x -= 4;
-            }else{
-                item.x += 4;
-                if(horseUp[item.id] == false || horseUp[item.id] == null){
-                    horseUp[item.id] = true;
-                }
-
-                if(item.x > middleCanvas && middleReach == true) {
-                    item.x =  middleCanvas;
-                    horseFirst = item;
-                    horseUp[item.id] = false;
-                }
+    $.each( distanceArray, function(x, item){
+        if(distance[i].c != item) {
+            if (distance[i].l >= item && distance[i].l < distanceArray[x + 1]) {
+                distance[i].c = item;
+                return false;
             }
         }
     });
 }
+
+
+var centi = 0; // initialise les dixtièmes
+var secon = 0; //initialise les secondes
+var minu = 0; //initialise les minutes
+
+function chrono(){
+    centi++; //incrémentation des dixièmes de 1
+    if (centi > 9){centi = 0;secon++} //si les dixièmes > 9, on les réinitialise à 0 et on incrémente les secondes de 1
+    if (secon >59){secon = 0;minu++} //si les secondes > 59, on les réinitialise à 0 et on incrémente les minutes de 1
+    document.forsec.secc.value = " "+centi; //on affiche les dixièmes
+    document.forsec.seca.value = " "+secon; //on affiche les secondes
+    document.forsec.secb.value = " "+minu; //on affiche les minutes
+    compte = setTimeout('chrono()',100); //la fonction est relancée tous les 10° de secondes
+}
+
+function rasee(){ //fonction qui remet les compteurs à 0
+    clearTimeout(compte); //arrête la fonction chrono()
+    centi=0;
+    secon=0;
+    minu=0;
+    document.forsec.secc.value=" "+centi;
+    document.forsec.seca.value=" "+secon;
+    document.forsec.secb.value=" "+minu;
+}
+
+Array.prototype.max = function() {
+    return Math.max.apply(null, this);
+};
+
+Array.prototype.min = function() {
+    return Math.min.apply(null, this);
+};
 
 /**
  * @FIN : LES FONCTIONS NECESSAIRES POUR SIMULER LA COURSE
