@@ -17,6 +17,8 @@ function init() {
         {src: "land/rail-01.png", id: "rail"},
         {src: "land/rail-herbe-02.png", id: "rail2"},
         {src: "land/tree-01.png", id: "tree"},
+        {src: "land/herbe-depart.jpg", id: "depart"},
+        {src: "land/FinishPole.png", id: "finish"},
     ];
     loader.loadManifest(manifest, true, "../images/");
 
@@ -37,6 +39,12 @@ function loadComplete()
     text.y = 20;
     text.textBaseline = "alphabetic";
     stage.addChild(text);
+
+    classementText = new createjs.Text("", "20px Arial", "#ff7700");
+    classementText.y = 20;
+    classementText.x = 700;
+    classementText.textBaseline = "alphabetic";
+    stage.addChild(classementText);
 
     createjs.Ticker.setFPS(60);
     createjs.Ticker.addEventListener("tick", handleTick);
@@ -74,7 +82,19 @@ function createScene()
     tree.tileW = treeImg.width;
     tree.y = h - groundImg.height - rail2Img.height - treeImg.height + 10;
 
-    stage.addChild(sky, ground, tree, rail2, rail);
+    var departImg = loader.getResult("depart");
+    depart = new createjs.Bitmap(departImg);
+    depart.tileW = departImg.width;
+    depart.y = h - departImg.height;
+    depart.x = (w/2) + 100;
+
+    var finishImg = loader.getResult("finish");
+    finish = new createjs.Bitmap(finishImg);
+    finish.tileW = departImg.width;
+    finish.y = h - rail2.y + 60;
+    finish.x = (w/2) + 100;
+
+    stage.addChild(sky, ground, depart, tree, rail2, rail);
     firstLine  = rail.y - 40;
 }
 
@@ -137,58 +157,76 @@ function createHorse(data, begin)
 
     stage.addChild(numberSprite);
 
-    distance.push({l:0, c:0}); //l: lenght, c: current key
+    distance.push({l:0, c:0, id:horses.length}); //l: lenght, c: current key
 }
 
 function handleTick(event)
 {
     animationScene(event);
-    synchronizeHorseObject(false);
 
-    $.each(horses, function (i, item) {
-        //si position du cheval > milieu
-        if(item.x > middleCanvas){
-            //on assigne le premier cheval
-            horseFirst = item;
-            //on reset tout les postions en fonction du milieu
-            resetHorsesX(item);
-        }
-
-        testDistance(i);
-        if(item != horseFirst) {
-            var maxV = Math.max.apply(null, bVitesse[distance[i].c]);
-            if (maxV > bVitesse[distance[i].c][i]) {
-                ///item.x -= (maxV - bVitesse[distance[i].c][i]) * multiplicateurVitesseEcart;
-                synchronizeHorseFramerate(i, race.horses[i].framerate - 2);
-            } else {
-                if(horseFirst == false){
-                    //item.x += bVitesse[distance[i].c][i] * multiplicateurVitesseEcart;
-                    synchronizeHorseFramerate(i, race.horses[i].framerate + 2);
+    if( Math.max.apply(null, nextDistance) > race.lenght ) {
+        synchronizeHorseObject(false);
+        $.each(horses, function (i, item) {
+            testDistance(i);
+            if(item.x < 1000) {
+                if (distance[i].l > race.lenght) {
+                    item.x += 5;
+                } else {
+                    item.x += bVitesse[distance[i].c][i] * 15;
+                    distance[i].l += bVitesse[distance[i].c][i];
+                    classement();
                 }
             }
-        }else{
-            var lastVitesse = ((distance[i].c - 100) <= 0) ? 0 : (distance[i].c - 100);
-            if( bVitesse[distance[i].c][i] > bVitesse[lastVitesse][i] ){
-                $.each(horses, function(x, item_x){
-                    if(item_x != horseFirst) {
-                        //item_x.x -= (bVitesse[distance[x].c][i] - bVitesse[lastVitesse][i]) * multiplicateurVitesseEcart;
-                    }
-                });
-            }else if( bVitesse[distance[i].c][i] < bVitesse[lastVitesse][i]){
-                $.each(horses, function(x, item_x){
-                    if(item_x != horseFirst) {
-                        //item_x.x += (bVitesse[lastVitesse][i] - bVitesse[distance[x].c][i]) * multiplicateurVitesseEcart;
-                    }
-                });
+        });
+    }else {
+        synchronizeHorseObject(false);
+        classement();
+
+        $.each(horses, function (i, item) {
+            //si position du cheval > milieu
+            if (item.x > middleCanvas) {
+                //on assigne le premier cheval
+                horseFirst = item;
+                //on reset tout les postions en fonction du milieu
+                resetHorsesX(item);
             }
-        }
 
-        lastDistance[i] =  distance[i].l;
-        distance[i].l += bVitesse[distance[i].c][i];
-        nextDistance[i] = distance[i].l;
+            testDistance(i);
+            if (item != horseFirst) {
+                var maxV = Math.max.apply(null, bVitesse[distance[i].c]);
+                if (maxV > bVitesse[distance[i].c][i]) {
+                    ///item.x -= (maxV - bVitesse[distance[i].c][i]) * multiplicateurVitesseEcart;
+                    synchronizeHorseFramerate(i, race.horses[i].framerate - 2);
+                } else {
+                    if (horseFirst == false) {
+                        //item.x += bVitesse[distance[i].c][i] * multiplicateurVitesseEcart;
+                        synchronizeHorseFramerate(i, race.horses[i].framerate + 2);
+                    }
+                }
+            } else {
+                var lastVitesse = ((distance[i].c - 100) <= 0) ? 0 : (distance[i].c - 100);
+                if (bVitesse[distance[i].c][i] > bVitesse[lastVitesse][i]) {
+                    $.each(horses, function (x, item_x) {
+                        if (item_x != horseFirst) {
+                            //item_x.x -= (bVitesse[distance[x].c][i] - bVitesse[lastVitesse][i]) * multiplicateurVitesseEcart;
+                        }
+                    });
+                } else if (bVitesse[distance[i].c][i] < bVitesse[lastVitesse][i]) {
+                    $.each(horses, function (x, item_x) {
+                        if (item_x != horseFirst) {
+                            //item_x.x += (bVitesse[lastVitesse][i] - bVitesse[distance[x].c][i]) * multiplicateurVitesseEcart;
+                        }
+                    });
+                }
+            }
 
-        item.x += (nextDistance[i] - lastDistance[i])*5;
-    });
+            lastDistance[i] = distance[i].l;
+            distance[i].l += bVitesse[distance[i].c][i];
+            nextDistance[i] = distance[i].l;
+
+            item.x += (nextDistance[i] - lastDistance[i]) * 11;
+        });
+    }
 
     //Debugger
     showDebugger();
@@ -229,12 +267,56 @@ function resetHorsesX(horse){
 
 function animationScene(event)
 {
-    var deltaS = event.delta / 1000 * multiplicateurDelta;
-    ground.x = (ground.x - deltaS * 150) % ground.tileW;
-    rail.x = (rail.x - deltaS * 150) % rail.tileW;
-    rail2.x = (rail2.x - deltaS * 110) % rail2.tileW;
-    tree.x = (tree.x - deltaS * 80) % tree.tileW;
-    sky.x = (sky.x - deltaS * 3) % sky.tileW;
+    var stopSlide = false;
+    if( Math.max.apply(null, nextDistance) < race.lenght ) {
+        var deltaS = event.delta / 1000 * multiplicateurDelta;
+        ground.x = (ground.x - deltaS * 150) % ground.tileW;
+        rail.x = (rail.x - deltaS * 150) % rail.tileW;
+        rail2.x = (rail2.x - deltaS * 110) % rail2.tileW;
+        tree.x = (tree.x - deltaS * 80) % tree.tileW;
+        sky.x = (sky.x - deltaS * 3) % sky.tileW;
+    }else{
+        stopSlide =  true;
+    }
+
+    //depart
+    if(depart.x > -300 && stopSlide == false ){
+        depart.x -= (deltaS * 150);
+    }else{
+        if(stage.getChildIndex(depart) != -1) {
+            stage.removeChild(depart);
+        }
+    }
+
+    //finish
+    if( Math.max.apply(null, nextDistance) >= (race.lenght - ( (race.lenght +200)/100))){
+        if(stage.getChildIndex(finish) == -1) {
+            finish.x = 1000;
+            stage.addChildAt(finish,5);
+        }
+        if(stopSlide == false) {
+            finish.x -= (deltaS * 150);
+        }
+    }
+
+}
+
+function classement()
+{
+    classementText.text = ' \n';
+    classementDist = distance.slice();
+    classementDist.sort( function(a, b){
+        if (a.l < b.l)
+            return 1;
+        if (a.l > b.l)
+            return -1;
+        return 0;
+    });
+
+    $.each(classementDist, function (i, item){
+        classementText.text += item.id + " - " + race.horses[item.id-1].name + " - " + race.horses[item.id-1].color + " \n";
+    });
+
 }
 
 function showDebugger()

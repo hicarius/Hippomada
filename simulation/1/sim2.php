@@ -11,12 +11,12 @@
 	<script src="lib/easeljs-NEXT.combined.js"></script>
 	<script>
 		var stage, w, h, loader;
-		var sky, hill, hill1, ground2, rail, ground;
+		var sky, hill, hill1, ground2, rail, ground, depart, finish;
 		var horses = [], casaques = [], pants = [], numbers = [], horseFirst = false, bVitesse = [];
 		var middleCanvas;
 		var firstLine;
-		var distance = [], distanceArray = [], lastDistance = [], nextDistance = [];
-		var text ;
+		var distance = [], distanceArray = [], lastDistance = [], nextDistance = [], classementDist = [];
+		var text, classementText ;
 		var multiplicateurVitesseEcart = 5, multiplicateurDelta = 2;
 
 		/**
@@ -31,16 +31,19 @@
 				"type" : "galop",
 				"horses": [
 					{
+						name : "Jango de Tercei",
 						color: "Black",
 						framerate : 15,
 						vitesse : {0:0.1, 100:0.2, 200: 0.3, 300: 0.4, 400: 0.3, 500: 0.2, 600: 0.2, 700: 0.2, 800: 0.3, 900: 0.4}
 					},
 					{
+						name : "Albatross",
 						color: "Grey",
 						framerate : 16,
 						vitesse : {0:0.3, 100:0.2, 200: 0.2, 300: 0.1, 400: 0.2, 500: 0.1, 600: 0.2, 700: 0.3, 800: 0.4, 900: 0.3}
 					},
 					{
+						name : "Je suis la",
 						color: "Bay",
 						framerate : 17,
 						vitesse : {0:0.3, 100:0.4, 200: 0.3, 300: 0.2, 400: 0.1, 500: 0.2, 600: 0.3, 700: 0.4, 800: 0.3, 900: 0.2}

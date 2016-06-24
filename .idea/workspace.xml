@@ -2,9 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1b3e6144-b891-4f77-a7d9-c52e6707d7c7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulation/1/mySim.js" afterPath="$PROJECT_DIR$/simulation/1/mySim.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulation/images/land/DistanceMarker-300.png" afterPath="$PROJECT_DIR$/simulation/images/land/DistanceMarker-300.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulation/images/land/DistanceMarker-400.png" afterPath="$PROJECT_DIR$/simulation/images/land/DistanceMarker-400.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulation/images/land/DistanceMarker-500.png" afterPath="$PROJECT_DIR$/simulation/images/land/DistanceMarker-500.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulation/images/land/DistanceMarker-600.png" afterPath="$PROJECT_DIR$/simulation/images/land/DistanceMarker-600.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulation/images/land/DistanceMarker-700.png" afterPath="$PROJECT_DIR$/simulation/images/land/DistanceMarker-700.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulation/images/land/DistanceMarker-800.png" afterPath="$PROJECT_DIR$/simulation/images/land/DistanceMarker-800.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulation/images/land/DistanceMarker-900.png" afterPath="$PROJECT_DIR$/simulation/images/land/DistanceMarker-900.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulation/images/land/FinishPole.png" afterPath="$PROJECT_DIR$/simulation/images/land/FinishPole.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulation/1/mySim2.js" afterPath="$PROJECT_DIR$/simulation/1/mySim2.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulation/1/sim.php" afterPath="$PROJECT_DIR$/simulation/1/sim.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulation/1/sim2.php" afterPath="$PROJECT_DIR$/simulation/1/sim2.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -31,8 +37,8 @@
       <file leaf-file-name="sim2.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/simulation/1/sim2.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-15.692307">
-              <caret line="45" column="85" selection-start-line="45" selection-start-column="85" selection-end-line="45" selection-end-column="85" />
+            <state vertical-scroll-proportion="-5.773585">
+              <caret line="29" column="28" selection-start-line="29" selection-start-column="28" selection-end-line="29" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -41,8 +47,8 @@
       <file leaf-file-name="mySim2.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/simulation/1/mySim2.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.816">
-              <caret line="189" column="31" selection-start-line="189" selection-start-column="19" selection-end-line="189" selection-end-column="31" />
+            <state vertical-scroll-proportion="0.25199544">
+              <caret line="171" column="50" selection-start-line="171" selection-start-column="50" selection-end-line="171" selection-end-column="50" />
               <folding />
             </state>
           </provider>
@@ -63,7 +69,7 @@
       <file leaf-file-name="SpriteSheet.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/simulation/1/examples/SpriteSheet.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-10.461538">
+            <state vertical-scroll-proportion="0.0">
               <caret line="63" column="65" selection-start-line="63" selection-start-column="63" selection-end-line="63" selection-end-column="65" />
               <folding />
             </state>
@@ -73,7 +79,7 @@
       <file leaf-file-name="SpriteSheet_tileset.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/simulation/1/examples/SpriteSheet_tileset.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-15.192307">
+            <state vertical-scroll-proportion="0.0">
               <caret line="51" column="24" selection-start-line="51" selection-start-column="20" selection-end-line="51" selection-end-column="24" />
               <folding />
             </state>
@@ -83,7 +89,7 @@
       <file leaf-file-name="SpriteSheet_simple.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/simulation/1/examples/SpriteSheet_simple.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.8461537">
+            <state vertical-scroll-proportion="0.0">
               <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
               <folding />
             </state>
@@ -122,8 +128,8 @@
         <option value="$PROJECT_DIR$/simulation/1/_assets/js/SpriteContainer.js" />
         <option value="$PROJECT_DIR$/simulation/1/sim.php" />
         <option value="$PROJECT_DIR$/simulation/1/mySim.js" />
-        <option value="$PROJECT_DIR$/simulation/1/mySim2.js" />
         <option value="$PROJECT_DIR$/simulation/1/sim2.php" />
+        <option value="$PROJECT_DIR$/simulation/1/mySim2.js" />
       </list>
     </option>
   </component>
@@ -141,8 +147,8 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1320" />
-    <option name="height" value="784" />
+    <option name="width" value="1696" />
+    <option name="height" value="1036" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -167,6 +173,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -176,51 +183,8 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sovaly" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sovaly" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="simulation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sovaly" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="simulation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="1" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -237,16 +201,6 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="#PerlConfigurationType" factoryName="Perl">
-      <option name="SCRIPT_PATH" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="CHARSET" />
-      <option name="USE_ALTERNATIVE_SDK" value="false" />
-      <option name="ALTERNATIVE_SDK_PATH" />
-      <method />
-    </configuration>
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
       <method />
     </configuration>
@@ -254,14 +208,7 @@
       <TestRunner />
       <method />
     </configuration>
-    <configuration default="true" type="PhpBehatConfigurationType" factoryName="Behat">
-      <BehatRunner />
-      <method />
-    </configuration>
     <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
-      <method />
-    </configuration>
-    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
@@ -288,10 +235,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1320" height="784" extended-state="6" />
+    <frame x="-8" y="-8" width="1696" height="1036" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16349207" sideWeight="0.49613258" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16748166" sideWeight="0.49613258" order="2" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32928178" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -639,7 +586,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.624374">
           <caret line="22" column="46" selection-start-line="0" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -655,13 +601,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.39732888">
           <caret line="44" column="8" selection-start-line="44" selection-start-column="8" selection-end-line="44" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/simulation/1/examples/SpriteSheet.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.461538">
+        <state vertical-scroll-proportion="0.0">
           <caret line="63" column="65" selection-start-line="63" selection-start-column="63" selection-end-line="63" selection-end-column="65" />
           <folding />
         </state>
@@ -669,7 +614,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/simulation/1/examples/SpriteSheet_tileset.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.192307">
+        <state vertical-scroll-proportion="0.0">
           <caret line="51" column="24" selection-start-line="51" selection-start-column="20" selection-end-line="51" selection-end-column="24" />
           <folding />
         </state>
@@ -677,7 +622,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/simulation/1/examples/SpriteSheet_simple.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.8461537">
+        <state vertical-scroll-proportion="0.0">
           <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
           <folding />
         </state>
@@ -685,16 +630,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/simulation/1/sim2.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.692307">
-          <caret line="45" column="85" selection-start-line="45" selection-start-column="85" selection-end-line="45" selection-end-column="85" />
+        <state vertical-scroll-proportion="-5.773585">
+          <caret line="29" column="28" selection-start-line="29" selection-start-column="28" selection-end-line="29" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/simulation/1/mySim2.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.816">
-          <caret line="189" column="31" selection-start-line="189" selection-start-column="19" selection-end-line="189" selection-end-column="31" />
+        <state vertical-scroll-proportion="0.25199544">
+          <caret line="171" column="50" selection-start-line="171" selection-start-column="50" selection-end-line="171" selection-end-column="50" />
           <folding />
         </state>
       </provider>
