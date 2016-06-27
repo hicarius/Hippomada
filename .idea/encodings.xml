@@ -5,6 +5,7 @@
     <file url="file://$PROJECT_DIR$/apps/modules/default/controllers/RacesController.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/simulation/1/mySim.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/simulation/1/sim.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/simulation/index.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/simulation/js/RaceJs.js" charset="UTF-8" />
   </component>
 </project>

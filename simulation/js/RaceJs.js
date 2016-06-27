@@ -121,7 +121,7 @@ function createScene()
 
     var raceBarOutG = new createjs.Graphics();
     raceBarOutG.beginFill(createjs.Graphics.getRGB(0,0,0));
-    raceBarOutG.drawRect(0,0,110,24);
+    raceBarOutG.drawRect(0,0,105,24);
     raceBarOut = new createjs.Shape(raceBarOutG);
     raceBarOut.x = 20;
     raceBarOut.y = 420;
@@ -364,12 +364,12 @@ function classement(finalResult)
             var resultat = new createjs.Bitmap(resultatImg);
             resultat.tileW = resultatImg.width;
             resultat.y = 40;
-            resultat.x = 400;
+            resultat.x = 300;
             stage.addChild(resultat);
 
             //Texte qui s'affiche dès que la course arrive au finish line
             standingText = new createjs.Text("", "bold 15px Verdana", "#000");
-            standingText.x = 570;
+            standingText.x = 470;
             standingText.y = 57;
             standingText.textBaseline = "alphabetic";
             stage.addChild(standingText);
@@ -394,7 +394,7 @@ function classement(finalResult)
             return 0;
         });
         $.each(classementDist, function (i, item) {
-            classementText.text += item.id + " - " + race.horses[item.id - 1].name + " \n";
+            classementText.text += item.id + " - " + race.horses[item.id - 1].name + " - " + Math.round(item.l) + " \n";
         });
 
         //actualiser race bar
@@ -432,12 +432,17 @@ var secon = 0; //initialise les secondes
 var minu = 0; //initialise les minutes
 
 function chrono(){
+    if( minu <= 1){
+        $("#distance7").val( Math.max.apply(null, nextDistance)  );
+    }
+
     centi++; //incrémentation des dixièmes de 1
     if (centi > 9){centi = 0;secon++} //si les dixièmes > 9, on les réinitialise à 0 et on incrémente les secondes de 1
     if (secon >59){secon = 0;minu++} //si les secondes > 59, on les réinitialise à 0 et on incrémente les minutes de 1
     document.forsec.secc.value = " "+centi; //on affiche les dixièmes
     document.forsec.seca.value = " "+secon; //on affiche les secondes
     document.forsec.secb.value = " "+minu; //on affiche les minutes
+
     compte = setTimeout('chrono()',100); //la fonction est relancée tous les 10° de secondes
 }
 

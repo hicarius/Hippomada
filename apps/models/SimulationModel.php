@@ -70,7 +70,7 @@ class SimulationModel extends Model_Abstract
         $isDisqualified = false;
         $oHorse = Apps::getModel('Horse')->load($horseId);
         $code = $this->_race['code'];
-        $lenght = 2000;//$this->_race->getData('lenght');
+        $lenght = $this->_race['lenght'];
 
         $fatigue = $oHorse->getData('fatigue');
 
@@ -120,6 +120,7 @@ class SimulationModel extends Model_Abstract
 
         //on découpe le distance en tranche de 100m
         $vitesseArray = array();
+        //$resultat_string = array()';
         $resultat_string = '';
         for($distance = 100; $distance <= $lenght; $distance+=100){
 
@@ -127,19 +128,21 @@ class SimulationModel extends Model_Abstract
             if($fatigue > 130 ){
                 $vitesseArray[] = 0;
                 $isDisqualified = true;
+                //$resultat_string[$distance] = 0;
                 $resultat_string .= "|$distance,0";
                 break;
             }
 
             if($fatigue >= 100){
-                $vitesseArray[] = $vitesse + 2;
-                $time = array_sum($vitesseArray);
-                $resultat_string .= "|$distance,$time";
+                $c_vitesse = $vitesse + 2;
+                $time =  (60*60) / (10 * $c_vitesse);
             }else{
-                $vitesseArray[] = $vitesse;
-                $time = array_sum($vitesseArray);
-                $resultat_string .= "|$distance,$time";
+                $c_vitesse = $vitesse;
+                $time = (60*60) / (10 * $c_vitesse);
             }
+            //$resultat_string[$distance] =  number_format( round($time, 4), 4);
+            $resultat_string .= "|$distance," . number_format( round($time, 4), 4);
+            $vitesseArray[] = $c_vitesse;
         }
 
         $timeTotal = array_sum($vitesseArray); //en seconds

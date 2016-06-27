@@ -87,7 +87,7 @@ $meetings = Apps::getModel('Race')->getMeetingsAndRaceNumber($allRaces);
                                         <td><?php echo $item['sexe'] ?>/<?php echo $item['age'] ?></td>
                                         <td><?php echo $item['entraineur'] ?></td>
                                         <td><?php echo $item['jockey'] ?></td>
-                                        <td><?php echo Apps::getModel('Horse')->get5LastPerfs($item['sexe'], $item['id']) ?></td>
+                                        <td><?php echo Apps::getModel('Horse')->get5LastPerfs($item['sexe'], $item['horse_id']) ?></td>
                                     </tr>
                                 <?php } ?>
                                 </tbody>

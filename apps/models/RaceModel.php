@@ -425,13 +425,13 @@ class RaceModel extends Model_Abstract
         $age = $horse['age'];
         switch($age){
             case ($age <= 4 && $age >= 1) :
-                $value = 0.16;
+                $value = 0.016;
                 break;
             case ($age == 5) :
-                $value = 0.33;
+                $value = 0.033;
                 break;
             default:
-                $value = 0.5;
+                $value = 0.05;
                 break;
         }
         if($horse['specialization'] == 'G') {
@@ -465,23 +465,24 @@ class RaceModel extends Model_Abstract
             //get stable by horse
             $stable = Apps::getModel('Stable')->load($horse['proprio_id'])->getData();
 
-            $rang = $k+1;
-            $gain = isset($gains[$rang]) ? $gains[$rang] : 0 ;
+            $rang = ($data['race_time'] == 0 ) ? 0 : $k+1;
+            $status = ($data['race_time'] == 0 ) ? 0 : 1;
+            $gain = (isset($gains[$rang]) && $rang != 0) ? $gains[$rang] : 0 ;
 
             $query = "UPDATE race_participant SET
                         rang = $rang,
-                        status = 1,
+                        status = $status,
                         gain = '$gain',
                          resultat_string = '{$data['resultat_string']}',
                          rk = '".addslashes($data['rk'])."',
                          chrono = '".addslashes($data['chrono'])."',
                          race_time = '{$data['race_time']}'
-                      WHERE race_id = {$raceId} AND horse_id = {$horse['id']}";
+                      WHERE race_id = {$raceId} AND horse_id = {$horse['id']};";
             Database::prepare($query)->execute();
 
             //Mise à jour horses_caracteristique (fatigue, physique, radom perf)
             $addPointPerf = $this->getAddPointPerf($horse);
-            $fatigue = ($data['resultat_string'] >= 100) ? 100 : $data['resultat_string'];
+            $fatigue = ($data['fatigue'] >= 100) ? 100 : $data['fatigue'];
             $randomPerf = $addPointPerf['critere'];
             $additionalPerf =  $addPointPerf['value'];
             $query =  "UPDATE horses_caracteristique SET
@@ -497,7 +498,7 @@ class RaceModel extends Model_Abstract
                 //@todo : Mise à jour ITR, BTR
 
                 //Mise à jour du gain_race_horse
-                $placed = ( $rang <= 5 ) ? 1 : 0 ;
+                $placed = ( $rang <= 5 && $rang != 0 ) ? 1 : 0 ;
                 $win = ( $rang == 1 ) ? 1 : 0 ;
                 $query =    "UPDATE gain_race_horse SET " .
                     "carrer_race = (carrer_race+1), carrer_win = (carrer_win+$win), carrer_placed = (carrer_placed+$placed), carrer_gain = (carrer_gain+$gain), " .
