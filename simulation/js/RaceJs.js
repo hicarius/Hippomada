@@ -6,9 +6,11 @@ function init() {
     prepareData();
 
     stage = new createjs.Stage(document.getElementById("raceCanvas"));
+    stage.enableMouseOver(10);
+
     w = stage.canvas.width;
     h = stage.canvas.height;
-    middleCanvas = w/2;
+    middleCanvas = w -(w/3);
 
     loader = new createjs.LoadQueue(false);
     loader.addEventListener("complete", loadComplete);
@@ -21,8 +23,9 @@ function init() {
         {src: "land/tree-01.png", id: "tree"},
         {src: "land/herbe-depart.jpg", id: "depart"},
         {src: "land/FinishPole.png", id: "finish"},
+        {src: "land/resultat.png", id: "resultat"},
     ];
-    loader.loadManifest(manifest, true, "../images/");
+    loader.loadManifest(manifest, true, "images/");
 
 }
 
@@ -52,19 +55,22 @@ function loadComplete()
         createHorse( item, firstLine + i );
     });
 
-    text = new createjs.Text("", "20px Arial", "#ff7700");
-    text.y = 20;
-    text.textBaseline = "alphabetic";
-    stage.addChild(text);
-
-    classementText = new createjs.Text("", "20px Arial", "#ff7700");
-    classementText.y = 20;
-    classementText.x = 700;
-    classementText.textBaseline = "alphabetic";
-    stage.addChild(classementText);
+    affichageDesTextes();
 
     createjs.Ticker.setFPS(60);
     createjs.Ticker.addEventListener("tick", handleTick);
+}
+
+function affichageDesTextes()
+{
+    //Texte qui affiche les classements pendant la course
+    classementText = new createjs.Text("", "bold 12px Verdana", "#ffffff");
+    classementText.y = 10;
+    classementText.x = 5;
+    classementText.textBaseline = "alphabetic";
+    classementText.cursor =  'pointer';
+    //classementText.outline =  1;
+    stage.addChild(classementText);
 }
 
 function createScene()
@@ -112,6 +118,31 @@ function createScene()
     finish.x = (w/2) + 100;
 
     stage.addChild(sky, ground, depart, tree, rail2, rail);
+
+    var raceBarOutG = new createjs.Graphics();
+    raceBarOutG.beginFill(createjs.Graphics.getRGB(0,0,0));
+    raceBarOutG.drawRect(0,0,110,24);
+    raceBarOut = new createjs.Shape(raceBarOutG);
+    raceBarOut.x = 20;
+    raceBarOut.y = 420;
+
+    var raceBarInG = new createjs.Graphics();
+    raceBarInG.beginFill(createjs.Graphics.getRGB(255,255,255));
+    raceBarInG.drawRect(2,2,100,20);
+    raceBarIn = new createjs.Shape(raceBarInG);
+    raceBarIn.graphics.command.w = 0;
+    raceBarIn.x = 20;
+    raceBarIn.y = 420;
+
+    var raceLenght = new createjs.Text(race.lenght + "m", "bold 12px Verdana", "#ffffff");
+    raceLenght.y = 435;
+    raceLenght.x = 130;
+    raceLenght.textBaseline = "alphabetic";
+
+    stage.addChild(raceBarOut, raceBarIn, raceLenght);
+
+
+
     firstLine  = rail.y - 40;
 }
 
@@ -120,7 +151,7 @@ function createHorse(data, begin)
     //Horse sprite
     var horse = new createjs.SpriteSheet({
         framerate: data.framerate * multiplicateurDelta,
-        images: ["../images/" + race.type + "/50Horse" + data.color + ".png"],
+        images: ["images/" + race.type + "/50Horse" + data.color + ".png"],
         frames: {"width": 160, "height": 120, "count": 12},
         animations: {"run" : [0, 11], "standby" : 0 }
     });
@@ -133,7 +164,7 @@ function createHorse(data, begin)
     //Jockey casaque sprite
     var casaque =  new createjs.SpriteSheet(
         {
-            images: ["../images/galop/50JockeySilk.png"],
+            images: ["images/galop/50JockeySilk.png"],
             frames: {"width":160, "height":120, "count": 12},
             animations: {"run" : [0, 11], "standby" : 0 }
         }
@@ -146,7 +177,7 @@ function createHorse(data, begin)
     //Jockey pantalon, ombre sprite
     var pant =  new createjs.SpriteSheet(
         {
-            images: ["../images/galop/50Static.png"],
+            images: ["images/galop/50Static.png"],
             frames: {"width":160, "height":120, "count": 12},
             animations: {"run" : [0, 11], "standby" : 0 }
         }
@@ -157,12 +188,12 @@ function createHorse(data, begin)
     pants.push(pantSprite);
 
     //Ajout des sprites (horse, casaque, jockeys) dans la scène
-    stage.addChild(horseSprite,casaqueSprite, pantSprite);
+    stage.addChild(horseSprite, casaqueSprite, pantSprite);
 
     //numéro du chéval dans la course
     var number =  new createjs.SpriteSheet(
         {
-            images: ["../images/galop/50Unit_" +  (horses.length) + ".png"],
+            images: ["images/galop/50Unit_" +  (horses.length) + ".png"],
             frames: {"width":160, "height":120, "count": 12},
             animations: {"run" : [0, 11], "standby" : 0 }
         }
@@ -180,9 +211,9 @@ function createHorse(data, begin)
 function handleTick(event)
 {
     animationScene(event);
+    synchronizeHorseObject();
 
     if( Math.max.apply(null, nextDistance) > race.lenght ) {
-        synchronizeHorseObject(false);
         $.each(horses, function (i, item) {
             testDistance(i);
             if(item.x < 1000) {
@@ -191,14 +222,22 @@ function handleTick(event)
                 } else {
                     item.x += bVitesse[distance[i].c][i] * 15;
                     distance[i].l += bVitesse[distance[i].c][i];
-                    classement();
                 }
+            }else{
+                var isRegitred = false;
+                $.each(generalClassement, function(x, item_x){
+                    if( item_x.id == i){
+                        isRegitred = true;
+                    }
+                });
+                if( isRegitred == false ){
+                    generalClassement.push({id: i, name: race.horses[i].name});
+                }
+                classement(true);
             }
         });
     }else {
-        synchronizeHorseObject(false);
         classement();
-
         $.each(horses, function (i, item) {
             //si position du cheval > milieu
             if (item.x > middleCanvas) {
@@ -244,9 +283,6 @@ function handleTick(event)
             item.x += (nextDistance[i] - lastDistance[i]) * 11;
         });
     }
-
-    //Debugger
-    showDebugger();
 
     stage.update(event);
 }
@@ -315,38 +351,57 @@ function animationScene(event)
             finish.x -= (deltaS * 150);
         }
     }
-
 }
 
-function classement()
+function classement(finalResult)
 {
-    classementText.text = ' \n';
-    classementDist = distance.slice();
-    classementDist.sort( function(a, b){
-        if (a.l < b.l)
-            return 1;
-        if (a.l > b.l)
-            return -1;
-        return 0;
-    });
+    classementText.text = 'CLASSEMENT : \n';
+    if(finalResult == true){
+        classementText.visible = false;
+        //Image de fonds
+        if(isResultatIsInstancied == false) {
+            var resultatImg = loader.getResult("resultat");
+            var resultat = new createjs.Bitmap(resultatImg);
+            resultat.tileW = resultatImg.width;
+            resultat.y = 40;
+            resultat.x = 400;
+            stage.addChild(resultat);
 
-    $.each(classementDist, function (i, item){
-        classementText.text += item.id + " - " + race.horses[item.id-1].name + " - " + race.horses[item.id-1].color + " \n";
-    });
+            //Texte qui s'affiche dès que la course arrive au finish line
+            standingText = new createjs.Text("", "bold 15px Verdana", "#000");
+            standingText.x = 570;
+            standingText.y = 57;
+            standingText.textBaseline = "alphabetic";
+            stage.addChild(standingText);
+            isResultatIsInstancied = true;
+        }
+        standingText.text = "";
+        $.each(generalClassement, function (i, item){
+            if( i < 7) {
+                standingText.text += (item.id + 1);
+                if (i < (generalClassement.length - 1) && i < 6) {
+                    standingText.text += " - "
+                }
+            }
+        });
+    }else {
+        classementDist = distance.slice();
+        classementDist.sort( function(a, b){
+            if (a.l < b.l)
+                return 1;
+            if (a.l > b.l)
+                return -1;
+            return 0;
+        });
+        $.each(classementDist, function (i, item) {
+            classementText.text += item.id + " - " + race.horses[item.id - 1].name + " \n";
+        });
 
-}
-
-function showDebugger()
-{
-    text.text = "Dist. : " + race.lenght + "m \n";
-    if( race.horses.length >= 1) {
-        text.text += "cv-h1 : " + bVitesse[distance[0].c][0] + " / lv-h1 : " + bVitesse[(distance[0].c <=0)?0:(distance[0].c-100)][0] + " / x : " + Math.round(horses[0].x) + " / y: " + Math.round(horses[0].y) + " / dist1 : " + Math.round(distance[0].l) + "\n";
-    }
-    if( race.horses.length >= 2) {
-        text.text += "cv-h2 : " + bVitesse[distance[1].c][1] + " / lv-h2 : " + bVitesse[(distance[1].c <=0)?0:(distance[1].c-100)][1] + " / x : " + Math.round(horses[1].x) + " / y: " + Math.round(horses[1].y) + " / dist2 : " + Math.round(distance[1].l) + "\n";
-    }
-    if( race.horses.length >= 3) {
-        text.text += "cv-h3 : " + bVitesse[distance[2].c][2] + " / lv-h3 : " + bVitesse[(distance[2].c <=0)?0:(distance[2].c-100)][2] + " / x : " + Math.round(horses[2].x) + " / y: " + Math.round(horses[2].y) + " / dist3 : " + Math.round(distance[2].l) + "\n";
+        //actualiser race bar
+        var m = 100;
+        var t = Math.max.apply(null, nextDistance);
+        var add_b = 100 * t / race.lenght;
+        raceBarIn.graphics.command.w = add_b;
     }
 }
 
