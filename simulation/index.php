@@ -16,6 +16,8 @@
 		var isResultatIsInstancied=false, classementText, standingText, raceBarIn, raceBarOut ;
 		var multiplicateurVitesseEcart = 5, multiplicateurDelta = 2;
 
+		var race;
+
 		/**
 		 * 0.2 : 580m/min
 		 * 0.2547169811320755: 750m/min 45km/h
@@ -24,24 +26,31 @@
 		 * @type {{lenght: number, type: string, horses: *[]}}
 		 */
 
-		var race = {
-				"lenght": 1000,
-				"type" : "galop",
-				"horses": [
-					{
-						name : "Jango de Tercei",
-						color: "Black",
-						framerate : 15.3,
-						vitesse : {0:0.2547169811320755, 100:0.2547169811320755, 200: 0.2547169811320755, 300: 0.2547169811320755, 400: 0.2547169811320755, 500: 0.2547169811320755, 600: 0.2547169811320755, 700: 0.2547169811320755, 800: 0.2547169811320755, 900: 0.2547169811320755}
-					}
-				]
+		$.ajax({
+			method : 'post',
+			dataType : 'json',
+			url : '/races/simulate/',
+			data :  '',
+			success :  function(json){
+				/*race = {
+					"lenght": 1000,
+					"type" : "galop",
+					"horses": [
+						{
+							name : "Jango de Tercei",
+							color: "noir",
+							framerate : 15.3,
+							vitesse : {0:0.2547169811320755, 100:0.2547169811320755, 200: 0.2547169811320755, 300: 0.2547169811320755, 400: 0.2547169811320755, 500: 0.2547169811320755, 600: 0.2547169811320755, 700: 0.2547169811320755, 800: 0.2547169811320755, 900: 0.2547169811320755}
+						}
+					]
+				}
+				;*/
+				race = json;
+				init();
+				chrono();
 			}
-			;
-
-		$( document ).ready(function(){
-			init();
-			chrono();
 		});
+
 	</script>
 	<script src="js/RaceJs.js"></script>
 </head>

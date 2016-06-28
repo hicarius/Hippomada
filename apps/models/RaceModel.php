@@ -533,4 +533,5 @@ class RaceModel extends Model_Abstract
         Database::prepare("UPDATE races SET status = 0 WHERE id = {$raceId}")->execute();
     }
 
+
 }

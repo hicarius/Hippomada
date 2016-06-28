@@ -140,6 +140,9 @@ class SimulationModel extends Model_Abstract
                 $c_vitesse = $vitesse;
                 $time = (60*60) / (10 * $c_vitesse);
             }
+
+            $this->parseTimeToSimulation($time);
+
             //$resultat_string[$distance] =  number_format( round($time, 4), 4);
             $resultat_string .= "|$distance," . number_format( round($time, 4), 4);
             $vitesseArray[] = $c_vitesse;
@@ -162,5 +165,57 @@ class SimulationModel extends Model_Abstract
             'physique' => $physique-20,
             'fatigue' => $fatigue
         );
+    }
+
+    public function parseTimeToSimulation(&$time)
+    {
+        //0.2547169811320755 = 45
+        //? = $time
+        // ? = $time * 0.2547169811320755 / 45;
+        $time = $time * 0.2547169811320755 / 45;
+    }
+
+    public function getSimJson($raceId)
+    {
+        $output = '';
+        //race
+        $stmt = Database::prepare("
+              SELECT r.*, IF(rt.code='p', 'galop', IF(rt.code='m', 'trotmonte', 'galop')) as type FROM races r
+              INNER JOIN race_type rt ON rt.id = r.type_id
+              WHERE r.id = $raceId");
+        $stmt->execute();
+        $result = $stmt->fetch();
+        if($result['id']){
+            $output2 = array();
+            $output2['lenght'] = $result['lenght'];
+            $output2['type'] = $result['type'];
+        }
+
+        //horse
+        $query = "SELECT rp.resultat_string, h.robe, h.name FROM race_participant rp
+                  INNER JOIN horses h ON h.id =  rp.horse_id
+                  WHERE race_id = $raceId";
+        $stmt = Database::prepare($query);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+        if(count($result) > 0 ){
+            $output2['horses'] = array();
+            foreach($result as $k => $item){
+                $resultat_string = explode('|', $item['resultat_string']);
+                unset($resultat_string[0]);
+                foreach( $resultat_string as $str){
+                    $vitesse = explode(',', $str);
+                    $output .= ($vitesse[0]-100) . ':' . $vitesse[1] . ', ';
+                    $vitesseArray[(int) $vitesse[0]-100 ] = $vitesse[1];
+                }
+                $output2['horses'][] = array(
+                    'name' => $item['name'],
+                    'color' => $item['robe'],
+                    'framerate' => 15 + ($k/10)*2,
+                    'vitesse' => $vitesseArray,
+                );
+            }
+        }
+        return $output2;
     }
 }
