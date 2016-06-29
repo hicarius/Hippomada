@@ -180,22 +180,26 @@ class SimulationModel extends Model_Abstract
         $output = '';
         //race
         $stmt = Database::prepare("
-              SELECT r.*, IF(rt.code='p', 'galop', IF(rt.code='m', 'trotmonte', 'galop')) as type FROM races r
+              SELECT r.*, IF(rt.code='p', 'galop', IF(rt.code='m', 'trotmonte', 'galop')) as type, rpi.code AS piste FROM races r
               INNER JOIN race_type rt ON rt.id = r.type_id
-              WHERE r.id = $raceId");
+              INNER JOIN race_piste rpi ON rpi.id = r.piste_id
+              WHERE r.id = :raceId");
+        $stmt->bindParam(':raceId',  $raceId, PDO::PARAM_INT);
         $stmt->execute();
         $result = $stmt->fetch();
         if($result['id']){
             $output2 = array();
             $output2['lenght'] = $result['lenght'];
             $output2['type'] = $result['type'];
+            $output2['piste'] = ($result['piste'] == 'H') ? 'herbe' : ($result['piste']=='S') ? 'sable' : 'cendree' ;
         }
 
         //horse
         $query = "SELECT rp.resultat_string, h.robe, h.name FROM race_participant rp
                   INNER JOIN horses h ON h.id =  rp.horse_id
-                  WHERE race_id = $raceId";
+                  WHERE race_id = :raceId";
         $stmt = Database::prepare($query);
+        $stmt->bindParam(':raceId',  $raceId, PDO::PARAM_INT);
         $stmt->execute();
         $result = $stmt->fetchAll();
         if(count($result) > 0 ){

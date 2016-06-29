@@ -35,7 +35,7 @@ class Race_TmpModel extends RaceModel
         $joins .=  " INNER JOIN race_piste rp ON rp.id = r.piste_id";
         $query = "SELECT r.*, $additionalColumns FROM races_tmp r  $joins WHERE r.id = :id GROUP BY r.id";
         $stmt = Database::prepare($query);
-        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         $result = $stmt->fetch();
 
@@ -149,20 +149,23 @@ class Race_TmpModel extends RaceModel
         $query .= " LEFT JOIN race_type rty ON rty.id = rt.type_id ";
         $query .= " LEFT JOIN race_group rg ON rg.id = rt.group_id";
         $query .=  " LEFT JOIN race_piste rp ON rp.id = rt.piste_id";
-        $query .= " WHERE (rt.age_min <= '{$horse['age']}' AND rt.age_max >= '{$horse['age']}' )";
+        $query .= " WHERE (rt.age_min <= :age AND rt.age_max >= :age )";
         $query .= " AND rt.sexe LIKE  '%{$horse['sexe']}%'";
-        $query .= " AND ( rt.race_date >= '$curDate' AND rt.race_date <= '$dateMax')";
+        $query .= " AND ( rt.race_date >= :curDate AND rt.race_date <= :dateMax)";
         $query .= " AND rty.code IN ('".implode("','", $aTypeCodes)."')";
         $query .= " AND rt.status = 1";
 
         if(!$horse['is_qualified']){
             $query .= " AND rt.category_id = 3";
         }else{
-            $query .= " AND rt.max_gain >= {$horse['gains']}";
+            $query .= " AND rt.max_gain >= :gains";
         }
 
         $stmt = Database::prepare($query);
-
+        $stmt->bindParam(':gains', $horse['gains']);
+        $stmt->bindParam(':age', $horse['age']);
+        $stmt->bindParam(':curDate', $curDate);
+        $stmt->bindParam(':dateMax', $dateMax);
         $stmt->execute();
         return $stmt->fetchAll();
     }
@@ -176,8 +179,10 @@ class Race_TmpModel extends RaceModel
 
         if( $stable['banque'] >= $data['price']){
             //Deduction du montant d'engagement
-            $query = "UPDATE stables s SET s.banque = (s.banque - {$data['price']}) WHERE s.id=" . $sessionUser['id'];
+            $query = "UPDATE stables s SET s.banque = (s.banque - :price) WHERE s.id=:id";
             $stmt = Database::prepare($query);
+            $stmt->bindParam(':id', $sessionUser['id'], PDO::PARAM_INT);
+            $stmt->bindParam(':price', $data['price']);
             $stmt->execute();
 
             //@todo: Ajout code pour le livre de compte du  - $data['price']
@@ -186,8 +191,8 @@ class Race_TmpModel extends RaceModel
             $query = "INSERT INTO race_participant_tmp (race_tmp_id, horse_id, status )
  				  VALUES(:race_tmp_id, :horse_id, 1)";
             $stmt = Database::prepare($query);
-            $stmt->bindParam(':race_tmp_id', $data['race_id']);
-            $stmt->bindParam(':horse_id', $data['horse_id']);
+            $stmt->bindParam(':race_tmp_id', $data['race_id'], PDO::PARAM_INT);
+            $stmt->bindParam(':horse_id', $data['horse_id'], PDO::PARAM_INT);
             $stmt->execute();
         }
     }
@@ -199,8 +204,10 @@ class Race_TmpModel extends RaceModel
         $race = Apps::getModel('Race_Tmp')->load($data['race_id'])->getData();
 
         //Deduction du montant d'engagement
-        $query = "UPDATE stables s SET s.banque = (s.banque + {$race['price']}) WHERE s.id=" . $sessionUser['id'];
+        $query = "UPDATE stables s SET s.banque = (s.banque + :price) WHERE s.id= :id" ;
         $stmt = Database::prepare($query);
+        $stmt->bindParam(':id', $sessionUser['id'], PDO::PARAM_INT);
+        $stmt->bindParam(':price', $race['price']);
         $stmt->execute();
 
         //@todo: Ajout code pour le livre de compte du  + $data['price']
@@ -232,9 +239,9 @@ class Race_TmpModel extends RaceModel
         $stmt = Database::prepare($query);
 
         if($raceId==null){
-            $stmt->bindParam(':race_tmp_id', $this->_data['id']);
+            $stmt->bindParam(':race_tmp_id', $this->_data['id'], PDO::PARAM_INT);
         }else{
-            $stmt->bindParam(':race_tmp_id',  $raceId);
+            $stmt->bindParam(':race_tmp_id',  $raceId, PDO::PARAM_INT);
         }
 
         $stmt->execute();
@@ -317,7 +324,9 @@ class Race_TmpModel extends RaceModel
             }
         }
 
-        $query = "DELETE FROM races_tmp WHERE id = {$raceTmpId}; DELETE FROM race_participant_tmp WHERE race_tmp_id = {$raceTmpId};";
-        Database::prepare($query)->execute();
+        $query = "DELETE FROM races_tmp WHERE id = :raceTmpId; DELETE FROM race_participant_tmp WHERE race_tmp_id = :raceTmpId;";
+        $stmt = Database::prepare($query);
+        $stmt->bindParam(':raceTmpId', $raceTmpId, PDO::PARAM_INT);
+        $stmt->execute();
     }
 }

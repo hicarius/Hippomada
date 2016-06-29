@@ -24,8 +24,8 @@ class RacesController extends Controller
 		$this->setNoRender();
 		$oSimulation = Apps::getModel('Simulation');
 
-		//header('Content-Type: application/json');
-		echo json_encode($oSimulation->getSimJson(7), JSON_NUMERIC_CHECK);
+		$raceId = $this->getRequest()->getParam('id');
+		echo json_encode($oSimulation->getSimJson($raceId), JSON_NUMERIC_CHECK);
 	}
 
 }

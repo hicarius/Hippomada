@@ -19,7 +19,11 @@ jQuery( document ).ready( function( $ ) {
         }else{
             open_fiche('/races/view/id/' + race[0]);
         }
+    });
 
+    $('body').on('click', '.view-race', function(){
+        var race = $(this).attr('rel');
+        open_simulation('/simulation/?r=' + race, 980, 500);
     });
 
     $('body').on('click', '.stable-name', function(){
@@ -94,6 +98,11 @@ jQuery( document ).ready( function( $ ) {
         });
     });
 });
+
+function open_simulation(url)
+{
+    var w = window.open(url,'Race ' + Math.floor((Math.random() * 100) + 1),'menubar=no, scrollbars=yes, width=980, height=500');
+}
 
 function open_fiche(url)
 {

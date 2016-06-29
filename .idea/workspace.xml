@@ -2,16 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1b3e6144-b891-4f77-a7d9-c52e6707d7c7" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulation/images/land/FinishPole.png" afterPath="$PROJECT_DIR$/simulation/images/land/FinishPole.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/models/HorseModel.php" afterPath="$PROJECT_DIR$/apps/models/HorseModel.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulation/js/RaceJs.js" afterPath="$PROJECT_DIR$/simulation/js/RaceJs.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/models/RaceModel.php" afterPath="$PROJECT_DIR$/apps/models/RaceModel.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/modules/default/controllers/RacesController.php" afterPath="$PROJECT_DIR$/apps/modules/default/controllers/RacesController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/models/SimulationModel.php" afterPath="$PROJECT_DIR$/apps/models/SimulationModel.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/models/Race/TmpModel.php" afterPath="$PROJECT_DIR$/apps/models/Race/TmpModel.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/models/TrainingModel.php" afterPath="$PROJECT_DIR$/apps/models/TrainingModel.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulation/index.php" afterPath="$PROJECT_DIR$/simulation/index.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/modules/default/views/races/index.phtml" afterPath="$PROJECT_DIR$/apps/modules/default/views/races/index.phtml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/themes/front/js/script.js" afterPath="$PROJECT_DIR$/themes/front/js/script.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/modules/default/views/races/view.phtml" afterPath="$PROJECT_DIR$/apps/modules/default/views/races/view.phtml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MOVED" beforePath="J:\Perso\course-hippique\www\simulation\images\galop\50HorseBay.png" afterPath="$PROJECT_DIR$/simulation/images/galop/50Horsebaie.png" />
-      <change type="MOVED" beforePath="J:\Perso\course-hippique\www\simulation\images\galop\50HorseBlack.png" afterPath="$PROJECT_DIR$/simulation/images/galop/50Horsenoir.png" />
-      <change type="MOVED" beforePath="J:\Perso\course-hippique\www\simulation\images\galop\50HorseChestnut.png" afterPath="$PROJECT_DIR$/simulation/images/galop/50Horseazelan.png" />
-      <change type="MOVED" beforePath="J:\Perso\course-hippique\www\simulation\images\galop\50HorseGrey.png" afterPath="$PROJECT_DIR$/simulation/images/galop/50Horseblanc.png" />
     </list>
     <ignored path="www.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -36,18 +39,20 @@
       <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/simulation/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.981132">
-              <caret line="45" column="17" selection-start-line="45" selection-start-column="17" selection-end-line="45" selection-end-column="17" />
-              <folding />
+            <state vertical-scroll-proportion="-2.5660377">
+              <caret line="8" column="16" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
+              <folding>
+                <marker date="1467227315652" expanded="true" signature="551:613" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RaceJs.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="RaceJs.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/simulation/js/RaceJs.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="42" column="27" selection-start-line="42" selection-start-column="27" selection-end-line="42" selection-end-column="27" />
+            <state vertical-scroll-proportion="-0.46522236">
+              <caret line="315" column="0" selection-start-line="315" selection-start-column="0" selection-end-line="315" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -56,28 +61,28 @@
       <file leaf-file-name="RaceModel.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/models/RaceModel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-13.153846">
-              <caret line="401" column="0" selection-start-line="401" selection-start-column="0" selection-end-line="405" selection-end-column="9" />
+            <state vertical-scroll-proportion="132.6923">
+              <caret line="289" column="67" selection-start-line="289" selection-start-column="67" selection-end-line="289" selection-end-column="67" />
               <folding>
-                <marker date="1467138618320" expanded="true" signature="784:894" placeholder="SELECT r.*, ..races..." />
-                <marker date="1467138618320" expanded="true" signature="1668:1778" placeholder="SELECT r.*, ..races..." />
-                <marker date="1467138618320" expanded="true" signature="2547:2657" placeholder="SELECT r.*, ..races..." />
-                <marker date="1467138618320" expanded="true" signature="3421:3503" placeholder="SELECT r.*, ..races..." />
-                <marker date="1467138618320" expanded="true" signature="3977:4455" placeholder="INSERT INTO ..." />
-                <marker date="1467138618320" expanded="true" signature="6106:6779" placeholder="UPDATE races..." />
-                <marker date="1467138618320" expanded="true" signature="11369:11425" placeholder="SELECT rp.* ..." />
-                <marker date="1467138618320" expanded="true" signature="12293:12349" placeholder="SELECT rp.* ..." />
-                <marker date="1467138618320" expanded="true" signature="12826:12945" placeholder="INSERT INTO ..." />
-                <marker date="1467138618320" expanded="true" signature="16419:16596" placeholder="SELECT IF(ra..races..." />
-                <marker date="1467138618320" expanded="true" signature="16964:17121" placeholder="SELECT IF(ra..races..." />
-                <marker date="1467138618320" expanded="true" signature="19023:19497" placeholder="UPDATE race_..." />
-                <marker date="1467138618320" expanded="true" signature="19912:20156" placeholder="UPDATE horse..." />
-                <marker date="1467138618320" expanded="true" signature="20408:20459" placeholder="UPDATE horse..." />
-                <marker date="1467138618320" expanded="true" signature="20727:21271" placeholder="UPDATE gain_..." />
-                <marker date="1467138618320" expanded="true" signature="21434:21488" placeholder="UPDATE stabl..." />
-                <marker date="1467138618320" expanded="true" signature="21658:22236" placeholder="UPDATE gain_..." />
-                <marker date="1467138618320" expanded="true" signature="22502:22548" placeholder="UPDATE horse..." />
-                <marker date="1467138618320" expanded="true" signature="22775:22814" placeholder="UPDATE races..." />
+                <marker date="1467223128390" expanded="true" signature="784:894" placeholder="SELECT r.*, ..races..." />
+                <marker date="1467223128390" expanded="true" signature="1668:1778" placeholder="SELECT r.*, ..races..." />
+                <marker date="1467223128390" expanded="true" signature="2547:2657" placeholder="SELECT r.*, ..races..." />
+                <marker date="1467223128390" expanded="true" signature="3421:3503" placeholder="SELECT r.*, ..races..." />
+                <marker date="1467223128390" expanded="true" signature="3993:4471" placeholder="INSERT INTO ..." />
+                <marker date="1467223128390" expanded="true" signature="6122:6795" placeholder="UPDATE races..." />
+                <marker date="1467223128390" expanded="true" signature="11385:11441" placeholder="SELECT rp.* ..." />
+                <marker date="1467223128390" expanded="true" signature="12309:12365" placeholder="SELECT rp.* ..." />
+                <marker date="1467223128390" expanded="true" signature="12874:12993" placeholder="INSERT INTO ..." />
+                <marker date="1467223128390" expanded="true" signature="16515:16692" placeholder="SELECT IF(ra..races..." />
+                <marker date="1467223128390" expanded="true" signature="17060:17217" placeholder="SELECT IF(ra..races..." />
+                <marker date="1467223128390" expanded="true" signature="19119:19593" placeholder="UPDATE race_..." />
+                <marker date="1467223128390" expanded="true" signature="20008:20252" placeholder="UPDATE horse..." />
+                <marker date="1467223128390" expanded="true" signature="20504:20555" placeholder="UPDATE horse..." />
+                <marker date="1467223128390" expanded="true" signature="20823:21367" placeholder="UPDATE gain_..." />
+                <marker date="1467223128390" expanded="true" signature="21530:21584" placeholder="UPDATE stabl..." />
+                <marker date="1467223128390" expanded="true" signature="21754:22332" placeholder="UPDATE gain_..." />
+                <marker date="1467223128390" expanded="true" signature="22598:22644" placeholder="UPDATE horse..." />
+                <marker date="1467223128390" expanded="true" signature="22871:22910" placeholder="UPDATE races..." />
               </folding>
             </state>
           </provider>
@@ -86,23 +91,25 @@
       <file leaf-file-name="RacesController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/modules/default/controllers/RacesController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.6603775">
-              <caret line="27" column="72" selection-start-line="27" selection-start-column="72" selection-end-line="27" selection-end-column="72" />
+            <state vertical-scroll-proportion="-17.653847">
+              <caret line="27" column="57" selection-start-line="27" selection-start-column="57" selection-end-line="27" selection-end-column="57" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SimulationModel.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SimulationModel.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/models/SimulationModel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7406103">
-              <caret line="213" column="49" selection-start-line="213" selection-start-column="49" selection-end-line="213" selection-end-column="49" />
+            <state vertical-scroll-proportion="-9.846154">
+              <caret line="193" column="62" selection-start-line="193" selection-start-column="62" selection-end-line="193" selection-end-column="62" />
               <folding>
-                <marker date="1467143290258" expanded="true" signature="5013:5196" placeholder="SELECT r.*, ..races..." />
-                <marker date="1467143290258" expanded="true" signature="5471:5630" placeholder="SELECT * FRO..race_participant..." />
-                <marker date="1467143290258" expanded="true" signature="5471:5632" placeholder="SELECT * FRO..race_participant..." />
-                <marker date="1467143290258" expanded="true" signature="5471:5633" placeholder="SELECT * FRO..race_participant..." />
+                <marker date="1467226817273" expanded="true" signature="5013:5278" placeholder="SELECT r.*, ..races..." />
+                <marker date="1467226817273" expanded="true" signature="5013:5285" placeholder="SELECT r.*, ..races..." />
+                <marker date="1467226817273" expanded="true" signature="5734:5893" placeholder="SELECT * FRO..race_participant..." />
+                <marker date="1467226817273" expanded="true" signature="5734:5895" placeholder="SELECT * FRO..race_participant..." />
+                <marker date="1467226817273" expanded="true" signature="5734:5896" placeholder="SELECT * FRO..race_participant..." />
+                <marker date="1467226817273" expanded="true" signature="5734:5903" placeholder="SELECT rp.re..race_participant..." />
               </folding>
             </state>
           </provider>
@@ -126,11 +133,9 @@
       <list>
         <option value="$PROJECT_DIR$/apps/modules/admin/views/horse/createmanual.phtml" />
         <option value="$PROJECT_DIR$/apps/modules/default/views/help/races.phtml" />
-        <option value="$PROJECT_DIR$/apps/models/HorseModel.php" />
         <option value="$PROJECT_DIR$/apps/configs/config.inc.php" />
         <option value="$PROJECT_DIR$/apps/modules/admin/controllers/RaceController.php" />
         <option value="$PROJECT_DIR$/themes/front/css/custom.css" />
-        <option value="$PROJECT_DIR$/apps/modules/default/views/races/view.phtml" />
         <option value="$PROJECT_DIR$/apps/modules/default/views/horse/view.phtml" />
         <option value="$PROJECT_DIR$/simulation/1/_assets/js/SpriteCaontainer.js" />
         <option value="$PROJECT_DIR$/simulation/1/_assets/js/SpriteContainer.js" />
@@ -144,13 +149,17 @@
         <option value="$PROJECT_DIR$/simulation/1/mySim.js" />
         <option value="$PROJECT_DIR$/simulation/1/examples/SpriteSheetBuilderMC/gunnertron_g.js" />
         <option value="$PROJECT_DIR$/simulation/css/style.css" />
-        <option value="$PROJECT_DIR$/apps/models/Race/TmpModel.php" />
-        <option value="$PROJECT_DIR$/apps/modules/default/views/races/index.phtml" />
-        <option value="$PROJECT_DIR$/apps/models/RaceModel.php" />
-        <option value="$PROJECT_DIR$/simulation/index.php" />
         <option value="$PROJECT_DIR$/apps/modules/default/controllers/RacesController.php" />
-        <option value="$PROJECT_DIR$/simulation/js/RaceJs.js" />
+        <option value="$PROJECT_DIR$/apps/models/RaceModel.php" />
+        <option value="$PROJECT_DIR$/apps/models/HorseModel.php" />
+        <option value="$PROJECT_DIR$/apps/models/TrainingModel.php" />
+        <option value="$PROJECT_DIR$/apps/models/Race/TmpModel.php" />
+        <option value="$PROJECT_DIR$/apps/modules/default/views/races/view.phtml" />
+        <option value="$PROJECT_DIR$/apps/modules/default/views/races/index.phtml" />
+        <option value="$PROJECT_DIR$/themes/front/js/script.js" />
         <option value="$PROJECT_DIR$/apps/models/SimulationModel.php" />
+        <option value="$PROJECT_DIR$/simulation/index.php" />
+        <option value="$PROJECT_DIR$/simulation/js/RaceJs.js" />
       </list>
     </option>
   </component>
@@ -195,6 +204,7 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -210,6 +220,60 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="themes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="themes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="front" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="themes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="front" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -323,53 +387,8 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="apps" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="default" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="apps" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="models" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -430,7 +449,7 @@
     <frame x="-8" y="-8" width="1696" height="1036" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24205379" sideWeight="0.49613258" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17237164" sideWeight="0.49613258" order="2" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32928178" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -463,53 +482,18 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="2" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/apps/models/Race/TmpModel.php</url>
+          <line>265</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="4" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/apps/modules/admin/views/horse/edit.phtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/com/jetbrains/php/lang/psi/stubs/data/standard_2.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.16819222">
-          <caret line="257" column="30" selection-start-line="257" selection-start-column="18" selection-end-line="257" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/configs/config.inc.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35957697">
-          <caret line="18" column="39" selection-start-line="18" selection-start-column="39" selection-end-line="18" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/models/HorseModel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="805" column="16" selection-start-line="805" selection-start-column="16" selection-end-line="805" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/modules/admin/views/horse/createauto.phtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="26" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/modules/default/views/help/races.phtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.30082256">
-          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/apps/modules/default/views/horse/view.phtml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-5.8846154">
@@ -630,13 +614,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/simulation/1/lib/README.md">
+      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
-      </provider>
-      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/simulation/libs/easeljs-NEXT.min.js">
@@ -744,13 +728,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/modules/default/views/races/view.phtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-18.038462">
-          <caret line="100" column="131" selection-start-line="100" selection-start-column="36" selection-end-line="100" selection-end-column="131" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/com/jetbrains/php/lang/psi/stubs/data/standard_3.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.34312573">
@@ -759,92 +736,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/modules/default/views/races/index.phtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.85546416">
-          <caret line="123" column="64" selection-start-line="123" selection-start-column="64" selection-end-line="123" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/apps/modules/admin/controllers/RaceController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.8603286">
           <caret line="206" column="5" selection-start-line="206" selection-start-column="5" selection-end-line="206" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/models/Race/TmpModel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="162" column="0" selection-start-line="162" selection-start-column="0" selection-end-line="162" selection-end-column="0" />
-          <folding>
-            <marker date="1467052983823" expanded="true" signature="-1:-1" placeholder="SELECT r.*, ..races_tmp..." />
-            <marker date="1467052983823" expanded="true" signature="-1:-1" placeholder="SELECT r.*, ..races_tmp..." />
-            <marker date="1467052983823" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1467052983823" expanded="true" signature="-1:-1" placeholder="UPDATE races..." />
-            <marker date="1467052983823" expanded="true" signature="-1:-1" placeholder="SELECT rt.*,..races_tmp..." />
-            <marker date="1467052983823" expanded="true" signature="-1:-1" placeholder="UPDATE stabl..." />
-            <marker date="1467052983823" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1467052983823" expanded="true" signature="-1:-1" placeholder="UPDATE stabl..." />
-            <marker date="1467052983823" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1467052983823" expanded="true" signature="-1:-1" placeholder="SELECT rp.* ..." />
-            <marker date="1467052983823" expanded="true" signature="-1:-1" placeholder="SELECT id FR..races_tmp..." />
-            <marker date="1467052983823" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1467052983823" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/modules/default/controllers/HorseController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.39906102">
-          <caret line="20" column="34" selection-start-line="20" selection-start-column="34" selection-end-line="20" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/models/RaceModel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.153846">
-          <caret line="401" column="0" selection-start-line="401" selection-start-column="0" selection-end-line="405" selection-end-column="9" />
-          <folding>
-            <marker date="1467138618320" expanded="true" signature="784:894" placeholder="SELECT r.*, ..races..." />
-            <marker date="1467138618320" expanded="true" signature="1668:1778" placeholder="SELECT r.*, ..races..." />
-            <marker date="1467138618320" expanded="true" signature="2547:2657" placeholder="SELECT r.*, ..races..." />
-            <marker date="1467138618320" expanded="true" signature="3421:3503" placeholder="SELECT r.*, ..races..." />
-            <marker date="1467138618320" expanded="true" signature="3977:4455" placeholder="INSERT INTO ..." />
-            <marker date="1467138618320" expanded="true" signature="6106:6779" placeholder="UPDATE races..." />
-            <marker date="1467138618320" expanded="true" signature="11369:11425" placeholder="SELECT rp.* ..." />
-            <marker date="1467138618320" expanded="true" signature="12293:12349" placeholder="SELECT rp.* ..." />
-            <marker date="1467138618320" expanded="true" signature="12826:12945" placeholder="INSERT INTO ..." />
-            <marker date="1467138618320" expanded="true" signature="16419:16596" placeholder="SELECT IF(ra..races..." />
-            <marker date="1467138618320" expanded="true" signature="16964:17121" placeholder="SELECT IF(ra..races..." />
-            <marker date="1467138618320" expanded="true" signature="19023:19497" placeholder="UPDATE race_..." />
-            <marker date="1467138618320" expanded="true" signature="19912:20156" placeholder="UPDATE horse..." />
-            <marker date="1467138618320" expanded="true" signature="20408:20459" placeholder="UPDATE horse..." />
-            <marker date="1467138618320" expanded="true" signature="20727:21271" placeholder="UPDATE gain_..." />
-            <marker date="1467138618320" expanded="true" signature="21434:21488" placeholder="UPDATE stabl..." />
-            <marker date="1467138618320" expanded="true" signature="21658:22236" placeholder="UPDATE gain_..." />
-            <marker date="1467138618320" expanded="true" signature="22502:22548" placeholder="UPDATE horse..." />
-            <marker date="1467138618320" expanded="true" signature="22775:22814" placeholder="UPDATE races..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simulation/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.981132">
-          <caret line="45" column="17" selection-start-line="45" selection-start-column="17" selection-end-line="45" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simulation/js/RaceJs.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="42" column="27" selection-start-line="42" selection-start-column="27" selection-end-line="42" selection-end-column="27" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -858,22 +753,210 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/modules/default/controllers/RacesController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.6603775">
-          <caret line="27" column="72" selection-start-line="27" selection-start-column="72" selection-end-line="27" selection-end-column="72" />
+        <state vertical-scroll-proportion="-17.653847">
+          <caret line="27" column="57" selection-start-line="27" selection-start-column="57" selection-end-line="27" selection-end-column="57" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/models/HorseModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.3983549">
+          <caret line="70" column="51" selection-start-line="70" selection-start-column="51" selection-end-line="70" selection-end-column="51" />
+          <folding>
+            <marker date="1467223251378" expanded="true" signature="-1:-1" placeholder="SELECT h.*, ..horses..." />
+            <marker date="1467223251378" expanded="true" signature="-1:-1" placeholder="SELECT h.*, ..horses..." />
+            <marker date="1467223251378" expanded="true" signature="-1:-1" placeholder="SELECT id, n..horses..." />
+            <marker date="1467223251378" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1467223251378" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1467223251378" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1467223251378" expanded="true" signature="-1:-1" placeholder="UPDATE horse..." />
+            <marker date="1467223251378" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1467223251378" expanded="true" signature="-1:-1" placeholder="UPDATE horse..." />
+            <marker date="1467223251378" expanded="true" signature="-1:-1" placeholder="UPDATE horse..." />
+            <marker date="1467223251378" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1467223251378" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1467223251378" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1467223251378" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1467223251378" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..gain_race_horse..." />
+            <marker date="1467223251378" expanded="true" signature="-1:-1" placeholder="SELECT r.cat..race_participant..." />
+            <marker date="1467223251378" expanded="true" signature="-1:-1" placeholder="SELECT rp.*,..race_participant..." />
+            <marker date="1467223251378" expanded="true" signature="-1:-1" placeholder="SELECT h.id,..horses..." />
+            <marker date="1467223251378" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..race_participant..." />
+            <marker date="1467223251378" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..race_participant_tmp..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/modules/default/controllers/TrainerController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/modules/default/controllers/HorseController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.39952996">
+          <caret line="20" column="34" selection-start-line="20" selection-start-column="34" selection-end-line="20" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/models/TrainingModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.519389">
+          <caret line="26" column="73" selection-start-line="26" selection-start-column="73" selection-end-line="26" selection-end-column="73" />
+          <folding>
+            <marker date="1467223359049" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1467223359049" expanded="true" signature="-1:-1" placeholder="UPDATE horse..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/com/jetbrains/php/lang/psi/stubs/data/PDO.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.08695652">
+          <caret line="45" column="10" selection-start-line="45" selection-start-column="10" selection-end-line="45" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/models/Race/TmpModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.3795534">
+          <caret line="150" column="52" selection-start-line="150" selection-start-column="52" selection-end-line="150" selection-end-column="52" />
+          <folding>
+            <marker date="1467223922990" expanded="true" signature="-1:-1" placeholder="SELECT r.*, ..races_tmp..." />
+            <marker date="1467223922990" expanded="true" signature="-1:-1" placeholder="SELECT r.*, ..races_tmp..." />
+            <marker date="1467223922990" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1467223922990" expanded="true" signature="-1:-1" placeholder="UPDATE races..." />
+            <marker date="1467223922990" expanded="true" signature="-1:-1" placeholder="SELECT rt.*,..races_tmp..." />
+            <marker date="1467223922990" expanded="true" signature="-1:-1" placeholder="UPDATE stabl..." />
+            <marker date="1467223922990" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1467223922990" expanded="true" signature="-1:-1" placeholder="UPDATE stabl..." />
+            <marker date="1467223922990" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1467223922990" expanded="true" signature="-1:-1" placeholder="SELECT rp.* ..." />
+            <marker date="1467223922990" expanded="true" signature="-1:-1" placeholder="SELECT id FR..races_tmp..." />
+            <marker date="1467223922990" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1467223922990" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1467223922990" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1467223922990" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/models/StableModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.037603">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1466182698398" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..stables..." />
+            <marker date="1466182698398" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1466182698398" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1466182698398" expanded="true" signature="-1:-1" placeholder="UPDATE stabl..." />
+            <marker date="1466182698398" expanded="true" signature="-1:-1" placeholder="SELECT *, CO..stables..." />
+            <marker date="1466182698398" expanded="true" signature="-1:-1" placeholder="SELECT *, CO..stables..." />
+            <marker date="1466182698398" expanded="true" signature="-1:-1" placeholder="UPDATE stabl..." />
+            <marker date="1466182698398" expanded="true" signature="-1:-1" placeholder="SELECT id FR..stables..." />
+            <marker date="1466182698398" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..race_participant..." />
+            <marker date="1466182698398" expanded="true" signature="-1:-1" placeholder="SELECT h.id ..horses..." />
+            <marker date="1466182698398" expanded="true" signature="-1:-1" placeholder="SELECT h.id ..horses..." />
+            <marker date="1466182698398" expanded="true" signature="-1:-1" placeholder="SELECT h.*, ..horses..." />
+            <marker date="1466182698398" expanded="true" signature="-1:-1" placeholder="SELECT h.id,..horses..." />
+            <marker date="1466182698398" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..gain_race_stable..." />
+            <marker date="1466182698398" expanded="true" signature="-1:-1" placeholder="SELECT h.nam..race_participant..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/models/RaceModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="132.6923">
+          <caret line="289" column="67" selection-start-line="289" selection-start-column="67" selection-end-line="289" selection-end-column="67" />
+          <folding>
+            <marker date="1467223128390" expanded="true" signature="784:894" placeholder="SELECT r.*, ..races..." />
+            <marker date="1467223128390" expanded="true" signature="1668:1778" placeholder="SELECT r.*, ..races..." />
+            <marker date="1467223128390" expanded="true" signature="2547:2657" placeholder="SELECT r.*, ..races..." />
+            <marker date="1467223128390" expanded="true" signature="3421:3503" placeholder="SELECT r.*, ..races..." />
+            <marker date="1467223128390" expanded="true" signature="3993:4471" placeholder="INSERT INTO ..." />
+            <marker date="1467223128390" expanded="true" signature="6122:6795" placeholder="UPDATE races..." />
+            <marker date="1467223128390" expanded="true" signature="11385:11441" placeholder="SELECT rp.* ..." />
+            <marker date="1467223128390" expanded="true" signature="12309:12365" placeholder="SELECT rp.* ..." />
+            <marker date="1467223128390" expanded="true" signature="12874:12993" placeholder="INSERT INTO ..." />
+            <marker date="1467223128390" expanded="true" signature="16515:16692" placeholder="SELECT IF(ra..races..." />
+            <marker date="1467223128390" expanded="true" signature="17060:17217" placeholder="SELECT IF(ra..races..." />
+            <marker date="1467223128390" expanded="true" signature="19119:19593" placeholder="UPDATE race_..." />
+            <marker date="1467223128390" expanded="true" signature="20008:20252" placeholder="UPDATE horse..." />
+            <marker date="1467223128390" expanded="true" signature="20504:20555" placeholder="UPDATE horse..." />
+            <marker date="1467223128390" expanded="true" signature="20823:21367" placeholder="UPDATE gain_..." />
+            <marker date="1467223128390" expanded="true" signature="21530:21584" placeholder="UPDATE stabl..." />
+            <marker date="1467223128390" expanded="true" signature="21754:22332" placeholder="UPDATE gain_..." />
+            <marker date="1467223128390" expanded="true" signature="22598:22644" placeholder="UPDATE horse..." />
+            <marker date="1467223128390" expanded="true" signature="22871:22910" placeholder="UPDATE races..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/modules/default/views/races/view.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.61893207">
+          <caret line="63" column="198" selection-start-line="63" selection-start-column="32" selection-end-line="63" selection-end-column="198" />
+          <folding>
+            <element signature="n#style#0;n#i#0;n#button#0;n#h4#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/modules/default/views/races/index.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.47943595">
+          <caret line="90" column="41" selection-start-line="90" selection-start-column="41" selection-end-line="90" selection-end-column="41" />
+          <folding>
+            <element signature="n#style#0;n#i#0;n#button#0;n#h4#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themes/front/js/script.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.07753706">
+          <caret line="25" column="23" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulation/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.5660377">
+          <caret line="8" column="16" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
+          <folding>
+            <marker date="1467227315652" expanded="true" signature="551:613" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/models/SimulationModel.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7406103">
-          <caret line="213" column="49" selection-start-line="213" selection-start-column="49" selection-end-line="213" selection-end-column="49" />
+        <state vertical-scroll-proportion="-9.846154">
+          <caret line="193" column="62" selection-start-line="193" selection-start-column="62" selection-end-line="193" selection-end-column="62" />
           <folding>
-            <marker date="1467143290258" expanded="true" signature="5013:5196" placeholder="SELECT r.*, ..races..." />
-            <marker date="1467143290258" expanded="true" signature="5471:5630" placeholder="SELECT * FRO..race_participant..." />
-            <marker date="1467143290258" expanded="true" signature="5471:5632" placeholder="SELECT * FRO..race_participant..." />
-            <marker date="1467143290258" expanded="true" signature="5471:5633" placeholder="SELECT * FRO..race_participant..." />
+            <marker date="1467226817273" expanded="true" signature="5013:5278" placeholder="SELECT r.*, ..races..." />
+            <marker date="1467226817273" expanded="true" signature="5013:5285" placeholder="SELECT r.*, ..races..." />
+            <marker date="1467226817273" expanded="true" signature="5734:5893" placeholder="SELECT * FRO..race_participant..." />
+            <marker date="1467226817273" expanded="true" signature="5734:5895" placeholder="SELECT * FRO..race_participant..." />
+            <marker date="1467226817273" expanded="true" signature="5734:5896" placeholder="SELECT * FRO..race_participant..." />
+            <marker date="1467226817273" expanded="true" signature="5734:5903" placeholder="SELECT rp.re..race_participant..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulation/js/RaceJs.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.46522236">
+          <caret line="315" column="0" selection-start-line="315" selection-start-column="0" selection-end-line="315" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

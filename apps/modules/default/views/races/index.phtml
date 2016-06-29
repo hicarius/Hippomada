@@ -94,7 +94,7 @@ $meetings = Apps::getModel('Race')->getMeetingsAndRaceNumber($allRaces);
                             </table>
                         </div>
                     <?php } elseif($race['status']==0) { ?>
-                        <h4>Résultats</h4>
+                        <h4>Résultats<button class="view-race btn btn-xs btn-success pull-right" rel="<?php echo $race['id'] ?>"><i class="fa fa-film" style="font-size: 15px"></i> Voir la course</button></h4>
                         <div class="table-responsive ">
                             <table class="table table-striped">
                                 <thead>

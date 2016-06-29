@@ -72,7 +72,7 @@ class RaceModel extends Model_Abstract
         $joins .=  " INNER JOIN race_piste rp ON rp.id = r.piste_id";
         $query = "SELECT r.*, $additionalColumns FROM races r  $joins WHERE r.id = :id GROUP BY r.id";
         $stmt = Database::prepare($query);
-        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         $result = $stmt->fetch();
 
@@ -270,9 +270,9 @@ class RaceModel extends Model_Abstract
         $stmt = Database::prepare($query . " ORDER BY rp.rang ASC");
 
         if($raceId==null){
-            $stmt->bindParam(':race_id', $this->_data['id']);
+            $stmt->bindParam(':race_id', $this->_data['id'], PDO::PARAM_INT);
         }else{
-            $stmt->bindParam(':race_id',  $raceId);
+            $stmt->bindParam(':race_id',  $raceId, PDO::PARAM_INT);
         }
 
         $stmt->execute();
@@ -285,9 +285,9 @@ class RaceModel extends Model_Abstract
         $query = "INSERT INTO race_participant (race_id, horse_id, status, numero )
               VALUES(:race_id, :horse_id, 0, :numero)";
         $stmt = Database::prepare($query);
-        $stmt->bindParam(':race_id', $data['race_id']);
-        $stmt->bindParam(':horse_id', $data['horse_id']);
-        $stmt->bindParam(':numero', $data['numero']);
+        $stmt->bindParam(':race_id', $data['race_id'], PDO::PARAM_INT);
+        $stmt->bindParam(':horse_id', $data['horse_id'], PDO::PARAM_INT);
+        $stmt->bindParam(':numero', $data['numero'], PDO::PARAM_INT);
         $stmt->execute();
 
     }

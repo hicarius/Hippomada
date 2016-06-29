@@ -68,7 +68,7 @@ class HorseModel extends Model_Abstract
 					$joins
 					WHERE h.id = :id";
 		$stmt = Database::prepare($query);
-		$stmt->bindParam(':id', $id);
+		$stmt->bindParam(':id', $id, PDO::PARAM_INT);
 		$stmt->execute();
 		$result = $stmt->fetch();
 		if ($result['id']>0) {
@@ -526,7 +526,7 @@ class HorseModel extends Model_Abstract
 		$query = "INSERT INTO horses_caracteristique (horse_id $columns)
  				  VALUES(:horse_id $columnsValue)";
 		$stmt = Database::prepare($query);
-		$stmt->bindParam(':horse_id', $horseId);
+		$stmt->bindParam(':horse_id', $horseId, PDO::PARAM_INT);
 		$stmt->execute();
 
 		//create training line
@@ -540,14 +540,14 @@ class HorseModel extends Model_Abstract
 		$query = "INSERT INTO horses_training (horse_id, training_trot, training_galop, training_endurance, training_vitesse, training_physique )
  				  VALUES(:horse_id,{$training_trot},{$training_galop},2,2,2)";
 		$stmt = Database::prepare($query);
-		$stmt->bindParam(':horse_id', $horseId);
+		$stmt->bindParam(':horse_id', $horseId, PDO::PARAM_INT);
 		$stmt->execute();
 
 		//create gain line
 		$query = "INSERT INTO gain_race_horse (horse_id)
  				  VALUES(:horse_id)";
 		$stmt = Database::prepare($query);
-		$stmt->bindParam(':horse_id', $horseId);
+		$stmt->bindParam(':horse_id', $horseId, PDO::PARAM_INT);
 		$stmt->execute();
 
 		return $horse;
@@ -799,7 +799,7 @@ class HorseModel extends Model_Abstract
 
 		$query = "SELECT * FROM gain_race_horse WHERE horse_id = :horse_id";
 		$stmt = Database::prepare($query);
-		$stmt->bindParam(':horse_id', $this->_data['id']);
+		$stmt->bindParam(':horse_id', $this->_data['id'], PDO::PARAM_INT);
 		$stmt->execute();
 		$result = $stmt->fetch();
 		if (isset($result['horse_id'])>0) {
@@ -827,9 +827,9 @@ class HorseModel extends Model_Abstract
 		$query .= " WHERE rp.horse_id = :horse_id AND r.status = 0 ORDER BY rp.id DESC LIMIT 5";
 		$stmt = Database::prepare($query);
 		if($horseId == null){
-			$stmt->bindParam(':horse_id', $this->_data['id']);
+			$stmt->bindParam(':horse_id', $this->_data['id'], PDO::PARAM_INT);
 		}else{
-			$stmt->bindParam(':horse_id', $horseId);
+			$stmt->bindParam(':horse_id', $horseId, PDO::PARAM_INT);
 		}
 
 		$stmt->execute();
@@ -877,7 +877,7 @@ class HorseModel extends Model_Abstract
 					ORDER BY r.race_date DESC
 					";
 		$stmt = Database::prepare($query);
-		$stmt->bindParam(':horse_id', $this->_data['id']);
+		$stmt->bindParam(':horse_id', $this->_data['id'], PDO::PARAM_INT);
 		$stmt->execute();
 		return $stmt->fetchAll();
 	}
@@ -897,7 +897,7 @@ class HorseModel extends Model_Abstract
 					ORDER BY h.age DESC
 					";
 		$stmt = Database::prepare($query);
-		$stmt->bindParam(':horse_id', $this->_data['id']);
+		$stmt->bindParam(':horse_id', $this->_data['id'], PDO::PARAM_INT);
 		$stmt->execute();
 		return $stmt->fetchAll();
 	}
@@ -907,14 +907,14 @@ class HorseModel extends Model_Abstract
 		//Test dans race_participant table
 		$query = "SELECT * FROM race_participant rp LEFT JOIN races r ON r.id = rp.race_id WHERE rp.horse_id = :horse_id AND r.status = 2";
 		$stmt = Database::prepare($query);
-		$stmt->bindParam(':horse_id', $this->_data['id']);
+		$stmt->bindParam(':horse_id', $this->_data['id'], PDO::PARAM_INT);
 		$stmt->execute();
 		$result = $stmt->fetch();
 		if($result['id']==0){
 			//Test dans race_participant_tmp table
 			$query = "SELECT * FROM race_participant_tmp WHERE horse_id = :horse_id";
 			$stmt = Database::prepare($query);
-			$stmt->bindParam(':horse_id', $this->_data['id']);
+			$stmt->bindParam(':horse_id', $this->_data['id'], PDO::PARAM_INT);
 			$stmt->execute();
 			$result = $stmt->fetch();
 			if($result['id'] == 0){
