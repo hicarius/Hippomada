@@ -162,7 +162,7 @@ function createHorse(data, begin)
     //Horse sprite
     var horse = new createjs.SpriteSheet({
         framerate: data.framerate * multiplicateurDelta,
-        images: ["images/" + race.type + "/50Horse" + data.color + ".png"],
+        images: ["images/50Horse" + data.color + ".png"],
         frames: {"width": 160, "height": 120, "count": 12},
         animations: {"run" : [0, 11], "standby" : 0 }
     });
@@ -175,7 +175,7 @@ function createHorse(data, begin)
     //Jockey casaque sprite
     var casaque =  new createjs.SpriteSheet(
         {
-            images: ["images/" + race.type + "/50JockeySilk.png"],
+            images: ["images/50JockeySilk.png"],
             frames: {"width":160, "height":120, "count": 12},
             animations: {"run" : [0, 11], "standby" : 0 }
         }
@@ -188,7 +188,7 @@ function createHorse(data, begin)
     //Jockey pantalon, ombre sprite
     var pant =  new createjs.SpriteSheet(
         {
-            images: ["images/" + race.type + "/50Static.png"],
+            images: ["images/50Static.png"],
             frames: {"width":160, "height":120, "count": 12},
             animations: {"run" : [0, 11], "standby" : 0 }
         }
@@ -204,7 +204,7 @@ function createHorse(data, begin)
     //numéro du chéval dans la course
     var number =  new createjs.SpriteSheet(
         {
-            images: ["images/" + race.type + "/50Unit_" +  (horses.length) + ".png"],
+            images: ["images/50Unit_" +  (horses.length) + ".png"],
             frames: {"width":160, "height":120, "count": 12},
             animations: {"run" : [0, 11], "standby" : 0 }
         }
